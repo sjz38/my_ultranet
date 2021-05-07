@@ -132,11 +132,11 @@ def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
             ('app_name', tvm.make.StringImm('max_pool'))]))
 
 # batch normalization
-def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis=1, epsilon=10**-7, center=1, scale=1, name="batch_norm"):
+def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10**-7, name="batch_norm"):
     def get_axis(axis, *indices):
         indices = list(indices[0])
         return (indices[axis],)
     out = hcl.compute(data.shape, lambda *x: (data[x] - moving_mean[get_axis(axis, x)]) /
                     (hcl.sqrt(moving_var[get_axis(axis, x)] + epsilon)) * gamma[get_axis(axis, x)]
                     + beta[get_axis(axis, x)], name=name, dtype=data.dtype)
-    return out, moving_mean, moving_var
+    return out
