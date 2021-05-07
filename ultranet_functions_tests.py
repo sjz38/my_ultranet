@@ -1,9 +1,9 @@
 import heterocl as hcl
 import numpy as np
-from my_ultranet import conv2d
-from my_ultranet import relu
-from my_ultranet import maxpool2d
-from my_ultranet import batchnorm2d
+from ultranet_functions import conv2d
+from ultranet_functions import relu
+from ultranet_functions import maxpool2d
+from ultranet_functions import batchnorm2d
 
 hcl.init()
 
@@ -120,5 +120,3 @@ def test_batchnorm2d(d_shape=(1, 1, 3, 3), axis=1):
     t_out = np.apply_along_axis(bn, axis, _data)
     np.testing.assert_almost_equal(t_out, out.asnumpy(), 3)
     print("passed")
-
-test_batchnorm2d()
