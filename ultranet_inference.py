@@ -2,6 +2,7 @@ import torch
 import heterocl as hcl
 import numpy as np
 from PIL import Image
+import os
 
 from ultranet_functions import conv2d
 from ultranet_functions import relu
@@ -75,12 +76,36 @@ def build_ultranet(
 ###############################################################################
 # Define parameters and input image
 ###############################################################################
-batch_size = 1
+batch_size = 5
+image_list = []
+count = batch_size
+path = "/work/shared/common/datasets/dac_dataset/boat1/"
+for filename in os.listdir(path):
+    if filename.endswith(".jpg") and count > 0:
+        # load the image
+        image = Image.open(path + filename)
+        # convert image to numpy array
+        image = np.asarray(image).astype(float)
+        image = np.reshape(image, (3, 360, 640))
+        print(image.shape)
+        image_list.append(image)
+        count = count - 1
+# batch together images 
+images = np.stack(image_list)
+print(images.shape)
+print("Image")
+print(images)
+assert images.shape == (batch_size, 3, 360, 640)
+
 # load the image
-image = Image.open('example.jpg')
-# convert image to numpy array
-image = np.asarray(image).astype(float)
-image = np.reshape(image, (1, 3, 360, 640))
+#image = Image.open('example.jpg')
+## convert image to numpy array
+#image = np.asarray(image).astype(float)
+#image = np.reshape(image, (1, 3, 360, 640))
+#print("Image")
+#print(image)
+#
+#assert images.all() == image.all()
 
 ###############################################################################
 # Build inference model
@@ -156,7 +181,7 @@ f = build_ultranet_inf()
 ###############################################################################
 # Define input
 ###############################################################################
-hcl_input = hcl.asarray(image)
+hcl_input = hcl.asarray(images)
 
 ###############################################################################
 # Import weights
@@ -281,3 +306,5 @@ print("Input array:")
 print(np_input)
 print("\nOutput array:")
 print(np_out)
+print(np_out.shape)
+np.save('test.npy', np_out)
