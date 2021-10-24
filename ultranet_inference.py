@@ -8,7 +8,7 @@ from ultranet_functions import conv2d
 from ultranet_functions import relu
 from ultranet_functions import maxpool2d
 from ultranet_functions import batchnorm2d
-from load_parameters_dac_sdc import load_np_params
+from load_parameters_ultranet_4w4a import load_np_params
 
 hcl.init(hcl.Float())
 
@@ -186,7 +186,7 @@ hcl_input = hcl.asarray(images)
 ###############################################################################
 # Import weights
 ###############################################################################
-params = load_np_params('dac_sdc_save.pt')
+params = load_np_params('ultranet_4w4a.pt')
 conv1_weight = params[0]
 batchnorm1_weight = params[1]
 batchnorm1_bias = params[2]

@@ -39,7 +39,7 @@ img = np.reshape(img, (1, 3, 320, 160))
 img = torch.tensor(img)
 
 # load weights
-weights_file_name = 'ultranet_4w4a.pt'
+weights_file_name = '../ultranet_4w4a.pt'
 conv1_weight = load_conv_weight(weights_file_name).astype(float)
 conv1_weight = torch.tensor(conv1_weight)
 
