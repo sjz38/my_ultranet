@@ -45,4 +45,4 @@ conv1_weight = torch.tensor(conv1_weight)
 
 # test
 test = nn.functional.conv2d(img, conv1_weight, padding=1).numpy()
-np.save('conv_test.npy', test)
+np.save('conv_test_reference.npy', test)
