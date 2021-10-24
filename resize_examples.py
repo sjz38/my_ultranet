@@ -1,6 +1,8 @@
 import cv2
 
-# program that resizes an image in the same method in dac-sdc/dataset/dataset_utils.py and saves it
+"""
+this is a program that resizes an image in the same method in dac-sdc/dataset/dataset_utils.py and saves it
+"""
 
 input_img_path = "./car16_0001.jpg"
 output_img_path = "./car16_0001_resized.jpg"
