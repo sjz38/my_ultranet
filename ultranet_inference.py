@@ -28,91 +28,90 @@ def build_ultranet(
         weight_conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8
     ):
     # first conv
-    conv1 = conv2d(input_image, weight_conv1, name="conv1") # in: (batch_size, 3, 360, 640); out: (batch_size, 16, 360, 640)
-    batchnorm1 = batchnorm2d(conv1, weight_batchnorm1, bias_batchnorm1, running_mean_batchnorm1, running_var_batchnorm1, name="batch_norm1")
-    relu1 = relu(batchnorm1, name="relu1") # in: (batch_size, 16, 360, 640); out: (batch_size, 16, 360, 640)
-    pool1 = maxpool2d(relu1, name="pool1") # in: (batch_size, 16, 360, 640); out: (batch_size, 16, 180, 320)
+    conv1 = conv2d(input_image, weight_conv1, name="conv1") # in: (batch_size, 3, 160, 320); out: (batch_size, 16, 160, 320)
+    batchnorm1 = batchnorm2d(conv1, weight_batchnorm1, bias_batchnorm1, running_mean_batchnorm1, running_var_batchnorm1, name="batch_norm1") # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 160, 320)
+    relu1 = relu(batchnorm1, name="relu1") # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 160, 320)
+    pool1 = maxpool2d(relu1, name="pool1") # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 80, 160)
  
     # second conv
-    conv2 = conv2d(pool1, weight_conv2, name="conv2") # in: (batch_size, 16, 180, 320), out: (batch_size, 32, 180, 320)
-    batchnorm2 = batchnorm2d(conv2, weight_batchnorm2, bias_batchnorm2, running_mean_batchnorm2, running_var_batchnorm2, name="batch_norm2")
-    relu2 = relu(batchnorm2, name="relu2") # in: (batch_size, 32, 180, 320), out: (batch_size, 32, 180, 320)
-    pool2 = maxpool2d(relu2, name="pool2") # in: (batch_size, 32, 180, 320), out: (batch_size, 32, 90, 160)
+    conv2 = conv2d(pool1, weight_conv2, name="conv2") # in: (batch_size, 16, 80, 160), out: (batch_size, 32, 80, 160)
+    batchnorm2 = batchnorm2d(conv2, weight_batchnorm2, bias_batchnorm2, running_mean_batchnorm2, running_var_batchnorm2, name="batch_norm2") # in: (batch_size, 32, 80, 160), out: (batch_size, 32, 80, 160)
+    relu2 = relu(batchnorm2, name="relu2") # in: (batch_size, 32, 80, 160), out: (batch_size, 32, 80, 160)
+    pool2 = maxpool2d(relu2, name="pool2") # in: (batch_size, 32, 80, 160), out: (batch_size, 32, 40, 80)
    
     # third conv
-    conv3 = conv2d(pool2, weight_conv3, name="conv3") # in: (batch_size, 32, 90, 160), out: (batch_size, 64, 90, 160)
-    batchnorm3 = batchnorm2d(conv3, weight_batchnorm3, bias_batchnorm3, running_mean_batchnorm3, running_var_batchnorm3, name="batch_norm3")
-    relu3 = relu(batchnorm3, name="relu3") # in: (batch_size, 64, 90, 160), out: (batch_size, 64, 90, 160)
-    pool3 = maxpool2d(relu3, name="pool3") # in: (batch_size, 64, 90, 160), out: (batch_size, 64, 45, 80)
+    conv3 = conv2d(pool2, weight_conv3, name="conv3") # in: (batch_size, 32, 40, 80), out: (batch_size, 64, 40, 80)
+    batchnorm3 = batchnorm2d(conv3, weight_batchnorm3, bias_batchnorm3, running_mean_batchnorm3, running_var_batchnorm3, name="batch_norm3") # in: (batch_size, 64, 40, 80), out: (batch_size, 64, 40, 80)
+    relu3 = relu(batchnorm3, name="relu3") # in: (batch_size, 64, 40, 80), out: (batch_size, 64, 40, 80)
+    pool3 = maxpool2d(relu3, name="pool3") # in: (batch_size, 64, 40, 80), out: (batch_size, 64, 20, 40)
 
     # fourth conv
-    conv4 = conv2d(pool3, weight_conv4, name="conv4") # in: (batch_size, 64, 45, 80), out: (batch_size, 64, 45, 80)
-    batchnorm4 = batchnorm2d(conv4, weight_batchnorm4, bias_batchnorm4, running_mean_batchnorm4, running_var_batchnorm4, name="batch_norm4")
-    relu4 = relu(batchnorm4, name="relu4") # in: (batch_size, 64, 45, 80), out: (batch_size, 64, 45, 80)
-    pool4 = maxpool2d(relu4, name="pool4") # in: (batch_size, 64, 45, 80), out: (batch_size, 64, 22, 40)
+    conv4 = conv2d(pool3, weight_conv4, name="conv4") # in: (batch_size, 64, 20, 40), out: (batch_size, 64, 20, 40)
+    batchnorm4 = batchnorm2d(conv4, weight_batchnorm4, bias_batchnorm4, running_mean_batchnorm4, running_var_batchnorm4, name="batch_norm4") # in: (batch_size, 64, 20, 40), out: (batch_size, 64, 20, 40)
+    relu4 = relu(batchnorm4, name="relu4") # in: (batch_size, 64, 20, 40), out: (batch_size, 64, 20, 40)
+    pool4 = maxpool2d(relu4, name="pool4") # in: (batch_size, 64, 20, 40), out: (batch_size, 64, 10, 20)
 
     # fifth conv
-    conv5 = conv2d(pool4, weight_conv5, name="conv5") # in: (batch_size, 64, 22, 40), out: (batch_size, 64, 22, 40)
-    batchnorm5 = batchnorm2d(conv5, weight_batchnorm5, bias_batchnorm5, running_mean_batchnorm5, running_var_batchnorm5, name="batch_norm5")
-    relu5 = relu(batchnorm5, name="relu5") # in: (batch_size, 64, 22, 40), out: (batch_size, 64, 22, 40)
+    conv5 = conv2d(pool4, weight_conv5, name="conv5") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
+    batchnorm5 = batchnorm2d(conv5, weight_batchnorm5, bias_batchnorm5, running_mean_batchnorm5, running_var_batchnorm5, name="batch_norm5") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
+    relu5 = relu(batchnorm5, name="relu5") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
 
     # sixth conv
-    conv6 = conv2d(relu5, weight_conv6, name="conv6") # in: (batch_size, 64, 22, 40), out: (batch_size, 64, 22, 40)
-    batchnorm6 = batchnorm2d(conv6, weight_batchnorm6, bias_batchnorm6, running_mean_batchnorm6, running_var_batchnorm6, name="batch_norm6")
-    relu6 = relu(batchnorm5, name="relu6") # in: (batch_size, 64, 22, 40), out: (batch_size, 64, 22, 40)
+    conv6 = conv2d(relu5, weight_conv6, name="conv6") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
+    batchnorm6 = batchnorm2d(conv6, weight_batchnorm6, bias_batchnorm6, running_mean_batchnorm6, running_var_batchnorm6, name="batch_norm6") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
+    relu6 = relu(batchnorm5, name="relu6") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
 
     # seventh conv
-    conv7 = conv2d(relu6, weight_conv7, name="conv7") # in: (batch_size, 64, 22, 40), out: (batch_size, 64, 22, 40)
-    batchnorm7 = batchnorm2d(conv7, weight_batchnorm7, bias_batchnorm7, running_mean_batchnorm7, running_var_batchnorm7, name="batch_norm7")
-    relu7 = relu(batchnorm7, name="relu7") # in: (batch_size, 64, 22, 40), out: (batch_size, 64, 22, 40)
+    conv7 = conv2d(relu6, weight_conv7, name="conv7") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
+    batchnorm7 = batchnorm2d(conv7, weight_batchnorm7, bias_batchnorm7, running_mean_batchnorm7, running_var_batchnorm7, name="batch_norm7") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
+    relu7 = relu(batchnorm7, name="relu7") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
 
     # eighth conv
-    conv8 = conv2d(relu7, weight_conv8, name="conv8") # in: (batch_size, 64, 22, 40), out: (batch_size, 64, 22, 40)
-    batchnorm8 = batchnorm2d(conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8, name="batch_norm8")
-    relu8 = relu(batchnorm8, name="relu8") # in: (batch_size, 64, 22, 40), out: (batch_size, 64, 22, 40)
+    conv8 = conv2d(relu7, weight_conv8, name="conv8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
+    batchnorm8 = batchnorm2d(conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8, name="batch_norm8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
+    relu8 = relu(batchnorm8, name="relu8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
 
     return relu8
 
 ###############################################################################
 # Define parameters and input image
 ###############################################################################
-batch_size = 5
+batch_size = 1
 image_list = []
-count = batch_size
-path = "/work/shared/common/datasets/dac_dataset/boat1/"
-for filename in os.listdir(path):
-    if filename.endswith(".jpg") and count > 0:
-        # load the image
-        image = Image.open(path + filename)
-        # convert image to numpy array
-        image = np.asarray(image).astype(float)
-        image = np.reshape(image, (3, 360, 640))
-        print(image.shape)
-        image_list.append(image)
-        count = count - 1
-# batch together images 
+
+# load images by batches
+# count = batch_size
+# path = "/work/shared/common/datasets/dac_dataset/boat1/"
+# for filename in os.listdir(path):
+#     if filename.endswith(".jpg") and count > 0:
+#         # load the image
+#         image = Image.open(path + filename)
+#         # convert image to numpy array
+#         image = np.asarray(image).astype(float)
+#         image = np.reshape(image, (3, 360, 640))
+#         print(image.shape)
+#         image_list.append(image)
+#         count = count - 1
+
+# load single image
+image = Image.open('car16_0001_resized.jpg')
+image = np.asarray(image).astype(float)
+image = np.reshape(image, (3, 160, 320))
+image_list.append(image)
+
+# # batch together images 
 images = np.stack(image_list)
 print(images.shape)
-print("Image")
-print(images)
-assert images.shape == (batch_size, 3, 360, 640)
+assert images.shape == (batch_size, 3, 160, 320)
 
-# load the image
-#image = Image.open('example.jpg')
-## convert image to numpy array
-#image = np.asarray(image).astype(float)
-#image = np.reshape(image, (1, 3, 360, 640))
-#print("Image")
-#print(image)
-#
-#assert images.all() == image.all()
+assert images.all() == image.all()
 
 ###############################################################################
 # Build inference model
 ###############################################################################
 def build_ultranet_inf(batch_size=batch_size, target=None):
     # set up input/output placeholders
-    input_image = hcl.placeholder((batch_size, 3, 360, 640), "input_image")
+    input_image = hcl.placeholder((batch_size, 3, 160, 320), "input_image")
 
     weight_conv1 = hcl.placeholder((16, 3, 3, 3), "weight_conv1") # 3 in, 16 out
     weight_batchnorm1 = hcl.placeholder((16,), "weight_batchnorm1")
@@ -279,7 +278,7 @@ hcl_bias_batchnorm8 = hcl.asarray(batchnorm8_bias.astype(float))
 hcl_running_mean_batchnorm8 = hcl.asarray(batchnorm8_running_mean.astype(float))
 hcl_running_var_batchnorm8 = hcl.asarray(batchnorm8_running_var.astype(float))
 
-hcl_out = hcl.asarray(np.zeros((batch_size, 64, 22, 40)))
+hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)))
 
 ###############################################################################
 # Inference
@@ -302,9 +301,9 @@ f(
 ###############################################################################
 np_input = hcl_input.asnumpy()
 np_out = hcl_out.asnumpy()
-print("Input array:")
-print(np_input)
-print("\nOutput array:")
+print("Input array shape:", np_input.shape)
+print("\nOutput array shape:", np_out.shape)
+print("output:")
 print(np_out)
-print(np_out.shape)
 np.save('test.npy', np_out)
+np.savetxt('array.txt', np_out.flatten(), fmt='%4.6f', delimiter=' ')

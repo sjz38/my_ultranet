@@ -10,8 +10,12 @@ from ultranet_functions import maxpool2d
 from ultranet_functions import batchnorm2d
 from load_parameters_ultranet_4w4a import load_np_params
 
-hcl.init(hcl.Float())
+"""
+This file tests the HeteroCL version of conv2D
+This uses 'layers.0.weight' of the ultranet_4w4a.pt file as its weight
+"""
 
+hcl.init(hcl.Float())
 
 ###############################################################################
 # build inference model
@@ -32,16 +36,9 @@ image_list = []
 # load single image
 image = Image.open('car16_0001_resized.jpg')
 image = np.asarray(image).astype(float)
-image = np.reshape(image, (3, 160, 320))
-image_list.append(image)
-
-# # batch together images 
-images = np.stack(image_list)
-print(images.shape)
-assert images.shape == (1, 3, 160, 320)
-
-assert images.all() == image.all()
-
+print(image.shape)
+image = np.reshape(image, (1, 3, 160, 320))
+assert image.shape == (1, 3, 160, 320)
 
 ###############################################################################
 # Build inference model
@@ -63,7 +60,7 @@ f = build_ultranet_inf()
 ###############################################################################
 # Define input
 ###############################################################################
-hcl_input = hcl.asarray(images)
+hcl_input = hcl.asarray(image)
 
 ###############################################################################
 # Import weights
@@ -72,21 +69,9 @@ hcl_input = hcl.asarray(images)
 # function that loads weights
 def load_conv_weight(ptname):
 
-    print("\n=====\n")
-
     loaded = torch.load(ptname, map_location='cpu')
-
-    print("Weights loaded from " + ptname + "\n")
-
     model = loaded['model']
-    print("Keys of loaded ordered-dict:\n")
-    print(model.keys())
-
     conv1_weight = model['layers.0.weight'].numpy()
-    print("\nShape of layers.0.weight:\n")
-    print((conv1_weight).shape)
-
-    print("\n=====\n")
 
     return conv1_weight
 
@@ -97,7 +82,7 @@ conv1_weight = load_conv_weight('../ultranet_4w4a.pt')
 ###############################################################################
 hcl_weight_conv1 = hcl.asarray(conv1_weight.astype(float))
 
-hcl_out = hcl.asarray(np.zeros((1, 16, 320, 160)).astype(float))
+hcl_out = hcl.asarray(np.zeros((1, 16, 160, 320)).astype(float))
 
 ###############################################################################
 # Inference
@@ -113,7 +98,8 @@ f(
 ###############################################################################
 np_input = hcl_input.asnumpy()
 np_out = hcl_out.asnumpy()
-print("Input array shape:", np_input.shape)
-print("\nOutput array shape:", np_out.shape)
+print("Input array shape:", hcl_input.shape)
+print("Input weight shape:", hcl_weight_conv1.shape)
+print("Output array shape:", hcl_out.shape)
 
 np.save('conv_test_heterocl.npy', np_out)

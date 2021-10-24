@@ -6,5 +6,7 @@ pytorch_res = np.load('conv_test_reference.npy')
 print(heterocl_res.shape)
 print(pytorch_res.shape)
 
-print(heterocl_res[0][0][4])
-print(pytorch_res[0][0][4])
+# find error
+diff = np.absolute(heterocl_res - pytorch_res)
+avg_error = np.sum(diff) / (16*160*320)
+print("average error:", avg_error)
