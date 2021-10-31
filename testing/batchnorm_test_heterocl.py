@@ -32,9 +32,9 @@ def build_ultranet(
     return batchnorm1
 
 ###############################################################################
-# Define parameters and input image
+# Define input
 ###############################################################################
-conv1_out = np.load('conv_test_heterocl.npy').astype(float)
+conv1_out = np.load('conv_test_reference.npy').astype(float)
 conv1_out = conv1_out = np.reshape(conv1_out, (1, 16, 160, 320))
 
 

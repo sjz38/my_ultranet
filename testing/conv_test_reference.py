@@ -2,6 +2,7 @@ import cv2
 import torch
 import torch.nn as nn
 import numpy as np
+from PIL import Image
 
 """
 This file is a PyTorch reference for the HeteroCL version of conv2D
@@ -13,8 +14,9 @@ The conv2D for this example uses 'layers.0.weight' of the ultranet_4w4a.pt file 
 ###############################################################################
 
 # load example image
-example_img_path = "./car16_0001_resized.jpg"
-img = cv2.imread(example_img_path)
+#example_img_path = "./car16_0001_resized.jpg"
+#img = cv2.imread(example_img_path)
+img = Image.open('car16_0001_resized.jpg')
 assert img is not None, 'Image Not Found ' + example_img_path
 img = np.asarray(img).astype(float)
 img = np.reshape(img, (1, 3, 160, 320))
