@@ -1,4 +1,4 @@
-import cv2
+from PIL import Image
 import torch
 import torch.nn as nn
 import numpy as np
@@ -14,12 +14,16 @@ The conv2D for this example uses 'layers.0.weight' of the ultranet_4w4a.pt file 
 
 # load example image
 example_img_path = "./car16_0001_resized.jpg"
-img = cv2.imread(example_img_path)
-assert img is not None, 'Image Not Found ' + example_img_path
-img = np.asarray(img).astype(float)
-img = np.reshape(img, (1, 3, 160, 320))
-assert img.shape == (1, 3, 160, 320)
-img = torch.tensor(img)
+# img = cv2.imread(example_img_path)
+# assert img is not None, 'Image Not Found ' + example_img_path
+# img = np.asarray(img).astype(float)
+# img = np.reshape(img, (1, 3, 160, 320))
+# assert img.shape == (1, 3, 160, 320)
+# img = torch.tensor(img)
+image = Image.open(example_img_path)
+image = np.asarray(image).astype(float)
+image = np.reshape(image, (1, 3, 160, 320))
+img = torch.tensor(image)
 
 ###############################################################################
 # Import weights
