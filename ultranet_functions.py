@@ -76,7 +76,8 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]]):
         lambda nn, ff, yy, xx: hcl.sum(
             Input[nn, rc, yy * stride_h + ry, xx * stride_w + rx] *
             Filter[ff, rc, ry, rx],
-            axis=[rc, ry, rx]),
+            axis=[rc, ry, rx],
+            dtype=out_dtype),
         name=name,
         attrs=OrderedDict([
             ('p', kernel_h),
