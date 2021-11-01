@@ -3,19 +3,9 @@ import numpy as np
 
 def load_np_params(ptname):
 
-    print("\n=====\n")
     loaded = torch.load(ptname, map_location='cpu')
 
-    print("Loaded from " + ptname + "\n")
-
-    epoch = loaded['epoch']
-    print("Epochs: ", epoch + 1, "\n")
-
-    #training_results = loaded['training_results']
-    #print("Training results: \n" + training_results)
-
     model = loaded['model']
-    print(model.keys())
 
     conv1_weight = model['layers.0.weight'].numpy()
     batchnorm1_weight = model['layers.1.weight'].numpy()
@@ -68,8 +58,7 @@ def load_np_params(ptname):
     yolo_weight = model['layers.28.weight'].numpy()
     yolo_bias = model['layers.28.bias'].numpy()
 
-    print("Finished extracting parameters from loaded model\n")
-    print("=====\n")
+    print("Parameters loaded from " + ptname)
 
     return [
         conv1_weight, batchnorm1_weight, batchnorm1_bias, batchnorm1_running_mean, batchnorm1_running_var, 
