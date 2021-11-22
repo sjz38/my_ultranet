@@ -49,8 +49,7 @@ def build_ultranet(
         weight_conv5, weight_batchnorm5, bias_batchnorm5, running_mean_batchnorm5, running_var_batchnorm5,
         weight_conv6, weight_batchnorm6, bias_batchnorm6, running_mean_batchnorm6, running_var_batchnorm6,
         weight_conv7, weight_batchnorm7, bias_batchnorm7, running_mean_batchnorm7, running_var_batchnorm7,
-        weight_conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8,
-        weight_yolo
+        weight_conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8
     ):
     # first conv
     conv1 = conv2d(input_image, weight_conv1, name="conv1") # in: (batch_size, 3, 160, 320); out: (batch_size, 16, 160, 320)
@@ -96,10 +95,7 @@ def build_ultranet(
     batchnorm8 = batchnorm2d(conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8, name="batch_norm8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
     relu8 = relu(batchnorm8, name="relu8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
 
-    # ?
-    conv9 = conv2d(relu8, weight_yolo, name="conv9", padding=[[0,0],[0,0]]) # in: (batch_size, 64, 10, 20), out: (batch_size, 36, 10, 20)
-
-    return conv9
+    return relu8
 
 def build_ultranet_inf(batch_size=batch_size, target=None):
     # set up input/output placeholders
@@ -153,8 +149,6 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
     running_mean_batchnorm8 = hcl.placeholder((64,), "running_mean_batchnorm8") 
     running_var_batchnorm8 = hcl.placeholder((64,), "running_var_batchnorm8")
 
-    weight_yolo = hcl.placeholder((36, 64, 1, 1), "weight_yolo") # 64 in, 36 out
-
     s = hcl.create_schedule(
         [input_image, 
         weight_conv1, weight_batchnorm1, bias_batchnorm1, running_mean_batchnorm1, running_var_batchnorm1, 
@@ -164,7 +158,7 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
         weight_conv5, weight_batchnorm5, bias_batchnorm5, running_mean_batchnorm5, running_var_batchnorm5, 
         weight_conv6, weight_batchnorm6, bias_batchnorm6, running_mean_batchnorm6, running_var_batchnorm6, 
         weight_conv7, weight_batchnorm7, bias_batchnorm7, running_mean_batchnorm7, running_var_batchnorm7, 
-        weight_conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8, weight_yolo], 
+        weight_conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8], 
         build_ultranet
     )
     return hcl.build(s, target=target)
@@ -176,13 +170,9 @@ f = build_ultranet_inf()
 ###############################################################################
 def load_np_params(ptname):
 
-    print("\n=====\n")
     loaded = torch.load(ptname, map_location='cpu')
 
-    print("Weights loaded from " + ptname + "\n")
-
     model = loaded['model']
-    print(model.keys())
 
     conv1_weight = model['layers.0.weight'].numpy()
     batchnorm1_weight = model['layers.1.weight'].numpy()
@@ -232,10 +222,7 @@ def load_np_params(ptname):
     batchnorm8_running_mean = model['layers.26.running_mean'].numpy()
     batchnorm8_running_var = model['layers.26.running_var'].numpy()
 
-    yolo_weight = model['layers.28.weight'].numpy()
-
-    print("Finished extracting parameters from loaded model\n")
-    print("=====\n")
+    print("Weights loaded from " + ptname + "\n")
 
     return [
         conv1_weight, batchnorm1_weight, batchnorm1_bias, batchnorm1_running_mean, batchnorm1_running_var, 
@@ -245,8 +232,7 @@ def load_np_params(ptname):
         conv5_weight, batchnorm5_weight, batchnorm5_bias, batchnorm5_running_mean, batchnorm5_running_var,
         conv6_weight, batchnorm6_weight, batchnorm6_bias, batchnorm6_running_mean, batchnorm6_running_var,
         conv7_weight, batchnorm7_weight, batchnorm7_bias, batchnorm7_running_mean, batchnorm7_running_var,
-        conv8_weight, batchnorm8_weight, batchnorm8_bias, batchnorm8_running_mean, batchnorm8_running_var,
-        yolo_weight
+        conv8_weight, batchnorm8_weight, batchnorm8_bias, batchnorm8_running_mean, batchnorm8_running_var
     ]
 
 params = load_np_params('ultranet_4w4a.pt')
@@ -290,7 +276,6 @@ batchnorm8_weight = params[36]
 batchnorm8_bias = params[37]
 batchnorm8_running_mean = params[38]
 batchnorm8_running_var = params[39]
-yolo_weight = params[40]
 
 ###############################################################################
 # convert weights into hcl
@@ -343,9 +328,7 @@ hcl_bias_batchnorm8 = hcl.asarray(batchnorm8_bias.astype(float))
 hcl_running_mean_batchnorm8 = hcl.asarray(batchnorm8_running_mean.astype(float))
 hcl_running_var_batchnorm8 = hcl.asarray(batchnorm8_running_var.astype(float))
 
-hcl_weight_yolo = hcl.asarray(yolo_weight.astype(float))
-
-hcl_out = hcl.asarray(np.zeros((batch_size, 36, 10, 20)))
+hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)))
 
 ###############################################################################
 # Inference
@@ -359,8 +342,7 @@ f(
     hcl_weight_conv5, hcl_weight_batchnorm5, hcl_bias_batchnorm5, hcl_running_mean_batchnorm5, hcl_running_var_batchnorm5, 
     hcl_weight_conv6, hcl_weight_batchnorm6, hcl_bias_batchnorm6, hcl_running_mean_batchnorm6, hcl_running_var_batchnorm6, 
     hcl_weight_conv7, hcl_weight_batchnorm7, hcl_bias_batchnorm7, hcl_running_mean_batchnorm7, hcl_running_var_batchnorm7, 
-    hcl_weight_conv8, hcl_weight_batchnorm8, hcl_bias_batchnorm8, hcl_running_mean_batchnorm8, hcl_running_var_batchnorm8, 
-    hcl_weight_yolo,
+    hcl_weight_conv8, hcl_weight_batchnorm8, hcl_bias_batchnorm8, hcl_running_mean_batchnorm8, hcl_running_var_batchnorm8,
     hcl_out
 )
 
@@ -369,13 +351,22 @@ f(
 ###############################################################################
 np_input = hcl_input.asnumpy()
 np_out = hcl_out.asnumpy()
-yolo_input = torch.from_numpy(np_out)
-
-print("up to YOLO layer complete")
 
 ###############################################################################
 # YOLO Layer
 ###############################################################################
+
+# TEMPORARY: last conv using pytorch
+model = torch.load('ultranet_4w4a.pt', map_location='cpu')['model']
+yolo_weight = model['layers.28.weight']
+yolo_bias = model['layers.28.bias']
+
+tensor_out = torch.tensor(np_out)
+ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
+
+#np.save('./testing/' + "heterocl_ultranet_output.npy", ultranet_out)
+
+print("up to YOLO layer complete")
 
 def create_grids(self, img_size=416, ng=(13, 13), device='cpu', type=torch.float32):
     nx, ny = ng  # x and y grid size
@@ -432,7 +423,7 @@ def get_boxes(pred_boxes, pred_conf):
 img_size = np_input.shape[-2:]
 yololayer = YOLOLayer([[20,20], [20,20], [20,20], [20,20], [20,20], [20,20]])
 yolo_out = []
-yolo_out.append(yololayer(yolo_input, img_size))
+yolo_out.append(yololayer(ultranet_out, img_size))
 io, p = zip(*yolo_out)  # inference output, training output
 inf_out, train_out = torch.cat(io, 1), p
 inf_out = inf_out.view(inf_out.shape[0], 6, -1)
