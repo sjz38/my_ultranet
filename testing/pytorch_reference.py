@@ -24,6 +24,7 @@ output_path = "./outputs/"
 
 image = Image.open(example_img_path)
 image = np.asarray(image).astype(float)
+print("Image:", image.shape)
 image = np.reshape(image, (1, 3, 160, 320))
 img = torch.tensor(image)
 

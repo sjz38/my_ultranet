@@ -2,6 +2,8 @@ import torch
 import heterocl as hcl
 import numpy as np
 from PIL import Image
+import cv2
+import glob
 import os
 
 from ultranet_functions import conv2d
@@ -76,35 +78,48 @@ def build_ultranet(
 ###############################################################################
 # Define parameters and input image
 ###############################################################################
-batch_size = 1
+batch_size = 20
 image_list = []
 
 # load images by batches
-# count = batch_size
-# path = "/work/shared/common/datasets/dac_dataset/boat1/"
-# for filename in os.listdir(path):
-#     if filename.endswith(".jpg") and count > 0:
-#         # load the image
-#         image = Image.open(path + filename)
-#         # convert image to numpy array
-#         image = np.asarray(image).astype(float)
-#         image = np.reshape(image, (3, 360, 640))
-#         print(image.shape)
-#         image_list.append(image)
-#         count = count - 1
+#count = batch_size
+num_images = 0
+dac_folders_path = "/work/shared/common/datasets/dac_dataset_original/*"
+folders = sorted(glob.glob(dac_folders_path))
+print("Folders: ", folders)
+for folder in folders:
+    if folder == "/work/shared/common/datasets/dac_dataset_original/boat1":
+        for f in sorted(glob.glob(folder+"/*.jpg")):
+            if num_images < batch_size:
+                # load the image
+                print(f)
+                image = Image.open(f)
+                # print(image.width)
+                # scaled_dims = (image.width //2, image.height //2)
+                scaled_dims = (160, 320)
+                image = np.asarray(image).astype(float)
+                image = cv2.resize(image, scaled_dims, interpolation=cv2.INTER_LINEAR)
+                image = np.reshape(image, (3, 160, 320))
+                # print(image.shape)
+                image_list.append(image)
+                num_images += 1
+                #count = count - 1
+            else:
+                break
 
 # load single image
-image = Image.open('car16_0001_resized.jpg')
-image = np.asarray(image).astype(float)
-image = np.reshape(image, (3, 160, 320))
-image_list.append(image)
+# image = Image.open('testing/example_images/car16_0001_resized.jpg')
+# image = np.asarray(image).astype(float)
+# image = np.reshape(image, (3, 160, 320))
+# image_list.append(image)
 
 # # batch together images 
 images = np.stack(image_list)
 print(images.shape)
+print("##### END #####")
 assert images.shape == (batch_size, 3, 160, 320)
 
-assert images.all() == image.all()
+#assert images.all() == image.all()
 
 ###############################################################################
 # Build inference model
