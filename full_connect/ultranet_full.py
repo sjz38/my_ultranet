@@ -179,13 +179,7 @@ def load_np_params(ptname):
     print("\n=====\n")
     loaded = torch.load(ptname, map_location='cpu')
 
-    print("Loaded from " + ptname + "\n")
-
-    epoch = loaded['epoch']
-    print("Epochs: ", epoch + 1, "\n")
-
-    #training_results = loaded['training_results']
-    #print("Training results: \n" + training_results)
+    print("Weights loaded from " + ptname + "\n")
 
     model = loaded['model']
     print(model.keys())
@@ -420,21 +414,17 @@ class YOLOLayer(nn.Module):
         io = p.clone()  # inference output
         io[..., :2] = torch.sigmoid(io[..., :2]) + self.grid_xy  # xy
         io[..., 2:4] = torch.exp(io[..., 2:4]) * self.anchor_wh  # wh yolo method
-        io[..., :4] *= self.stride  # 原始像素尺度
+        io[..., :4] *= self.stride
         torch.sigmoid_(io[..., 4:])
         return io.view(bs, -1, self.no), p
 
 def get_boxes(pred_boxes, pred_conf):
     n = pred_boxes.size(0)
-    # pred_boxes = pred_boxes.view(n, -1, 4)
-    # pred_conf = pred_conf.view(n, -1, 1)
     FloatTensor = torch.cuda.FloatTensor if pred_boxes.is_cuda else torch.FloatTensor
     p_boxes = FloatTensor(n, 4)
-    # print(pred_boxes.shape, pred_conf.shape)
 
     for i in range(n):
         _, index = pred_conf[i].max(0)
-        # print('index ', index)
         p_boxes[i] = pred_boxes[i][index]
 
     return p_boxes
@@ -451,10 +441,8 @@ for i in range(inf_out.shape[1]):
     inf_out_t += inf_out[:, i, :]
 inf_out_t = inf_out_t.view(inf_out_t.shape[0], -1, 6) / 6
 
-# 宽为 320 高为 160 时计算的框
 pre_box = get_boxes(inf_out_t[..., :4], inf_out_t[..., 4])
 
-# 转换到 360 * 640
 pre_box = pre_box[..., :4] * torch.Tensor([raw_width/width, raw_height/height, raw_width/width, raw_height/height]).to('cpu')
 
 result = list()
