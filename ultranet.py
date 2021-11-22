@@ -29,6 +29,7 @@ def load_image(image_path):
     image = cv2.resize(image, (width, height), interpolation=cv2.INTER_LINEAR)
     image.resize(1, image.shape[0], image.shape[1], image.shape[2])
     image = image.transpose(0, 3, 1, 2)
+    image = image.astype(float) / 255.0
     assert image.shape == (batch_size, 3, height, width)
     return image
 
@@ -395,12 +396,11 @@ class YOLOLayer(nn.Module):
 
     def forward(self, p, img_size):
         print(p.shape)
-        bs, _, ny, nx = p.shape  # bs, 255, 13, 13
+        bs, _, ny, nx = p.shape
         
         if (self.nx, self.ny) != (nx, ny):
             create_grids(self, img_size, (nx, ny), p.device, p.dtype)
 
-        # p.view(bs, 255, 13, 13) -- > (bs, 3, 13, 13, 85)  # (bs, anchors, grid, grid, classes + xywh)
         p = p.view(bs, self.na, self.no, self.ny, self.nx).permute(0, 1, 3, 4, 2).contiguous()  # prediction
         io = p.clone()  # inference output
         io[..., :2] = torch.sigmoid(io[..., :2]) + self.grid_xy  # xy
