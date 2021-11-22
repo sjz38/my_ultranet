@@ -91,8 +91,13 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]]):
             ('app_name', tvm.make.StringImm('cnn'))]))
 
 # simple ReLU, equivalent to act_f() when quant is none
-def relu(data, name='relu'):
-    return hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name)
+def relu(data, name='relu', out_bit=4):
+    x0 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), 'x0')
+    x1 = hcl.compute(x0.shape, lambda *y: hcl.select(x0[y] > 1, hcl.cast(x0.dtype, 1), x0[y]), 'x1')
+    x2 =  hcl.compute(x1.shape, 
+        lambda *y: hcl.cast(x1.dtype, hcl.cast(hcl.Int(32), x1[y] * (2 ** out_bit) + 0.5)) 
+        / hcl.cast(x1.dtype, (2 ** out_bit)), name)
+    return x2
 
 # maxpool 2d, pytorch uses NCHW so this function will as well
 def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):

@@ -9,6 +9,7 @@ from ultranet_functions import conv2d
 from ultranet_functions import relu
 from ultranet_functions import maxpool2d
 from ultranet_functions import batchnorm2d
+from weight_quant import weight_quantize_fn
 
 hcl.init(hcl.Float())
 
@@ -22,6 +23,8 @@ raw_width = 640
 width = 320
 height = 160
 batch_size = 1
+W_BIT = 4
+weight_quantizer = weight_quantize_fn(W_BIT)
 
 # loads and resizes a single image
 def load_image(image_path):
@@ -176,48 +179,56 @@ def load_np_params(ptname):
     model = loaded['model']
 
     conv1_weight = model['layers.0.weight'].numpy()
+    conv1_weight = weight_quantizer(conv1_weight)
     batchnorm1_weight = model['layers.1.weight'].numpy()
     batchnorm1_bias = model['layers.1.bias'].numpy()
     batchnorm1_running_mean = model['layers.1.running_mean'].numpy()
     batchnorm1_running_var = model['layers.1.running_var'].numpy()
 
     conv2_weight = model['layers.4.weight'].numpy()
+    conv2_weight = weight_quantizer(conv2_weight)
     batchnorm2_weight = model['layers.5.weight'].numpy()
     batchnorm2_bias = model['layers.5.bias'].numpy()
     batchnorm2_running_mean = model['layers.5.running_mean'].numpy()
     batchnorm2_running_var = model['layers.5.running_var'].numpy()
 
     conv3_weight = model['layers.8.weight'].numpy()
+    conv3_weight = weight_quantizer(conv3_weight)
     batchnorm3_weight = model['layers.9.weight'].numpy()
     batchnorm3_bias = model['layers.9.bias'].numpy()
     batchnorm3_running_mean = model['layers.9.running_mean'].numpy()
     batchnorm3_running_var = model['layers.9.running_var'].numpy()
 
     conv4_weight = model['layers.12.weight'].numpy()
+    conv4_weight = weight_quantizer(conv4_weight)
     batchnorm4_weight = model['layers.13.weight'].numpy()
     batchnorm4_bias = model['layers.13.bias'].numpy()
     batchnorm4_running_mean = model['layers.13.running_mean'].numpy()
     batchnorm4_running_var = model['layers.13.running_var'].numpy()
 
     conv5_weight = model['layers.16.weight'].numpy()
+    conv5_weight = weight_quantizer(conv5_weight)
     batchnorm5_weight = model['layers.17.weight'].numpy()
     batchnorm5_bias = model['layers.17.bias'].numpy()
     batchnorm5_running_mean = model['layers.17.running_mean'].numpy()
     batchnorm5_running_var = model['layers.17.running_var'].numpy()
 
     conv6_weight = model['layers.19.weight'].numpy()
+    conv6_weight = weight_quantizer(conv6_weight)
     batchnorm6_weight = model['layers.20.weight'].numpy()
     batchnorm6_bias = model['layers.20.bias'].numpy()
     batchnorm6_running_mean = model['layers.20.running_mean'].numpy()
     batchnorm6_running_var = model['layers.20.running_var'].numpy()
 
     conv7_weight = model['layers.22.weight'].numpy()
+    conv7_weight = weight_quantizer(conv7_weight)
     batchnorm7_weight = model['layers.23.weight'].numpy()
     batchnorm7_bias = model['layers.23.bias'].numpy()
     batchnorm7_running_mean = model['layers.23.running_mean'].numpy()
     batchnorm7_running_var = model['layers.23.running_var'].numpy()
 
     conv8_weight = model['layers.25.weight'].numpy()
+    conv8_weight = weight_quantizer(conv8_weight)
     batchnorm8_weight = model['layers.26.weight'].numpy()
     batchnorm8_bias = model['layers.26.bias'].numpy()
     batchnorm8_running_mean = model['layers.26.running_mean'].numpy()
