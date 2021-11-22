@@ -78,32 +78,29 @@ def build_ultranet(
 ###############################################################################
 # Define parameters and input image
 ###############################################################################
-batch_size = 20
+batch_size = 1
 image_list = []
 
 # load images by batches
 #count = batch_size
+max_images = 1
 num_images = 0
 dac_folders_path = "/work/shared/common/datasets/dac_dataset_original/*"
 folders = sorted(glob.glob(dac_folders_path))
-print("Folders: ", folders)
+# print("Folders: ", folders)
 for folder in folders:
     if folder == "/work/shared/common/datasets/dac_dataset_original/boat1":
         for f in sorted(glob.glob(folder+"/*.jpg")):
-            if num_images < batch_size:
+            if num_images < max_images:
                 # load the image
                 print(f)
                 image = Image.open(f)
-                # print(image.width)
-                # scaled_dims = (image.width //2, image.height //2)
                 scaled_dims = (160, 320)
                 image = np.asarray(image).astype(float)
                 image = cv2.resize(image, scaled_dims, interpolation=cv2.INTER_LINEAR)
                 image = np.reshape(image, (3, 160, 320))
-                # print(image.shape)
                 image_list.append(image)
                 num_images += 1
-                #count = count - 1
             else:
                 break
 
@@ -115,9 +112,8 @@ for folder in folders:
 
 # # batch together images 
 images = np.stack(image_list)
-print(images.shape)
-print("##### END #####")
-assert images.shape == (batch_size, 3, 160, 320)
+
+#assert images.shape == (batch_size, 3, 160, 320)
 
 #assert images.all() == image.all()
 
@@ -190,12 +186,12 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
     )
     return hcl.build(s, target=target)
 
-f = build_ultranet_inf()
+# f = build_ultranet_inf()
 
 ###############################################################################
 # Define input
 ###############################################################################
-hcl_input = hcl.asarray(images)
+
 
 ###############################################################################
 # Import weights
@@ -295,30 +291,32 @@ hcl_running_var_batchnorm8 = hcl.asarray(batchnorm8_running_var.astype(float))
 
 hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)))
 
-###############################################################################
-# Inference
-###############################################################################
-f(
-    hcl_input, 
-    hcl_weight_conv1, hcl_weight_batchnorm1, hcl_bias_batchnorm1, hcl_running_mean_batchnorm1, hcl_running_var_batchnorm1,
-    hcl_weight_conv2, hcl_weight_batchnorm2, hcl_bias_batchnorm2, hcl_running_mean_batchnorm2, hcl_running_var_batchnorm2,
-    hcl_weight_conv3, hcl_weight_batchnorm3, hcl_bias_batchnorm3, hcl_running_mean_batchnorm3, hcl_running_var_batchnorm3, 
-    hcl_weight_conv4, hcl_weight_batchnorm4, hcl_bias_batchnorm4, hcl_running_mean_batchnorm4, hcl_running_var_batchnorm4, 
-    hcl_weight_conv5, hcl_weight_batchnorm5, hcl_bias_batchnorm5, hcl_running_mean_batchnorm5, hcl_running_var_batchnorm5, 
-    hcl_weight_conv6, hcl_weight_batchnorm6, hcl_bias_batchnorm6, hcl_running_mean_batchnorm6, hcl_running_var_batchnorm6, 
-    hcl_weight_conv7, hcl_weight_batchnorm7, hcl_bias_batchnorm7, hcl_running_mean_batchnorm7, hcl_running_var_batchnorm7, 
-    hcl_weight_conv8, hcl_weight_batchnorm8, hcl_bias_batchnorm8, hcl_running_mean_batchnorm8, hcl_running_var_batchnorm8, 
-    hcl_out
-)
 
-###############################################################################
-# Results
-###############################################################################
-np_input = hcl_input.asnumpy()
-np_out = hcl_out.asnumpy()
-print("Input array shape:", np_input.shape)
-print("\nOutput array shape:", np_out.shape)
-print("output:")
-print(np_out)
-np.save('test.npy', np_out)
-np.savetxt('array.txt', np_out.flatten(), fmt='%4.6f', delimiter=' ')
+print("hihi")
+print("Shape: ", images.shape)
+count = 0
+for i in range(max_images):
+    hcl_input = hcl.asarray(images[i, :, :, :])
+    f = build_ultranet_inf()
+    f(
+        hcl_input, 
+        hcl_weight_conv1, hcl_weight_batchnorm1, hcl_bias_batchnorm1, hcl_running_mean_batchnorm1, hcl_running_var_batchnorm1,
+        hcl_weight_conv2, hcl_weight_batchnorm2, hcl_bias_batchnorm2, hcl_running_mean_batchnorm2, hcl_running_var_batchnorm2,
+        hcl_weight_conv3, hcl_weight_batchnorm3, hcl_bias_batchnorm3, hcl_running_mean_batchnorm3, hcl_running_var_batchnorm3, 
+        hcl_weight_conv4, hcl_weight_batchnorm4, hcl_bias_batchnorm4, hcl_running_mean_batchnorm4, hcl_running_var_batchnorm4, 
+        hcl_weight_conv5, hcl_weight_batchnorm5, hcl_bias_batchnorm5, hcl_running_mean_batchnorm5, hcl_running_var_batchnorm5, 
+        hcl_weight_conv6, hcl_weight_batchnorm6, hcl_bias_batchnorm6, hcl_running_mean_batchnorm6, hcl_running_var_batchnorm6, 
+        hcl_weight_conv7, hcl_weight_batchnorm7, hcl_bias_batchnorm7, hcl_running_mean_batchnorm7, hcl_running_var_batchnorm7, 
+        hcl_weight_conv8, hcl_weight_batchnorm8, hcl_bias_batchnorm8, hcl_running_mean_batchnorm8, hcl_running_var_batchnorm8, 
+        hcl_out
+    )
+
+    np_input = hcl_input.asnumpy()
+    np_out = hcl_out.asnumpy()
+    print("Input array shape:", np_input.shape)
+    print("\nOutput array shape:", np_out.shape)
+    print("output:")
+    print(np_out)
+    np.save(f'test{count}.npy', np_out)
+    np.savetxt(f'array{count}.txt', np_out.flatten(), fmt='%4.6f', delimiter=' ')
+    count += 1
