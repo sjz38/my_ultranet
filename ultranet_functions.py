@@ -94,10 +94,10 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]]):
 def relu(data, name='relu', out_bit=4):
     x0 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), 'x0')
     x1 = hcl.compute(x0.shape, lambda *y: hcl.select(x0[y] > 1, hcl.cast(x0.dtype, 1), x0[y]), 'x1')
-    x2 =  hcl.compute(x1.shape, 
-        lambda *y: hcl.cast(x1.dtype, hcl.cast(hcl.Int(32), x1[y] * (2 ** out_bit) + 0.5)) 
-        / hcl.cast(x1.dtype, (2 ** out_bit)), name)
-    return x2
+    x2 = hcl.compute(x1.shape, lambda *y : x1[y] * 15.0 + 0.5, 'x2')
+    x3 = hcl.compute(x2.shape, lambda *y: hcl.cast(x2.dtype, hcl.cast(hcl.Int(32), x2[y])), 'x3')
+    x4 = hcl.compute(x3.shape, lambda *y: x3[y] / 15.0, name)
+    return x4
 
 # maxpool 2d, pytorch uses NCHW so this function will as well
 def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
