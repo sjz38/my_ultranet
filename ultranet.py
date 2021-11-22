@@ -84,7 +84,7 @@ def build_ultranet(
     # sixth conv
     conv6 = conv2d(relu5, weight_conv6, name="conv6") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
     batchnorm6 = batchnorm2d(conv6, weight_batchnorm6, bias_batchnorm6, running_mean_batchnorm6, running_var_batchnorm6, name="batch_norm6") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
-    relu6 = relu(batchnorm5, name="relu6") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
+    relu6 = relu(batchnorm6, name="relu6") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
 
     # seventh conv
     conv7 = conv2d(relu6, weight_conv7, name="conv7") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
@@ -364,8 +364,6 @@ yolo_bias = model['layers.28.bias']
 
 tensor_out = torch.tensor(np_out)
 ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
-
-#np.save('./testing/' + "heterocl_ultranet_output.npy", ultranet_out)
 
 print("up to YOLO layer complete")
 
