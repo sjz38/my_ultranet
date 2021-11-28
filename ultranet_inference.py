@@ -89,6 +89,7 @@ dac_folders_path = "/work/shared/common/datasets/dac_dataset_original/*"
 folders = sorted(glob.glob(dac_folders_path))
 # print("Folders: ", folders)
 for folder in folders:
+    # Remove this line to run on entire dataset
     if folder == "/work/shared/common/datasets/dac_dataset_original/boat1":
         for f in sorted(glob.glob(folder+"/*.jpg")):
             if num_images < max_images:
@@ -110,12 +111,11 @@ for folder in folders:
 # image = np.reshape(image, (3, 160, 320))
 # image_list.append(image)
 
-# # batch together images 
+# group together images 
 images = np.stack(image_list)
 
-#assert images.shape == (batch_size, 3, 160, 320)
+assert images.shape == (batch_size, 3, 160, 320)
 
-#assert images.all() == image.all()
 
 ###############################################################################
 # Build inference model
