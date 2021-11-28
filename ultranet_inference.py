@@ -105,16 +105,11 @@ for folder in folders:
             else:
                 break
 
-# load single image
-# image = Image.open('testing/example_images/car16_0001_resized.jpg')
-# image = np.asarray(image).astype(float)
-# image = np.reshape(image, (3, 160, 320))
-# image_list.append(image)
 
 # group together images 
 images = np.stack(image_list)
 
-assert images.shape == (batch_size, 3, 160, 320)
+# assert images.shape == (batch_size, 3, 160, 320)
 
 
 ###############################################################################
