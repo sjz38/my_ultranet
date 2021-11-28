@@ -83,7 +83,7 @@ image_list = []
 
 # load images by batches
 #count = batch_size
-max_images = 1
+max_images = 5
 num_images = 0
 dac_folders_path = "/work/shared/common/datasets/dac_dataset_original/*"
 folders = sorted(glob.glob(dac_folders_path))
@@ -292,11 +292,13 @@ hcl_running_var_batchnorm8 = hcl.asarray(batchnorm8_running_var.astype(float))
 hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)))
 
 
-print("hihi")
-print("Shape: ", images.shape)
+print("Images Shape: ", images.shape)
+# print("Images_sub Shape: ", images[0].shape)
 count = 0
 for i in range(max_images):
-    hcl_input = hcl.asarray(images[i, :, :, :])
+    # hcl_input = hcl.asarray(images[i, :, :, :])
+    img_reshape = images[i].reshape((1, images.shape[1], images.shape[2], images.shape[3]))
+    hcl_input = hcl.asarray(img_reshape)
     f = build_ultranet_inf()
     f(
         hcl_input, 
