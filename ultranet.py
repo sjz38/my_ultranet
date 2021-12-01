@@ -236,7 +236,7 @@ def load_np_params(ptname):
     batchnorm8_running_mean = model['layers.26.running_mean'].numpy()
     batchnorm8_running_var = model['layers.26.running_var'].numpy()
 
-    print("Weights loaded from " + ptname + "\n")
+    print("Weights loaded from " + ptname)
 
     return [
         conv1_weight, batchnorm1_weight, batchnorm1_bias, batchnorm1_running_mean, batchnorm1_running_var, 
@@ -379,8 +379,6 @@ yolo_bias = model['layers.28.bias']
 
 tensor_out = torch.tensor(np_out)
 ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
-
-print("up to YOLO layer complete")
 
 def create_grids(self, img_size=416, ng=(13, 13), device='cpu', type=torch.float32):
     nx, ny = ng  # x and y grid size
