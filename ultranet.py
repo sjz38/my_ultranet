@@ -18,6 +18,8 @@ hcl.init(hcl.Float())
 ###############################################################################
 
 image_path = './example_images/example_1.jpg'
+truth_path = './example_images/example_1.xml'
+
 raw_height = 360
 raw_width = 640
 width = 320
@@ -363,7 +365,6 @@ f(
 ###############################################################################
 np_input = hcl_input.asnumpy()
 np_out = hcl_out.asnumpy()
-# np_out = np.load('../ultra_net/model/torch_output.npy')
 
 ###############################################################################
 # YOLO Layer
@@ -455,7 +456,65 @@ for box in pre_box:
     xmax = box[0] + box[2] / 2
     ymin = box[1] - box[3] / 2
     ymax = box[1] + box[3] / 2
-    temp = [int(xmin), int(xmax), int(ymin), int(ymax)]
-    result.append(temp)
+    result = [int(xmin), int(ymin), int(xmax), int(ymax)]
 
-print(result)
+print("bounding box in (xmin, ymin, xmax, ymax) format: ", result)
+
+###############################################################################
+# read ground truth
+###############################################################################
+import xml.etree.ElementTree
+
+xml_tree = xml.etree.ElementTree.parse(truth_path)
+root = xml_tree.getroot()
+
+name = ""
+truth_result = [] # (xmin, ymin, xmax, ymax)
+def recursive(element, indent):
+    element_tag = element.tag
+    element_text = element.text if element.text is not None and len(element.text.strip()) > 0 else ""
+    if (element_tag.title() == 'Filename'):
+        global name 
+        name = element_text
+    if (element_tag.title() == 'Xmin' or element_tag.title() == 'Ymin' or element_tag.title() == 'Xmax' or element_tag.title() == 'Ymax'):
+        truth_result.append(int(element_text))
+    element_children = list(element)
+    for child in element_children:
+        recursive(child, indent + 4)
+recursive(root, 0)
+print("truth for ", name, "is: ", truth_result)
+
+###############################################################################
+# calculate IoU
+###############################################################################
+
+def bbox_iou(box1, box2):
+    """
+    Returns the IoU of two bounding boxes
+    """
+ 
+    # Transform from center and width to exact coordinates
+    b1_x1, b1_x2 = box1[:, 0] - box1[:, 2] / 2, box1[:, 0] + box1[:, 2] / 2
+    b1_y1, b1_y2 = box1[:, 1] - box1[:, 3] / 2, box1[:, 1] + box1[:, 3] / 2
+    b2_x1, b2_x2 = box2[:, 0] - box2[:, 2] / 2, box2[:, 0] + box2[:, 2] / 2
+    b2_y1, b2_y2 = box2[:, 1] - box2[:, 3] / 2, box2[:, 1] + box2[:, 3] / 2
+    
+    # get the corrdinates of the intersection rectangle
+    inter_rect_x1 = torch.max(b1_x1, b2_x1)
+    inter_rect_y1 = torch.max(b1_y1, b2_y1)
+    inter_rect_x2 = torch.min(b1_x2, b2_x2)
+    inter_rect_y2 = torch.min(b1_y2, b2_y2)
+    # Intersection area
+    inter_area = torch.clamp(inter_rect_x2 - inter_rect_x1, min=0) * torch.clamp(
+        inter_rect_y2 - inter_rect_y1, min=0
+    )
+    # Union Area
+    b1_area = (b1_x2 - b1_x1) * (b1_y2 - b1_y1)
+    b2_area = (b2_x2 - b2_x1) * (b2_y2 - b2_y1)
+
+    iou = inter_area / (b1_area + b2_area - inter_area + 1e-16)
+
+    return iou
+
+iou = bbox_iou(truth_result, result)
+print("iou score: ", iou)
