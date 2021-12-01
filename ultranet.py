@@ -17,8 +17,8 @@ hcl.init(hcl.Float())
 # Define parameters and images
 ###############################################################################
 
-image_path = './example_images/example_1.jpg'
-truth_path = './example_images/example_1.xml'
+image_path = './example_images/example_2.jpg'
+truth_path = './example_images/example_2.xml'
 
 raw_height = 360
 raw_width = 640
@@ -408,7 +408,6 @@ class YOLOLayer(nn.Module):
         self.ny = 0  # initialize number of y gridpoints
 
     def forward(self, p, img_size):
-        print(p.shape)
         bs, _, ny, nx = p.shape
         
         if (self.nx, self.ny) != (nx, ny):
@@ -469,7 +468,8 @@ xml_tree = xml.etree.ElementTree.parse(truth_path)
 root = xml_tree.getroot()
 
 name = ""
-truth_result = [] # (xmin, ymin, xmax, ymax)
+truth_result = {'Xmin': 0, 'Ymin' : 0, 'Xmax' : 0, 'Ymax' : 0} 
+
 def recursive(element, indent):
     element_tag = element.tag
     element_text = element.text if element.text is not None and len(element.text.strip()) > 0 else ""
@@ -477,7 +477,7 @@ def recursive(element, indent):
         global name 
         name = element_text
     if (element_tag.title() == 'Xmin' or element_tag.title() == 'Ymin' or element_tag.title() == 'Xmax' or element_tag.title() == 'Ymax'):
-        truth_result.append(int(element_text))
+        truth_result[element_tag.title()] = int(element_text)
     element_children = list(element)
     for child in element_children:
         recursive(child, indent + 4)
@@ -520,5 +520,6 @@ def bbox_iou(box1, box2):
 
     return iou.item()
 
+truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']] # (xmin, ymin, xmax, ymax) format
 iou = round(bbox_iou(truth_result, result), 4)
 print("iou score: ", iou)
