@@ -413,7 +413,7 @@ def get_boxes(pred_boxes, pred_conf):
 ###############################################################################
 # read ground truth function
 ###############################################################################
-def recursive(element, indent):
+def recursive(element, indent, truth_result):
     element_tag = element.tag
     element_text = element.text if element.text is not None and len(element.text.strip()) > 0 else ""
     if (element_tag.title() == 'Filename'):
@@ -423,7 +423,7 @@ def recursive(element, indent):
         truth_result[element_tag.title()] = int(element_text)
     element_children = list(element)
     for child in element_children:
-        recursive(child, indent + 4)
+        recursive(child, indent + 4, truth_result)
 
 
 ###############################################################################
@@ -464,18 +464,20 @@ def bbox_iou(box1, box2):
 
 
 img_count = 0
-max_images = 5
+max_images = 20
 dac_folders_path = "/work/shared/common/datasets/dac_dataset_original/*"
 folders = sorted(glob.glob(dac_folders_path))
 
 for folder in folders:
+    # This if statement only uses boat1/ folder. Remove to use whole dataset
     if folder == "/work/shared/common/datasets/dac_dataset_original/boat1":
         for f in sorted(glob.glob(folder+"/*.jpg")):
+            # This if statement limits number of images tested. Remove to use whole dataset
             if img_count < max_images:
                 img_count+=1
                 print(f)
                 truth_path = os.path.splitext(f)[0] + ".xml"
-                print(truth_path)
+                #print(truth_path)
                 image = load_image(f)
                 hcl_input = hcl.asarray(image)
                 f = build_ultranet_inf()
@@ -527,7 +529,7 @@ for folder in folders:
                 name = ""
                 truth_result = {'Xmin': 0, 'Ymin' : 0, 'Xmax' : 0, 'Ymax' : 0} 
 
-                recursive(root, 0)
+                recursive(root, 0, truth_result)
                 print("truth for ", name, "is: ", truth_result)
 
                 truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']] # (xmin, ymin, xmax, ymax) format
