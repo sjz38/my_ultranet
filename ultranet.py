@@ -4,6 +4,9 @@ import cv2
 import torch
 import torch.nn as nn
 
+import glob
+import xml.etree.ElementTree
+
 import heterocl as hcl
 from ultranet_functions import conv2d
 from ultranet_functions import relu
@@ -38,10 +41,6 @@ def load_image(image_path):
     assert image.shape == (batch_size, 3, height, width)
     return image
 
-###############################################################################
-# Define input
-###############################################################################
-hcl_input = hcl.asarray(load_image(image_path))
 
 ###############################################################################
 # build inference model
@@ -169,7 +168,7 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
     )
     return hcl.build(s, target=target)
 
-f = build_ultranet_inf()
+
 
 ###############################################################################
 # Import weights
@@ -291,6 +290,15 @@ batchnorm8_bias = params[37]
 batchnorm8_running_mean = params[38]
 batchnorm8_running_var = params[39]
 
+# YOLO
+# TEMPORARY: last conv using pytorch
+model = torch.load('ultranet_4w4a.pt', map_location='cpu')['model']
+yolo_weight = model['layers.28.weight'].numpy()
+yolo_weight = weight_quantizer(yolo_weight)
+yolo_weight = torch.tensor(yolo_weight)
+yolo_bias = model['layers.28.bias']
+
+
 ###############################################################################
 # convert weights into hcl
 ###############################################################################
@@ -344,41 +352,10 @@ hcl_running_var_batchnorm8 = hcl.asarray(batchnorm8_running_var.astype(float))
 
 hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)))
 
-###############################################################################
-# Inference
-###############################################################################
-f(
-    hcl_input, 
-    hcl_weight_conv1, hcl_weight_batchnorm1, hcl_bias_batchnorm1, hcl_running_mean_batchnorm1, hcl_running_var_batchnorm1,
-    hcl_weight_conv2, hcl_weight_batchnorm2, hcl_bias_batchnorm2, hcl_running_mean_batchnorm2, hcl_running_var_batchnorm2,
-    hcl_weight_conv3, hcl_weight_batchnorm3, hcl_bias_batchnorm3, hcl_running_mean_batchnorm3, hcl_running_var_batchnorm3, 
-    hcl_weight_conv4, hcl_weight_batchnorm4, hcl_bias_batchnorm4, hcl_running_mean_batchnorm4, hcl_running_var_batchnorm4, 
-    hcl_weight_conv5, hcl_weight_batchnorm5, hcl_bias_batchnorm5, hcl_running_mean_batchnorm5, hcl_running_var_batchnorm5, 
-    hcl_weight_conv6, hcl_weight_batchnorm6, hcl_bias_batchnorm6, hcl_running_mean_batchnorm6, hcl_running_var_batchnorm6, 
-    hcl_weight_conv7, hcl_weight_batchnorm7, hcl_bias_batchnorm7, hcl_running_mean_batchnorm7, hcl_running_var_batchnorm7, 
-    hcl_weight_conv8, hcl_weight_batchnorm8, hcl_bias_batchnorm8, hcl_running_mean_batchnorm8, hcl_running_var_batchnorm8,
-    hcl_out
-)
 
 ###############################################################################
-# Results up to YOLO layer
+# YOLO Layer Functions
 ###############################################################################
-np_input = hcl_input.asnumpy()
-np_out = hcl_out.asnumpy()
-
-###############################################################################
-# YOLO Layer
-###############################################################################
-
-# TEMPORARY: last conv using pytorch
-model = torch.load('ultranet_4w4a.pt', map_location='cpu')['model']
-yolo_weight = model['layers.28.weight'].numpy()
-yolo_weight = weight_quantizer(yolo_weight)
-yolo_weight = torch.tensor(yolo_weight)
-yolo_bias = model['layers.28.bias']
-
-tensor_out = torch.tensor(np_out)
-ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
 
 def create_grids(self, img_size=416, ng=(13, 13), device='cpu', type=torch.float32):
     nx, ny = ng  # x and y grid size
@@ -430,44 +407,11 @@ def get_boxes(pred_boxes, pred_conf):
 
     return p_boxes
 
-img_size = np_input.shape[-2:]
-yololayer = YOLOLayer([[20,20], [20,20], [20,20], [20,20], [20,20], [20,20]])
-yolo_out = []
-yolo_out.append(yololayer(ultranet_out, img_size))
-io, p = zip(*yolo_out)  # inference output, training output
-inf_out, train_out = torch.cat(io, 1), p
-inf_out = inf_out.view(inf_out.shape[0], 6, -1)
-inf_out_t = torch.zeros_like(inf_out[:, 0, :])
-for i in range(inf_out.shape[1]):
-    inf_out_t += inf_out[:, i, :]
-inf_out_t = inf_out_t.view(inf_out_t.shape[0], -1, 6) / 6
 
-pre_box = get_boxes(inf_out_t[..., :4], inf_out_t[..., 4])
-
-pre_box = pre_box[..., :4] * torch.Tensor([raw_width/width, raw_height/height, raw_width/width, raw_height/height]).to('cpu')
-
-result = list()
-
-for box in pre_box:
-    xmin = box[0] - box[2] / 2
-    xmax = box[0] + box[2] / 2
-    ymin = box[1] - box[3] / 2
-    ymax = box[1] + box[3] / 2
-    result = [int(xmin), int(ymin), int(xmax), int(ymax)]
-
-print("bounding box in (xmin, ymin, xmax, ymax) format: ", result)
 
 ###############################################################################
-# read ground truth
+# read ground truth function
 ###############################################################################
-import xml.etree.ElementTree
-
-xml_tree = xml.etree.ElementTree.parse(truth_path)
-root = xml_tree.getroot()
-
-name = ""
-truth_result = {'Xmin': 0, 'Ymin' : 0, 'Xmax' : 0, 'Ymax' : 0} 
-
 def recursive(element, indent):
     element_tag = element.tag
     element_text = element.text if element.text is not None and len(element.text.strip()) > 0 else ""
@@ -479,8 +423,7 @@ def recursive(element, indent):
     element_children = list(element)
     for child in element_children:
         recursive(child, indent + 4)
-recursive(root, 0)
-print("truth for ", name, "is: ", truth_result)
+
 
 ###############################################################################
 # calculate IoU
@@ -518,6 +461,92 @@ def bbox_iou(box1, box2):
 
     return iou.item()
 
-truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']] # (xmin, ymin, xmax, ymax) format
-iou = round(bbox_iou(truth_result, result), 4)
-print("iou score: ", iou)
+
+img_count = 0
+max_images = 5
+dac_folders_path = "/work/shared/common/datasets/dac_dataset_original/*"
+folders = sorted(glob.glob(dac_folders_path))
+
+for folder in folders:
+    if folder == "/work/shared/common/datasets/dac_dataset_original/boat1":
+        for f in sorted(glob.glob(folder+"/*.jpg")):
+            if img_count < max_images:
+                img_count+=1
+                print(f)
+                image = load_image(f)
+                hcl_input = hcl.asarray(image)
+                f = build_ultranet_inf()
+                # Inference
+                f(
+                    hcl_input, 
+                    hcl_weight_conv1, hcl_weight_batchnorm1, hcl_bias_batchnorm1, hcl_running_mean_batchnorm1, hcl_running_var_batchnorm1,
+                    hcl_weight_conv2, hcl_weight_batchnorm2, hcl_bias_batchnorm2, hcl_running_mean_batchnorm2, hcl_running_var_batchnorm2,
+                    hcl_weight_conv3, hcl_weight_batchnorm3, hcl_bias_batchnorm3, hcl_running_mean_batchnorm3, hcl_running_var_batchnorm3, 
+                    hcl_weight_conv4, hcl_weight_batchnorm4, hcl_bias_batchnorm4, hcl_running_mean_batchnorm4, hcl_running_var_batchnorm4, 
+                    hcl_weight_conv5, hcl_weight_batchnorm5, hcl_bias_batchnorm5, hcl_running_mean_batchnorm5, hcl_running_var_batchnorm5, 
+                    hcl_weight_conv6, hcl_weight_batchnorm6, hcl_bias_batchnorm6, hcl_running_mean_batchnorm6, hcl_running_var_batchnorm6, 
+                    hcl_weight_conv7, hcl_weight_batchnorm7, hcl_bias_batchnorm7, hcl_running_mean_batchnorm7, hcl_running_var_batchnorm7, 
+                    hcl_weight_conv8, hcl_weight_batchnorm8, hcl_bias_batchnorm8, hcl_running_mean_batchnorm8, hcl_running_var_batchnorm8,
+                    hcl_out
+                )
+                np_input = hcl_input.asnumpy()
+                np_out = hcl_out.asnumpy()
+
+                tensor_out = torch.tensor(np_out)
+                ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
+
+                img_size = np_input.shape[-2:]
+                yololayer = YOLOLayer([[20,20], [20,20], [20,20], [20,20], [20,20], [20,20]])
+                yolo_out = []
+                yolo_out.append(yololayer(ultranet_out, img_size))
+                io, p = zip(*yolo_out)  # inference output, training output
+                inf_out, train_out = torch.cat(io, 1), p
+                inf_out = inf_out.view(inf_out.shape[0], 6, -1)
+                inf_out_t = torch.zeros_like(inf_out[:, 0, :])
+                for i in range(inf_out.shape[1]):
+                    inf_out_t += inf_out[:, i, :]
+                inf_out_t = inf_out_t.view(inf_out_t.shape[0], -1, 6) / 6
+
+                pre_box = get_boxes(inf_out_t[..., :4], inf_out_t[..., 4])
+                pre_box = pre_box[..., :4] * torch.Tensor([raw_width/width, raw_height/height, raw_width/width, raw_height/height]).to('cpu')
+                result = list()
+                for box in pre_box:
+                    xmin = box[0] - box[2] / 2
+                    xmax = box[0] + box[2] / 2
+                    ymin = box[1] - box[3] / 2
+                    ymax = box[1] + box[3] / 2
+                    result = [int(xmin), int(ymin), int(xmax), int(ymax)]
+                print("bounding box in (xmin, ymin, xmax, ymax) format: ", result)
+
+                xml_tree = xml.etree.ElementTree.parse(truth_path)
+                root = xml_tree.getroot()
+
+                name = ""
+                truth_result = {'Xmin': 0, 'Ymin' : 0, 'Xmax' : 0, 'Ymax' : 0} 
+
+                recursive(root, 0)
+                print("truth for ", name, "is: ", truth_result)
+
+                truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']] # (xmin, ymin, xmax, ymax) format
+                iou = round(bbox_iou(truth_result, result), 4)
+                print("iou score: ", iou)
+
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
