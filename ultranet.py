@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import os
 
 import torch
 import torch.nn as nn
@@ -20,8 +21,8 @@ hcl.init(hcl.Float())
 # Define parameters and images
 ###############################################################################
 
-image_path = './example_images/example_2.jpg'
-truth_path = './example_images/example_2.xml'
+#image_path = './example_images/example_2.jpg'
+#truth_path = './example_images/example_2.xml'
 
 raw_height = 360
 raw_width = 640
@@ -473,6 +474,8 @@ for folder in folders:
             if img_count < max_images:
                 img_count+=1
                 print(f)
+                truth_path = os.path.splitext(f)[0] + ".xml"
+                print(truth_path)
                 image = load_image(f)
                 hcl_input = hcl.asarray(image)
                 f = build_ultranet_inf()
