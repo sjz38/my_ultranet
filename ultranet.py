@@ -6,7 +6,7 @@ import torch.nn as nn
 
 import heterocl as hcl
 from ultranet_functions import conv2d
-from ultranet_functions import relu, relu_fixed
+from ultranet_functions import relu
 from ultranet_functions import maxpool2d
 from ultranet_functions import batchnorm2d
 from weight_quant import weight_quantize_fn
@@ -16,8 +16,8 @@ from weight_quant import weight_quantize_fn
 ###############################################################################
 hcl.init(hcl.Float(32))
 input_dtype = hcl.Fixed(8, 4)
-weight_dtype = hcl.Fixed(8, 4)
-act_dtype = hcl.Fixed(8, 4)
+weight_dtype = hcl.Fixed(5, 3) # TODO: why hcl.Fixed(4,4) doesn't work
+act_dtype = hcl.UFixed(4, 4)
 
 ###############################################################################
 # Define parameters and images
@@ -174,15 +174,14 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
     )
 
     # quantize activations
-    act_dtype = hcl.Fixed(4,3)
-    # sm.quantize(ultranet.relu1, act_dtype)
-    # sm.quantize(ultranet.relu2, act_dtype)
-    # sm.quantize(ultranet.relu3, act_dtype)
-    # sm.quantize(ultranet.relu4, act_dtype)
-    # sm.quantize(ultranet.relu5, act_dtype)
-    # sm.quantize(ultranet.relu6, act_dtype)
-    # sm.quantize(ultranet.relu7, act_dtype)
-    # sm.quantize(ultranet.relu8, act_dtype)
+    sm.quantize(ultranet.relu1, act_dtype)
+    sm.quantize(ultranet.relu2, act_dtype)
+    sm.quantize(ultranet.relu3, act_dtype)
+    sm.quantize(ultranet.relu4, act_dtype)
+    sm.quantize(ultranet.relu5, act_dtype)
+    sm.quantize(ultranet.relu6, act_dtype)
+    sm.quantize(ultranet.relu7, act_dtype)
+    sm.quantize(ultranet.relu8, act_dtype)
     s = hcl.create_schedule_from_scheme(sm, "main")
     return hcl.build(s, target=target)
 

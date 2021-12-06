@@ -89,26 +89,11 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], ou
             ('filter_dtype', tvm.make.StringImm(Filter.dtype)),
             ('app_name', tvm.make.StringImm('cnn'))]))
 
-# simple ReLU, equivalent to act_f() when quant is none
-def relu_quant(data, name='relu', out_bit=4):
-    x0 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), 'x0')
-    x1 = hcl.compute(x0.shape, lambda *y: hcl.select(x0[y] > 1, hcl.cast(x0.dtype, 1), x0[y]), 'x1')
-    x2 = hcl.compute(x1.shape, lambda *y : x1[y] * 16.0 + 0.5, 'x2')
-    x3 = hcl.compute(x2.shape, lambda *y: hcl.cast(x2.dtype, hcl.cast(hcl.Int(32), x2[y])), 'x3')
-    x4 = hcl.compute(x3.shape, lambda *y: x3[y] / 16.0, name)
-    return x4
-
-def relu_float(data, name='relu'):
-    return hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name=name)
-
-def relu_fixed(data, name='relu', inter_dtype=hcl.Fixed(8,4), out_dtype=hcl.Fixed(4,4)):
-    x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name='x1', dtype=inter_dtype)
-    x2 = hcl.compute(x1.shape, lambda *y: hcl.select(x1[y] > 1, hcl.cast(data.dtype, 1), x1[y]), name=name, dtype=inter_dtype)
-    # return hcl.compute(x2.shape, lambda *y: x2[y], dtype=out_dtype, name=name)
-    return x2
 
 def relu(data, name='relu'):
-    return relu_fixed(data, name)
+    x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name='x1')
+    x2 = hcl.compute(x1.shape, lambda *y: hcl.select(x1[y] > 1, hcl.cast(data.dtype, 1), x1[y]), name=name)
+    return x2
 
 # maxpool 2d, pytorch uses NCHW so this function will as well
 def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
