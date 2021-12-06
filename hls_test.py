@@ -1,54 +1,18 @@
-import numpy as np
-import cv2
-
-import torch
-import torch.nn as nn
-
 import heterocl as hcl
+import numpy as np
 
-from weight_quant import weight_quantize_fn
 from ultranet_model import ultranet
+from ultranet import load_np_params, load_image
 
-###############################################################################
-# Define Data Types
-###############################################################################
-hcl.init(hcl.Float(32))
 input_dtype = hcl.Fixed(8, 4)
-weight_dtype = hcl.Fixed(5, 3) # TODO: why hcl.Fixed(4,4) doesn't work
+weight_dtype = hcl.Fixed(5, 3) 
 act_dtype = hcl.UFixed(4, 4)
 
-###############################################################################
-# Define parameters and images
-###############################################################################
-
-image_path = './example_images/example_1.jpg'
-raw_height = 360
-raw_width = 640
-width = 320
-height = 160
 batch_size = 1
-W_BIT = 4
-weight_quantizer = weight_quantize_fn(W_BIT)
+image_path = "./example_images/example_1.jpg"
 
-# loads and resizes a single image
-def load_image(image_path):
-    image = cv2.imread(str(image_path))
-    image = cv2.resize(image, (width, height), interpolation=cv2.INTER_LINEAR)
-    image.resize(1, image.shape[0], image.shape[1], image.shape[2])
-    image = image.transpose(0, 3, 1, 2)
-    image = image.astype(float) / 255.0
-    assert image.shape == (batch_size, 3, height, width)
-    return image
 
-###############################################################################
-# Define input
-###############################################################################
-hcl_input = hcl.asarray(load_image(image_path), dtype=input_dtype)
-
-###############################################################################
-# build inference model
-###############################################################################
-def build_ultranet_inf(batch_size=batch_size, target=None):
+def build_ultranet_hls(batch_size=batch_size, target=None):
     # set up input/output placeholders
     input_image = hcl.placeholder((batch_size, 3, 160, 320), dtype=input_dtype, name="input_image")
 
@@ -123,88 +87,20 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
     sm.quantize(ultranet.relu7, act_dtype)
     sm.quantize(ultranet.relu8, act_dtype)
     s = hcl.create_schedule_from_scheme(sm, "main")
-    return hcl.build(s, target=target)
+    return hcl.build(s, name="main", target=target)
 
-f = build_ultranet_inf()
 
-###############################################################################
-# Import weights
-###############################################################################
-def load_np_params(ptname):
+def check_vivado_hls():
+    import os
+    if os.system("which vivado_hls >> /dev/null") != 0:
+        raise Exception("Can't find vivado_hls")
 
-    loaded = torch.load(ptname, map_location='cpu')
 
-    model = loaded['model']
+target = hcl.Platform.aws_f1
+target.config(compiler="vivado_hls", mode="csyn", project="ultranet_hls")
+f = build_ultranet_hls(batch_size=batch_size, target=target)
 
-    conv1_weight = model['layers.0.weight'].numpy()
-    conv1_weight = weight_quantizer(conv1_weight)
-    batchnorm1_weight = model['layers.1.weight'].numpy()
-    batchnorm1_bias = model['layers.1.bias'].numpy()
-    batchnorm1_running_mean = model['layers.1.running_mean'].numpy()
-    batchnorm1_running_var = model['layers.1.running_var'].numpy()
-
-    conv2_weight = model['layers.4.weight'].numpy()
-    conv2_weight = weight_quantizer(conv2_weight)
-    batchnorm2_weight = model['layers.5.weight'].numpy()
-    batchnorm2_bias = model['layers.5.bias'].numpy()
-    batchnorm2_running_mean = model['layers.5.running_mean'].numpy()
-    batchnorm2_running_var = model['layers.5.running_var'].numpy()
-
-    conv3_weight = model['layers.8.weight'].numpy()
-    conv3_weight = weight_quantizer(conv3_weight)
-    batchnorm3_weight = model['layers.9.weight'].numpy()
-    batchnorm3_bias = model['layers.9.bias'].numpy()
-    batchnorm3_running_mean = model['layers.9.running_mean'].numpy()
-    batchnorm3_running_var = model['layers.9.running_var'].numpy()
-
-    conv4_weight = model['layers.12.weight'].numpy()
-    conv4_weight = weight_quantizer(conv4_weight)
-    batchnorm4_weight = model['layers.13.weight'].numpy()
-    batchnorm4_bias = model['layers.13.bias'].numpy()
-    batchnorm4_running_mean = model['layers.13.running_mean'].numpy()
-    batchnorm4_running_var = model['layers.13.running_var'].numpy()
-
-    conv5_weight = model['layers.16.weight'].numpy()
-    conv5_weight = weight_quantizer(conv5_weight)
-    batchnorm5_weight = model['layers.17.weight'].numpy()
-    batchnorm5_bias = model['layers.17.bias'].numpy()
-    batchnorm5_running_mean = model['layers.17.running_mean'].numpy()
-    batchnorm5_running_var = model['layers.17.running_var'].numpy()
-
-    conv6_weight = model['layers.19.weight'].numpy()
-    conv6_weight = weight_quantizer(conv6_weight)
-    batchnorm6_weight = model['layers.20.weight'].numpy()
-    batchnorm6_bias = model['layers.20.bias'].numpy()
-    batchnorm6_running_mean = model['layers.20.running_mean'].numpy()
-    batchnorm6_running_var = model['layers.20.running_var'].numpy()
-
-    conv7_weight = model['layers.22.weight'].numpy()
-    conv7_weight = weight_quantizer(conv7_weight)
-    batchnorm7_weight = model['layers.23.weight'].numpy()
-    batchnorm7_bias = model['layers.23.bias'].numpy()
-    batchnorm7_running_mean = model['layers.23.running_mean'].numpy()
-    batchnorm7_running_var = model['layers.23.running_var'].numpy()
-
-    conv8_weight = model['layers.25.weight'].numpy()
-    conv8_weight = weight_quantizer(conv8_weight)
-    batchnorm8_weight = model['layers.26.weight'].numpy()
-    batchnorm8_bias = model['layers.26.bias'].numpy()
-    batchnorm8_running_mean = model['layers.26.running_mean'].numpy()
-    batchnorm8_running_var = model['layers.26.running_var'].numpy()
-
-    print("Weights loaded from " + ptname + "\n")
-
-    return [
-        conv1_weight, batchnorm1_weight, batchnorm1_bias, batchnorm1_running_mean, batchnorm1_running_var, 
-        conv2_weight, batchnorm2_weight, batchnorm2_bias, batchnorm2_running_mean, batchnorm2_running_var,
-        conv3_weight, batchnorm3_weight, batchnorm3_bias, batchnorm3_running_mean, batchnorm3_running_var,
-        conv4_weight, batchnorm4_weight, batchnorm4_bias, batchnorm4_running_mean, batchnorm4_running_var,
-        conv5_weight, batchnorm5_weight, batchnorm5_bias, batchnorm5_running_mean, batchnorm5_running_var,
-        conv6_weight, batchnorm6_weight, batchnorm6_bias, batchnorm6_running_mean, batchnorm6_running_var,
-        conv7_weight, batchnorm7_weight, batchnorm7_bias, batchnorm7_running_mean, batchnorm7_running_var,
-        conv8_weight, batchnorm8_weight, batchnorm8_bias, batchnorm8_running_mean, batchnorm8_running_var
-    ]
-
+hcl_input = hcl.asarray(load_image(image_path), dtype=input_dtype)
 params = load_np_params('ultranet_4w4a.pt')
 conv1_weight = params[0]
 batchnorm1_weight = params[1]
@@ -321,99 +217,3 @@ f(
 ###############################################################################
 np_input = hcl_input.asnumpy()
 np_out = hcl_out.asnumpy()
-# np_out = np.load('../ultra_net/model/torch_output.npy')
-
-###############################################################################
-# YOLO Layer
-###############################################################################
-
-# TEMPORARY: last conv using pytorch
-model = torch.load('ultranet_4w4a.pt', map_location='cpu')['model']
-yolo_weight = model['layers.28.weight'].numpy()
-yolo_weight = weight_quantizer(yolo_weight)
-yolo_weight = torch.tensor(yolo_weight)
-yolo_bias = model['layers.28.bias']
-
-tensor_out = torch.tensor(np_out)
-ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
-
-print("up to YOLO layer complete")
-
-def create_grids(self, img_size=416, ng=(13, 13), device='cpu', type=torch.float32):
-    nx, ny = ng  # x and y grid size
-    self.img_size = max(img_size)
-    self.stride = self.img_size / max(ng)
-
-    # build xy offsets
-    yv, xv = torch.meshgrid([torch.arange(ny), torch.arange(nx)])
-    self.grid_xy = torch.stack((xv, yv), 2).to(device).type(type).view((1, 1, ny, nx, 2))
-
-    # build wh gains
-    self.anchor_vec = self.anchors.to(device) / self.stride
-    self.anchor_wh = self.anchor_vec.view(1, self.na, 1, 1, 2).to(device).type(type)
-    self.ng = torch.Tensor(ng).to(device)
-    self.nx = nx
-    self.ny = ny
-
-class YOLOLayer(nn.Module):
-    def __init__(self, anchors):
-        super(YOLOLayer, self).__init__()
-        self.anchors = torch.Tensor(anchors)
-        self.na = len(anchors)  # number of anchors (3)
-        self.no = 6  # number of outputs
-        self.nx = 0  # initialize number of x gridpoints
-        self.ny = 0  # initialize number of y gridpoints
-
-    def forward(self, p, img_size):
-        print(p.shape)
-        bs, _, ny, nx = p.shape
-        
-        if (self.nx, self.ny) != (nx, ny):
-            create_grids(self, img_size, (nx, ny), p.device, p.dtype)
-
-        p = p.view(bs, self.na, self.no, self.ny, self.nx).permute(0, 1, 3, 4, 2).contiguous()  # prediction
-        io = p.clone()  # inference output
-        io[..., :2] = torch.sigmoid(io[..., :2]) + self.grid_xy  # xy
-        io[..., 2:4] = torch.exp(io[..., 2:4]) * self.anchor_wh  # wh yolo method
-        io[..., :4] *= self.stride
-        torch.sigmoid_(io[..., 4:])
-        return io.view(bs, -1, self.no), p
-
-def get_boxes(pred_boxes, pred_conf):
-    n = pred_boxes.size(0)
-    FloatTensor = torch.cuda.FloatTensor if pred_boxes.is_cuda else torch.FloatTensor
-    p_boxes = FloatTensor(n, 4)
-
-    for i in range(n):
-        _, index = pred_conf[i].max(0)
-        p_boxes[i] = pred_boxes[i][index]
-
-    return p_boxes
-
-img_size = np_input.shape[-2:]
-yololayer = YOLOLayer([[20,20], [20,20], [20,20], [20,20], [20,20], [20,20]])
-yolo_out = []
-yolo_out.append(yololayer(ultranet_out, img_size))
-io, p = zip(*yolo_out)  # inference output, training output
-inf_out, train_out = torch.cat(io, 1), p
-inf_out = inf_out.view(inf_out.shape[0], 6, -1)
-inf_out_t = torch.zeros_like(inf_out[:, 0, :])
-for i in range(inf_out.shape[1]):
-    inf_out_t += inf_out[:, i, :]
-inf_out_t = inf_out_t.view(inf_out_t.shape[0], -1, 6) / 6
-
-pre_box = get_boxes(inf_out_t[..., :4], inf_out_t[..., 4])
-
-pre_box = pre_box[..., :4] * torch.Tensor([raw_width/width, raw_height/height, raw_width/width, raw_height/height]).to('cpu')
-
-result = list()
-
-for box in pre_box:
-    xmin = box[0] - box[2] / 2
-    xmax = box[0] + box[2] / 2
-    ymin = box[1] - box[3] / 2
-    ymax = box[1] + box[3] / 2
-    temp = [int(xmin), int(xmax), int(ymin), int(ymax)]
-    result.append(temp)
-
-print(result)

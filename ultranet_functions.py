@@ -143,7 +143,3 @@ def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10
     x3 = hcl.compute(data.shape, lambda *x : x1[x] / x2[x] * gamma[get_axis(axis, x)], dtype=inter_dtype, name='x3')
     out = hcl.compute(data.shape, lambda *x : x3[x] + beta[get_axis(axis, x)], dtype=out_dtype, name=name)
     return out
-    # out = hcl.compute(data.shape, lambda *x: (data[x] - moving_mean[get_axis(axis, x)]) /
-    #                 (hcl.sqrt(moving_var[get_axis(axis, x)] + epsilon)) * gamma[get_axis(axis, x)]
-    #                 + beta[get_axis(axis, x)], name=name, dtype=out_dtype)
-    # return out
