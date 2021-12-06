@@ -464,9 +464,10 @@ def bbox_iou(box1, box2):
 
 
 img_count = 0
-max_images = 20
+max_images = 5
 dac_folders_path = "/work/shared/common/datasets/dac_dataset_original/*"
 folders = sorted(glob.glob(dac_folders_path))
+iou_list = []
 
 for folder in folders:
     # This if statement only uses boat1/ folder. Remove to use whole dataset
@@ -534,8 +535,13 @@ for folder in folders:
 
                 truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']] # (xmin, ymin, xmax, ymax) format
                 iou = round(bbox_iou(truth_result, result), 4)
+                iou_list.append(iou)
                 print("iou score: ", iou)
+                print("")
 
+iou_arr = np.asarray(iou_list)
+avg_iou = np.sum(iou_arr) / len(iou_arr)
+print("Average iou score: ", avg_iou)
 
                 
 
