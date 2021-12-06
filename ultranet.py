@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import os
+import random
 
 import torch
 import torch.nn as nn
@@ -464,80 +465,89 @@ def bbox_iou(box1, box2):
 
 
 img_count = 0
-max_images = 5
-dac_folders_path = "/work/shared/common/datasets/dac_dataset_original/*"
-folders = sorted(glob.glob(dac_folders_path))
+max_images = 2000
+dac_folders_path = "/work/shared/common/datasets/dac_dataset_original"
+folders = sorted(glob.glob(dac_folders_path+"/*"))
 iou_list = []
 
-for folder in folders:
+"""Use this set of loops to run sequentially over part or all of dataset"""
+#for folder in folders:
     # This if statement only uses boat1/ folder. Remove to use whole dataset
-    if folder == "/work/shared/common/datasets/dac_dataset_original/boat1":
-        for f in sorted(glob.glob(folder+"/*.jpg")):
+    #if folder == "/work/shared/common/datasets/dac_dataset_original/boat1":
+        #for f in sorted(glob.glob(folder+"/*.jpg")):
             # This if statement limits number of images tested. Remove to use whole dataset
-            if img_count < max_images:
-                img_count+=1
-                print(f)
-                truth_path = os.path.splitext(f)[0] + ".xml"
-                #print(truth_path)
-                image = load_image(f)
-                hcl_input = hcl.asarray(image)
-                f = build_ultranet_inf()
-                # Inference
-                f(
-                    hcl_input, 
-                    hcl_weight_conv1, hcl_weight_batchnorm1, hcl_bias_batchnorm1, hcl_running_mean_batchnorm1, hcl_running_var_batchnorm1,
-                    hcl_weight_conv2, hcl_weight_batchnorm2, hcl_bias_batchnorm2, hcl_running_mean_batchnorm2, hcl_running_var_batchnorm2,
-                    hcl_weight_conv3, hcl_weight_batchnorm3, hcl_bias_batchnorm3, hcl_running_mean_batchnorm3, hcl_running_var_batchnorm3, 
-                    hcl_weight_conv4, hcl_weight_batchnorm4, hcl_bias_batchnorm4, hcl_running_mean_batchnorm4, hcl_running_var_batchnorm4, 
-                    hcl_weight_conv5, hcl_weight_batchnorm5, hcl_bias_batchnorm5, hcl_running_mean_batchnorm5, hcl_running_var_batchnorm5, 
-                    hcl_weight_conv6, hcl_weight_batchnorm6, hcl_bias_batchnorm6, hcl_running_mean_batchnorm6, hcl_running_var_batchnorm6, 
-                    hcl_weight_conv7, hcl_weight_batchnorm7, hcl_bias_batchnorm7, hcl_running_mean_batchnorm7, hcl_running_var_batchnorm7, 
-                    hcl_weight_conv8, hcl_weight_batchnorm8, hcl_bias_batchnorm8, hcl_running_mean_batchnorm8, hcl_running_var_batchnorm8,
-                    hcl_out
-                )
-                np_input = hcl_input.asnumpy()
-                np_out = hcl_out.asnumpy()
+            #if img_count < max_images:
 
-                tensor_out = torch.tensor(np_out)
-                ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
+"""Use this while loop and next few lines for random access """
+while img_count < max_images:
+    random_folder = random.choice(os.listdir(dac_folders_path))
+    img_path = random.choice(glob.glob(dac_folders_path+"/" +random_folder+"/*.jpg"))
+    #print(os.path.join(dac_folders_path, random_folder, "/*.jpg"))
+    
+    
+    img_count+=1
+    #print(img_path)
+    truth_path = os.path.splitext(img_path)[0] + ".xml"
+    #print(truth_path)
+    image = load_image(img_path)
+    hcl_input = hcl.asarray(image)
+    f = build_ultranet_inf()
+    # Inference
+    f(
+        hcl_input, 
+        hcl_weight_conv1, hcl_weight_batchnorm1, hcl_bias_batchnorm1, hcl_running_mean_batchnorm1, hcl_running_var_batchnorm1,
+        hcl_weight_conv2, hcl_weight_batchnorm2, hcl_bias_batchnorm2, hcl_running_mean_batchnorm2, hcl_running_var_batchnorm2,
+        hcl_weight_conv3, hcl_weight_batchnorm3, hcl_bias_batchnorm3, hcl_running_mean_batchnorm3, hcl_running_var_batchnorm3, 
+        hcl_weight_conv4, hcl_weight_batchnorm4, hcl_bias_batchnorm4, hcl_running_mean_batchnorm4, hcl_running_var_batchnorm4, 
+        hcl_weight_conv5, hcl_weight_batchnorm5, hcl_bias_batchnorm5, hcl_running_mean_batchnorm5, hcl_running_var_batchnorm5, 
+        hcl_weight_conv6, hcl_weight_batchnorm6, hcl_bias_batchnorm6, hcl_running_mean_batchnorm6, hcl_running_var_batchnorm6, 
+        hcl_weight_conv7, hcl_weight_batchnorm7, hcl_bias_batchnorm7, hcl_running_mean_batchnorm7, hcl_running_var_batchnorm7, 
+        hcl_weight_conv8, hcl_weight_batchnorm8, hcl_bias_batchnorm8, hcl_running_mean_batchnorm8, hcl_running_var_batchnorm8,
+        hcl_out
+    )
+    np_input = hcl_input.asnumpy()
+    np_out = hcl_out.asnumpy()
 
-                img_size = np_input.shape[-2:]
-                yololayer = YOLOLayer([[20,20], [20,20], [20,20], [20,20], [20,20], [20,20]])
-                yolo_out = []
-                yolo_out.append(yololayer(ultranet_out, img_size))
-                io, p = zip(*yolo_out)  # inference output, training output
-                inf_out, train_out = torch.cat(io, 1), p
-                inf_out = inf_out.view(inf_out.shape[0], 6, -1)
-                inf_out_t = torch.zeros_like(inf_out[:, 0, :])
-                for i in range(inf_out.shape[1]):
-                    inf_out_t += inf_out[:, i, :]
-                inf_out_t = inf_out_t.view(inf_out_t.shape[0], -1, 6) / 6
+    tensor_out = torch.tensor(np_out)
+    ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
+    
+    img_size = np_input.shape[-2:]
+    yololayer = YOLOLayer([[20,20], [20,20], [20,20], [20,20], [20,20], [20,20]])
+    yolo_out = []
+    yolo_out.append(yololayer(ultranet_out, img_size))
+    io, p = zip(*yolo_out)  # inference output, training output
+    inf_out, train_out = torch.cat(io, 1), p
+    inf_out = inf_out.view(inf_out.shape[0], 6, -1)
+    inf_out_t = torch.zeros_like(inf_out[:, 0, :])
+    for i in range(inf_out.shape[1]):
+        inf_out_t += inf_out[:, i, :]
+    inf_out_t = inf_out_t.view(inf_out_t.shape[0], -1, 6) / 6
 
-                pre_box = get_boxes(inf_out_t[..., :4], inf_out_t[..., 4])
-                pre_box = pre_box[..., :4] * torch.Tensor([raw_width/width, raw_height/height, raw_width/width, raw_height/height]).to('cpu')
-                result = list()
-                for box in pre_box:
-                    xmin = box[0] - box[2] / 2
-                    xmax = box[0] + box[2] / 2
-                    ymin = box[1] - box[3] / 2
-                    ymax = box[1] + box[3] / 2
-                    result = [int(xmin), int(ymin), int(xmax), int(ymax)]
-                print("bounding box in (xmin, ymin, xmax, ymax) format: ", result)
+    pre_box = get_boxes(inf_out_t[..., :4], inf_out_t[..., 4])
+    pre_box = pre_box[..., :4] * torch.Tensor([raw_width/width, raw_height/height, raw_width/width, raw_height/height]).to('cpu')
+    result = list()
+    for box in pre_box:
+        xmin = box[0] - box[2] / 2
+        xmax = box[0] + box[2] / 2
+        ymin = box[1] - box[3] / 2
+        ymax = box[1] + box[3] / 2
+        result = [int(xmin), int(ymin), int(xmax), int(ymax)]
+    #print("bounding box in (xmin, ymin, xmax, ymax) format: ", result)
 
-                xml_tree = xml.etree.ElementTree.parse(truth_path)
-                root = xml_tree.getroot()
+    xml_tree = xml.etree.ElementTree.parse(truth_path)
+    root = xml_tree.getroot()
 
-                name = ""
-                truth_result = {'Xmin': 0, 'Ymin' : 0, 'Xmax' : 0, 'Ymax' : 0} 
+    name = ""
+    truth_result = {'Xmin': 0, 'Ymin' : 0, 'Xmax' : 0, 'Ymax' : 0} 
 
-                recursive(root, 0, truth_result)
-                print("truth for ", name, "is: ", truth_result)
-
-                truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']] # (xmin, ymin, xmax, ymax) format
-                iou = round(bbox_iou(truth_result, result), 4)
-                iou_list.append(iou)
-                print("iou score: ", iou)
-                print("")
+    recursive(root, 0, truth_result)
+    #print("truth for ", name, "is: ", truth_result)
+    
+    truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']] # (xmin, ymin, xmax, ymax) format
+    iou = round(bbox_iou(truth_result, result), 4)
+    iou_list.append(iou)
+    print(img_path, " iou score: ", iou)
+    #print("")
 
 iou_arr = np.asarray(iou_list)
 avg_iou = np.sum(iou_arr) / len(iou_arr)
