@@ -465,10 +465,12 @@ def bbox_iou(box1, box2):
 
 
 img_count = 0
-max_images = 2000
+max_images = 20
 dac_folders_path = "/work/shared/common/datasets/dac_dataset_original"
 folders = sorted(glob.glob(dac_folders_path+"/*"))
 iou_list = []
+
+f = build_ultranet_inf()
 
 """Use this set of loops to run sequentially over part or all of dataset"""
 #for folder in folders:
@@ -491,7 +493,7 @@ while img_count < max_images:
     #print(truth_path)
     image = load_image(img_path)
     hcl_input = hcl.asarray(image)
-    f = build_ultranet_inf()
+    
     # Inference
     f(
         hcl_input, 
