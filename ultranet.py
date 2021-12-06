@@ -6,12 +6,18 @@ import torch.nn as nn
 
 import heterocl as hcl
 from ultranet_functions import conv2d
-from ultranet_functions import relu
+from ultranet_functions import relu, relu_fixed
 from ultranet_functions import maxpool2d
 from ultranet_functions import batchnorm2d
 from weight_quant import weight_quantize_fn
 
-hcl.init(hcl.Float())
+###############################################################################
+# Define Data Types
+###############################################################################
+hcl.init(hcl.Float(32))
+input_dtype = hcl.Fixed(8, 4)
+weight_dtype = hcl.Fixed(8, 4)
+act_dtype = hcl.Fixed(8, 4)
 
 ###############################################################################
 # Define parameters and images
@@ -39,12 +45,12 @@ def load_image(image_path):
 ###############################################################################
 # Define input
 ###############################################################################
-hcl_input = hcl.asarray(load_image(image_path))
+hcl_input = hcl.asarray(load_image(image_path), dtype=input_dtype)
 
 ###############################################################################
 # build inference model
 ###############################################################################
-def build_ultranet(
+def ultranet(
         input_image, 
         weight_conv1, weight_batchnorm1, bias_batchnorm1, running_mean_batchnorm1, running_var_batchnorm1, 
         weight_conv2, weight_batchnorm2, bias_batchnorm2, running_mean_batchnorm2, running_var_batchnorm2,
@@ -99,61 +105,62 @@ def build_ultranet(
     batchnorm8 = batchnorm2d(conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8, name="batch_norm8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
     relu8 = relu(batchnorm8, name="relu8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
 
-    return relu8
+    # return relu8
+    return hcl.compute(relu8.shape, lambda *x : hcl.cast(hcl.Float(32), relu8[x]), name='result', dtype=hcl.Float(32))
 
 def build_ultranet_inf(batch_size=batch_size, target=None):
     # set up input/output placeholders
-    input_image = hcl.placeholder((batch_size, 3, 160, 320), "input_image")
+    input_image = hcl.placeholder((batch_size, 3, 160, 320), dtype=input_dtype, name="input_image")
 
-    weight_conv1 = hcl.placeholder((16, 3, 3, 3), "weight_conv1") # 3 in, 16 out
+    weight_conv1 = hcl.placeholder((16, 3, 3, 3), dtype=weight_dtype, name="weight_conv1") # 3 in, 16 out
     weight_batchnorm1 = hcl.placeholder((16,), "weight_batchnorm1")
     bias_batchnorm1 = hcl.placeholder((16,), "bias_batchnorm1") 
     running_mean_batchnorm1 = hcl.placeholder((16,), "running_mean_batchnorm1") 
     running_var_batchnorm1 = hcl.placeholder((16,), "running_var_batchnorm1")
 
-    weight_conv2 = hcl.placeholder((32, 16, 3, 3), "weight_conv2") # 16 in, 32 out
+    weight_conv2 = hcl.placeholder((32, 16, 3, 3), dtype=weight_dtype, name="weight_conv2") # 16 in, 32 out
     weight_batchnorm2 = hcl.placeholder((32,), "weight_batchnorm2")
     bias_batchnorm2 = hcl.placeholder((32,), "bias_batchnorm2") 
     running_mean_batchnorm2 = hcl.placeholder((32,), "running_mean_batchnorm2") 
     running_var_batchnorm2 = hcl.placeholder((32,), "running_var_batchnorm2")
 
-    weight_conv3 = hcl.placeholder((64, 32, 3, 3), "weight_conv3") # 32 in, 64 out
+    weight_conv3 = hcl.placeholder((64, 32, 3, 3), dtype=weight_dtype, name="weight_conv3") # 32 in, 64 out
     weight_batchnorm3 = hcl.placeholder((64,), "weight_batchnorm3")
     bias_batchnorm3 = hcl.placeholder((64,), "bias_batchnorm3") 
     running_mean_batchnorm3 = hcl.placeholder((64,), "running_mean_batchnorm3") 
     running_var_batchnorm3 = hcl.placeholder((64,), "running_var_batchnorm3")
 
-    weight_conv4 = hcl.placeholder((64, 64, 3, 3), "weight_conv4") # 64 in, 64 out
+    weight_conv4 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv4") # 64 in, 64 out
     weight_batchnorm4 = hcl.placeholder((64,), "weight_batchnorm4")
     bias_batchnorm4 = hcl.placeholder((64,), "bias_batchnorm4") 
     running_mean_batchnorm4 = hcl.placeholder((64,), "running_mean_batchnorm4") 
     running_var_batchnorm4 = hcl.placeholder((64,), "running_var_batchnorm4")
 
-    weight_conv5 = hcl.placeholder((64, 64, 3, 3), "weight_conv5") # 64 in, 64 out
+    weight_conv5 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv5") # 64 in, 64 out
     weight_batchnorm5 = hcl.placeholder((64,), "weight_batchnorm5")
     bias_batchnorm5 = hcl.placeholder((64,), "bias_batchnorm5") 
     running_mean_batchnorm5 = hcl.placeholder((64,), "running_mean_batchnorm5") 
     running_var_batchnorm5 = hcl.placeholder((64,), "running_var_batchnorm5")
 
-    weight_conv6 = hcl.placeholder((64, 64, 3, 3), "weight_conv6") # 64 in, 64 out
+    weight_conv6 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv6") # 64 in, 64 out
     weight_batchnorm6 = hcl.placeholder((64,), "weight_batchnorm6")
     bias_batchnorm6 = hcl.placeholder((64,), "bias_batchnorm6") 
     running_mean_batchnorm6 = hcl.placeholder((64,), "running_mean_batchnorm6") 
     running_var_batchnorm6 = hcl.placeholder((64,), "running_var_batchnorm6")
 
-    weight_conv7 = hcl.placeholder((64, 64, 3, 3), "weight_conv7") # 64 in, 64 out
+    weight_conv7 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv7") # 64 in, 64 out
     weight_batchnorm7 = hcl.placeholder((64,), "weight_batchnorm7")
     bias_batchnorm7 = hcl.placeholder((64,), "bias_batchnorm7") 
     running_mean_batchnorm7 = hcl.placeholder((64,), "running_mean_batchnorm7") 
     running_var_batchnorm7 = hcl.placeholder((64,), "running_var_batchnorm7")
 
-    weight_conv8 = hcl.placeholder((64, 64, 3, 3), "weight_conv8") # 64 in, 64 out
+    weight_conv8 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv8") # 64 in, 64 out
     weight_batchnorm8 = hcl.placeholder((64,), "weight_batchnorm8")
     bias_batchnorm8 = hcl.placeholder((64,), "bias_batchnorm8") 
     running_mean_batchnorm8 = hcl.placeholder((64,), "running_mean_batchnorm8") 
     running_var_batchnorm8 = hcl.placeholder((64,), "running_var_batchnorm8")
 
-    s = hcl.create_schedule(
+    sm = hcl.create_scheme(
         [input_image, 
         weight_conv1, weight_batchnorm1, bias_batchnorm1, running_mean_batchnorm1, running_var_batchnorm1, 
         weight_conv2, weight_batchnorm2, bias_batchnorm2, running_mean_batchnorm2, running_var_batchnorm2, 
@@ -163,8 +170,20 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
         weight_conv6, weight_batchnorm6, bias_batchnorm6, running_mean_batchnorm6, running_var_batchnorm6, 
         weight_conv7, weight_batchnorm7, bias_batchnorm7, running_mean_batchnorm7, running_var_batchnorm7, 
         weight_conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8], 
-        build_ultranet
+        ultranet
     )
+
+    # quantize activations
+    act_dtype = hcl.Fixed(4,3)
+    # sm.quantize(ultranet.relu1, act_dtype)
+    # sm.quantize(ultranet.relu2, act_dtype)
+    # sm.quantize(ultranet.relu3, act_dtype)
+    # sm.quantize(ultranet.relu4, act_dtype)
+    # sm.quantize(ultranet.relu5, act_dtype)
+    # sm.quantize(ultranet.relu6, act_dtype)
+    # sm.quantize(ultranet.relu7, act_dtype)
+    # sm.quantize(ultranet.relu8, act_dtype)
+    s = hcl.create_schedule_from_scheme(sm, "main")
     return hcl.build(s, target=target)
 
 f = build_ultranet_inf()
@@ -292,49 +311,49 @@ batchnorm8_running_var = params[39]
 ###############################################################################
 # convert weights into hcl
 ###############################################################################
-hcl_weight_conv1 = hcl.asarray(conv1_weight.astype(float))
+hcl_weight_conv1 = hcl.asarray(conv1_weight.astype(float), dtype=weight_dtype)
 hcl_weight_batchnorm1 = hcl.asarray(batchnorm1_weight.astype(float))
 hcl_bias_batchnorm1 = hcl.asarray(batchnorm1_bias.astype(float))
 hcl_running_mean_batchnorm1 = hcl.asarray(batchnorm1_running_mean.astype(float))
 hcl_running_var_batchnorm1 = hcl.asarray(batchnorm1_running_var.astype(float))
 
-hcl_weight_conv2 = hcl.asarray(conv2_weight.astype(float))
+hcl_weight_conv2 = hcl.asarray(conv2_weight.astype(float), dtype=weight_dtype)
 hcl_weight_batchnorm2 = hcl.asarray(batchnorm2_weight.astype(float))
 hcl_bias_batchnorm2 = hcl.asarray(batchnorm2_bias.astype(float))
 hcl_running_mean_batchnorm2 = hcl.asarray(batchnorm2_running_mean.astype(float))
 hcl_running_var_batchnorm2 = hcl.asarray(batchnorm2_running_var.astype(float))
 
-hcl_weight_conv3 = hcl.asarray(conv3_weight.astype(float))
+hcl_weight_conv3 = hcl.asarray(conv3_weight.astype(float), dtype=weight_dtype)
 hcl_weight_batchnorm3 = hcl.asarray(batchnorm3_weight.astype(float))
 hcl_bias_batchnorm3 = hcl.asarray(batchnorm3_bias.astype(float))
 hcl_running_mean_batchnorm3 = hcl.asarray(batchnorm3_running_mean.astype(float))
 hcl_running_var_batchnorm3 = hcl.asarray(batchnorm3_running_var.astype(float))
 
-hcl_weight_conv4 = hcl.asarray(conv4_weight.astype(float))
+hcl_weight_conv4 = hcl.asarray(conv4_weight.astype(float), dtype=weight_dtype)
 hcl_weight_batchnorm4 = hcl.asarray(batchnorm4_weight.astype(float))
 hcl_bias_batchnorm4 = hcl.asarray(batchnorm4_bias.astype(float))
 hcl_running_mean_batchnorm4 = hcl.asarray(batchnorm4_running_mean.astype(float))
 hcl_running_var_batchnorm4 = hcl.asarray(batchnorm4_running_var.astype(float))
 
-hcl_weight_conv5 = hcl.asarray(conv5_weight.astype(float))
+hcl_weight_conv5 = hcl.asarray(conv5_weight.astype(float), dtype=weight_dtype)
 hcl_weight_batchnorm5 = hcl.asarray(batchnorm5_weight.astype(float))
 hcl_bias_batchnorm5 = hcl.asarray(batchnorm5_bias.astype(float))
 hcl_running_mean_batchnorm5 = hcl.asarray(batchnorm5_running_mean.astype(float))
 hcl_running_var_batchnorm5 = hcl.asarray(batchnorm5_running_var.astype(float))
 
-hcl_weight_conv6 = hcl.asarray(conv6_weight.astype(float))
+hcl_weight_conv6 = hcl.asarray(conv6_weight.astype(float), dtype=weight_dtype)
 hcl_weight_batchnorm6 = hcl.asarray(batchnorm6_weight.astype(float))
 hcl_bias_batchnorm6 = hcl.asarray(batchnorm6_bias.astype(float))
 hcl_running_mean_batchnorm6 = hcl.asarray(batchnorm6_running_mean.astype(float))
 hcl_running_var_batchnorm6 = hcl.asarray(batchnorm6_running_var.astype(float))
 
-hcl_weight_conv7 = hcl.asarray(conv7_weight.astype(float))
+hcl_weight_conv7 = hcl.asarray(conv7_weight.astype(float), dtype=weight_dtype)
 hcl_weight_batchnorm7 = hcl.asarray(batchnorm7_weight.astype(float))
 hcl_bias_batchnorm7 = hcl.asarray(batchnorm7_bias.astype(float))
 hcl_running_mean_batchnorm7 = hcl.asarray(batchnorm7_running_mean.astype(float))
 hcl_running_var_batchnorm7 = hcl.asarray(batchnorm7_running_var.astype(float))
 
-hcl_weight_conv8 = hcl.asarray(conv8_weight.astype(float))
+hcl_weight_conv8 = hcl.asarray(conv8_weight.astype(float), dtype=weight_dtype)
 hcl_weight_batchnorm8 = hcl.asarray(batchnorm8_weight.astype(float))
 hcl_bias_batchnorm8 = hcl.asarray(batchnorm8_bias.astype(float))
 hcl_running_mean_batchnorm8 = hcl.asarray(batchnorm8_running_mean.astype(float))

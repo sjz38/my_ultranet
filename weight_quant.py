@@ -4,7 +4,8 @@ class uniform_quantize():
     def __init__(self, k):
         self.k = k
     def __call__(self, input):
-        n = float(2 ** self.k  - 1)
+        n = float(2 ** self.k)
+        # n = float(2 ** self.k  - 1)
         out = np.round(input * n) / n
         return out
 

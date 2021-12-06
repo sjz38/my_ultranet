@@ -52,8 +52,7 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
 ###############################################################################
 # layer definitions
 ###############################################################################
-def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]]):
-    out_dtype = Input.dtype
+def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], out_dtype=hcl.Fixed(16,8)):
     batch, in_channel, in_height, in_width = Input.shape
     num_filter, channel, kernel_h, kernel_w = Filter.shape
     stride_h, stride_w = stride
@@ -91,19 +90,31 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]]):
             ('app_name', tvm.make.StringImm('cnn'))]))
 
 # simple ReLU, equivalent to act_f() when quant is none
-def relu(data, name='relu', out_bit=4):
+def relu_quant(data, name='relu', out_bit=4):
     x0 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), 'x0')
     x1 = hcl.compute(x0.shape, lambda *y: hcl.select(x0[y] > 1, hcl.cast(x0.dtype, 1), x0[y]), 'x1')
-    x2 = hcl.compute(x1.shape, lambda *y : x1[y] * 15.0 + 0.5, 'x2')
+    x2 = hcl.compute(x1.shape, lambda *y : x1[y] * 16.0 + 0.5, 'x2')
     x3 = hcl.compute(x2.shape, lambda *y: hcl.cast(x2.dtype, hcl.cast(hcl.Int(32), x2[y])), 'x3')
-    x4 = hcl.compute(x3.shape, lambda *y: x3[y] / 15.0, name)
+    x4 = hcl.compute(x3.shape, lambda *y: x3[y] / 16.0, name)
     return x4
+
+def relu_float(data, name='relu'):
+    return hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name=name)
+
+def relu_fixed(data, name='relu', inter_dtype=hcl.Fixed(8,4), out_dtype=hcl.Fixed(4,4)):
+    x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name='x1', dtype=inter_dtype)
+    x2 = hcl.compute(x1.shape, lambda *y: hcl.select(x1[y] > 1, hcl.cast(data.dtype, 1), x1[y]), name=name, dtype=inter_dtype)
+    # return hcl.compute(x2.shape, lambda *y: x2[y], dtype=out_dtype, name=name)
+    return x2
+
+def relu(data, name='relu'):
+    return relu_fixed(data, name)
 
 # maxpool 2d, pytorch uses NCHW so this function will as well
 def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
     pooling = pool_size
     max = hcl.reducer(
-        tvm.min_value(data.dtype),
+        0,
         lambda x, y: tvm.make.Max(x, y),
         data.dtype)
     pooling_h = pooling_w = pooling
@@ -114,7 +125,7 @@ def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
     pad_before = [0, 0, pad_top, pad_left]
     pad_after = [0, 0, pad_bottom, pad_right]
     
-    data = pad(data, pad_before, pad_after, pad_value=tvm.min_value(data.dtype))
+    data = pad(data, pad_before, pad_after, pad_value=0)
     out_height = simplify((height - pooling_h + pad_top + pad_bottom) // stride_h + 1)
     out_width = simplify((width - pooling_w + pad_left + pad_right) // stride_w + 1)
     dheight = hcl.reduce_axis(0, pooling_h)
@@ -138,11 +149,16 @@ def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
             ('app_name', tvm.make.StringImm('max_pool'))]))
 
 # batch normalization
-def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10**-7, name="batch_norm"):
+def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10**-7, name="batch_norm", inter_dtype=hcl.Fixed(16,8), out_dtype=hcl.Fixed(16,8)):
     def get_axis(axis, *indices):
         indices = list(indices[0])
         return (indices[axis],)
-    out = hcl.compute(data.shape, lambda *x: (data[x] - moving_mean[get_axis(axis, x)]) /
-                    (hcl.sqrt(moving_var[get_axis(axis, x)] + epsilon)) * gamma[get_axis(axis, x)]
-                    + beta[get_axis(axis, x)], name=name, dtype=data.dtype)
+    x1 = hcl.compute(data.shape, lambda *x : data[x] - moving_mean[get_axis(axis, x)], dtype=inter_dtype, name='x1')
+    x2 = hcl.compute(data.shape, lambda *x : hcl.sqrt(moving_var[get_axis(axis, x)] + epsilon), dtype=inter_dtype, name='x2')
+    x3 = hcl.compute(data.shape, lambda *x : x1[x] / x2[x] * gamma[get_axis(axis, x)], dtype=inter_dtype, name='x3')
+    out = hcl.compute(data.shape, lambda *x : x3[x] + beta[get_axis(axis, x)], dtype=out_dtype, name=name)
     return out
+    # out = hcl.compute(data.shape, lambda *x: (data[x] - moving_mean[get_axis(axis, x)]) /
+    #                 (hcl.sqrt(moving_var[get_axis(axis, x)] + epsilon)) * gamma[get_axis(axis, x)]
+    #                 + beta[get_axis(axis, x)], name=name, dtype=out_dtype)
+    # return out
