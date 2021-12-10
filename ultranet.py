@@ -19,6 +19,7 @@ hcl.init(hcl.Float())
 
 image_path = './example_images/example_2.jpg'
 truth_path = './example_images/example_2.xml'
+output_path = './outputs/'
 
 raw_height = 360
 raw_width = 640
@@ -521,3 +522,15 @@ def bbox_iou(box1, box2):
 truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']] # (xmin, ymin, xmax, ymax) format
 iou = round(bbox_iou(truth_result, result), 4)
 print("iou score: ", iou)
+
+###############################################################################
+# create bounding boxes
+###############################################################################
+
+original_image = cv2.imread(image_path)
+pred_color = (255, 0, 0) # Blue
+actual_color = (0, 0, 255) # Red
+image = cv2.rectangle(original_image,(result[0], result[1]),(result[2],result[3]), pred_color ,2) # add prediction bounding box
+image = cv2.rectangle(original_image,(truth_result[0], truth_result[1]),(truth_result[2],truth_result[3]), actual_color ,2) # add prediction bounding box
+
+cv2.imwrite(output_path + 'output.png', image)
