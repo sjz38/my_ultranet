@@ -1,0 +1,16 @@
+<annotation>
+    <filename>720 (15)_0709</filename>
+    <size>
+        <width>640</width>
+        <height>360</height>
+    </size>
+    <object>
+        <name>car24</name>
+        <bndbox>
+            <xmin>192</xmin>
+            <ymin>82</ymin>
+            <xmax>212</xmax>
+            <ymax>104</ymax>
+        </bndbox>
+    </object>
+</annotation>

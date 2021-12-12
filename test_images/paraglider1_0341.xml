@@ -1,0 +1,16 @@
+<annotation>
+    <filename>0341</filename>
+    <size>
+        <width>640</width>
+        <height>360</height>
+    </size>
+    <object>
+        <name>paraglider1</name>
+        <bndbox>
+            <xmin>257</xmin>
+            <ymin>133</ymin>
+            <xmax>284</xmax>
+            <ymax>188</ymax>
+        </bndbox>
+    </object>
+</annotation>

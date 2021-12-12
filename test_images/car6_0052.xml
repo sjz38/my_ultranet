@@ -1,0 +1,16 @@
+<annotation>
+    <filename>0052</filename>
+    <size>
+        <width>640</width>
+        <height>360</height>
+    </size>
+    <object>
+        <name>car6</name>
+        <bndbox>
+            <xmin>328</xmin>
+            <ymin>199</ymin>
+            <xmax>357</xmax>
+            <ymax>244</ymax>
+        </bndbox>
+    </object>
+</annotation>
