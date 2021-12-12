@@ -1,11 +1,17 @@
+###############################################################################
+# imports
+###############################################################################
+
 import heterocl as hcl
 import heterocl.tvm as tvm
 from collections import OrderedDict
-import numpy as np
+
+
 
 ###############################################################################
-# helpers
+# helper functions
 ###############################################################################
+
 def simplify(expr):
     return tvm.ir_pass.Simplify(expr) if isinstance(expr, tvm.expr.Expr) else expr
 
@@ -49,9 +55,14 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
 
     return hcl.compute(out_shape, _pad, name=name)
 
+
+
 ###############################################################################
-# layer definitions
+# conv2d computation layer
+# this function is the heteroCL equivalent of the torch.nn.Conv2d function 
+# in the PyTorch library. 
 ###############################################################################
+
 def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]]):
     out_dtype = Input.dtype
     batch, in_channel, in_height, in_width = Input.shape
@@ -90,7 +101,14 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]]):
             ('filter_dtype', tvm.make.StringImm(Filter.dtype)),
             ('app_name', tvm.make.StringImm('cnn'))]))
 
-# simple ReLU, equivalent to act_f() when quant is none
+
+
+###############################################################################
+# ReLU computation layer
+# this function is the heteroCL equivalent of the torch.nn.ReLU function 
+# in the PyTorch library. 
+###############################################################################
+
 def relu(data, name='relu', out_bit=4):
     x0 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), 'x0')
     x1 = hcl.compute(x0.shape, lambda *y: hcl.select(x0[y] > 1, hcl.cast(x0.dtype, 1), x0[y]), 'x1')
@@ -99,7 +117,14 @@ def relu(data, name='relu', out_bit=4):
     x4 = hcl.compute(x3.shape, lambda *y: x3[y] / 15.0, name)
     return x4
 
-# maxpool 2d, pytorch uses NCHW so this function will as well
+
+
+###############################################################################
+# MaxPool2d computation layer
+# this function is the heteroCL equivalent of the torch.nn.MaxPool2d function 
+# in the PyTorch library. 
+###############################################################################
+
 def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
     pooling = pool_size
     max = hcl.reducer(
@@ -137,7 +162,14 @@ def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
             ('stride_w', stride),
             ('app_name', tvm.make.StringImm('max_pool'))]))
 
-# batch normalization
+
+
+###############################################################################
+# BatchNorm2d computation layer
+# this function is the heteroCL equivalent of the torch.nn.BatchNorm2d function 
+# in the PyTorch library. 
+###############################################################################
+
 def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10**-7, name="batch_norm"):
     def get_axis(axis, *indices):
         indices = list(indices[0])
