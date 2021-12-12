@@ -1,3 +1,30 @@
+################################################################################
+# This HeteroCL-implementation of the Ultranet object detection model performs 
+# inference on the 2020 DAC System Design Contest 
+# (https://dac-sdc-2020.groups.et.byu.net/doku.php?id=start)
+# 
+# The original, PyTorch model was designed by the BJUT_runner Group
+# (https://github.com/heheda365/ultra_net)
+#
+# Below are parameters that should be modified appropriately:
+# Set CREATE_BBOX: 
+#   True to save images with predicted and true bboxes
+#   False to not save images with predicted and true bboxes
+# Set FULL_TEST:
+#   True to perform inference on the full testing dataset
+#   False to perform inference on a small, randomized part of testing dataset
+################################################################################
+
+CREATE_BBOX = True
+FULL_TEST = False
+max_images = 3 # maximum number to test if not performing FULL TEST
+
+
+
+###############################################################################
+# imports
+###############################################################################
+
 import numpy as np
 import cv2
 import glob
@@ -13,41 +40,40 @@ from ultranet_functions import maxpool2d
 from ultranet_functions import batchnorm2d
 from weight_quant import weight_quantize_fn
 
-################################################################################
-# Set FULL_TEST to:
-#   True to perform inference on the full testing dataset
-#   False to perform inference on a small, randomized part of testing dataset
-# Set CREATE_BBOX to: 
-#   True to save images with predicted and true bboxes
-#   False to not save images with predicted and true bboxes
-################################################################################
 
-FULL_TEST = False
-max_images = 2000 # maximum number to test if not performing FULL TEST
-
-CREATE_BBOX = False
 
 ###############################################################################
 # Define parameters
+# the test_path directory holds all image-xml pairs from the test dataset
+# the output_path directory is where images with prediction and truth boxes are saved
 ###############################################################################
 
+# directories
 test_path = './test_images'
-output_path = './outputs' # SAVES IMAGES TO THIS PATH
+output_path = './outputs'
 
+# colors for bounding boxes
 pred_color = (255, 0, 0) # Blue
 actual_color = (0, 0, 255) # Red
 
+# image parameters
 raw_height = 360
 raw_width = 640
 width = 320
 height = 160
 batch_size = 1
 
+# data type customizations
 hcl.init(hcl.Float())
 W_BIT = 4
 weight_quantizer = weight_quantize_fn(W_BIT)
 
-# loads and resizes a single image
+
+
+###############################################################################
+# image preprocessing and loading
+###############################################################################
+
 def load_image(image_path):
     image = cv2.imread(str(image_path))
     image = cv2.resize(image, (width, height), interpolation=cv2.INTER_LINEAR)
@@ -57,10 +83,13 @@ def load_image(image_path):
     assert image.shape == (batch_size, 3, height, width)
     return image
 
+
+
 ###############################################################################
-# build inference model
+# Ultranet backbone definiton
 ###############################################################################
-def build_ultranet(
+
+def ultranet(
         input_image, 
         weight_conv1, weight_batchnorm1, bias_batchnorm1, running_mean_batchnorm1, running_var_batchnorm1, 
         weight_conv2, weight_batchnorm2, bias_batchnorm2, running_mean_batchnorm2, running_var_batchnorm2,
@@ -116,6 +145,12 @@ def build_ultranet(
     relu8 = relu(batchnorm8, name="relu8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
 
     return relu8
+
+
+
+###############################################################################
+# inference model building
+###############################################################################
 
 def build_ultranet_inf(batch_size=batch_size, target=None):
     # set up input/output placeholders
@@ -179,13 +214,16 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
         weight_conv6, weight_batchnorm6, bias_batchnorm6, running_mean_batchnorm6, running_var_batchnorm6, 
         weight_conv7, weight_batchnorm7, bias_batchnorm7, running_mean_batchnorm7, running_var_batchnorm7, 
         weight_conv8, weight_batchnorm8, bias_batchnorm8, running_mean_batchnorm8, running_var_batchnorm8], 
-        build_ultranet
+        ultranet
     )
     return hcl.build(s, target=target)
+
+
 
 ###############################################################################
 # Import weights
 ###############################################################################
+
 def load_np_params(ptname):
 
     loaded = torch.load(ptname, map_location='cpu')
@@ -248,8 +286,6 @@ def load_np_params(ptname):
     batchnorm8_running_mean = model['layers.26.running_mean'].numpy()
     batchnorm8_running_var = model['layers.26.running_var'].numpy()
 
-    print("Weights loaded from " + ptname)
-
     return [
         conv1_weight, batchnorm1_weight, batchnorm1_bias, batchnorm1_running_mean, batchnorm1_running_var, 
         conv2_weight, batchnorm2_weight, batchnorm2_bias, batchnorm2_running_mean, batchnorm2_running_var,
@@ -261,47 +297,17 @@ def load_np_params(ptname):
         conv8_weight, batchnorm8_weight, batchnorm8_bias, batchnorm8_running_mean, batchnorm8_running_var
     ]
 
-params = load_np_params('ultranet_4w4a.pt')
-conv1_weight = params[0]
-batchnorm1_weight = params[1]
-batchnorm1_bias = params[2]
-batchnorm1_running_mean = params[3]
-batchnorm1_running_var = params[4] 
-conv2_weight = params[5]
-batchnorm2_weight = params[6] 
-batchnorm2_bias = params[7]
-batchnorm2_running_mean = params[8] 
-batchnorm2_running_var = params[9]
-conv3_weight = params[10]
-batchnorm3_weight = params[11]
-batchnorm3_bias = params[12]
-batchnorm3_running_mean = params[13]
-batchnorm3_running_var = params[14]
-conv4_weight = params[15]
-batchnorm4_weight = params[16]
-batchnorm4_bias = params[17]
-batchnorm4_running_mean = params[18]
-batchnorm4_running_var = params[19]
-conv5_weight = params[20]
-batchnorm5_weight = params[21]
-batchnorm5_bias = params[22]
-batchnorm5_running_mean = params[23]
-batchnorm5_running_var = params[24]
-conv6_weight = params[25]
-batchnorm6_weight = params[26]
-batchnorm6_bias = params[27]
-batchnorm6_running_mean = params[28]
-batchnorm6_running_var = params[29]
-conv7_weight = params[30]
-batchnorm7_weight = params[31]
-batchnorm7_bias = params[32]
-batchnorm7_running_mean = params[33]
-batchnorm7_running_var = params[34]
-conv8_weight = params[35]
-batchnorm8_weight = params[36]
-batchnorm8_bias = params[37]
-batchnorm8_running_mean = params[38]
-batchnorm8_running_var = params[39]
+# assign imported weights
+[
+    conv1_weight, batchnorm1_weight, batchnorm1_bias, batchnorm1_running_mean, batchnorm1_running_var,
+    conv2_weight, batchnorm2_weight, batchnorm2_bias, batchnorm2_running_mean, batchnorm2_running_var,
+    conv3_weight, batchnorm3_weight, batchnorm3_bias, batchnorm3_running_mean, batchnorm3_running_var, 
+    conv4_weight, batchnorm4_weight, batchnorm4_bias, batchnorm4_running_mean, batchnorm4_running_var,
+    conv5_weight, batchnorm5_weight, batchnorm5_bias, batchnorm5_running_mean, batchnorm5_running_var,
+    conv6_weight, batchnorm6_weight, batchnorm6_bias, batchnorm6_running_mean, batchnorm6_running_var,
+    conv7_weight, batchnorm7_weight, batchnorm7_bias, batchnorm7_running_mean, batchnorm7_running_var,
+    conv8_weight, batchnorm8_weight, batchnorm8_bias, batchnorm8_running_mean, batchnorm8_running_var
+] = load_np_params('ultranet_4w4a.pt')
 
 # YOLO & last convolutions using pytorch
 model = torch.load('ultranet_4w4a.pt', map_location='cpu')['model']
@@ -310,9 +316,12 @@ yolo_weight = weight_quantizer(yolo_weight)
 yolo_weight = torch.tensor(yolo_weight)
 yolo_bias = model['layers.28.bias']
 
+
+
 ###############################################################################
-# convert weights into hcl
+# conversion of weights into hcl
 ###############################################################################
+
 hcl_weight_conv1 = hcl.asarray(conv1_weight.astype(float))
 hcl_weight_batchnorm1 = hcl.asarray(batchnorm1_weight.astype(float))
 hcl_bias_batchnorm1 = hcl.asarray(batchnorm1_bias.astype(float))
@@ -363,8 +372,10 @@ hcl_running_var_batchnorm8 = hcl.asarray(batchnorm8_running_var.astype(float))
 
 hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)))
 
+
+
 ###############################################################################
-# YOLO Layer
+# YOLO Layer (directly from https://github.com/heheda365/ultra_net)
 ###############################################################################
 
 def create_grids(self, img_size=416, ng=(13, 13), device='cpu', type=torch.float32):
@@ -417,8 +428,10 @@ def get_boxes(pred_boxes, pred_conf):
 
     return p_boxes
 
+
+
 ###############################################################################
-# read ground truth function
+# read ground truths from xml files
 ###############################################################################
 name = ""
 
@@ -434,8 +447,10 @@ def recursive(element, indent, truth_result):
     for child in element_children:
         recursive(child, indent + 4, truth_result)
 
+
+
 ###############################################################################
-# calculate IoU
+# calculate IoU (directly from https://github.com/heheda365/ultra_net)
 ###############################################################################
 
 def bbox_iou(box1, box2):
@@ -470,9 +485,12 @@ def bbox_iou(box1, box2):
 
     return iou.item()
 
+
+
 ###############################################################################
-# Inference
+# perform inference
 ###############################################################################
+
 f = build_ultranet_inf()
 
 iou_list = []
