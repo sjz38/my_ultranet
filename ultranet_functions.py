@@ -47,7 +47,10 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
             return tvm.select(not_zero, data[tuple(index_tuple)], pad_value)
         return data[tuple(index_tuple)]
 
-    return hcl.compute(out_shape, _pad, name=name)
+    # Use this for CPU backend
+    # return hcl.compute(out_shape, _pad, name=name)
+    # Use this for HLS backend
+    return hcl.compute(out_shape, _pad, dtype=data.dtype, name=name)
 
 ###############################################################################
 # layer definitions
@@ -65,7 +68,7 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], ou
     pad_before = [0, 0, pad_top, pad_left]
     pad_after = [0, 0, pad_down, pad_right]
     if padding != [[0,0],[0,0]]:
-        Input = pad(Input, pad_before, pad_after)
+        Input = pad(Input, pad_before, pad_after, name=name+"_pad")
     rc = hcl.reduce_axis(0, in_channel)
     ry = hcl.reduce_axis(0, kernel_h)
     rx = hcl.reduce_axis(0, kernel_w)
@@ -91,9 +94,16 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], ou
 
 
 def relu(data, name='relu'):
-    x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name='x1')
-    x2 = hcl.compute(x1.shape, lambda *y: hcl.select(x1[y] > 1, hcl.cast(data.dtype, 1), x1[y]), name=name)
-    return x2
+    # CPU Backend
+    # x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name=name+'_x1')
+    # x2 = hcl.compute(x1.shape, lambda *y: hcl.select(x1[y] > 1, hcl.cast(data.dtype, 1), x1[y]), name=name)
+    # return x2
+    # HLS Backend
+    return hcl.compute(data.shape, lambda *y: 
+        hcl.select(data[y] < 0, 
+            hcl.cast(data.dtype, 0), 
+            hcl.select(data[y] > 1, hcl.cast(data.dtype, 1), data[y])),
+            name=name)
 
 # maxpool 2d, pytorch uses NCHW so this function will as well
 def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
@@ -110,7 +120,8 @@ def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
     pad_before = [0, 0, pad_top, pad_left]
     pad_after = [0, 0, pad_bottom, pad_right]
     
-    data = pad(data, pad_before, pad_after, pad_value=0)
+    # HLS backend: comment out
+    # data = pad(data, pad_before, pad_after, pad_value=0, name=name+"_pad")
     out_height = simplify((height - pooling_h + pad_top + pad_bottom) // stride_h + 1)
     out_width = simplify((width - pooling_w + pad_left + pad_right) // stride_w + 1)
     dheight = hcl.reduce_axis(0, pooling_h)
@@ -138,8 +149,8 @@ def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10
     def get_axis(axis, *indices):
         indices = list(indices[0])
         return (indices[axis],)
-    x1 = hcl.compute(data.shape, lambda *x : data[x] - moving_mean[get_axis(axis, x)], dtype=inter_dtype, name='x1')
-    x2 = hcl.compute(data.shape, lambda *x : hcl.sqrt(moving_var[get_axis(axis, x)] + epsilon), dtype=inter_dtype, name='x2')
-    x3 = hcl.compute(data.shape, lambda *x : x1[x] / x2[x] * gamma[get_axis(axis, x)], dtype=inter_dtype, name='x3')
+    x1 = hcl.compute(data.shape, lambda *x : data[x] - moving_mean[get_axis(axis, x)], dtype=inter_dtype, name=name+'_x1')
+    x2 = hcl.compute(data.shape, lambda *x : hcl.sqrt(moving_var[get_axis(axis, x)] + epsilon), dtype=inter_dtype, name=name+'_x2')
+    x3 = hcl.compute(data.shape, lambda *x : x1[x] / x2[x] * gamma[get_axis(axis, x)], dtype=inter_dtype, name=name+'_x3')
     out = hcl.compute(data.shape, lambda *x : x3[x] + beta[get_axis(axis, x)], dtype=out_dtype, name=name)
     return out

@@ -11,6 +11,9 @@ act_dtype = hcl.UFixed(4, 4)
 batch_size = 1
 image_path = "./example_images/example_1.jpg"
 
+# customizations
+stream = True
+
 
 def build_ultranet_hls(batch_size=batch_size, target=None):
     # set up input/output placeholders
@@ -87,6 +90,76 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
     sm.quantize(ultranet.relu7, act_dtype)
     sm.quantize(ultranet.relu8, act_dtype)
     s = hcl.create_schedule_from_scheme(sm, "main")
+    # create line-buffer and window-buffer for conv layers
+    # for i in range(1, 1 + 8):
+    #     conv = getattr(ultranet, 'conv' + str(i))
+    # LB = s.reuse_at(ultranet.conv1_pad._op, s[ultranet.conv1], ultranet.conv1.axis[2], "LB")
+    # WB = s.reuse_at(LB, s[ultranet.conv1], ultranet.conv1.axis[3], "WB")
+
+    # print(hcl.lower(s))
+        
+    # merge conv + bn + relu operators
+    for i in range(1, 1 + 8):
+        conv = getattr(ultranet, 'conv' + str(i))
+        bn_x1 = getattr(ultranet, 'batch_norm' + str(i) + '_x1')
+        bn_x2 = getattr(ultranet, 'batch_norm' + str(i) + '_x2')
+        bn_x3 = getattr(ultranet, 'batch_norm' + str(i) + '_x3')
+        bn = getattr(ultranet, 'batch_norm' + str(i))
+        relu = getattr(ultranet, 'relu' + str(i))
+        # s[conv].pipeline(conv.axis[4])
+        s[conv].compute_at(s[bn_x1], bn_x1.axis[3])
+        s[bn_x1].compute_at(s[bn_x2], bn_x2.axis[3])
+        s[bn_x2].compute_at(s[bn_x3], bn_x3.axis[3])
+        s[bn_x3].compute_at(s[bn], bn.axis[3])
+        s[bn].compute_at(s[relu], relu.axis[3])
+    res = ultranet.result
+    relu8 = ultranet.relu8
+    s[relu8].compute_at(s[res], res.axis[3])
+
+    # pipeline all layers
+    for i in range(1, 1 + 8):
+        pad = getattr(ultranet, 'conv' + str(i) + '_pad')
+        layer = getattr(ultranet, 'relu' + str(i))
+        s[pad].pipeline(pad.axis[3])
+        s[layer].pipeline(layer.axis[3])
+        if i <= 4:
+            pool = getattr(ultranet, 'pool' + str(i))
+            s[pool].pipeline(pool.axis[3])
+    s[ultranet.result].pipeline(ultranet.result.axis[3])
+    
+
+    # fifo across layers    
+    if stream:  
+        '''
+        Note: 
+        Padding layer's pipelining has to precede other layers'
+        because of a bug in HeteroCL: when there's an ifThenElse
+        statement in which both branch reads/writes the same buffer, 
+        HeteroCL thinks it's accessing the buffer twice, thus preventing
+        pipelining. For now, ?: works, but if..else.. doesn't, 
+        because the latter has two load/store nodes.
+        '''
+        s.to(ultranet.conv1_pad, s[ultranet.relu1])
+        s.to(ultranet.conv2_pad, s[ultranet.relu2])
+        s.to(ultranet.conv3_pad, s[ultranet.relu3])
+        s.to(ultranet.conv4_pad, s[ultranet.relu4])
+        s.to(ultranet.conv5_pad, s[ultranet.relu5])
+        s.to(ultranet.conv6_pad, s[ultranet.relu6])
+        s.to(ultranet.conv7_pad, s[ultranet.relu7])
+        s.to(ultranet.conv8_pad, s[ultranet.relu8])
+
+        s.to(ultranet.relu1, s[ultranet.pool1])
+        s.to(ultranet.pool1, s[ultranet.conv2_pad])
+        s.to(ultranet.relu2, s[ultranet.pool2])
+        s.to(ultranet.pool2, s[ultranet.conv3_pad])
+        s.to(ultranet.relu3, s[ultranet.pool3])
+        s.to(ultranet.pool3, s[ultranet.conv4_pad])
+        s.to(ultranet.relu4, s[ultranet.pool4])
+        s.to(ultranet.pool4, s[ultranet.conv5_pad])
+        s.to(ultranet.relu5, s[ultranet.conv6_pad])
+        s.to(ultranet.relu6, s[ultranet.conv7_pad])
+        s.to(ultranet.relu7, s[ultranet.conv8_pad])
+
     return hcl.build(s, name="main", target=target)
 
 
