@@ -121,7 +121,7 @@ def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
     pad_after = [0, 0, pad_bottom, pad_right]
     
     # HLS backend: comment out
-    # data = pad(data, pad_before, pad_after, pad_value=0, name=name+"_pad")
+    data = pad(data, pad_before, pad_after, pad_value=0, name=name+"_pad")
     out_height = simplify((height - pooling_h + pad_top + pad_bottom) // stride_h + 1)
     out_width = simplify((width - pooling_w + pad_left + pad_right) // stride_w + 1)
     dheight = hcl.reduce_axis(0, pooling_h)
