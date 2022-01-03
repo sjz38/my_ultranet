@@ -99,6 +99,10 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
         LB = s.reuse_at(conv_pad._op, s[conv], conv.axis[2], f"conv{i}_line_buffer")
         WB = s.reuse_at(LB, s[conv], conv.axis[3], f"conv{i}_window_buffer")
 
+    # conv3 = ultranet.conv3
+    # xo, yo, xi, yi = s[conv3].tile(conv3.axis[2], conv3.axis[3], 4, 4)
+    # s[conv3].reorder(yo, xo, yi, xi)
+
     # print(hcl.lower(s))
     if opt:
         # merge conv + bn + relu operators
@@ -178,7 +182,7 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
             s.to(ultranet.relu2, s[ultranet.pool2_pad], fifo_depth=128)
             s.to(ultranet.pool2_pad, s[ultranet.pool2], fifo_depth=128)
             s.to(ultranet.pool2, s[ultranet.conv3_pad], fifo_depth=128)
-            s.to(ultranet.conv3, s[ultranet.relu3], fifo_depth=128)
+            # s.to(ultranet.conv3, s[ultranet.relu3], fifo_depth=128)
             s.to(ultranet.relu3, s[ultranet.pool3_pad], fifo_depth=128)
             s.to(ultranet.pool3_pad, s[ultranet.pool3], fifo_depth=128)
             s.to(ultranet.pool3, s[ultranet.conv4_pad], fifo_depth=128)
@@ -204,7 +208,7 @@ def check_vivado_hls():
 
 
 target = hcl.Platform.aws_f1
-target.config(compiler="vivado_hls", mode="csyn", project="hls_project")
+target.config(compiler="vivado_hls", mode="csyn", project="systolic_hls")
 f = build_ultranet_hls(batch_size=batch_size, target=target)
 
 hcl_input = hcl.asarray(load_image(image_path), dtype=input_dtype)
