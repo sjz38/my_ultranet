@@ -1,0 +1,16 @@
+<annotation>
+    <filename>0081</filename>
+    <size>
+        <width>640</width>
+        <height>360</height>
+    </size>
+    <object>
+        <name>riding2</name>
+        <bndbox>
+            <xmin>289</xmin>
+            <ymin>115</ymin>
+            <xmax>357</xmax>
+            <ymax>278</ymax>
+        </bndbox>
+    </object>
+</annotation>

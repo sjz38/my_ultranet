@@ -1,0 +1,16 @@
+<annotation>
+   <filename>000190</filename>
+   <size>
+      <width>640</width>
+      <height>360</height>
+   </size>
+   <object>
+      <name>wakeboard2</name>
+      <bndbox>
+         <xmax>318</xmax>
+         <xmin>294</xmin>
+         <ymax>320</ymax>
+         <ymin>277</ymin>
+      </bndbox>
+   </object>
+</annotation>

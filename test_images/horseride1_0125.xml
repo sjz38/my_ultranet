@@ -1,0 +1,16 @@
+<annotation>
+    <filename>0125</filename>
+    <size>
+        <width>640</width>
+        <height>360</height>
+    </size>
+    <object>
+        <name>horseride1</name>
+        <bndbox>
+            <xmin>401</xmin>
+            <ymin>203</ymin>
+            <xmax>422</xmax>
+            <ymax>233</ymax>
+        </bndbox>
+    </object>
+</annotation>

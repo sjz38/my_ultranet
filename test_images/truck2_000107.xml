@@ -1,0 +1,16 @@
+<annotation>
+   <filename>000107</filename>
+   <size>
+      <width>640</width>
+      <height>360</height>
+   </size>
+   <object>
+      <name>truck2</name>
+      <bndbox>
+         <xmax>409</xmax>
+         <xmin>403</xmin>
+         <ymax>98</ymax>
+         <ymin>94</ymin>
+      </bndbox>
+   </object>
+</annotation>

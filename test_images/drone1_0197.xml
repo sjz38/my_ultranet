@@ -1,0 +1,16 @@
+<annotation>
+    <filename>0197</filename>
+    <size>
+        <width>640</width>
+        <height>360</height>
+    </size>
+    <object>
+        <name>drone1</name>
+        <bndbox>
+            <xmin>336</xmin>
+            <ymin>26</ymin>
+            <xmax>357</xmax>
+            <ymax>46</ymax>
+        </bndbox>
+    </object>
+</annotation>
