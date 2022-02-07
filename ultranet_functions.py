@@ -1,11 +1,17 @@
+###############################################################################
+# imports
+###############################################################################
+
 import heterocl as hcl
 import heterocl.tvm as tvm
 from collections import OrderedDict
-import numpy as np
+
+
 
 ###############################################################################
-# helpers
+# helper functions
 ###############################################################################
+
 def simplify(expr):
     return tvm.ir_pass.Simplify(expr) if isinstance(expr, tvm.expr.Expr) else expr
 
@@ -52,8 +58,12 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
     # Use this for HLS backend
     return hcl.compute(out_shape, _pad, dtype=data.dtype, name=name)
 
+
+
 ###############################################################################
-# layer definitions
+# conv2d computation layer
+# this function is the heteroCL equivalent of the torch.nn.Conv2d function 
+# in the PyTorch library. 
 ###############################################################################
 def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], out_dtype=hcl.Fixed(16,8)):
     batch, in_channel, in_height, in_width = Input.shape
@@ -105,7 +115,14 @@ def relu(data, name='relu'):
             hcl.select(data[y] > 1, hcl.cast(data.dtype, 1), data[y])),
             name=name)
 
-# maxpool 2d, pytorch uses NCHW so this function will as well
+
+
+###############################################################################
+# MaxPool2d computation layer
+# this function is the heteroCL equivalent of the torch.nn.MaxPool2d function 
+# in the PyTorch library. 
+###############################################################################
+
 def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
     pooling = pool_size
     max = hcl.reducer(

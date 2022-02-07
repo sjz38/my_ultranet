@@ -1,0 +1,16 @@
+<annotation>
+    <filename>720 (13)_0350</filename>
+    <size>
+        <width>640</width>
+        <height>360</height>
+    </size>
+    <object>
+        <name>whale1</name>
+        <bndbox>
+            <xmin>323</xmin>
+            <ymin>91</ymin>
+            <xmax>386</xmax>
+            <ymax>167</ymax>
+        </bndbox>
+    </object>
+</annotation>
