@@ -21,7 +21,7 @@ act_dtype = hcl.UFixed(4, 4)
 # Define parameters and images
 ###############################################################################
 
-image_path = './example_images/example_1.jpg'
+image_path = './test_images/boat1_000001.jpg'
 raw_height = 360
 raw_width = 640
 width = 320
