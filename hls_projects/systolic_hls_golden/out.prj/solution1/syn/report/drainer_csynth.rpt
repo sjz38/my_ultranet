@@ -1,0 +1,171 @@
+
+
+================================================================
+== Vivado HLS Report for 'drainer'
+================================================================
+* Date:           Sat Jan  1 23:23:56 2022
+
+* Version:        2019.2.1 (Build 2724168 on Thu Dec 05 05:19:09 MST 2019)
+* Project:        out.prj
+* Solution:       solution1
+* Product family: virtexuplus
+* Target device:  xcu280-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  | 4.00 ns | 1.458 ns |   0.50 ns  |
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+-------+-------+----------+
+    |  Latency (cycles) |   Latency (absolute)  |    Interval   | Pipeline |
+    |   min   |   max   |    min    |    max    |  min  |  max  |   Type   |
+    +---------+---------+-----------+-----------+-------+-------+----------+
+    |    13778|    13778| 55.112 us | 55.112 us |  13779|  13779| dataflow |
+    +---------+---------+-----------+-----------+-------+-------+----------+
+
+    + Detail: 
+        * Instance: 
+        +-------------------------+----------------------+---------+---------+-----------+-----------+-------+-------+---------+
+        |                         |                      |  Latency (cycles) |   Latency (absolute)  |    Interval   | Pipeline|
+        |         Instance        |        Module        |   min   |   max   |    min    |    max    |  min  |  max  |   Type  |
+        +-------------------------+----------------------+---------+---------+-----------+-----------+-------+-------+---------+
+        |drainer_Loop_ROW_pro_U0  |drainer_Loop_ROW_pro  |    13778|    13778| 55.112 us | 55.112 us |  13778|  13778|   none  |
+        +-------------------------+----------------------+---------+---------+-----------+-----------+-------+-------+---------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+-------+---------+---------+-----+
+|         Name        | BRAM_18K| DSP48E|    FF   |   LUT   | URAM|
++---------------------+---------+-------+---------+---------+-----+
+|DSP                  |        -|      -|        -|        -|    -|
+|Expression           |        -|      -|        -|        -|    -|
+|FIFO                 |        -|      -|        -|        -|    -|
+|Instance             |        -|      -|       21|      244|    -|
+|Memory               |        -|      -|        -|        -|    -|
+|Multiplexer          |        -|      -|        -|        -|    -|
+|Register             |        -|      -|        -|        -|    -|
++---------------------+---------+-------+---------+---------+-----+
+|Total                |        0|      0|       21|      244|    0|
++---------------------+---------+-------+---------+---------+-----+
+|Available SLR        |     1344|   3008|   869120|   434560|  320|
++---------------------+---------+-------+---------+---------+-----+
+|Utilization SLR (%)  |        0|      0|    ~0   |    ~0   |    0|
++---------------------+---------+-------+---------+---------+-----+
+|Available            |     4032|   9024|  2607360|  1303680|  960|
++---------------------+---------+-------+---------+---------+-----+
+|Utilization (%)      |        0|      0|    ~0   |    ~0   |    0|
++---------------------+---------+-------+---------+---------+-----+
+
++ Detail: 
+    * Instance: 
+    +-------------------------+----------------------+---------+-------+----+-----+-----+
+    |         Instance        |        Module        | BRAM_18K| DSP48E| FF | LUT | URAM|
+    +-------------------------+----------------------+---------+-------+----+-----+-----+
+    |drainer_Loop_ROW_pro_U0  |drainer_Loop_ROW_pro  |        0|      0|  21|  244|    0|
+    +-------------------------+----------------------+---------+-------+----+-----+-----+
+    |Total                    |                      |        0|      0|  21|  244|    0|
+    +-------------------------+----------------------+---------+-------+----+-----+-----+
+
+    * DSP48E: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    N/A
+
+    * Multiplexer: 
+    N/A
+
+    * Register: 
+    N/A
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-------------------------+-----+-----+------------+-----------------+--------------+
+|        RTL Ports        | Dir | Bits|  Protocol  |  Source Object  |    C Type    |
++-------------------------+-----+-----+------------+-----------------+--------------+
+|fifo_out_V_V_din         | out |   64|   ap_fifo  |   fifo_out_V_V  |    pointer   |
+|fifo_out_V_V_full_n      |  in |    1|   ap_fifo  |   fifo_out_V_V  |    pointer   |
+|fifo_out_V_V_write       | out |    1|   ap_fifo  |   fifo_out_V_V  |    pointer   |
+|fifo_out_00_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_00_V_V |    pointer   |
+|fifo_out_00_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_00_V_V |    pointer   |
+|fifo_out_00_V_V_read     | out |    1|   ap_fifo  | fifo_out_00_V_V |    pointer   |
+|fifo_out_01_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_01_V_V |    pointer   |
+|fifo_out_01_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_01_V_V |    pointer   |
+|fifo_out_01_V_V_read     | out |    1|   ap_fifo  | fifo_out_01_V_V |    pointer   |
+|fifo_out_02_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_02_V_V |    pointer   |
+|fifo_out_02_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_02_V_V |    pointer   |
+|fifo_out_02_V_V_read     | out |    1|   ap_fifo  | fifo_out_02_V_V |    pointer   |
+|fifo_out_03_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_03_V_V |    pointer   |
+|fifo_out_03_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_03_V_V |    pointer   |
+|fifo_out_03_V_V_read     | out |    1|   ap_fifo  | fifo_out_03_V_V |    pointer   |
+|fifo_out_10_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_10_V_V |    pointer   |
+|fifo_out_10_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_10_V_V |    pointer   |
+|fifo_out_10_V_V_read     | out |    1|   ap_fifo  | fifo_out_10_V_V |    pointer   |
+|fifo_out_11_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_11_V_V |    pointer   |
+|fifo_out_11_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_11_V_V |    pointer   |
+|fifo_out_11_V_V_read     | out |    1|   ap_fifo  | fifo_out_11_V_V |    pointer   |
+|fifo_out_12_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_12_V_V |    pointer   |
+|fifo_out_12_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_12_V_V |    pointer   |
+|fifo_out_12_V_V_read     | out |    1|   ap_fifo  | fifo_out_12_V_V |    pointer   |
+|fifo_out_13_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_13_V_V |    pointer   |
+|fifo_out_13_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_13_V_V |    pointer   |
+|fifo_out_13_V_V_read     | out |    1|   ap_fifo  | fifo_out_13_V_V |    pointer   |
+|fifo_out_20_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_20_V_V |    pointer   |
+|fifo_out_20_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_20_V_V |    pointer   |
+|fifo_out_20_V_V_read     | out |    1|   ap_fifo  | fifo_out_20_V_V |    pointer   |
+|fifo_out_21_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_21_V_V |    pointer   |
+|fifo_out_21_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_21_V_V |    pointer   |
+|fifo_out_21_V_V_read     | out |    1|   ap_fifo  | fifo_out_21_V_V |    pointer   |
+|fifo_out_22_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_22_V_V |    pointer   |
+|fifo_out_22_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_22_V_V |    pointer   |
+|fifo_out_22_V_V_read     | out |    1|   ap_fifo  | fifo_out_22_V_V |    pointer   |
+|fifo_out_23_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_23_V_V |    pointer   |
+|fifo_out_23_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_23_V_V |    pointer   |
+|fifo_out_23_V_V_read     | out |    1|   ap_fifo  | fifo_out_23_V_V |    pointer   |
+|fifo_out_30_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_30_V_V |    pointer   |
+|fifo_out_30_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_30_V_V |    pointer   |
+|fifo_out_30_V_V_read     | out |    1|   ap_fifo  | fifo_out_30_V_V |    pointer   |
+|fifo_out_31_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_31_V_V |    pointer   |
+|fifo_out_31_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_31_V_V |    pointer   |
+|fifo_out_31_V_V_read     | out |    1|   ap_fifo  | fifo_out_31_V_V |    pointer   |
+|fifo_out_32_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_32_V_V |    pointer   |
+|fifo_out_32_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_32_V_V |    pointer   |
+|fifo_out_32_V_V_read     | out |    1|   ap_fifo  | fifo_out_32_V_V |    pointer   |
+|fifo_out_33_V_V_dout     |  in |    4|   ap_fifo  | fifo_out_33_V_V |    pointer   |
+|fifo_out_33_V_V_empty_n  |  in |    1|   ap_fifo  | fifo_out_33_V_V |    pointer   |
+|fifo_out_33_V_V_read     | out |    1|   ap_fifo  | fifo_out_33_V_V |    pointer   |
+|ap_clk                   |  in |    1| ap_ctrl_hs |     drainer     | return value |
+|ap_rst                   |  in |    1| ap_ctrl_hs |     drainer     | return value |
+|ap_start                 |  in |    1| ap_ctrl_hs |     drainer     | return value |
+|ap_done                  | out |    1| ap_ctrl_hs |     drainer     | return value |
+|ap_ready                 | out |    1| ap_ctrl_hs |     drainer     | return value |
+|ap_idle                  | out |    1| ap_ctrl_hs |     drainer     | return value |
+|ap_continue              |  in |    1| ap_ctrl_hs |     drainer     | return value |
++-------------------------+-----+-----+------------+-----------------+--------------+
+
