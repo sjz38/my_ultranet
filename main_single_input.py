@@ -343,7 +343,7 @@ if __name__ == "__main__":
     tensor_out = torch.tensor(np_out)
     ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
 
-    print("up to YOLO layer complete")
+    # print("up to YOLO layer complete")
 
     def create_grids(self, img_size=416, ng=(13, 13), device='cpu', type=torch.float32):
         nx, ny = ng  # x and y grid size
@@ -371,7 +371,7 @@ if __name__ == "__main__":
             self.ny = 0  # initialize number of y gridpoints
 
         def forward(self, p, img_size):
-            print(p.shape)
+            # print(p.shape)
             bs, _, ny, nx = p.shape
             
             if (self.nx, self.ny) != (nx, ny):
@@ -424,4 +424,4 @@ if __name__ == "__main__":
         temp = [int(xmin), int(xmax), int(ymin), int(ymax)]
         result.append(temp)
 
-    print(result)
+    print("Output BBox: ", result)
