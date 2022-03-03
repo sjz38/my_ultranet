@@ -327,6 +327,7 @@ if __name__ == "__main__":
     ###############################################################################
     np_input = hcl_input.asnumpy()
     np_out = hcl_out.asnumpy()
+    np.save('bn_old.npy', np_out)
     # np_out = np.load('../ultra_net/model/torch_output.npy')
 
     ###############################################################################

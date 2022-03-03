@@ -54,9 +54,9 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
         return data[tuple(index_tuple)]
 
     # Use this for CPU backend
-    # return hcl.compute(out_shape, _pad, name=name)
+    return hcl.compute(out_shape, _pad, name=name)
     # Use this for HLS backend
-    return hcl.compute(out_shape, _pad, dtype=data.dtype, name=name)
+    # return hcl.compute(out_shape, _pad, dtype=data.dtype, name=name)
 
 
 
@@ -105,15 +105,15 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], ou
 
 def relu(data, name='relu'):
     # CPU Backend
-    # x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name=name+'_x1')
-    # x2 = hcl.compute(x1.shape, lambda *y: hcl.select(x1[y] > 1, hcl.cast(data.dtype, 1), x1[y]), name=name)
-    # return x2
+    x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name=name+'_x1')
+    x2 = hcl.compute(x1.shape, lambda *y: hcl.select(x1[y] > 1, hcl.cast(data.dtype, 1), x1[y]), name=name)
+    return x2
     # HLS Backend
-    return hcl.compute(data.shape, lambda *y: 
-        hcl.select(data[y] < 0, 
-            hcl.cast(data.dtype, 0), 
-            hcl.select(data[y] > 1, hcl.cast(data.dtype, 1), data[y])),
-            name=name)
+    # return hcl.compute(data.shape, lambda *y: 
+        # hcl.select(data[y] < 0, 
+            # hcl.cast(data.dtype, 0), 
+            # hcl.select(data[y] > 1, hcl.cast(data.dtype, 1), data[y])),
+            # name=name)
 
 
 
@@ -162,6 +162,17 @@ def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
             ('app_name', tvm.make.StringImm('max_pool'))]))
 
 # batch normalization
+def batchnorm2d_mod(data, a, b, axis=1, name="batch_norm"):
+    def get_axis(axis, *indices):
+        indices = list(indices[0])
+        return (indices[axis],)
+    out = hcl.compute(data.shape, lambda *x : a[get_axis(axis, x)] * data[x] - b[get_axis(axis, x)], dtype=data.dtype, name=name)
+    # print(out.shape)
+    return out
+
+
+
+# batch normalization_old
 def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10**-7, name="batch_norm", inter_dtype=hcl.Fixed(16,8), out_dtype=hcl.Fixed(16,8)):
     def get_axis(axis, *indices):
         indices = list(indices[0])
@@ -170,4 +181,5 @@ def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10
     x2 = hcl.compute(data.shape, lambda *x : hcl.sqrt(moving_var[get_axis(axis, x)] + epsilon), dtype=inter_dtype, name=name+'_x2')
     x3 = hcl.compute(data.shape, lambda *x : x1[x] / x2[x] * gamma[get_axis(axis, x)], dtype=inter_dtype, name=name+'_x3')
     out = hcl.compute(data.shape, lambda *x : x3[x] + beta[get_axis(axis, x)], dtype=out_dtype, name=name)
+    # print(out.shape)
     return out
