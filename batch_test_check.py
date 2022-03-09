@@ -21,4 +21,4 @@ squared = np.square(diff)
 mse = squared.mean()
 print("Mse: ", mse)
 
-# print(np.allclose(old, mod, atol=1e-2))
+print(np.allclose(old, mod, atol=1e-1))

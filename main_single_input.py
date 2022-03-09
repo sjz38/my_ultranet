@@ -15,13 +15,14 @@ from ultranet_model import ultranet
 hcl.init(hcl.Float(32))
 input_dtype = hcl.Fixed(8, 4)
 weight_dtype = hcl.Fixed(5, 3) # TODO: why hcl.Fixed(4,4) doesn't work
-act_dtype = hcl.UFixed(4, 4)
+act_dtype = hcl.UFixed(6, 4)
 
 ###############################################################################
 # Define parameters and images
 ###############################################################################
 
 image_path = './test_images/boat1_000001.jpg'
+# image_path = './test_images/car1_0001.jpg'
 raw_height = 360
 raw_width = 640
 width = 320

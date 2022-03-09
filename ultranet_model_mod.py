@@ -20,7 +20,7 @@ def ultranet(
     ):
     # first conv
     conv1 = conv2d(input_image, weight_conv1, name="conv1") # in: (batch_size, 3, 160, 320); out: (batch_size, 16, 160, 320)
-    batchnorm1 = batchnorm2d(conv1, a_batchnorm1, b_batchnorm1, name="batch_norm1") # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 160, 320)
+    batchnorm1 = batchnorm2d(conv1, a_batchnorm1, b_batchnorm1, name="batch_norm1", print_out=False) # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 160, 320)
     relu1 = relu(batchnorm1, name="relu1") # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 160, 320)
     pool1 = maxpool2d(relu1, name="pool1") # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 80, 160)
  
