@@ -16,9 +16,8 @@ hcl.init(hcl.Float(32))
 input_dtype = hcl.Fixed(8, 4)
 weight_dtype = hcl.Fixed(5, 3) # TODO: why hcl.Fixed(4,4) doesn't work
 act_dtype = hcl.UFixed(6, 4)
-bn_a_dtype = hcl.Fixed(14, 11) # TODO some 14 bit fixed pt
-bn_b_dtype = hcl.Fixed(26, 22) # TODO some 26 bit fixed pt
-
+bn_a_dtype = hcl.Fixed(14, 10) # TODO some 14 bit fixed pt, this seems to work well 
+bn_b_dtype = hcl.Fixed(26, 18) # TODO some 26 bit fixed pt, this seems to work well
 ###############################################################################
 # Define parameters and images
 ###############################################################################
@@ -236,33 +235,49 @@ if __name__ == "__main__":
     batchnorm8_running_mean = params[38]
     batchnorm8_running_var = params[39]
 
-    epsilon = 10**-7
+    ###############################################################################
     # Precompute a and b terms on CPU side for batchnorm ax+b
+    ###############################################################################
+    epsilon = 10**-7
     batchnorm1_a = batchnorm1_weight / np.sqrt(batchnorm1_running_var + epsilon)
     batchnorm1_b = ((-1*batchnorm1_weight * batchnorm1_running_mean) / np.sqrt(batchnorm1_running_var + epsilon)) + batchnorm1_bias
-    batchnorm1_a = weight_quantizer(batchnorm1_a)
-    batchnorm1_b = weight_quantizer(batchnorm1_b)
+    # batchnorm1_a = weight_quantizer(batchnorm1_a)
+    # batchnorm1_b = weight_quantizer(batchnorm1_b)
 
     batchnorm2_a = batchnorm2_weight / np.sqrt(batchnorm2_running_var + epsilon)
     batchnorm2_b = ((-1*batchnorm2_weight * batchnorm2_running_mean) / np.sqrt(batchnorm2_running_var + epsilon)) + batchnorm2_bias
+    # batchnorm2_a = weight_quantizer(batchnorm2_a)
+    # batchnorm2_b = weight_quantizer(batchnorm2_b)
 
     batchnorm3_a = batchnorm3_weight / np.sqrt(batchnorm3_running_var + epsilon)
     batchnorm3_b = ((-1*batchnorm3_weight * batchnorm3_running_mean) / np.sqrt(batchnorm3_running_var + epsilon)) + batchnorm3_bias
+    # batchnorm3_a = weight_quantizer(batchnorm3_a)
+    # batchnorm3_b = weight_quantizer(batchnorm3_b)
 
     batchnorm4_a = batchnorm4_weight / np.sqrt(batchnorm4_running_var + epsilon)
     batchnorm4_b = ((-1*batchnorm4_weight * batchnorm4_running_mean) / np.sqrt(batchnorm4_running_var + epsilon)) + batchnorm4_bias
+    # batchnorm4_a = weight_quantizer(batchnorm4_a)
+    # batchnorm4_b = weight_quantizer(batchnorm4_b)
 
     batchnorm5_a = batchnorm5_weight / np.sqrt(batchnorm5_running_var + epsilon)
     batchnorm5_b = ((-1*batchnorm5_weight * batchnorm5_running_mean) / np.sqrt(batchnorm5_running_var + epsilon)) + batchnorm5_bias
+    # batchnorm5_a = weight_quantizer(batchnorm5_a)
+    # batchnorm5_b = weight_quantizer(batchnorm5_b)
 
     batchnorm6_a = batchnorm6_weight / np.sqrt(batchnorm6_running_var + epsilon)
     batchnorm6_b = ((-1*batchnorm6_weight * batchnorm6_running_mean) / np.sqrt(batchnorm6_running_var + epsilon)) + batchnorm6_bias
+    # batchnorm6_a = weight_quantizer(batchnorm6_a)
+    # batchnorm6_b = weight_quantizer(batchnorm6_b)
 
     batchnorm7_a = batchnorm7_weight / np.sqrt(batchnorm7_running_var + epsilon)
     batchnorm7_b = ((-1*batchnorm7_weight * batchnorm7_running_mean) / np.sqrt(batchnorm7_running_var + epsilon)) + batchnorm7_bias
+    # batchnorm7_a = weight_quantizer(batchnorm7_a)
+    # batchnorm7_b = weight_quantizer(batchnorm7_b)
 
     batchnorm8_a = batchnorm8_weight / np.sqrt(batchnorm8_running_var + epsilon)
     batchnorm8_b = ((-1*batchnorm8_weight * batchnorm8_running_mean) / np.sqrt(batchnorm8_running_var + epsilon)) + batchnorm8_bias
+    # batchnorm8_a = weight_quantizer(batchnorm8_a)
+    # batchnorm8_b = weight_quantizer(batchnorm8_b)
 
     ###############################################################################
     # convert weights into hcl
@@ -322,7 +337,6 @@ if __name__ == "__main__":
     ###############################################################################
     np_input = hcl_input.asnumpy()
     np_out = hcl_out.asnumpy()
-    np.save('bn_mod.npy', np_out)
     # np_out = np.load('../ultra_net/model/torch_output.npy')
 
     ###############################################################################

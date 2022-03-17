@@ -54,9 +54,9 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
         return data[tuple(index_tuple)]
 
     # Use this for CPU backend
-    return hcl.compute(out_shape, _pad, name=name)
+    # return hcl.compute(out_shape, _pad, name=name)
     # Use this for HLS backend
-    # return hcl.compute(out_shape, _pad, dtype=data.dtype, name=name)
+    return hcl.compute(out_shape, _pad, dtype=data.dtype, name=name)
 
 
 
@@ -105,15 +105,15 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], ou
 
 def relu(data, name='relu'):
     # CPU Backend
-    x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name=name+'_x1')
-    x2 = hcl.compute(x1.shape, lambda *y: hcl.select(x1[y] > 1, hcl.cast(data.dtype, 1), x1[y]), name=name)
-    return x2
+    # x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name=name+'_x1')
+    # x2 = hcl.compute(x1.shape, lambda *y: hcl.select(x1[y] > 1, hcl.cast(data.dtype, 1), x1[y]), name=name)
+    # return x2
     # HLS Backend
-    # return hcl.compute(data.shape, lambda *y: 
-        # hcl.select(data[y] < 0, 
-            # hcl.cast(data.dtype, 0), 
-            # hcl.select(data[y] > 1, hcl.cast(data.dtype, 1), data[y])),
-            # name=name)
+    return hcl.compute(data.shape, lambda *y: 
+        hcl.select(data[y] < 0, 
+            hcl.cast(data.dtype, 0), 
+            hcl.select(data[y] > 1, hcl.cast(data.dtype, 1), data[y])),
+            name=name)
 
 
 
@@ -167,14 +167,12 @@ def batchnorm2d_mod(data, a, b, axis=1, name="batch_norm", out_dtype=hcl.Fixed(1
         indices = list(indices[0])
         return (indices[axis],)
     out = hcl.compute(data.shape, lambda *x : a[get_axis(axis, x)] * data[x] + b[get_axis(axis, x)], dtype=out_dtype, name=name)
-    observe = hcl.compute((data.shape[-1], ), lambda x : out[0, 0, 0, x], name="observe")
-    data_val = hcl.compute((data.shape[-1], ), lambda x : data[0, 0, 0, x], name="data_val")
-    if print_out:
+    # observe = hcl.compute((data.shape[-1], ), lambda x : out[0, 0, 0, x], name="observe")
+    # data_val = hcl.compute((data.shape[-1], ), lambda x : data[0, 0, 0, x], name="data_val")
+    # if print_out:
         # hcl.print(data_val)
-        hcl.print(observe)
+        # hcl.print(observe)
     return out
-
-
 
 # batch normalization_old
 def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10**-7, name="batch_norm", inter_dtype=hcl.Fixed(16,8), out_dtype=hcl.Fixed(16,8), print_out=False):
