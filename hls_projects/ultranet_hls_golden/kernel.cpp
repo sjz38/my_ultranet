@@ -538,7 +538,7 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
       }
     }
     printf("relu4");
-    // ap_ufixed<4, 0> pool4_pad[1][64][20][40];
+    //ap_ufixed<4, 0> pool4_pad[1][64][20][40];
     // hls::stream<ap_ufixed<4, 0> > pool4_pad_pipe_15;
     // #pragma HLS stream variable=pool4_pad_pipe_15 depth=128
     // pool4_pad_indices7: for (int indices7 = 0; indices7 < 1; ++indices7) {
