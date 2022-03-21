@@ -195,7 +195,7 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
             s.to(ultranet.relu2, s[ultranet.pool2_pad], fifo_depth=128)
             s.to(ultranet.pool2_pad, s[ultranet.pool2], fifo_depth=128)
             s.to(ultranet.pool2, s[ultranet.conv3_pad], fifo_depth=128)
-            # s.to(ultranet.conv3, s[ultranet.relu3], fifo_depth=128)
+            s.to(ultranet.conv3, s[ultranet.relu3], fifo_depth=128)
             s.to(ultranet.relu3, s[ultranet.pool3_pad], fifo_depth=128)
             s.to(ultranet.pool3_pad, s[ultranet.pool3], fifo_depth=128)
             s.to(ultranet.pool3, s[ultranet.conv4_pad], fifo_depth=128)
