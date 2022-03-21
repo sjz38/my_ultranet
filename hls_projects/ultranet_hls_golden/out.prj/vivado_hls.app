@@ -1,4 +1,7 @@
 <AutoPilot:project xmlns:AutoPilot="com.autoesl.autopilot.project" projectType="C/C++" name="out.prj" top="test">
+    <Simulation argv="">
+        <SimFlow name="csim" setup="false" optimizeCompile="true" clean="false" ldflags="" mflags=""/>
+    </Simulation>
     <includePaths/>
     <libraryFlag/>
     <files>

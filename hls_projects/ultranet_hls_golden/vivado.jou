@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.2.1 (64-bit)
+# SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
+# IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+# Start of session at: Sun Mar 13 23:57:57 2022
+# Process ID: 22429
+# Current directory: /work/shared/users/meng/ys566/working_project/my_ultranet/hls_projects/ultranet_hls_golden
+# Command line: vivado -stack 2000
+# Log file: /work/shared/users/meng/ys566/working_project/my_ultranet/hls_projects/ultranet_hls_golden/vivado.log
+# Journal file: /work/shared/users/meng/ys566/working_project/my_ultranet/hls_projects/ultranet_hls_golden/vivado.jou
+#-----------------------------------------------------------
+start_gui

@@ -502,7 +502,7 @@ int main(int argc, char ** argv) {
   }
 
   std::cout << " Initialize RTE...";
-  main_host(input_image, weight_conv1, running_mean_batchnorm1, running_var_batchnorm1, weight_batchnorm1, bias_batchnorm1, weight_conv2, running_mean_batchnorm2, running_var_batchnorm2, weight_batchnorm2, bias_batchnorm2, weight_conv3, running_mean_batchnorm3, running_var_batchnorm3, weight_batchnorm3, bias_batchnorm3, weight_conv4, running_mean_batchnorm4, running_var_batchnorm4, weight_batchnorm4, bias_batchnorm4, weight_conv5, running_mean_batchnorm5, running_var_batchnorm5, weight_batchnorm5, bias_batchnorm5, weight_conv6, running_mean_batchnorm6, running_var_batchnorm6, weight_batchnorm6, bias_batchnorm6, weight_conv7, running_mean_batchnorm7, running_var_batchnorm7, weight_batchnorm7, bias_batchnorm7, weight_conv8, running_mean_batchnorm8, running_var_batchnorm8, weight_batchnorm8, bias_batchnorm8, result);
+  test(input_image, weight_conv1, running_mean_batchnorm1, running_var_batchnorm1, weight_batchnorm1, bias_batchnorm1, weight_conv2, running_mean_batchnorm2, running_var_batchnorm2, weight_batchnorm2, bias_batchnorm2, weight_conv3, running_mean_batchnorm3, running_var_batchnorm3, weight_batchnorm3, bias_batchnorm3, weight_conv4, running_mean_batchnorm4, running_var_batchnorm4, weight_batchnorm4, bias_batchnorm4, weight_conv5, running_mean_batchnorm5, running_var_batchnorm5, weight_batchnorm5, bias_batchnorm5, weight_conv6, running_mean_batchnorm6, running_var_batchnorm6, weight_batchnorm6, bias_batchnorm6, weight_conv7, running_mean_batchnorm7, running_var_batchnorm7, weight_batchnorm7, bias_batchnorm7, weight_conv8, running_mean_batchnorm8, running_var_batchnorm8, weight_batchnorm8, bias_batchnorm8, result);
   return 0;
 }
   // compute and kernel call from host
@@ -528,8 +528,9 @@ float running_mean_batchnorm7[64], float running_var_batchnorm7[64], ap_fixed<5,
 float weight_batchnorm8[64], float bias_batchnorm8[64], float running_mean_batchnorm8[64], float running_var_batchnorm8[64], 
 float result[1][64][10][20]) {
   float _top;
-  test(input_image, weight_conv1, running_mean_batchnorm1, running_var_batchnorm1, weight_batchnorm1, bias_batchnorm1, weight_conv2, running_mean_batchnorm2, running_var_batchnorm2, weight_batchnorm2, bias_batchnorm2, weight_conv3, running_mean_batchnorm3, running_var_batchnorm3, weight_batchnorm3, bias_batchnorm3, weight_conv4, running_mean_batchnorm4, running_var_batchnorm4, weight_batchnorm4, bias_batchnorm4, weight_conv5, running_mean_batchnorm5, running_var_batchnorm5, weight_batchnorm5, bias_batchnorm5, weight_conv6, running_mean_batchnorm6, running_var_batchnorm6, weight_batchnorm6, bias_batchnorm6, weight_conv7, running_mean_batchnorm7, running_var_batchnorm7, weight_batchnorm7, bias_batchnorm7, weight_conv8, running_mean_batchnorm8, running_var_batchnorm8, weight_batchnorm8, bias_batchnorm8, result);
+  //test(input_image, weight_conv1, running_mean_batchnorm1, running_var_batchnorm1, weight_batchnorm1, bias_batchnorm1, weight_conv2, running_mean_batchnorm2, running_var_batchnorm2, weight_batchnorm2, bias_batchnorm2, weight_conv3, running_mean_batchnorm3, running_var_batchnorm3, weight_batchnorm3, bias_batchnorm3, weight_conv4, running_mean_batchnorm4, running_var_batchnorm4, weight_batchnorm4, bias_batchnorm4, weight_conv5, running_mean_batchnorm5, running_var_batchnorm5, weight_batchnorm5, bias_batchnorm5, weight_conv6, running_mean_batchnorm6, running_var_batchnorm6, weight_batchnorm6, bias_batchnorm6, weight_conv7, running_mean_batchnorm7, running_var_batchnorm7, weight_batchnorm7, bias_batchnorm7, weight_conv8, running_mean_batchnorm8, running_var_batchnorm8, weight_batchnorm8, bias_batchnorm8, result);
 
+  std::cout << " Initialize RTE...11";
   for (size_t i0 = 0; i0 < 1; i0++) {
     for (size_t i1 = 0; i1 < 3; i1++) {
       for (size_t i2 = 0; i2 < 160; i2++) {
