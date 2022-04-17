@@ -162,7 +162,7 @@ def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
             ('app_name', tvm.make.StringImm('max_pool'))]))
 
 # batch normalization
-def batchnorm2d_mod(data, a, b, axis=1, name="batch_norm", out_dtype=hcl.Fixed(16,8), print_out=False):
+def batchnorm2d(data, a, b, axis=1, name="batch_norm", out_dtype=hcl.Fixed(16,8), print_out=False):
     def get_axis(axis, *indices):
         indices = list(indices[0])
         return (indices[axis],)
@@ -172,20 +172,4 @@ def batchnorm2d_mod(data, a, b, axis=1, name="batch_norm", out_dtype=hcl.Fixed(1
     # if print_out:
         # hcl.print(data_val)
         # hcl.print(observe)
-    return out
-
-# batch normalization_old
-def batchnorm2d(data, gamma, beta, moving_mean, moving_var, axis = 1, epsilon=10**-7, name="batch_norm", inter_dtype=hcl.Fixed(16,8), out_dtype=hcl.Fixed(16,8), print_out=False):
-    def get_axis(axis, *indices):
-        indices = list(indices[0])
-        return (indices[axis],)
-    x1 = hcl.compute(data.shape, lambda *x : data[x] - moving_mean[get_axis(axis, x)], dtype=inter_dtype, name=name+'_x1')
-    x2 = hcl.compute(data.shape, lambda *x : hcl.sqrt(moving_var[get_axis(axis, x)] + epsilon), dtype=inter_dtype, name=name+'_x2')
-    x3 = hcl.compute(data.shape, lambda *x : x1[x] / x2[x] * gamma[get_axis(axis, x)], dtype=inter_dtype, name=name+'_x3')
-    out = hcl.compute(data.shape, lambda *x : x3[x] + beta[get_axis(axis, x)], dtype=out_dtype, name=name)
-    observe = hcl.compute((data.shape[-1], ), lambda x : out[0, 0, 0, x], name="observe")
-    data_val = hcl.compute((data.shape[-1], ), lambda x : data[0, 0, 0, x], name="observe")
-    if print_out:
-        # hcl.print(data_val)
-        hcl.print(observe)
     return out

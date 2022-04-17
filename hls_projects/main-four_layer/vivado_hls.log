@@ -1,0 +1,1351 @@
+
+****** Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2019.2.1 (64-bit)
+  **** SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
+  **** IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+    ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+
+source /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/scripts/vivado_hls/hls.tcl -notrace
+INFO: Applying HLS Y2K22 patch v1.2 for IP revision
+INFO: [HLS 200-10] Running '/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/bin/unwrapped/lnx64.o/vivado_hls'
+INFO: [HLS 200-10] For user 'sjz38' on host 'en-ec-zhang-x1.coecis.cornell.edu' (Linux_x86_64 version 3.10.0-1160.49.1.el7.x86_64) on Sun Apr 10 23:55:54 EDT 2022
+INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
+INFO: [HLS 200-10] In directory '/home/sjz38/my_ultranet/main-four_layer'
+Sourcing Tcl script 'run.tcl'
+INFO: [HLS 200-10] Creating and opening project '/home/sjz38/my_ultranet/main-four_layer/out.prj'.
+INFO: [HLS 200-10] Adding design file 'kernel.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'host.cpp' to the project
+INFO: [HLS 200-10] Creating and opening solution '/home/sjz38/my_ultranet/main-four_layer/out.prj/solution1'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+INFO: [HLS 200-10] Setting target device to 'xc7z020-clg484-1'
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [SCHED 204-61] Option 'relax_ii_for_timing' is enabled, will increase II to preserve clock frequency constraints.
+INFO: [HLS 200-10] Analyzing design file 'kernel.cpp' ... 
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:57 ; elapsed = 00:01:04 . Memory (MB): peak = 1057.715 ; gain = 527.219 ; free physical = 65568 ; free virtual = 121084
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:57 ; elapsed = 00:01:04 . Memory (MB): peak = 1057.715 ; gain = 527.219 ; free physical = 65568 ; free virtual = 121084
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:01:00 ; elapsed = 00:01:07 . Memory (MB): peak = 1057.715 ; gain = 527.219 ; free physical = 65497 ; free virtual = 121021
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [XFORM 203-602] Inlining function 'hls::max<ap_ufixed<4, 0, (ap_q_mode)5, (ap_o_mode)3, 0> >' into 'test' (kernel.cpp:106) automatically.
+WARNING: [SYNCHK 200-23] kernel.cpp:63: variable-indexed range selection may cause suboptimal QoR.
+INFO: [SYNCHK 200-10] 0 error(s), 1 warning(s).
+INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:01:01 ; elapsed = 00:01:09 . Memory (MB): peak = 1057.715 ; gain = 527.219 ; free physical = 65451 ; free virtual = 120980
+INFO: [XFORM 203-502] Unrolling small iteration loop 'conv1_pad_indices' (kernel.cpp:18) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'conv1_nn' (kernel.cpp:31) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'conv1_xx_reuse' (kernel.cpp:34) in function 'test' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'relu1_y' (kernel.cpp:71) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'pool1_pad_indices1' (kernel.cpp:84) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'pool1_i2' (kernel.cpp:95) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'pool1_w' (kernel.cpp:98) in function 'test' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'conv2_pad_indices2' (kernel.cpp:115) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'conv2_nn1' (kernel.cpp:128) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'conv2_xx_reuse1' (kernel.cpp:131) in function 'test' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'relu2_y1' (kernel.cpp:168) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'pool2_pad_indices3' (kernel.cpp:181) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'pool2_i5' (kernel.cpp:192) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'pool2_w1' (kernel.cpp:195) in function 'test' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'conv3_pad_indices4' (kernel.cpp:212) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'conv3_nn2' (kernel.cpp:225) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'conv3_xx_reuse2' (kernel.cpp:228) in function 'test' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'relu3_y2' (kernel.cpp:265) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'pool3_pad_indices5' (kernel.cpp:278) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'pool3_i8' (kernel.cpp:289) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'pool3_w2' (kernel.cpp:292) in function 'test' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'conv4_pad_indices6' (kernel.cpp:309) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'conv4_nn3' (kernel.cpp:322) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'conv4_xx_reuse3' (kernel.cpp:325) in function 'test' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'relu4_y3' (kernel.cpp:362) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'pool4_pad_indices7' (kernel.cpp:375) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'result_x7' (kernel.cpp:385) in function 'test' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'result_args24' (kernel.cpp:388) in function 'test' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'conv1_pad_indices' (kernel.cpp:18) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv1_nn' (kernel.cpp:31) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv1_pad_2' (kernel.cpp:36) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv1_pad_1' (kernel.cpp:37) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'conv1_line_buffer_1' (kernel.cpp:43) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv1_line_buffer_2' (kernel.cpp:44) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv1_line_buffer_0' (kernel.cpp:45) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'sum_x' (kernel.cpp:53) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv1_ra20' (kernel.cpp:56) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv1_ra21' (kernel.cpp:57) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv1_ra22' (kernel.cpp:58) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'relu1_y' (kernel.cpp:71) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool1_pad_indices1' (kernel.cpp:84) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool1_i2' (kernel.cpp:95) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'reducer4_x1' (kernel.cpp:101) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool1_ra23' (kernel.cpp:104) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'pool1_ra24' (kernel.cpp:105) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'conv2_pad_indices2' (kernel.cpp:115) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv2_nn1' (kernel.cpp:128) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv2_pad_2' (kernel.cpp:133) in function 'test' completely with a factor of 16.
+INFO: [HLS 200-489] Unrolling loop 'conv2_pad_1' (kernel.cpp:134) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'conv2_line_buffer_1' (kernel.cpp:140) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv2_line_buffer_2' (kernel.cpp:141) in function 'test' completely with a factor of 16.
+INFO: [HLS 200-489] Unrolling loop 'conv2_line_buffer_0' (kernel.cpp:142) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'sum_x2' (kernel.cpp:150) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv2_ra25' (kernel.cpp:153) in function 'test' completely with a factor of 16.
+INFO: [HLS 200-489] Unrolling loop 'conv2_ra26' (kernel.cpp:154) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv2_ra27' (kernel.cpp:155) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'relu2_y1' (kernel.cpp:168) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool2_pad_indices3' (kernel.cpp:181) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool2_i5' (kernel.cpp:192) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'reducer5_x3' (kernel.cpp:198) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool2_ra28' (kernel.cpp:201) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'pool2_ra29' (kernel.cpp:202) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'conv3_pad_indices4' (kernel.cpp:212) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv3_nn2' (kernel.cpp:225) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv3_pad_2' (kernel.cpp:230) in function 'test' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'conv3_pad_1' (kernel.cpp:231) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'conv3_line_buffer_1' (kernel.cpp:237) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv3_line_buffer_2' (kernel.cpp:238) in function 'test' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'conv3_line_buffer_0' (kernel.cpp:239) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'sum_x4' (kernel.cpp:247) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv3_ra30' (kernel.cpp:250) in function 'test' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'conv3_ra31' (kernel.cpp:251) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv3_ra32' (kernel.cpp:252) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'relu3_y2' (kernel.cpp:265) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool3_pad_indices5' (kernel.cpp:278) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool3_i8' (kernel.cpp:289) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'reducer6_x5' (kernel.cpp:295) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool3_ra33' (kernel.cpp:298) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'pool3_ra34' (kernel.cpp:299) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'conv4_pad_indices6' (kernel.cpp:309) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv4_nn3' (kernel.cpp:322) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv4_pad_2' (kernel.cpp:327) in function 'test' completely with a factor of 64.
+INFO: [HLS 200-489] Unrolling loop 'conv4_pad_1' (kernel.cpp:328) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'conv4_line_buffer_1' (kernel.cpp:334) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv4_line_buffer_2' (kernel.cpp:335) in function 'test' completely with a factor of 64.
+INFO: [HLS 200-489] Unrolling loop 'conv4_line_buffer_0' (kernel.cpp:336) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'sum_x6' (kernel.cpp:344) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'conv4_ra35' (kernel.cpp:347) in function 'test' completely with a factor of 64.
+INFO: [HLS 200-489] Unrolling loop 'conv4_ra36' (kernel.cpp:348) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'conv4_ra37' (kernel.cpp:349) in function 'test' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'relu4_y3' (kernel.cpp:362) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool4_pad_indices7' (kernel.cpp:375) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'result_x7' (kernel.cpp:385) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'reducer7_x8' (kernel.cpp:392) in function 'test' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'pool4_ra38' (kernel.cpp:395) in function 'test' completely with a factor of 2.
+INFO: [HLS 200-489] Unrolling loop 'pool4_ra39' (kernel.cpp:396) in function 'test' completely with a factor of 2.
+INFO: [XFORM 203-102] Partitioning array 'conv1_pad.V' (kernel.cpp:17) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1' (kernel.cpp:28) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_line_buffer.V' (kernel.cpp:29) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V' (kernel.cpp:30) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'relu1.V' (kernel.cpp:70) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'pool1_pad.V' (kernel.cpp:83) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'pool1.V' (kernel.cpp:94) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_pad.V' (kernel.cpp:114) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2' (kernel.cpp:125) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'relu2.V' (kernel.cpp:167) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'pool2_pad.V' (kernel.cpp:180) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'pool2.V' (kernel.cpp:191) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_pad.V' (kernel.cpp:211) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3' (kernel.cpp:222) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'relu3.V' (kernel.cpp:264) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'pool3_pad.V' (kernel.cpp:277) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'pool3.V' (kernel.cpp:288) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_pad.V' (kernel.cpp:308) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4' (kernel.cpp:319) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'relu4.V' (kernel.cpp:361) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'pool4_pad.V' (kernel.cpp:374) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_line_buffer.V.0' (kernel.cpp:29) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0' (kernel.cpp:30) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_line_buffer.V.0.0' (kernel.cpp:29) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_line_buffer.V.0.1' (kernel.cpp:29) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_line_buffer.V.0.2' (kernel.cpp:29) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.0' (kernel.cpp:30) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.1' (kernel.cpp:30) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.2' (kernel.cpp:30) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.0' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.1' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.2' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.3' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.4' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.5' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.6' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.7' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.8' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.9' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.10' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.11' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.12' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.13' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.14' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_line_buffer.V.0.15' (kernel.cpp:126) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.0' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.1' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.2' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.3' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.4' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.5' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.6' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.7' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.8' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.9' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.10' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.11' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.12' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.13' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.14' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.15' (kernel.cpp:127) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.0' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.1' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.2' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.3' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.4' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.5' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.6' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.7' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.8' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.9' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.10' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.11' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.12' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.13' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.14' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.15' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.16' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.17' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.18' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.19' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.20' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.21' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.22' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.23' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.24' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.25' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.26' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.27' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.28' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.29' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.30' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_line_buffer.V.0.31' (kernel.cpp:223) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.0' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.1' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.2' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.3' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.4' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.5' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.6' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.7' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.8' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.9' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.10' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.11' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.12' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.13' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.14' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.15' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.16' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.17' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.18' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.19' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.20' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.21' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.22' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.23' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.24' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.25' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.26' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.27' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.28' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.29' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.30' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.31' (kernel.cpp:224) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.0' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.1' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.2' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.3' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.4' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.5' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.6' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.7' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.8' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.9' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.10' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.11' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.12' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.13' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.14' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.15' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.16' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.17' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.18' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.19' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.20' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.21' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.22' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.23' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.24' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.25' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.26' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.27' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.28' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.29' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.30' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.31' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.32' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.33' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.34' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.35' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.36' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.37' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.38' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.39' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.40' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.41' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.42' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.43' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.44' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.45' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.46' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.47' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.48' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.49' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.50' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.51' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.52' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.53' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.54' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.55' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.56' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.57' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.58' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.59' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.60' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.61' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.62' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_line_buffer.V.0.63' (kernel.cpp:320) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.0' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.1' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.2' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.3' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.4' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.5' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.6' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.7' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.8' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.9' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.10' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.11' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.12' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.13' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.14' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.15' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.16' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.17' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.18' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.19' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.20' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.21' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.22' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.23' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.24' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.25' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.26' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.27' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.28' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.29' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.30' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.31' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.32' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.33' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.34' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.35' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.36' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.37' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.38' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.39' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.40' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.41' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.42' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.43' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.44' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.45' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.46' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.47' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.48' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.49' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.50' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.51' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.52' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.53' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.54' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.55' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.56' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.57' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.58' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.59' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.60' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.61' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.62' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.63' (kernel.cpp:321) in dimension 1 automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.0.0' (kernel.cpp:30) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.0.1' (kernel.cpp:30) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.0.2' (kernel.cpp:30) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.1.0' (kernel.cpp:30) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.1.1' (kernel.cpp:30) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.1.2' (kernel.cpp:30) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.2.0' (kernel.cpp:30) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.2.1' (kernel.cpp:30) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_window_buffer.V.0.2.2' (kernel.cpp:30) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.0.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.0.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.0.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.1.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.1.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.1.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.2.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.2.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.2.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.3.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.3.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.3.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.4.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.4.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.4.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.5.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.5.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.5.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.6.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.6.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.6.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.7.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.7.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.7.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.8.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.8.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.8.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.9.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.9.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.9.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.10.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.10.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.10.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.11.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.11.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.11.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.12.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.12.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.12.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.13.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.13.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.13.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.14.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.14.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.14.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.15.0' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.15.1' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_window_buffer.V.0.15.2' (kernel.cpp:127) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.0.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.0.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.0.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.1.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.1.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.1.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.2.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.2.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.2.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.3.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.3.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.3.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.4.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.4.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.4.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.5.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.5.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.5.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.6.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.6.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.6.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.7.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.7.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.7.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.8.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.8.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.8.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.9.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.9.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.9.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.10.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.10.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.10.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.11.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.11.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.11.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.12.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.12.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.12.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.13.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.13.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.13.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.14.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.14.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.14.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.15.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.15.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.15.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.16.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.16.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.16.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.17.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.17.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.17.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.18.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.18.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.18.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.19.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.19.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.19.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.20.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.20.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.20.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.21.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.21.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.21.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.22.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.22.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.22.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.23.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.23.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.23.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.24.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.24.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.24.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.25.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.25.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.25.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.26.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.26.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.26.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.27.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.27.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.27.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.28.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.28.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.28.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.29.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.29.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.29.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.30.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.30.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.30.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.31.0' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.31.1' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv3_window_buffer.V.0.31.2' (kernel.cpp:224) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.0.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.0.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.0.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.1.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.1.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.1.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.2.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.2.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.2.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.3.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.3.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.3.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.4.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.4.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.4.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.5.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.5.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.5.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.6.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.6.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.6.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.7.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.7.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.7.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.8.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.8.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.8.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.9.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.9.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.9.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.10.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.10.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.10.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.11.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.11.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.11.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.12.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.12.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.12.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.13.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.13.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.13.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.14.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.14.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.14.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.15.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.15.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.15.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.16.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.16.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.16.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.17.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.17.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.17.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.18.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.18.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.18.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.19.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.19.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.19.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.20.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.20.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.20.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.21.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.21.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.21.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.22.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.22.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.22.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.23.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.23.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.23.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.24.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.24.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.24.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.25.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.25.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.25.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.26.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.26.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.26.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.27.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.27.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.27.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.28.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.28.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.28.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.29.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.29.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.29.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.30.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.30.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.30.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.31.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.31.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.31.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.32.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.32.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.32.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.33.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.33.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.33.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.34.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.34.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.34.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.35.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.35.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.35.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.36.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.36.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.36.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.37.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.37.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.37.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.38.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.38.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.38.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.39.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.39.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.39.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.40.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.40.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.40.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.41.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.41.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.41.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.42.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.42.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.42.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.43.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.43.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.43.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.44.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.44.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.44.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.45.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.45.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.45.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.46.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.46.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.46.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.47.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.47.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.47.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.48.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.48.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.48.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.49.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.49.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.49.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.50.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.50.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.50.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.51.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.51.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.51.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.52.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.52.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.52.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.53.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.53.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.53.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.54.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.54.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.54.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.55.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.55.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.55.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.56.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.56.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.56.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.57.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.57.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.57.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.58.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.58.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.58.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.59.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.59.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.59.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.60.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.60.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.60.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.61.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.61.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.61.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.62.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.62.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.62.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.63.0' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.63.1' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv4_window_buffer.V.0.63.2' (kernel.cpp:321) automatically.
+INFO: [XFORM 203-101] Partitioning array 'weight_conv4.V' (kernel.cpp:12) in dimension 2 completely.
+INFO: [XFORM 203-101] Partitioning array 'weight_conv3.V' (kernel.cpp:12) in dimension 2 completely.
+INFO: [XFORM 203-101] Partitioning array 'weight_conv2.V' (kernel.cpp:12) in dimension 2 completely.
+INFO: [XFORM 203-101] Partitioning array 'weight_conv1.V' (kernel.cpp:12) in dimension 2 completely.
+INFO: [XFORM 203-602] Inlining function 'hls::max<ap_ufixed<4, 0, (ap_q_mode)5, (ap_o_mode)3, 0> >' into 'test' (kernel.cpp:106) automatically.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (kernel.cpp:59:67) to (kernel.cpp:64:15) in function 'test'... converting 10 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (kernel.cpp:74:67) to (kernel.cpp:74:57) in function 'test'... converting 30 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (kernel.cpp:156:68) to (kernel.cpp:161:15) in function 'test'... converting 10 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (kernel.cpp:171:71) to (kernel.cpp:171:60) in function 'test'... converting 30 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (kernel.cpp:253:69) to (kernel.cpp:258:15) in function 'test'... converting 10 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (kernel.cpp:268:70) to (kernel.cpp:268:59) in function 'test'... converting 30 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (kernel.cpp:350:70) to (kernel.cpp:355:15) in function 'test'... converting 10 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (kernel.cpp:365:70) to (kernel.cpp:365:59) in function 'test'... converting 30 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (kernel.cpp:388:71) to (kernel.cpp:388:60) in function 'test'... converting 10 basic blocks.
+INFO: [XFORM 203-11] Balancing expressions in function 'test' (kernel.cpp:12)...2086 expression(s) balanced.
+INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:02:05 ; elapsed = 00:02:18 . Memory (MB): peak = 1187.215 ; gain = 656.719 ; free physical = 65781 ; free virtual = 121365
+INFO: [XFORM 203-541] Flattening a loop nest 'conv1_pad_index_tuple' (kernel.cpp:20:93) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv1_pad_not_zero' (kernel.cpp:19:77) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv1_yy_reuse' (kernel.cpp:33:77) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv1_ff' (kernel.cpp:32:50) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'relu1_args1' (kernel.cpp:73:65) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'relu1_args0' (kernel.cpp:72:62) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool1_pad_index_tuple1' (kernel.cpp:86:97) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool1_pad_not_zero1' (kernel.cpp:85:82) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool1_h' (kernel.cpp:97:48) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool1_c' (kernel.cpp:96:46) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv2_pad_index_tuple2' (kernel.cpp:117:96) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv2_pad_not_zero2' (kernel.cpp:116:82) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv2_yy_reuse1' (kernel.cpp:130:80) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv2_ff1' (kernel.cpp:129:54) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'relu2_args11' (kernel.cpp:170:68) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'relu2_args01' (kernel.cpp:169:66) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool2_pad_index_tuple3' (kernel.cpp:183:96) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool2_pad_not_zero3' (kernel.cpp:182:82) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool2_h1' (kernel.cpp:194:52) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool2_c1' (kernel.cpp:193:50) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv3_pad_index_tuple4' (kernel.cpp:214:96) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv3_pad_not_zero4' (kernel.cpp:213:82) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv3_yy_reuse2' (kernel.cpp:227:80) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv3_ff2' (kernel.cpp:226:54) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'relu3_args12' (kernel.cpp:267:68) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'relu3_args02' (kernel.cpp:266:66) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool3_pad_index_tuple5' (kernel.cpp:280:96) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool3_pad_not_zero5' (kernel.cpp:279:82) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool3_h2' (kernel.cpp:291:52) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool3_c2' (kernel.cpp:290:50) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv4_pad_index_tuple6' (kernel.cpp:311:96) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv4_pad_not_zero6' (kernel.cpp:310:82) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv4_yy_reuse3' (kernel.cpp:324:80) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'conv4_ff3' (kernel.cpp:323:54) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'relu4_args13' (kernel.cpp:364:68) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'relu4_args03' (kernel.cpp:363:66) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool4_pad_index_tuple7' (kernel.cpp:377:96) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'pool4_pad_not_zero7' (kernel.cpp:376:82) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'result_args14' (kernel.cpp:387:69) in function 'test'.
+INFO: [XFORM 203-541] Flattening a loop nest 'result_args04' (kernel.cpp:386:67) in function 'test'.
+INFO: [HLS 200-472] Inferring partial write operation for 'conv1_pad[0].V' (kernel.cpp:23:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv1_line_buffer[0]' (kernel.cpp:38:17)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv1_line_buffer[0].1' (kernel.cpp:40:15)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv1[0]' (kernel.cpp:63:75)
+INFO: [HLS 200-472] Inferring partial write operation for 'relu1[0].V' (kernel.cpp:78:167)
+INFO: [HLS 200-472] Inferring partial write operation for 'pool1_pad[0].V' (kernel.cpp:89:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'pool1[0].V' (kernel.cpp:109:13)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv2_pad[0].V' (kernel.cpp:120:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv2_line_buffer[0]' (kernel.cpp:135:17)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv2_line_buffer[0].1' (kernel.cpp:137:15)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv2[0]' (kernel.cpp:160:79)
+INFO: [HLS 200-472] Inferring partial write operation for 'relu2[0].V' (kernel.cpp:175:171)
+INFO: [HLS 200-472] Inferring partial write operation for 'pool2_pad[0].V' (kernel.cpp:186:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'pool2[0].V' (kernel.cpp:206:13)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv3_pad[0].V' (kernel.cpp:217:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv3_line_buffer[0]' (kernel.cpp:232:17)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv3_line_buffer[0].1' (kernel.cpp:234:15)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv3[0]' (kernel.cpp:257:79)
+INFO: [HLS 200-472] Inferring partial write operation for 'relu3[0].V' (kernel.cpp:272:171)
+INFO: [HLS 200-472] Inferring partial write operation for 'pool3_pad[0].V' (kernel.cpp:283:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'pool3[0].V' (kernel.cpp:303:13)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv4_pad[0].V' (kernel.cpp:314:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv4_line_buffer[0]' (kernel.cpp:329:17)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv4_line_buffer[0].1' (kernel.cpp:331:15)
+INFO: [HLS 200-472] Inferring partial write operation for 'conv4[0]' (kernel.cpp:354:79)
+INFO: [HLS 200-472] Inferring partial write operation for 'relu4[0].V' (kernel.cpp:369:171)
+INFO: [HLS 200-472] Inferring partial write operation for 'pool4_pad[0].V' (kernel.cpp:380:2)
+INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:03:04 ; elapsed = 00:03:17 . Memory (MB): peak = 1327.715 ; gain = 797.219 ; free physical = 65756 ; free virtual = 121343
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'test' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'test' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'conv1_pad_not_zero_conv1_pad_index_tuple_conv1_pad_i'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 25.
+INFO: [SCHED 204-61] Pipelining loop 'conv1_ff_conv1_yy_reuse_conv1_xx_reuse'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv1_0_V_lo_5', kernel.cpp:59) on array 'weight_conv1_0_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv1_0_V'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv1_1_V_lo_8', kernel.cpp:59) on array 'weight_conv1_1_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv1_1_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 5, Depth = 13.
+INFO: [SCHED 204-61] Pipelining loop 'relu1_args0_relu1_args1_relu1_args2'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 20.
+INFO: [SCHED 204-61] Pipelining loop 'pool1_pad_not_zero1_pool1_pad_index_tuple1_pool1_pad_i1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 4.
+INFO: [SCHED 204-61] Pipelining loop 'pool1_c_pool1_h_pool1_w'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('pool1_pad_0_V_load_2', kernel.cpp:106) on array 'pool1_pad[0].V', kernel.cpp:83 due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'pool1_pad_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 4, Depth = 9.
+INFO: [SCHED 204-61] Pipelining loop 'conv2_pad_not_zero2_conv2_pad_index_tuple2_conv2_pad_i3'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 26.
+INFO: [SCHED 204-61] Pipelining loop 'conv2_ff1_conv2_yy_reuse1_conv2_xx_reuse1'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv2_7_V_lo_8', kernel.cpp:156) on array 'weight_conv2_7_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv2_7_V'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv2_8_V_lo_7', kernel.cpp:156) on array 'weight_conv2_8_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv2_8_V'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv2_12_V_l_6', kernel.cpp:156) on array 'weight_conv2_12_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv2_12_V'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('conv2_window_buffer[0][5][2][2].V', kernel.cpp:137) on array 'conv2_pad[0].V', kernel.cpp:114 due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'conv2_pad_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 8, Depth = 24.
+INFO: [SCHED 204-61] Pipelining loop 'relu2_args01_relu2_args11_relu2_args21'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 19.
+INFO: [SCHED 204-61] Pipelining loop 'pool2_pad_not_zero3_pool2_pad_index_tuple3_pool2_pad_i4'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 4.
+INFO: [SCHED 204-61] Pipelining loop 'pool2_c1_pool2_h1_pool2_w1'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('pool2_pad_0_V_load_2', kernel.cpp:203) on array 'pool2_pad[0].V', kernel.cpp:180 due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'pool2_pad_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 4, Depth = 9.
+INFO: [SCHED 204-61] Pipelining loop 'conv3_pad_not_zero4_conv3_pad_index_tuple4_conv3_pad_i6'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 26.
+INFO: [SCHED 204-61] Pipelining loop 'conv3_ff2_conv3_yy_reuse2_conv3_xx_reuse2'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv3_28_V_l', kernel.cpp:253) on array 'weight_conv3_28_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv3_28_V'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv3_0_V_lo_4', kernel.cpp:253) on array 'weight_conv3_0_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv3_0_V'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('conv3_window_buffer[0][22][2][2].V', kernel.cpp:234) on array 'conv3_pad[0].V', kernel.cpp:211 due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'conv3_pad_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 16, Depth = 41.
+INFO: [SCHED 204-61] Pipelining loop 'relu3_args02_relu3_args12_relu3_args22'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 19.
+INFO: [SCHED 204-61] Pipelining loop 'pool3_pad_not_zero5_pool3_pad_index_tuple5_pool3_pad_i7'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 4.
+INFO: [SCHED 204-61] Pipelining loop 'pool3_c2_pool3_h2_pool3_w2'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('pool3_pad_0_V_load_2', kernel.cpp:300) on array 'pool3_pad[0].V', kernel.cpp:277 due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'pool3_pad_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 4, Depth = 9.
+INFO: [SCHED 204-61] Pipelining loop 'conv4_pad_not_zero6_conv4_pad_index_tuple6_conv4_pad_i9'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 26.
+INFO: [SCHED 204-61] Pipelining loop 'conv4_ff3_conv4_yy_reuse3_conv4_xx_reuse3'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv4_55_V_l_8', kernel.cpp:350) on array 'weight_conv4_55_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv4_55_V'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv4_56_V_l_7', kernel.cpp:350) on array 'weight_conv4_56_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv4_56_V'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('weight_conv4_60_V_l_6', kernel.cpp:350) on array 'weight_conv4_60_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'weight_conv4_60_V'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('conv4_window_buffer[0][28][2][2].V', kernel.cpp:331) on array 'conv4_pad[0].V', kernel.cpp:308 due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'conv4_pad_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 32, Depth = 71.
+INFO: [SCHED 204-61] Pipelining loop 'relu4_args03_relu4_args13_relu4_args23'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 19.
+INFO: [SCHED 204-61] Pipelining loop 'pool4_pad_not_zero7_pool4_pad_index_tuple7_pool4_pad_i10'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 4.
+INFO: [SCHED 204-61] Pipelining loop 'result_args04_result_args14_result_args24'.
+WARNING: [SCHED 204-69] Unable to schedule 'load' operation ('pool4_pad_0_V_load_2', kernel.cpp:397) on array 'pool4_pad[0].V', kernel.cpp:374 due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'pool4_pad_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 4, Depth = 12.
+WARNING: [SCHED 204-21] Estimated clock period (11.4185ns) exceeds the target (target clock period: 10ns, clock uncertainty: 1.25ns, effective delay budget: 8.75ns).
+WARNING: [SCHED 204-21] The critical path in module 'test' consists of the following:
+	'mul' operation of DSP[3286] ('mul_ln703_103', kernel.cpp:156) [3008]  (3.36 ns)
+	'add' operation of DSP[3286] ('add_ln703_64', kernel.cpp:156) [3286]  (3.02 ns)
+	'add' operation ('add_ln703_67', kernel.cpp:156) [3292]  (1.55 ns)
+	'add' operation ('add_ln703_68', kernel.cpp:156) [3294]  (1.68 ns)
+	'add' operation ('add_ln703_77', kernel.cpp:156) [3312]  (1.81 ns)
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 383.93 seconds; current allocated memory: 416.302 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 86.82 seconds; current allocated memory: 473.520 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'test' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/input_image_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv1_0_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv1_1_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv1_2_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/a_batchnorm1_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/b_batchnorm1_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_0_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_1_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_2_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_3_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_4_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_5_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_6_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_7_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_8_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_9_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_10_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_11_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_12_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_13_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_14_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv2_15_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/a_batchnorm2_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/b_batchnorm2_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_0_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_1_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_2_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_3_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_4_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_5_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_6_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_7_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_8_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_9_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_10_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_11_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_12_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_13_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_14_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_15_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_16_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_17_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_18_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_19_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_20_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_21_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_22_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_23_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_24_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_25_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_26_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_27_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_28_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_29_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_30_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv3_31_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/a_batchnorm3_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/b_batchnorm3_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_0_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_1_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_2_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_3_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_4_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_5_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_6_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_7_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_8_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_9_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_10_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_11_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_12_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_13_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_14_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_15_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_16_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_17_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_18_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_19_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_20_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_21_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_22_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_23_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_24_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_25_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_26_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_27_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_28_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_29_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_30_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_31_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_32_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_33_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_34_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_35_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_36_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_37_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_38_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_39_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_40_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_41_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_42_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_43_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_44_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_45_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_46_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_47_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_48_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_49_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_50_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_51_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_52_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_53_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_54_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_55_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_56_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_57_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_58_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_59_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_60_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_61_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_62_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/weight_conv4_63_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/a_batchnorm4_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/b_batchnorm4_V' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'test/result' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'test' to 'ap_ctrl_hs'.
+INFO: [SYN 201-210] Renamed object name 'test_conv1_line_buffer_0' to 'test_conv1_line_bbkb' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv1_line_buffer_0_1' to 'test_conv1_line_bcud' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv1_line_buffer_0_2' to 'test_conv1_line_bdEe' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv1_line_buffer_0_3' to 'test_conv1_line_beOg' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv1_line_buffer_0_4' to 'test_conv1_line_bfYi' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv1_line_buffer_0_5' to 'test_conv1_line_bg8j' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0' to 'test_conv2_line_bhbi' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_1' to 'test_conv2_line_bibs' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_2' to 'test_conv2_line_bjbC' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_3' to 'test_conv2_line_bkbM' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_4' to 'test_conv2_line_blbW' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_5' to 'test_conv2_line_bmb6' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_6' to 'test_conv2_line_bncg' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_7' to 'test_conv2_line_bocq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_8' to 'test_conv2_line_bpcA' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_9' to 'test_conv2_line_bqcK' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_10' to 'test_conv2_line_brcU' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_11' to 'test_conv2_line_bsc4' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_12' to 'test_conv2_line_btde' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_13' to 'test_conv2_line_budo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_14' to 'test_conv2_line_bvdy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_15' to 'test_conv2_line_bwdI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_16' to 'test_conv2_line_bxdS' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_17' to 'test_conv2_line_byd2' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_18' to 'test_conv2_line_bzec' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_19' to 'test_conv2_line_bAem' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_20' to 'test_conv2_line_bBew' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_21' to 'test_conv2_line_bCeG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_22' to 'test_conv2_line_bDeQ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_23' to 'test_conv2_line_bEe0' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_24' to 'test_conv2_line_bFfa' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_25' to 'test_conv2_line_bGfk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_26' to 'test_conv2_line_bHfu' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_27' to 'test_conv2_line_bIfE' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_28' to 'test_conv2_line_bJfO' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_29' to 'test_conv2_line_bKfY' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_30' to 'test_conv2_line_bLf8' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv2_line_buffer_0_31' to 'test_conv2_line_bMgi' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0' to 'test_conv3_line_bNgs' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_1' to 'test_conv3_line_bOgC' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_2' to 'test_conv3_line_bPgM' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_3' to 'test_conv3_line_bQgW' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_4' to 'test_conv3_line_bRg6' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_5' to 'test_conv3_line_bShg' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_6' to 'test_conv3_line_bThq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_7' to 'test_conv3_line_bUhA' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_8' to 'test_conv3_line_bVhK' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_9' to 'test_conv3_line_bWhU' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_10' to 'test_conv3_line_bXh4' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_11' to 'test_conv3_line_bYie' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_12' to 'test_conv3_line_bZio' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_13' to 'test_conv3_line_b0iy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_14' to 'test_conv3_line_b1iI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_15' to 'test_conv3_line_b2iS' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_16' to 'test_conv3_line_b3i2' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_17' to 'test_conv3_line_b4jc' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_18' to 'test_conv3_line_b5jm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_19' to 'test_conv3_line_b6jw' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_20' to 'test_conv3_line_b7jG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_21' to 'test_conv3_line_b8jQ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_22' to 'test_conv3_line_b9j0' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_23' to 'test_conv3_line_bbak' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_24' to 'test_conv3_line_bbbk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_25' to 'test_conv3_line_bbck' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_26' to 'test_conv3_line_bbdk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_27' to 'test_conv3_line_bbek' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_28' to 'test_conv3_line_bbfk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_29' to 'test_conv3_line_bbgk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_30' to 'test_conv3_line_bbhl' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_31' to 'test_conv3_line_bbil' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_32' to 'test_conv3_line_bbjl' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_33' to 'test_conv3_line_bbkl' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_34' to 'test_conv3_line_bbll' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_35' to 'test_conv3_line_bbml' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_36' to 'test_conv3_line_bbnm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_37' to 'test_conv3_line_bbom' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_38' to 'test_conv3_line_bbpm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_39' to 'test_conv3_line_bbqm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_40' to 'test_conv3_line_bbrm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_41' to 'test_conv3_line_bbsm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_42' to 'test_conv3_line_bbtn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_43' to 'test_conv3_line_bbun' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_44' to 'test_conv3_line_bbvn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_45' to 'test_conv3_line_bbwn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_46' to 'test_conv3_line_bbxn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_47' to 'test_conv3_line_bbyn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_48' to 'test_conv3_line_bbzo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_49' to 'test_conv3_line_bbAo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_50' to 'test_conv3_line_bbBo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_51' to 'test_conv3_line_bbCo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_52' to 'test_conv3_line_bbDo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_53' to 'test_conv3_line_bbEo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_54' to 'test_conv3_line_bbFp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_55' to 'test_conv3_line_bbGp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_56' to 'test_conv3_line_bbHp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_57' to 'test_conv3_line_bbIp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_58' to 'test_conv3_line_bbJp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_59' to 'test_conv3_line_bbKp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_60' to 'test_conv3_line_bbLp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_61' to 'test_conv3_line_bbMq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_62' to 'test_conv3_line_bbNq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv3_line_buffer_0_63' to 'test_conv3_line_bbOq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0' to 'test_conv4_line_bbPq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_1' to 'test_conv4_line_bbQq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_2' to 'test_conv4_line_bbRq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_3' to 'test_conv4_line_bbSr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_4' to 'test_conv4_line_bbTr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_5' to 'test_conv4_line_bbUr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_6' to 'test_conv4_line_bbVr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_7' to 'test_conv4_line_bbWr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_8' to 'test_conv4_line_bbXr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_9' to 'test_conv4_line_bbYs' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_10' to 'test_conv4_line_bbZs' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_11' to 'test_conv4_line_bb0s' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_12' to 'test_conv4_line_bb1s' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_13' to 'test_conv4_line_bb2s' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_14' to 'test_conv4_line_bb3s' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_15' to 'test_conv4_line_bb4t' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_16' to 'test_conv4_line_bb5t' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_17' to 'test_conv4_line_bb6t' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_18' to 'test_conv4_line_bb7t' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_19' to 'test_conv4_line_bb8t' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_20' to 'test_conv4_line_bb9t' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_21' to 'test_conv4_line_bcau' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_22' to 'test_conv4_line_bcbu' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_23' to 'test_conv4_line_bccu' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_24' to 'test_conv4_line_bcdu' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_25' to 'test_conv4_line_bceu' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_26' to 'test_conv4_line_bcfu' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_27' to 'test_conv4_line_bcgu' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_28' to 'test_conv4_line_bchv' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_29' to 'test_conv4_line_bciv' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_30' to 'test_conv4_line_bcjv' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_31' to 'test_conv4_line_bckv' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_32' to 'test_conv4_line_bclv' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_33' to 'test_conv4_line_bcmv' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_34' to 'test_conv4_line_bcnw' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_35' to 'test_conv4_line_bcow' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_36' to 'test_conv4_line_bcpw' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_37' to 'test_conv4_line_bcqw' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_38' to 'test_conv4_line_bcrw' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_39' to 'test_conv4_line_bcsw' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_40' to 'test_conv4_line_bctx' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_41' to 'test_conv4_line_bcux' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_42' to 'test_conv4_line_bcvx' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_43' to 'test_conv4_line_bcwx' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_44' to 'test_conv4_line_bcxx' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_45' to 'test_conv4_line_bcyx' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_46' to 'test_conv4_line_bczy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_47' to 'test_conv4_line_bcAy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_48' to 'test_conv4_line_bcBy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_49' to 'test_conv4_line_bcCy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_50' to 'test_conv4_line_bcDy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_51' to 'test_conv4_line_bcEy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_52' to 'test_conv4_line_bcFz' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_53' to 'test_conv4_line_bcGz' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_54' to 'test_conv4_line_bcHz' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_55' to 'test_conv4_line_bcIz' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_56' to 'test_conv4_line_bcJz' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_57' to 'test_conv4_line_bcKz' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_58' to 'test_conv4_line_bcLz' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_59' to 'test_conv4_line_bcMA' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_60' to 'test_conv4_line_bcNA' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_61' to 'test_conv4_line_bcOA' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_62' to 'test_conv4_line_bcPA' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_63' to 'test_conv4_line_bcQA' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_64' to 'test_conv4_line_bcRA' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_65' to 'test_conv4_line_bcSB' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_66' to 'test_conv4_line_bcTB' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_67' to 'test_conv4_line_bcUB' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_68' to 'test_conv4_line_bcVB' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_69' to 'test_conv4_line_bcWB' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_70' to 'test_conv4_line_bcXB' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_71' to 'test_conv4_line_bcYC' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_72' to 'test_conv4_line_bcZC' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_73' to 'test_conv4_line_bc0C' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_74' to 'test_conv4_line_bc1C' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_75' to 'test_conv4_line_bc2C' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_76' to 'test_conv4_line_bc3C' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_77' to 'test_conv4_line_bc4D' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_78' to 'test_conv4_line_bc5D' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_79' to 'test_conv4_line_bc6D' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_80' to 'test_conv4_line_bc7D' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_81' to 'test_conv4_line_bc8D' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_82' to 'test_conv4_line_bc9D' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_83' to 'test_conv4_line_bdaE' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_84' to 'test_conv4_line_bdbE' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_85' to 'test_conv4_line_bdcE' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_86' to 'test_conv4_line_bddE' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_87' to 'test_conv4_line_bdeE' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_88' to 'test_conv4_line_bdfE' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_89' to 'test_conv4_line_bdgE' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_90' to 'test_conv4_line_bdhF' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_91' to 'test_conv4_line_bdiF' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_92' to 'test_conv4_line_bdjF' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_93' to 'test_conv4_line_bdkF' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_94' to 'test_conv4_line_bdlF' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_95' to 'test_conv4_line_bdmF' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_96' to 'test_conv4_line_bdnG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_97' to 'test_conv4_line_bdoG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_98' to 'test_conv4_line_bdpG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_99' to 'test_conv4_line_bdqG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_100' to 'test_conv4_line_bdrG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_101' to 'test_conv4_line_bdsG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_102' to 'test_conv4_line_bdtH' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_103' to 'test_conv4_line_bduH' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_104' to 'test_conv4_line_bdvH' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_105' to 'test_conv4_line_bdwH' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_106' to 'test_conv4_line_bdxH' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_107' to 'test_conv4_line_bdyH' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_108' to 'test_conv4_line_bdzI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_109' to 'test_conv4_line_bdAI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_110' to 'test_conv4_line_bdBI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_111' to 'test_conv4_line_bdCI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_112' to 'test_conv4_line_bdDI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_113' to 'test_conv4_line_bdEI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_114' to 'test_conv4_line_bdFJ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_115' to 'test_conv4_line_bdGJ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_116' to 'test_conv4_line_bdHJ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_117' to 'test_conv4_line_bdIJ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_118' to 'test_conv4_line_bdJJ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_119' to 'test_conv4_line_bdKJ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_120' to 'test_conv4_line_bdLJ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_121' to 'test_conv4_line_bdMK' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_122' to 'test_conv4_line_bdNK' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_123' to 'test_conv4_line_bdOK' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_124' to 'test_conv4_line_bdPK' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_125' to 'test_conv4_line_bdQK' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_126' to 'test_conv4_line_bdRK' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_conv4_line_buffer_0_127' to 'test_conv4_line_bdSL' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_fadd_32ns_32ns_32_5_full_dsp_1' to 'test_fadd_32ns_32dTL' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_fmul_32ns_32ns_32_4_max_dsp_1' to 'test_fmul_32ns_32dUL' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_fpext_32ns_64_2_1' to 'test_fpext_32ns_6dVL' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_urem_15ns_9ns_20_19_1' to 'test_urem_15ns_9ndWL' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_urem_16ns_8ns_11_20_1' to 'test_urem_16ns_8ndXL' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_urem_16ns_7ns_11_20_1' to 'test_urem_16ns_7ndYM' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_urem_16ns_6ns_11_20_1' to 'test_urem_16ns_6ndZM' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mul_mul_22ns_19s_42_1_1' to 'test_mul_mul_22nsd0M' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_2ns_9ns_8ns_10_1_1' to 'test_mac_muladd_2d1M' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_10ns_10ns_9ns_18_1_1' to 'test_mac_muladd_1d2M' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_8s_6s_15s_15_1_1' to 'test_mac_muladd_8d3M' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_8s_6s_14s_15_1_1' to 'test_mac_muladd_8d4N' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mul_mul_5ns_15ns_18_1_1' to 'test_mul_mul_5ns_d5N' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_5ns_8ns_7ns_12_1_1' to 'test_mac_muladd_5d6N' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_12ns_9ns_8ns_19_1_1' to 'test_mac_muladd_1d7N' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_4ns_6s_10s_11_1_1' to 'test_mac_muladd_4d8N' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_4ns_6s_11s_12_1_1' to 'test_mac_muladd_4d9N' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mul_mul_6ns_13ns_17_1_1' to 'test_mul_mul_6ns_eaO' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mul_mul_21ns_19s_40_1_1' to 'test_mul_mul_21nsebO' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_6ns_7ns_6ns_12_1_1' to 'test_mac_muladd_6ecO' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_12ns_8ns_7ns_18_1_1' to 'test_mac_muladd_1edO' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mul_mul_7ns_11ns_16_1_1' to 'test_mul_mul_7ns_eeO' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mul_mul_20ns_18s_38_1_1' to 'test_mul_mul_20nsefO' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_7ns_6ns_5ns_12_1_1' to 'test_mac_muladd_7egO' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_12ns_7ns_6ns_17_1_1' to 'test_mac_muladd_1ehP' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_7ns_9ns_6ns_15_1_1' to 'test_mac_muladd_7eiP' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_7ns_10ns_6ns_16_1_1' to 'test_mac_muladd_7ejP' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'test_mac_muladd_7ns_11ns_6ns_17_1_1' to 'test_mac_muladd_7ekP' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'test_fadd_32ns_32dTL': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_fmul_32ns_32dUL': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_fpext_32ns_6dVL': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_1d2M': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_1d7N': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_1edO': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_1ehP': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_2d1M': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_4d8N': 448 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_4d9N': 112 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_5d6N': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_6ecO': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_7egO': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_7eiP': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_7ejP': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_7ekP': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_8d3M': 5 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mac_muladd_8d4N': 11 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mul_mul_20nsefO': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mul_mul_21nsebO': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mul_mul_22nsd0M': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mul_mul_5ns_d5N': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mul_mul_6ns_eaO': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_mul_mul_7ns_eeO': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_urem_15ns_9ndWL': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_urem_16ns_6ndZM': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_urem_16ns_7ndYM': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'test_urem_16ns_8ndXL': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'test'.
+INFO: [HLS 200-111]  Elapsed time: 62.99 seconds; current allocated memory: 559.516 MB.
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 87.58 MHz
+INFO: [RTMG 210-282] Generating pipelined core: 'test_urem_15ns_9ndWL_div'
+INFO: [RTMG 210-282] Generating pipelined core: 'test_urem_16ns_8ndXL_div'
+INFO: [RTMG 210-282] Generating pipelined core: 'test_urem_16ns_7ndYM_div'
+INFO: [RTMG 210-282] Generating pipelined core: 'test_urem_16ns_6ndZM_div'
+INFO: [RTMG 210-278] Implementing memory 'test_conv1_pad_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv1_0_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv1_line_bbkb_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_relu1_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_pool1_pad_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_pool1_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv2_pad_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv2_0_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv2_line_bhbi_ram (RAM)' using distributed RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv2_line_bkbM_ram (RAM)' using distributed RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_relu2_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_pool2_pad_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_pool2_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv3_pad_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv3_0_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv3_line_bNgs_ram (RAM)' using distributed RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv3_line_bbEo_ram (RAM)' using distributed RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_pool3_pad_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_pool3_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv4_pad_0_V_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv4_0_ram (RAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv4_line_bbPq_ram (RAM)' using distributed RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_conv4_line_bdwH_ram (RAM)' using distributed RAMs.
+INFO: [RTMG 210-278] Implementing memory 'test_pool4_pad_0_V_ram (RAM)' using block RAMs.
+INFO: [HLS 200-111] Finished generating all RTL models Time (s): cpu = 00:09:31 ; elapsed = 00:10:50 . Memory (MB): peak = 1711.727 ; gain = 1181.230 ; free physical = 62803 ; free virtual = 118732
+INFO: [VHDL 208-304] Generating VHDL RTL for test.
+INFO: [VLOG 209-307] Generating Verilog RTL for test.
+INFO: [HLS 200-112] Total elapsed time: 650.35 seconds; peak allocated memory: 559.516 MB.
+INFO: [Common 17-206] Exiting vivado_hls at Mon Apr 11 00:06:43 2022...
