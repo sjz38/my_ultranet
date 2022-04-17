@@ -1,8 +1,8 @@
 import heterocl as hcl
 import numpy as np
 
-from ultranet_model_mod import ultranet
-from ultranet import load_np_params, load_image
+from ultranet_model import ultranet
+from main_single_input import load_np_params, load_image
 
 input_dtype = hcl.Fixed(8, 4)
 weight_dtype = hcl.Fixed(5, 3) 
@@ -14,7 +14,7 @@ batch_size = 1
 # image_path = "./example_images/example_1.jpg"
 image_path = "./test_images/boat1_000001.jpg"
 
-project_name = "bn_mod_hls"
+project_name = "targeted_stream"
 
 # customizations
 stream = True
