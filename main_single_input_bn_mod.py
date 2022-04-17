@@ -316,6 +316,34 @@ if __name__ == "__main__":
 
     hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)))
 
+    #####
+    # export to file
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm1_a.dat', batchnorm1_a, fmt='%f')
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm1_b.dat', batchnorm1_b, fmt='%f')
+
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm2_a.dat', batchnorm2_a, fmt='%f')
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm2_b.dat', batchnorm2_b, fmt='%f')
+
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm3_a.dat', batchnorm3_a, fmt='%f')
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm3_b.dat', batchnorm3_b, fmt='%f')
+
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm4_a.dat', batchnorm4_a, fmt='%f')
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm4_b.dat', batchnorm4_b, fmt='%f')
+    
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm5_a.dat', batchnorm5_a, fmt='%f')
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm5_b.dat', batchnorm5_b, fmt='%f')
+
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm6_a.dat', batchnorm6_a, fmt='%f')
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm6_b.dat', batchnorm6_b, fmt='%f')
+
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm7_a.dat', batchnorm7_a, fmt='%f')
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm7_b.dat', batchnorm7_b, fmt='%f')
+
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm8_a.dat', batchnorm8_a, fmt='%f')
+    np.savetxt('/work/shared/users/meng/ys566/weight_dat/batchnorm8_b.dat', batchnorm8_b, fmt='%f')
+
+    
+
     ###############################################################################
     # Inference
     ###############################################################################
