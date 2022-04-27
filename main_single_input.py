@@ -18,11 +18,14 @@ weight_dtype = hcl.Fixed(5, 3) # TODO: why hcl.Fixed(4,4) doesn't work
 act_dtype = hcl.UFixed(6, 4)
 bn_a_dtype = hcl.Fixed(14, 10) # TODO some 14 bit fixed pt, this seems to work well 
 bn_b_dtype = hcl.Fixed(26, 18) # TODO some 26 bit fixed pt, this seems to work well
+conv_dtype = hcl.Fixed(16, 8)
+
 ###############################################################################
 # Define parameters and images
 ###############################################################################
 
 image_path = './test_images/boat1_000001.jpg'
+# image_path = './test_images/person23_0113.jpg'
 # image_path = './test_images/car1_0001.jpg'
 raw_height = 360
 raw_width = 640
@@ -174,14 +177,23 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
     )
 
     # quantize activations
+    sm.quantize(ultranet.conv1, conv_dtype)
     sm.quantize(ultranet.relu1, act_dtype)
+    sm.quantize(ultranet.conv2, conv_dtype)
     sm.quantize(ultranet.relu2, act_dtype)
+    sm.quantize(ultranet.conv3, conv_dtype)
     sm.quantize(ultranet.relu3, act_dtype)
+    sm.quantize(ultranet.conv4, conv_dtype)
     sm.quantize(ultranet.relu4, act_dtype)
+    sm.quantize(ultranet.conv5, conv_dtype)
     sm.quantize(ultranet.relu5, act_dtype)
+    sm.quantize(ultranet.conv6, conv_dtype)
     sm.quantize(ultranet.relu6, act_dtype)
+    sm.quantize(ultranet.conv7, conv_dtype)
     sm.quantize(ultranet.relu7, act_dtype)
+    sm.quantize(ultranet.conv8, conv_dtype)
     sm.quantize(ultranet.relu8, act_dtype)
+    
     s = hcl.create_schedule_from_scheme(sm, "main")
     return hcl.build(s, target=target)
 
@@ -314,7 +326,7 @@ if __name__ == "__main__":
     hcl_a_batchnorm8 = hcl.asarray(batchnorm8_a.astype(float), dtype=bn_a_dtype)
     hcl_b_batchnorm8 = hcl.asarray(batchnorm8_b.astype(float), dtype=bn_b_dtype)
 
-    hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)))
+    hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)), dtype=hcl.Fixed(16,8))
 
     ###############################################################################
     # Inference
@@ -336,7 +348,12 @@ if __name__ == "__main__":
     # Results up to YOLO layer
     ###############################################################################
     np_input = hcl_input.asnumpy()
+    # print(hcl_out)
+    # hcl_out = hcl.compute(hcl_out.shape, lambda *x : hcl.cast(hcl.Float(32), hcl_out[x]), name='result', dtype=hcl.Float(32))
     np_out = hcl_out.asnumpy()
+    np_out = np.float32(np.abs(np_out))
+    print(f"np_out: {np_out[-1]}")
+    print(f"np_out type: {np_out.dtype}")
     # np_out = np.load('../ultra_net/model/torch_output.npy')
 
     ###############################################################################
@@ -351,6 +368,7 @@ if __name__ == "__main__":
     yolo_bias = model['layers.28.bias']
 
     tensor_out = torch.tensor(np_out)
+    print(f"Tensor_out type: {tensor_out.dtype}")
     ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
 
     # print("up to YOLO layer complete")

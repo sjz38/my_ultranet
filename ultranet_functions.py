@@ -65,7 +65,7 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
 # this function is the heteroCL equivalent of the torch.nn.Conv2d function 
 # in the PyTorch library. 
 ###############################################################################
-def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], out_dtype=hcl.Fixed(16,8)):
+def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], out_dtype=hcl.Fixed(16,8), print_out=False):
     batch, in_channel, in_height, in_width = Input.shape
     num_filter, channel, kernel_h, kernel_w = Filter.shape
     stride_h, stride_w = stride
@@ -166,6 +166,8 @@ def batchnorm2d(data, a, b, axis=1, name="batch_norm", out_dtype=hcl.Fixed(16,8)
     def get_axis(axis, *indices):
         indices = list(indices[0])
         return (indices[axis],)
+    
+    
     out = hcl.compute(data.shape, lambda *x : a[get_axis(axis, x)] * data[x] + b[get_axis(axis, x)], dtype=out_dtype, name=name)
     # observe = hcl.compute((data.shape[-1], ), lambda x : out[0, 0, 0, x], name="observe")
     # data_val = hcl.compute((data.shape[-1], ), lambda x : data[0, 0, 0, x], name="data_val")
