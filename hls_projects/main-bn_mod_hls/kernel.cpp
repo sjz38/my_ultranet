@@ -45,11 +45,13 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
         }
       }
     }
-    float conv1[1][16][160][320];
+    ap_fixed<16, 8> conv1[1][16][160][320];
     ap_fixed<8, 4> conv1_line_buffer[1][3][3][322];
     ap_fixed<8, 4> conv1_window_buffer[1][3][3][3];
     #pragma HLS dataflow
-    hls::stream<float > conv1_pipe_1;
+    // hls::stream<float > conv1_pipe_1;
+    hls::stream<ap_fixed<16, 8> > conv1_pipe_1;
+
     #pragma HLS stream variable=conv1_pipe_1 depth=128
     conv1_nn: for (int nn = 0; nn < 1; ++nn) {
       conv1_ff: for (int ff = 0; ff < 16; ++ff) {
@@ -83,9 +85,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
                     }
                   }
                 }
-                float conv1_temp;
-                conv1_temp = ((float)sum);
-                conv1_pipe_1.write(conv1_temp);
+                // float conv1_temp;
+                // conv1_temp = ((float)sum);
+                conv1_pipe_1.write(sum);
               }
             }
           }
@@ -101,9 +103,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
           relu1_args2: for (int args2 = 0; args2 < 320; ++args2) {
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm1;
-            float conv1_temp1;
+            ap_uint<32> conv1_temp1;
             conv1_temp1 = conv1_pipe_1.read();
-            batch_norm1 = ((ap_fixed<16, 8>)((((float)a_batchnorm1[args0]) * conv1_temp1) + ((float)b_batchnorm1[args0])));
+            batch_norm1 = ((ap_fixed<16, 8>)((((ap_uint<32>)a_batchnorm1[args0]) * conv1_temp1) + ((ap_uint<32>)b_batchnorm1[args0])));
             ap_ufixed<4, 0> relu1_temp;
             relu1_temp = ((ap_ufixed<4, 0>)((((ap_fixed<40, 32>)batch_norm1) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm1)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm1)))));
             relu1_pipe_2.write(relu1_temp);
@@ -172,10 +174,10 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
         }
       }
     }
-    float conv2[1][32][80][160];
+    ap_fixed<16, 8> conv2[1][32][80][160];
     ap_ufixed<4, 0> conv2_line_buffer[1][16][3][162];
     ap_ufixed<4, 0> conv2_window_buffer[1][16][3][3];
-    hls::stream<float > conv2_pipe_5;
+    hls::stream<ap_fixed<16, 8> > conv2_pipe_5;
     #pragma HLS stream variable=conv2_pipe_5 depth=128
     conv2_nn1: for (int nn1 = 0; nn1 < 1; ++nn1) {
       conv2_ff1: for (int ff1 = 0; ff1 < 32; ++ff1) {
@@ -209,9 +211,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
                     }
                   }
                 }
-                float conv2_temp;
-                conv2_temp = ((float)sum_);
-                conv2_pipe_5.write(conv2_temp);
+                // float conv2_temp;
+                // conv2_temp = ((float)sum_);
+                conv2_pipe_5.write(sum_);
               }
             }
           }
@@ -227,9 +229,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
           relu2_args21: for (int args21 = 0; args21 < 160; ++args21) {
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm2;
-            float conv2_temp1;
+            ap_uint<32> conv2_temp1;
             conv2_temp1 = conv2_pipe_5.read();
-            batch_norm2 = ((ap_fixed<16, 8>)((((float)a_batchnorm2[args01]) * conv2_temp1) + ((float)b_batchnorm2[args01])));
+            batch_norm2 = ((ap_fixed<16, 8>)((((ap_uint<32>)a_batchnorm2[args01]) * conv2_temp1) + ((ap_uint<32>)b_batchnorm2[args01])));
             ap_ufixed<4, 0> relu2_temp;
             relu2_temp = ((ap_ufixed<4, 0>)((((ap_fixed<40, 32>)batch_norm2) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm2)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm2)))));
             relu2_pipe_6.write(relu2_temp);
@@ -298,10 +300,10 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
         }
       }
     }
-    float conv3[1][64][40][80];
+    ap_fixed<16, 8> conv3[1][64][40][80];
     ap_ufixed<4, 0> conv3_line_buffer[1][32][3][82];
     ap_ufixed<4, 0> conv3_window_buffer[1][32][3][3];
-    hls::stream<float > conv3_pipe_9;
+    hls::stream<ap_fixed<16, 8> > conv3_pipe_9;
     #pragma HLS stream variable=conv3_pipe_9 depth=128
     conv3_nn2: for (int nn2 = 0; nn2 < 1; ++nn2) {
       conv3_ff2: for (int ff2 = 0; ff2 < 64; ++ff2) {
@@ -335,9 +337,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
                     }
                   }
                 }
-                float conv3_temp;
-                conv3_temp = ((float)sum__);
-                conv3_pipe_9.write(conv3_temp);
+                // float conv3_temp;
+                // conv3_temp = ((float)sum__);
+                conv3_pipe_9.write(sum__);
               }
             }
           }
@@ -353,9 +355,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
           relu3_args22: for (int args22 = 0; args22 < 80; ++args22) {
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm3;
-            float conv3_temp1;
+            ap_uint<32> conv3_temp1;
             conv3_temp1 = conv3_pipe_9.read();
-            batch_norm3 = ((ap_fixed<16, 8>)((((float)a_batchnorm3[args02]) * conv3_temp1) + ((float)b_batchnorm3[args02])));
+            batch_norm3 = ((ap_fixed<16, 8>)((((ap_uint<32>)a_batchnorm3[args02]) * conv3_temp1) + ((ap_uint<32>)b_batchnorm3[args02])));
             ap_ufixed<4, 0> relu3_temp;
             relu3_temp = ((ap_ufixed<4, 0>)((((ap_fixed<40, 32>)batch_norm3) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm3)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm3)))));
             relu3_pipe_10.write(relu3_temp);
@@ -424,10 +426,10 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
         }
       }
     }
-    float conv4[1][64][20][40];
+    ap_fixed<16, 8> conv4[1][64][20][40];
     ap_ufixed<4, 0> conv4_line_buffer[1][64][3][42];
     ap_ufixed<4, 0> conv4_window_buffer[1][64][3][3];
-    hls::stream<float > conv4_pipe_13;
+    hls::stream<ap_fixed<16, 8> > conv4_pipe_13;
     #pragma HLS stream variable=conv4_pipe_13 depth=128
     conv4_nn3: for (int nn3 = 0; nn3 < 1; ++nn3) {
       conv4_ff3: for (int ff3 = 0; ff3 < 64; ++ff3) {
@@ -461,9 +463,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
                     }
                   }
                 }
-                float conv4_temp;
-                conv4_temp = ((float)sum___);
-                conv4_pipe_13.write(conv4_temp);
+                // float conv4_temp;
+                // conv4_temp = ((float)sum___);
+                conv4_pipe_13.write(sum___);
               }
             }
           }
@@ -479,9 +481,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
           relu4_args23: for (int args23 = 0; args23 < 40; ++args23) {
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm4;
-            float conv4_temp1;
+            ap_uint<32> conv4_temp1;
             conv4_temp1 = conv4_pipe_13.read();
-            batch_norm4 = ((ap_fixed<16, 8>)((((float)a_batchnorm4[args03]) * conv4_temp1) + ((float)b_batchnorm4[args03])));
+            batch_norm4 = ((ap_fixed<16, 8>)((((ap_uint<32>)a_batchnorm4[args03]) * conv4_temp1) + ((ap_uint<32>)b_batchnorm4[args03])));
             ap_ufixed<4, 0> relu4_temp;
             relu4_temp = ((ap_ufixed<4, 0>)((((ap_fixed<40, 32>)batch_norm4) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm4)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm4)))));
             relu4_pipe_14.write(relu4_temp);
@@ -550,10 +552,10 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
         }
       }
     }
-    float conv5[1][64][10][20];
+    ap_fixed<16, 8> conv5[1][64][10][20];
     ap_ufixed<4, 0> conv5_line_buffer[1][64][3][22];
     ap_ufixed<4, 0> conv5_window_buffer[1][64][3][3];
-    hls::stream<float > conv5_pipe_17;
+    hls::stream<ap_fixed<16, 8> > conv5_pipe_17;
     #pragma HLS stream variable=conv5_pipe_17 depth=128
     conv5_nn4: for (int nn4 = 0; nn4 < 1; ++nn4) {
       conv5_ff4: for (int ff4 = 0; ff4 < 64; ++ff4) {
@@ -587,9 +589,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
                     }
                   }
                 }
-                float conv5_temp;
-                conv5_temp = ((float)sum____);
-                conv5_pipe_17.write(conv5_temp);
+                // float conv5_temp;
+                // conv5_temp = ((float)sum____);
+                conv5_pipe_17.write(sum____);
               }
             }
           }
@@ -605,9 +607,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
           relu5_args24: for (int args24 = 0; args24 < 20; ++args24) {
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm5;
-            float conv5_temp1;
+            ap_uint<32> conv5_temp1;
             conv5_temp1 = conv5_pipe_17.read();
-            batch_norm5 = ((ap_fixed<16, 8>)((((float)a_batchnorm5[args04]) * conv5_temp1) + ((float)b_batchnorm5[args04])));
+            batch_norm5 = ((ap_fixed<16, 8>)((((ap_uint<32>)a_batchnorm5[args04]) * conv5_temp1) + ((ap_uint<32>)b_batchnorm5[args04])));
             ap_ufixed<4, 0> relu5_temp;
             relu5_temp = ((ap_ufixed<4, 0>)((((ap_fixed<40, 32>)batch_norm5) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm5)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm5)))));
             relu5_pipe_18.write(relu5_temp);
@@ -633,10 +635,10 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
         }
       }
     }
-    float conv6[1][64][10][20];
+    ap_fixed<16, 8> conv6[1][64][10][20];
     ap_ufixed<4, 0> conv6_line_buffer[1][64][3][22];
     ap_ufixed<4, 0> conv6_window_buffer[1][64][3][3];
-    hls::stream<float > conv6_pipe_19;
+    hls::stream<ap_fixed<16, 8> > conv6_pipe_19;
     #pragma HLS stream variable=conv6_pipe_19 depth=128
     conv6_nn5: for (int nn5 = 0; nn5 < 1; ++nn5) {
       conv6_ff5: for (int ff5 = 0; ff5 < 64; ++ff5) {
@@ -670,9 +672,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
                     }
                   }
                 }
-                float conv6_temp;
-                conv6_temp = ((float)sum_____);
-                conv6_pipe_19.write(conv6_temp);
+                // float conv6_temp;
+                // conv6_temp = ((float)sum_____);
+                conv6_pipe_19.write(sum_____);
               }
             }
           }
@@ -688,9 +690,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
           relu6_args25: for (int args25 = 0; args25 < 20; ++args25) {
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm6;
-            float conv6_temp1;
+            ap_uint<32> conv6_temp1;
             conv6_temp1 = conv6_pipe_19.read();
-            batch_norm6 = ((ap_fixed<16, 8>)((((float)a_batchnorm6[args05]) * conv6_temp1) + ((float)b_batchnorm6[args05])));
+            batch_norm6 = ((ap_fixed<16, 8>)((((ap_uint<32>)a_batchnorm6[args05]) * conv6_temp1) + ((ap_uint<32>)b_batchnorm6[args05])));
             ap_ufixed<4, 0> relu6_temp;
             relu6_temp = ((ap_ufixed<4, 0>)((((ap_fixed<40, 32>)batch_norm6) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm6)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm6)))));
             relu6_pipe_20.write(relu6_temp);
@@ -716,10 +718,10 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
         }
       }
     }
-    float conv7[1][64][10][20];
+    ap_fixed<16, 8> conv7[1][64][10][20];
     ap_ufixed<4, 0> conv7_line_buffer[1][64][3][22];
     ap_ufixed<4, 0> conv7_window_buffer[1][64][3][3];
-    hls::stream<float > conv7_pipe_21;
+    hls::stream<ap_fixed<16, 8> > conv7_pipe_21;
     #pragma HLS stream variable=conv7_pipe_21 depth=128
     conv7_nn6: for (int nn6 = 0; nn6 < 1; ++nn6) {
       conv7_ff6: for (int ff6 = 0; ff6 < 64; ++ff6) {
@@ -753,9 +755,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
                     }
                   }
                 }
-                float conv7_temp;
-                conv7_temp = ((float)sum______);
-                conv7_pipe_21.write(conv7_temp);
+                // float conv7_temp;
+                // conv7_temp = ((float)sum______);
+                conv7_pipe_21.write(sum______);
               }
             }
           }
@@ -771,9 +773,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
           relu7_args26: for (int args26 = 0; args26 < 20; ++args26) {
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm7;
-            float conv7_temp1;
+            ap_uint<32> conv7_temp1;
             conv7_temp1 = conv7_pipe_21.read();
-            batch_norm7 = ((ap_fixed<16, 8>)((((float)a_batchnorm7[args06]) * conv7_temp1) + ((float)b_batchnorm7[args06])));
+            batch_norm7 = ((ap_fixed<16, 8>)((((ap_uint<32>)a_batchnorm7[args06]) * conv7_temp1) + ((ap_uint<32>)b_batchnorm7[args06])));
             ap_ufixed<4, 0> relu7_temp;
             relu7_temp = ((ap_ufixed<4, 0>)((((ap_fixed<40, 32>)batch_norm7) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm7)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm7)))));
             relu7_pipe_22.write(relu7_temp);
@@ -799,10 +801,10 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
         }
       }
     }
-    float conv8[1][64][10][20];
+    ap_fixed<16, 8> conv8[1][64][10][20];
     ap_ufixed<4, 0> conv8_line_buffer[1][64][3][22];
     ap_ufixed<4, 0> conv8_window_buffer[1][64][3][3];
-    hls::stream<float > conv8_pipe_23;
+    hls::stream<ap_fixed<16, 8> > conv8_pipe_23;
     #pragma HLS stream variable=conv8_pipe_23 depth=128
     conv8_nn7: for (int nn7 = 0; nn7 < 1; ++nn7) {
       conv8_ff7: for (int ff7 = 0; ff7 < 64; ++ff7) {
@@ -836,9 +838,9 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
                     }
                   }
                 }
-                float conv8_temp;
-                conv8_temp = ((float)sum_______);
-                conv8_pipe_23.write(conv8_temp);
+                // float conv8_temp;
+                // conv8_temp = ((float)sum_______);
+                conv8_pipe_23.write(sum_______);
               }
             }
           }
@@ -852,11 +854,11 @@ void test(ap_fixed<8, 4> input_image[1][3][160][320], ap_fixed<5, 2> weight_conv
           #pragma HLS pipeline
             ap_ufixed<4, 0> relu8;
             ap_fixed<16, 8> batch_norm8;
-            float conv8_temp1;
+            ap_fixed<16, 8> conv8_temp1;
             conv8_temp1 = conv8_pipe_23.read();
-            batch_norm8 = ((ap_fixed<16, 8>)((((float)a_batchnorm8[args07]) * conv8_temp1) + ((float)b_batchnorm8[args07])));
+            batch_norm8 = ((ap_fixed<16, 8>)((a_batchnorm8[args07] * conv8_temp1) + (b_batchnorm8[args07])));
             relu8 = ((ap_ufixed<4, 0>)((((ap_fixed<40, 32>)batch_norm8) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm8)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm8)))));
-            result[x12][args07][args17][args27] = ((float)relu8);
+            result[x12][args07][args17][args27] = ((ap_uint<32>)relu8);
           }
         }
       }
