@@ -9,12 +9,13 @@ weight_dtype = hcl.Fixed(5, 3)
 act_dtype = hcl.UFixed(4, 4)
 bn_a_dtype = hcl.Fixed(14, 10)
 bn_b_dtype = hcl.Fixed(26, 18)
+conv_dtype = hcl.Fixed(16, 8)
 
 batch_size = 1
 # image_path = "./example_images/example_1.jpg"
 image_path = "./test_images/boat1_000001.jpg"
 
-project_name = "targeted_stream"
+project_name = "no_float"
 
 # customizations
 stream = True
@@ -71,14 +72,23 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
     )
 
     # quantize activations
+    sm.quantize(ultranet.conv1, conv_dtype)
     sm.quantize(ultranet.relu1, act_dtype)
+    sm.quantize(ultranet.conv2, conv_dtype)
     sm.quantize(ultranet.relu2, act_dtype)
+    sm.quantize(ultranet.conv3, conv_dtype)
     sm.quantize(ultranet.relu3, act_dtype)
+    sm.quantize(ultranet.conv4, conv_dtype)
     sm.quantize(ultranet.relu4, act_dtype)
+    sm.quantize(ultranet.conv5, conv_dtype)
     sm.quantize(ultranet.relu5, act_dtype)
+    sm.quantize(ultranet.conv6, conv_dtype)
     sm.quantize(ultranet.relu6, act_dtype)
+    sm.quantize(ultranet.conv7, conv_dtype)
     sm.quantize(ultranet.relu7, act_dtype)
+    sm.quantize(ultranet.conv8, conv_dtype)
     sm.quantize(ultranet.relu8, act_dtype)
+    
     s = hcl.create_schedule_from_scheme(sm, "main")
 
     # create line-buffer and window-buffer for conv layers
@@ -300,7 +310,7 @@ hcl_weight_conv8 = hcl.asarray(conv8_weight.astype(float), dtype=weight_dtype)
 hcl_a_batchnorm8 = hcl.asarray(batchnorm8_a.astype(float), dtype=bn_a_dtype)
 hcl_b_batchnorm8 = hcl.asarray(batchnorm8_b.astype(float), dtype=bn_b_dtype)
 
-hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)))
+hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)), dtype=hcl.Fixed(16,8))
 
 ###############################################################################
 # Inference
@@ -323,3 +333,4 @@ f(
 ###############################################################################
 np_input = hcl_input.asnumpy()
 np_out = hcl_out.asnumpy()
+np_out = np.float32(np.abs(np_out))
