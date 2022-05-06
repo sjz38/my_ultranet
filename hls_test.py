@@ -15,7 +15,7 @@ batch_size = 1
 # image_path = "./example_images/example_1.jpg"
 image_path = "./test_images/boat1_000001.jpg"
 
-project_name = "no_float"
+project_name = "no_float_full_stream_"
 
 # customizations
 stream = True
@@ -158,14 +158,14 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
             pipelining. For now, ?: works, but if..else.. doesn't, 
             because the latter has two load/store nodes.
             '''
-            # s.to(ultranet.conv1_pad, s[ultranet.conv1], fifo_depth=128)
-            # s.to(ultranet.conv2_pad, s[ultranet.conv2], fifo_depth=128)
-            # s.to(ultranet.conv3_pad, s[ultranet.conv3], fifo_depth=128)
-            # s.to(ultranet.conv4_pad, s[ultranet.conv4], fifo_depth=128)
-            # s.to(ultranet.conv5_pad, s[ultranet.conv5], fifo_depth=128)
-            # s.to(ultranet.conv6_pad, s[ultranet.conv6], fifo_depth=128)
-            # s.to(ultranet.conv7_pad, s[ultranet.conv7], fifo_depth=128)
-            # s.to(ultranet.conv8_pad, s[ultranet.conv8], fifo_depth=128)
+            s.to(ultranet.conv1_pad, s[ultranet.conv1], fifo_depth=128)
+            s.to(ultranet.conv2_pad, s[ultranet.conv2], fifo_depth=128)
+            s.to(ultranet.conv3_pad, s[ultranet.conv3], fifo_depth=128)
+            s.to(ultranet.conv4_pad, s[ultranet.conv4], fifo_depth=128)
+            s.to(ultranet.conv5_pad, s[ultranet.conv5], fifo_depth=128)
+            s.to(ultranet.conv6_pad, s[ultranet.conv6], fifo_depth=128)
+            s.to(ultranet.conv7_pad, s[ultranet.conv7], fifo_depth=128)
+            s.to(ultranet.conv8_pad, s[ultranet.conv8], fifo_depth=128)
 
             s.to(ultranet.conv1, s[ultranet.relu1], fifo_depth=128)
             s.to(ultranet.relu1, s[ultranet.pool1_pad], fifo_depth=128)

@@ -352,7 +352,7 @@ if __name__ == "__main__":
     # hcl_out = hcl.compute(hcl_out.shape, lambda *x : hcl.cast(hcl.Float(32), hcl_out[x]), name='result', dtype=hcl.Float(32))
     np_out = hcl_out.asnumpy()
     np_out = np.float32(np.abs(np_out))
-    print(f"np_out: {np_out[-1]}")
+    # print(f"np_out: {np_out[-1]}")
     print(f"np_out type: {np_out.dtype}")
     # np_out = np.load('../ultra_net/model/torch_output.npy')
 
