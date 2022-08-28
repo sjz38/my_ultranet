@@ -6,8 +6,6 @@ import heterocl as hcl
 import heterocl.tvm as tvm
 from collections import OrderedDict
 
-
-
 ###############################################################################
 # helper functions
 ###############################################################################
@@ -55,6 +53,7 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
 
     # Use this for CPU backend
     # return hcl.compute(out_shape, _pad, name=name)
+    
     # Use this for HLS backend
     return hcl.compute(out_shape, _pad, dtype=data.dtype, name=name)
 
@@ -65,7 +64,7 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
 # this function is the heteroCL equivalent of the torch.nn.Conv2d function 
 # in the PyTorch library. 
 ###############################################################################
-def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], out_dtype=hcl.Fixed(16,8), print_out=False):
+def conv2d(Input, Filter, name="conv2d", bias = None, stride=[1,1], padding=[[1,1],[1,1]], out_dtype=hcl.Fixed(16,8)):
     batch, in_channel, in_height, in_width = Input.shape
     num_filter, channel, kernel_h, kernel_w = Filter.shape
     stride_h, stride_w = stride
@@ -83,24 +82,48 @@ def conv2d(Input, Filter, name="conv2d", stride=[1,1], padding=[[1,1],[1,1]], ou
     ry = hcl.reduce_axis(0, kernel_h)
     rx = hcl.reduce_axis(0, kernel_w)
 
-    return hcl.compute(
-        (batch, out_channel, out_height, out_width),
-        lambda nn, ff, yy, xx: hcl.sum(
-            Input[nn, rc, yy * stride_h + ry, xx * stride_w + rx] *
-            Filter[ff, rc, ry, rx],
-            axis=[rc, ry, rx],
-            dtype=out_dtype),
-        name=name,
-        attrs=OrderedDict([
-            ('p', kernel_h),
-            ('q', kernel_w),
-            ('in_num', in_channel),
-            ('out_num', out_channel),
-            ('out_img_w', out_width),
-            ('out_img_h', out_height),
-            ('cin_dtype', tvm.make.StringImm(Input.dtype)),
-            ('filter_dtype', tvm.make.StringImm(Filter.dtype)),
-            ('app_name', tvm.make.StringImm('cnn'))]))
+    if bias == None:
+        return hcl.compute(
+            (batch, out_channel, out_height, out_width),
+            lambda nn, ff, yy, xx: hcl.sum(
+                Input[nn, rc, yy * stride_h + ry, xx * stride_w + rx] *
+                Filter[ff, rc, ry, rx],
+                axis=[rc, ry, rx],
+                dtype=out_dtype),
+            name=name,
+            attrs=OrderedDict([
+                ('p', kernel_h),
+                ('q', kernel_w),
+                ('in_num', in_channel),
+                ('out_num', out_channel),
+                ('out_img_w', out_width),
+                ('out_img_h', out_height),
+                ('cin_dtype', tvm.make.StringImm(Input.dtype)),
+                ('filter_dtype', tvm.make.StringImm(Filter.dtype)),
+                ('app_name', tvm.make.StringImm('cnn'))]))
+    else: # if bias
+        conv_intermediate = hcl.compute(
+            (batch, out_channel, out_height, out_width),
+            lambda nn, ff, yy, xx: hcl.sum(
+                Input[nn, rc, yy * stride_h + ry, xx * stride_w + rx] *
+                Filter[ff, rc, ry, rx],
+                axis=[rc, ry, rx],
+                dtype=out_dtype),
+            name=name+"intermediate",
+                )
+        return hcl.compute(conv_intermediate.shape, 
+            lambda nn, ff, yy, xx: conv_intermediate[nn, ff, yy, xx] + bias[ff],
+            name=name,
+            attrs=OrderedDict([
+                ('p', kernel_h),
+                ('q', kernel_w),
+                ('in_num', in_channel),
+                ('out_num', out_channel),
+                ('out_img_w', out_width),
+                ('out_img_h', out_height),
+                ('cin_dtype', tvm.make.StringImm(Input.dtype)),
+                ('filter_dtype', tvm.make.StringImm(Filter.dtype)),
+                ('app_name', tvm.make.StringImm('cnn'))]))            
 
 
 def relu(data, name='relu'):
@@ -116,13 +139,11 @@ def relu(data, name='relu'):
             name=name)
 
 
-
 ###############################################################################
 # MaxPool2d computation layer
 # this function is the heteroCL equivalent of the torch.nn.MaxPool2d function 
 # in the PyTorch library. 
 ###############################################################################
-
 def maxpool2d(data, pool_size=2, stride=2, padding=0, name='max_pool2d'):
     pooling = pool_size
     max = hcl.reducer(
@@ -166,12 +187,6 @@ def batchnorm2d(data, a, b, axis=1, name="batch_norm", out_dtype=hcl.Fixed(16,8)
     def get_axis(axis, *indices):
         indices = list(indices[0])
         return (indices[axis],)
-    
-    
+
     out = hcl.compute(data.shape, lambda *x : a[get_axis(axis, x)] * data[x] + b[get_axis(axis, x)], dtype=out_dtype, name=name)
-    # observe = hcl.compute((data.shape[-1], ), lambda x : out[0, 0, 0, x], name="observe")
-    # data_val = hcl.compute((data.shape[-1], ), lambda x : data[0, 0, 0, x], name="data_val")
-    # if print_out:
-        # hcl.print(data_val)
-        # hcl.print(observe)
     return out

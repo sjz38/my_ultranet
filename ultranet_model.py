@@ -5,8 +5,6 @@ from ultranet_functions import relu
 from ultranet_functions import maxpool2d
 from ultranet_functions import batchnorm2d
 
-
-
 def ultranet(
         input_image, 
         weight_conv1, a_batchnorm1, b_batchnorm1, 
@@ -16,10 +14,11 @@ def ultranet(
         weight_conv5, a_batchnorm5, b_batchnorm5,
         weight_conv6, a_batchnorm6, b_batchnorm6,
         weight_conv7, a_batchnorm7, b_batchnorm7,
-        weight_conv8, a_batchnorm8, b_batchnorm8
+        weight_conv8, a_batchnorm8, b_batchnorm8,
+        yolo_weight, yolo_bias
     ):
     # first conv
-    conv1 = conv2d(input_image, weight_conv1, name="conv1", print_out=False) # in: (batch_size, 3, 160, 320); out: (batch_size, 16, 160, 320)
+    conv1 = conv2d(input_image, weight_conv1, name="conv1") # in: (batch_size, 3, 160, 320); out: (batch_size, 16, 160, 320)
     batchnorm1 = batchnorm2d(conv1, a_batchnorm1, b_batchnorm1, name="batch_norm1", print_out=False) # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 160, 320)
     relu1 = relu(batchnorm1, name="relu1") # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 160, 320)
     pool1 = maxpool2d(relu1, name="pool1") # in: (batch_size, 16, 160, 320); out: (batch_size, 16, 80, 160)
@@ -62,5 +61,6 @@ def ultranet(
     batchnorm8 = batchnorm2d(conv8, a_batchnorm8, b_batchnorm8, name="batch_norm8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
     relu8 = relu(batchnorm8, name="relu8") # in: (batch_size, 64, 10, 20), out: (batch_size, 64, 10, 20)
 
-    # return relu8
-    return hcl.compute(relu8.shape, lambda *x : hcl.cast(hcl.Fixed(16,8), relu8[x]), name='result', dtype=hcl.Fixed(16,8))
+    yolo = conv2d(relu8, yolo_weight, name="yolo", bias=yolo_bias, padding=[[0,0],[0,0]]) # in: (batchsize, 64, 10, 20), out: (batch_size, 36, 10, 20)
+
+    return hcl.compute(yolo.shape, lambda *x : hcl.cast(hcl.Fixed(16,8), yolo[x]), name='result', dtype=hcl.Fixed(16,8))
