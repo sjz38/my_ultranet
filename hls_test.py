@@ -6,21 +6,23 @@ from main_single_input import load_np_params, load_image
 
 input_dtype = hcl.Fixed(8, 4)
 weight_dtype = hcl.Fixed(5, 3) 
-act_dtype = hcl.UFixed(4, 4)
+act_dtype = hcl.UFixed(6, 4)
 bn_a_dtype = hcl.Fixed(14, 10)
 bn_b_dtype = hcl.Fixed(26, 18)
 conv_dtype = hcl.Fixed(16, 8)
+yolo_bias_dtype = hcl.Fixed(11, 8)
 
 batch_size = 1
-# image_path = "./example_images/example_1.jpg"
 image_path = "./test_images/boat1_000001.jpg"
+# image_path = './test_images/person23_0113.jpg'
+# image_path = './test_images/car1_0001.jpg'
 
-project_name = "no_float_full_stream_"
+project_name = "test2"
 
 # customizations
-stream = True
-opt = True
-partition = True
+opt = True # Enable optimizations
+stream = True # Enable layer streaming
+partition = True # Enable partitioning
 
 def build_ultranet_hls(batch_size=batch_size, target=None):
     # set up input/output placeholders
@@ -58,6 +60,9 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
     a_batchnorm8 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm8")
     b_batchnorm8 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm8") 
 
+    weight_yolo = hcl.placeholder((36, 64, 1, 1), dtype=weight_dtype, name="weight_yolo") # 64 in, 36 out
+    bias_yolo = hcl.placeholder((36,), dtype=yolo_bias_dtype, name="bias_yolo")
+
     sm = hcl.create_scheme(
         [input_image, 
         weight_conv1, a_batchnorm1, b_batchnorm1, 
@@ -67,7 +72,8 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
         weight_conv5, a_batchnorm5, b_batchnorm5, 
         weight_conv6, a_batchnorm6, b_batchnorm6, 
         weight_conv7, a_batchnorm7, b_batchnorm7, 
-        weight_conv8, a_batchnorm8, b_batchnorm8], 
+        weight_conv8, a_batchnorm8, b_batchnorm8,
+        weight_yolo, bias_yolo], 
         ultranet
     )
 
@@ -88,6 +94,7 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
     sm.quantize(ultranet.relu7, act_dtype)
     sm.quantize(ultranet.conv8, conv_dtype)
     sm.quantize(ultranet.relu8, act_dtype)
+    sm.quantize(ultranet.yolo, conv_dtype)
     
     s = hcl.create_schedule_from_scheme(sm, "main")
 
@@ -103,6 +110,7 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
     # s[conv3].reorder(yo, xo, yi, xi)
 
     # print(hcl.lower(s))
+
     if opt:
         # merge conv + bn + relu operators
         for i in range(1, 1 + 8):
@@ -113,9 +121,12 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
             # Can't merge pad with conv, a limitation of HCL.
             # s[pad].compute_at(s[conv], conv.axis[3])
             s[bn].compute_at(s[relu], relu.axis[3])
-        res = ultranet.result
-        relu8 = ultranet.relu8
-        s[relu8].compute_at(s[res], res.axis[3])
+        # Don't worry about yolo optimizations for now
+        # relu8 = ultranet.relu8
+        # yolo = ultranet.yolo
+        # res = ultranet.result
+        # s[relu8].compute_at(s[yolo], yolo.axis[3])
+        # s[yolo].compute_at(s[res], res.axis[3])
 
         # pipeline all layers
         for i in range(1, 1 + 8):
@@ -131,6 +142,8 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
                 pool = getattr(ultranet, 'pool' + str(i))
                 s[pool_pad].pipeline(pool_pad.axis[3])
                 s[pool].pipeline(pool.axis[3])
+        # Don't worry about yolo optimizations for now                
+        # s[ultranet.yolo].pipeline(ultranet.yolo.axis[3])
         s[ultranet.result].pipeline(ultranet.result.axis[3])
 
         # partition weight buffers
@@ -145,7 +158,7 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
             s.partition(weight_conv6, dim=2)
             s.partition(weight_conv7, dim=2)
             s.partition(weight_conv8, dim=2)
-        
+            s.partition(weight_yolo,  dim=2)
 
         # fifo across layers    
         if stream:  
@@ -189,7 +202,10 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
             s.to(ultranet.relu6, s[ultranet.conv7_pad], fifo_depth=128)
             s.to(ultranet.conv7, s[ultranet.relu7], fifo_depth=128)
             s.to(ultranet.relu7, s[ultranet.conv8_pad], fifo_depth=128)
-            s.to(ultranet.conv8, s[ultranet.result], fifo_depth=128)
+            s.to(ultranet.conv8, s[ultranet.relu8], fifo_depth=128)
+            # Don't worry about yolo optimizations for now
+            # s.to(ultranet.relu8, s[ultranet.yolo], fifo_depth=128)
+            # s.to(ultranet.yolo, s[ultranet.result], fifo_depth=128)
 
     return hcl.build(s, name="main", target=target)
 
@@ -246,6 +262,8 @@ batchnorm8_weight = params[36]
 batchnorm8_bias = params[37]
 batchnorm8_running_mean = params[38]
 batchnorm8_running_var = params[39]
+yolo_weight = params[40]
+yolo_bias = params[41]
 
 ###############################################################################
 # Precompute a and b terms on CPU side for batchnorm ax+b
@@ -310,7 +328,10 @@ hcl_weight_conv8 = hcl.asarray(conv8_weight.astype(float), dtype=weight_dtype)
 hcl_a_batchnorm8 = hcl.asarray(batchnorm8_a.astype(float), dtype=bn_a_dtype)
 hcl_b_batchnorm8 = hcl.asarray(batchnorm8_b.astype(float), dtype=bn_b_dtype)
 
-hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)), dtype=hcl.Fixed(16,8))
+hcl_weight_yolo = hcl.asarray(yolo_weight.astype(float), dtype=weight_dtype)
+hcl_bias_yolo = hcl.asarray(yolo_bias.astype(float), dtype=yolo_bias_dtype)
+
+hcl_out = hcl.asarray(np.zeros((batch_size, 36, 10, 20)), dtype=hcl.Fixed(16,8))
 
 ###############################################################################
 # Inference
@@ -325,11 +346,12 @@ f(
     hcl_weight_conv6, hcl_a_batchnorm6, hcl_b_batchnorm6, 
     hcl_weight_conv7, hcl_a_batchnorm7, hcl_b_batchnorm7, 
     hcl_weight_conv8, hcl_a_batchnorm8, hcl_b_batchnorm8,
+    hcl_weight_yolo, hcl_bias_yolo,
     hcl_out
 )
 
 ###############################################################################
-# Results up to YOLO layer
+# Results up to YOLO layer (after YOLO conv)
 ###############################################################################
 np_input = hcl_input.asnumpy()
 np_out = hcl_out.asnumpy()
