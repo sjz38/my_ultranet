@@ -3,6 +3,14 @@ import numpy as np
 
 from ultranet_model import ultranet
 from main_single_input import load_np_params, load_image
+import sys
+
+# Debugging random segfaults
+# def trace(frame, event, arg):
+    # print("%s, %s:%d" % (event, frame.f_code.co_filename, frame.f_lineno))
+    # return trace
+# 
+# sys.settrace(trace)
 
 input_dtype = hcl.Fixed(8, 4)
 weight_dtype = hcl.Fixed(5, 3) 
@@ -17,7 +25,7 @@ image_path = "./test_images/boat1_000001.jpg"
 # image_path = './test_images/person23_0113.jpg'
 # image_path = './test_images/car1_0001.jpg'
 
-project_name = "test2"
+project_name = "test4"
 
 # customizations
 opt = True # Enable optimizations
@@ -158,7 +166,8 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
             s.partition(weight_conv6, dim=2)
             s.partition(weight_conv7, dim=2)
             s.partition(weight_conv8, dim=2)
-            s.partition(weight_yolo,  dim=2)
+            # Don't worry about yolo optimizations for now
+            # s.partition(weight_yolo,  dim=2)
 
         # fifo across layers    
         if stream:  
