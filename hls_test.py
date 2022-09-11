@@ -15,12 +15,12 @@ batch_size = 1
 # image_path = "./example_images/example_1.jpg"
 image_path = "./test_images/boat1_000001.jpg"
 
-project_name = "no_float_full_stream_"
+project_name = "test-conv-func-some-stream_"
 
 # customizations
-stream = True
-opt = True
-partition = True
+opt = True # Enable optimizations
+stream = True # Enable layer streaming
+partition = True # Enable partitioning
 
 def build_ultranet_hls(batch_size=batch_size, target=None):
     # set up input/output placeholders
@@ -158,38 +158,38 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
             pipelining. For now, ?: works, but if..else.. doesn't, 
             because the latter has two load/store nodes.
             '''
-            s.to(ultranet.conv1_pad, s[ultranet.conv1], fifo_depth=128)
-            s.to(ultranet.conv2_pad, s[ultranet.conv2], fifo_depth=128)
-            s.to(ultranet.conv3_pad, s[ultranet.conv3], fifo_depth=128)
-            s.to(ultranet.conv4_pad, s[ultranet.conv4], fifo_depth=128)
-            s.to(ultranet.conv5_pad, s[ultranet.conv5], fifo_depth=128)
-            s.to(ultranet.conv6_pad, s[ultranet.conv6], fifo_depth=128)
-            s.to(ultranet.conv7_pad, s[ultranet.conv7], fifo_depth=128)
-            s.to(ultranet.conv8_pad, s[ultranet.conv8], fifo_depth=128)
+            # s.to(ultranet.conv1_pad, s[ultranet.conv1], fifo_depth=128)
+            # s.to(ultranet.conv2_pad, s[ultranet.conv2], fifo_depth=128)
+            # s.to(ultranet.conv3_pad, s[ultranet.conv3], fifo_depth=128)
+            # s.to(ultranet.conv4_pad, s[ultranet.conv4], fifo_depth=128)
+            # s.to(ultranet.conv5_pad, s[ultranet.conv5], fifo_depth=128)
+            # s.to(ultranet.conv6_pad, s[ultranet.conv6], fifo_depth=128)
+            # s.to(ultranet.conv7_pad, s[ultranet.conv7], fifo_depth=128)
+            # s.to(ultranet.conv8_pad, s[ultranet.conv8], fifo_depth=128)
 
-            s.to(ultranet.conv1, s[ultranet.relu1], fifo_depth=128)
+            # s.to(ultranet.conv1, s[ultranet.relu1], fifo_depth=128)
             s.to(ultranet.relu1, s[ultranet.pool1_pad], fifo_depth=128)
             s.to(ultranet.pool1_pad, s[ultranet.pool1], fifo_depth=128)
             s.to(ultranet.pool1, s[ultranet.conv2_pad], fifo_depth=128)
-            s.to(ultranet.conv2, s[ultranet.relu2], fifo_depth=128)
+            # s.to(ultranet.conv2, s[ultranet.relu2], fifo_depth=128)
             s.to(ultranet.relu2, s[ultranet.pool2_pad], fifo_depth=128)
             s.to(ultranet.pool2_pad, s[ultranet.pool2], fifo_depth=128)
             s.to(ultranet.pool2, s[ultranet.conv3_pad], fifo_depth=128)
-            s.to(ultranet.conv3, s[ultranet.relu3], fifo_depth=128)
+            # s.to(ultranet.conv3, s[ultranet.relu3], fifo_depth=128)
             s.to(ultranet.relu3, s[ultranet.pool3_pad], fifo_depth=128)
             s.to(ultranet.pool3_pad, s[ultranet.pool3], fifo_depth=128)
             s.to(ultranet.pool3, s[ultranet.conv4_pad], fifo_depth=128)
-            s.to(ultranet.conv4, s[ultranet.relu4], fifo_depth=128)
+            # s.to(ultranet.conv4, s[ultranet.relu4], fifo_depth=128)
             s.to(ultranet.relu4, s[ultranet.pool4_pad], fifo_depth=128)
             s.to(ultranet.pool4_pad, s[ultranet.pool4], fifo_depth=128)
             s.to(ultranet.pool4, s[ultranet.conv5_pad], fifo_depth=128)
-            s.to(ultranet.conv5, s[ultranet.relu5], fifo_depth=128)
+            # s.to(ultranet.conv5, s[ultranet.relu5], fifo_depth=128)
             s.to(ultranet.relu5, s[ultranet.conv6_pad], fifo_depth=128)
-            s.to(ultranet.conv6, s[ultranet.relu6], fifo_depth=128)
+            # s.to(ultranet.conv6, s[ultranet.relu6], fifo_depth=128)
             s.to(ultranet.relu6, s[ultranet.conv7_pad], fifo_depth=128)
-            s.to(ultranet.conv7, s[ultranet.relu7], fifo_depth=128)
+            # s.to(ultranet.conv7, s[ultranet.relu7], fifo_depth=128)
             s.to(ultranet.relu7, s[ultranet.conv8_pad], fifo_depth=128)
-            s.to(ultranet.conv8, s[ultranet.result], fifo_depth=128)
+            # s.to(ultranet.conv8, s[ultranet.result], fifo_depth=128)
 
     return hcl.build(s, name="main", target=target)
 
