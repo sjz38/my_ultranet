@@ -1,3 +1,4 @@
+import os
 import cv2
 import xml.etree.ElementTree
 import mymodel
@@ -69,7 +70,7 @@ def bbox_iou(box1, box2):
     return iou.item()
 
 
-def save_layer_output(img_path, gt_path):
+def save_layer_output(img_path, gt_path, res_dir):
     """
     """
     # read image and ground truth
@@ -94,8 +95,23 @@ def save_layer_output(img_path, gt_path):
     image = image.to(device).float() / 255.0
     x = image 
     img_size = x.shape[-2:]
+    layername_dict = dict()
     for layer in model.layers:
+        # Setup layer name
+        layer_type = layer.__class__.__name__
+        if layer_type in layername_dict:
+            layername_dict[layer_type] += 1
+        else:
+            layername_dict[layer_type] = 0
+        name = layer_type + str(layername_dict[layer_type])
+
+        # Save layer input
+        layer_input = x.detach().numpy()
+        layer_input.tofile(os.path.join(res_dir, name + '_input.bin'))
         x = layer(x)
+        # Save the output of layer
+        layer_output = x.detach().numpy()
+        layer_output.tofile(os.path.join(res_dir, name + '_golden.bin'))
     backbone_out = x
     inf_out, _ = model.yololayer(backbone_out, img_size)
 
@@ -123,4 +139,8 @@ def save_layer_output(img_path, gt_path):
 if __name__ == "__main__":
     test_image_filename = "../test_images/boat1_000001.jpg"
     image_gt_filename = "../test_images/boat1_000001.xml"
-    save_layer_output(test_image_filename, image_gt_filename)
+    layer_io_dir = "./layer_input_output"
+    # create directory if not exist
+    if not os.path.exists(layer_io_dir):
+        os.makedirs(layer_io_dir)
+    save_layer_output(test_image_filename, image_gt_filename, layer_io_dir)
