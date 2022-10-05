@@ -1,7 +1,7 @@
 import sys
 import os
 
-sys.path.append(os.path.abspath("../common"))
+# sys.path.append(os.path.abspath("../common"))
 
 import glob
 import cv2
@@ -10,10 +10,10 @@ import mymodel
 import torch
 import numpy as np
 
-max_imgs = 20000 # reduce this for faster results
-max_imgs = 20
+# max_imgs = 20000 # reduce this for faster results
+max_imgs = 1
 
-test_path = '../../ultranet_test'
+test_path = '../test_images'
 
 raw_height = 360
 raw_width = 640
