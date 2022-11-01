@@ -13,9 +13,9 @@ from ultranet_model import ultranet
 # Define Data Types
 ###############################################################################
 hcl.init(hcl.Float(32))
-input_dtype = hcl.Fixed(8, 4)
+input_dtype = hcl.Float(32)
 weight_dtype = hcl.Fixed(5, 3) # TODO: why hcl.Fixed(4,4) doesn't work
-act_dtype = hcl.UFixed(6, 4)
+act_dtype = hcl.UFixed(5, 4)
 bn_a_dtype = hcl.Fixed(14, 10) # TODO some 14 bit fixed pt, this seems to work well 
 bn_b_dtype = hcl.Fixed(26, 18) # TODO some 26 bit fixed pt, this seems to work well
 conv_dtype = hcl.Fixed(16, 8)
@@ -326,7 +326,7 @@ if __name__ == "__main__":
     hcl_a_batchnorm8 = hcl.asarray(batchnorm8_a.astype(float), dtype=bn_a_dtype)
     hcl_b_batchnorm8 = hcl.asarray(batchnorm8_b.astype(float), dtype=bn_b_dtype)
 
-    hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)), dtype=hcl.Fixed(16,8))
+    hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)), dtype=act_dtype)
 
     ###############################################################################
     # Inference
@@ -347,14 +347,30 @@ if __name__ == "__main__":
     ###############################################################################
     # Results up to YOLO layer
     ###############################################################################
+    # hcl.print(hcl_out)
     np_input = hcl_input.asnumpy()
     # print(hcl_out)
     # hcl_out = hcl.compute(hcl_out.shape, lambda *x : hcl.cast(hcl.Float(32), hcl_out[x]), name='result', dtype=hcl.Float(32))
     np_out = hcl_out.asnumpy()
-    np_out = np.float32(np.abs(np_out))
+    # np.savetxt("np_out.txt", np_out.flatten(), delimiter="\n")
+    np_out = np.float32(np_out)
     # print(f"np_out: {np_out[-1]}")
-    print(f"np_out type: {np_out.dtype}")
+    # print(f"np_out type: {np_out.dtype}")
     # np_out = np.load('../ultra_net/model/torch_output.npy')
+
+    # np_out = np.loadtxt("main-dtypes_no_pool_stream/relu8_cpp_fix_dtype.txt", delimiter="\n")
+    # np_out.flatten()
+    # np_out = np.float32(np.abs(np_out))
+    # print("Inserted relu8_cpp")
+    # print(np_out[0])
+    # print(np_out[1])
+    # print(np_out[2])
+    # print(np_out[3])
+    # print(np_out[4])
+    # print(np_out[5])
+    # np_out = np.reshape(np_out, (1, 64, 10, 20))
+
+
 
     ###############################################################################
     # YOLO Layer

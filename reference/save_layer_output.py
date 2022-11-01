@@ -104,14 +104,14 @@ def save_layer_output(img_path, gt_path, res_dir):
         else:
             layername_dict[layer_type] = 0
         name = layer_type + str(layername_dict[layer_type])
-
+        print(name)
         # Save layer input
         layer_input = x.detach().numpy()
-        layer_input.tofile(os.path.join(res_dir, name + '_input.bin'))
+        layer_input.tofile(os.path.join(res_dir, name + '_input.dat'))
         x = layer(x)
         # Save the output of layer
         layer_output = x.detach().numpy()
-        layer_output.tofile(os.path.join(res_dir, name + '_golden.bin'))
+        layer_output.tofile(os.path.join(res_dir, name + '_golden.dat'))
     backbone_out = x
     inf_out, _ = model.yololayer(backbone_out, img_size)
 

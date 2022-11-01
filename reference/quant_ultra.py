@@ -14,7 +14,7 @@ def uniform_quantize(k):
       elif k == 1:
         out = torch.sign(input)
       else:
-        n = float(2 ** k  - 1)
+        n = float(2 ** k)
         out = torch.round(input * n) / n
       return out
 
