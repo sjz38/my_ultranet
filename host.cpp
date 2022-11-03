@@ -31,7 +31,8 @@ int main(int argc, char ** argv) {
   // std::cout << " Initialize shared memory...";
   // int8_t* arg_0 = (int8_t*)shmat(/*input_image*/0, nullptr, 0);
   auto arg_0 = new float[153600];
-  read_floats(arg_0, "/work/shared/users/meng/sjz38/weight_dat/image.dat", 153600);
+  // read_floats(arg_0, "/work/shared/users/meng/sjz38/weight_dat/image.dat", 153600);
+  read_floats(arg_0, "/work/shared/users/meng/sjz38/new/my_ultranet/car1_0001.dat", 153600);
   auto input_image = new float[1][3][160][320];
   for (size_t i0 = 0; i0 < 1; i0++) {
     for (size_t i1 = 0; i1 < 3; i1++) {
@@ -323,7 +324,7 @@ int main(int argc, char ** argv) {
     }
   }
 
-  std::cout << " Initialize RTE..." << std::endl;
+  std::cout << "Initialize RTE..." << std::endl;
   test(input_image, weight_conv1, a_batchnorm1, b_batchnorm1, weight_conv2, a_batchnorm2, b_batchnorm2, weight_conv3, a_batchnorm3, b_batchnorm3, weight_conv4, a_batchnorm4, b_batchnorm4, weight_conv5, a_batchnorm5, b_batchnorm5, weight_conv6, a_batchnorm6, b_batchnorm6, weight_conv7, a_batchnorm7, b_batchnorm7, weight_conv8, a_batchnorm8, b_batchnorm8, result);
   std::cout << "Done test" << std::endl;
 }

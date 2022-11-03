@@ -468,4 +468,4 @@ if __name__ == "__main__":
         temp = [int(xmin), int(xmax), int(ymin), int(ymax)]
         result.append(temp)
 
-    print("Output BBox: ", result)
+    print("Output BBox (xmin, xmax, ymin, ymax): ", result)
