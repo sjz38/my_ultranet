@@ -44,7 +44,8 @@
 //     myfile.close();
 // }
 
-void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][3][3], ap_fixed<14, 4> a_batchnorm1[16], ap_fixed<26, 8> b_batchnorm1[16], ap_fixed<5, 2> weight_conv2[32][16][3][3], ap_fixed<14, 4> a_batchnorm2[32], ap_fixed<26, 8> b_batchnorm2[32], ap_fixed<5, 2> weight_conv3[64][32][3][3], ap_fixed<14, 4> a_batchnorm3[64], ap_fixed<26, 8> b_batchnorm3[64], ap_fixed<5, 2> weight_conv4[64][64][3][3], ap_fixed<14, 4> a_batchnorm4[64], ap_fixed<26, 8> b_batchnorm4[64], ap_fixed<5, 2> weight_conv5[64][64][3][3], ap_fixed<14, 4> a_batchnorm5[64], ap_fixed<26, 8> b_batchnorm5[64], ap_fixed<5, 2> weight_conv6[64][64][3][3], ap_fixed<14, 4> a_batchnorm6[64], ap_fixed<26, 8> b_batchnorm6[64], ap_fixed<5, 2> weight_conv7[64][64][3][3], ap_fixed<14, 4> a_batchnorm7[64], ap_fixed<26, 8> b_batchnorm7[64], ap_fixed<5, 2> weight_conv8[64][64][3][3], ap_fixed<14, 4> a_batchnorm8[64], ap_fixed<26, 8> b_batchnorm8[64], ap_ufixed<5, 1> result[1][64][10][20]) {
+// void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][3][3], ap_fixed<14, 4> a_batchnorm1[16], ap_fixed<26, 8> b_batchnorm1[16], ap_fixed<5, 2> weight_conv2[32][16][3][3], ap_fixed<14, 4> a_batchnorm2[32], ap_fixed<26, 8> b_batchnorm2[32], ap_fixed<5, 2> weight_conv3[64][32][3][3], ap_fixed<14, 4> a_batchnorm3[64], ap_fixed<26, 8> b_batchnorm3[64], ap_fixed<5, 2> weight_conv4[64][64][3][3], ap_fixed<14, 4> a_batchnorm4[64], ap_fixed<26, 8> b_batchnorm4[64], ap_fixed<5, 2> weight_conv5[64][64][3][3], ap_fixed<14, 4> a_batchnorm5[64], ap_fixed<26, 8> b_batchnorm5[64], ap_fixed<5, 2> weight_conv6[64][64][3][3], ap_fixed<14, 4> a_batchnorm6[64], ap_fixed<26, 8> b_batchnorm6[64], ap_fixed<5, 2> weight_conv7[64][64][3][3], ap_fixed<14, 4> a_batchnorm7[64], ap_fixed<26, 8> b_batchnorm7[64], ap_fixed<5, 2> weight_conv8[64][64][3][3], ap_fixed<14, 4> a_batchnorm8[64], ap_fixed<26, 8> b_batchnorm8[64], ap_ufixed<5, 1> result[1][64][10][20]) {
+void test(input_type input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][3][3], ap_fixed<14, 4> a_batchnorm1[16], ap_fixed<26, 8> b_batchnorm1[16], ap_fixed<5, 2> weight_conv2[32][16][3][3], ap_fixed<14, 4> a_batchnorm2[32], ap_fixed<26, 8> b_batchnorm2[32], ap_fixed<5, 2> weight_conv3[64][32][3][3], ap_fixed<14, 4> a_batchnorm3[64], ap_fixed<26, 8> b_batchnorm3[64], ap_fixed<5, 2> weight_conv4[64][64][3][3], ap_fixed<14, 4> a_batchnorm4[64], ap_fixed<26, 8> b_batchnorm4[64], ap_fixed<5, 2> weight_conv5[64][64][3][3], ap_fixed<14, 4> a_batchnorm5[64], ap_fixed<26, 8> b_batchnorm5[64], ap_fixed<5, 2> weight_conv6[64][64][3][3], ap_fixed<14, 4> a_batchnorm6[64], ap_fixed<26, 8> b_batchnorm6[64], ap_fixed<5, 2> weight_conv7[64][64][3][3], ap_fixed<14, 4> a_batchnorm7[64], ap_fixed<26, 8> b_batchnorm7[64], ap_fixed<5, 2> weight_conv8[64][64][3][3], ap_fixed<14, 4> a_batchnorm8[64], ap_fixed<26, 8> b_batchnorm8[64], ap_ufixed<5, 1> result[1][64][10][20]) {
     #pragma HLS array_partition variable=weight_conv1 complete dim=2
     #pragma HLS array_partition variable=weight_conv1 complete dim=3
     #pragma HLS array_partition variable=weight_conv1 complete dim=4
@@ -69,20 +70,24 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
     #pragma HLS array_partition variable=weight_conv8 complete dim=2
     #pragma HLS array_partition variable=weight_conv8 complete dim=3
     #pragma HLS array_partition variable=weight_conv8 complete dim=4
-    float conv1_pad[1][3][162][322];
-    conv1_pad_indices: for (int indices = 0; indices < 1; ++indices) {
-      conv1_pad_not_zero: for (int not_zero = 0; not_zero < 3; ++not_zero) {
-        conv1_pad_index_tuple: for (int index_tuple = 0; index_tuple < 162; ++index_tuple) {
-          conv1_pad_i: for (int i = 0; i < 322; ++i) {
-          #pragma HLS pipeline
-            conv1_pad[indices][not_zero][index_tuple][i] = (((((1 <= index_tuple) && (index_tuple < 161)) && (1 <= i)) && (i < 321)) ? ((float)input_image[((((((i - ((i + -1) % 320)) + (index_tuple * 320)) + (not_zero * 51200)) + (indices * 153600)) + -321) / 153600)][(((((((i - ((i + -1) % 320)) + (index_tuple * 320)) + (not_zero * 51200)) + (indices * 153600)) + -321) / 51200) % 3)][(((((((i - ((i + -1) % 320)) + (index_tuple * 320)) + (not_zero * 51200)) + (indices * 153600)) + -321) / 320) % 160)][((i + -1) % 320)]) : (0.000000e+00f));
-          }
-        }
-      }
-    }
+    // float conv1_pad[1][3][162][322];
+    // input_type conv1_pad[1][3][162][322];
+    // conv1_pad_indices: for (int indices = 0; indices < 1; ++indices) {
+    //   conv1_pad_not_zero: for (int not_zero = 0; not_zero < 3; ++not_zero) {
+    //     conv1_pad_index_tuple: for (int index_tuple = 0; index_tuple < 162; ++index_tuple) {
+    //       conv1_pad_i: for (int i = 0; i < 322; ++i) {
+    //       #pragma HLS pipeline
+    //         // conv1_pad[indices][not_zero][index_tuple][i] = (((((1 <= index_tuple) && (index_tuple < 161)) && (1 <= i)) && (i < 321)) ? ((float)input_image[((((((i - ((i + -1) % 320)) + (index_tuple * 320)) + (not_zero * 51200)) + (indices * 153600)) + -321) / 153600)][(((((((i - ((i + -1) % 320)) + (index_tuple * 320)) + (not_zero * 51200)) + (indices * 153600)) + -321) / 51200) % 3)][(((((((i - ((i + -1) % 320)) + (index_tuple * 320)) + (not_zero * 51200)) + (indices * 153600)) + -321) / 320) % 160)][((i + -1) % 320)]) : (0.000000e+00f));
+    //         conv1_pad[indices][not_zero][index_tuple][i] = (((((1 <= index_tuple) && (index_tuple < 161)) && (1 <= i)) && (i < 321)) ? ((input_type)input_image[((((((i - ((i + -1) % 320)) + (index_tuple * 320)) + (not_zero * 51200)) + (indices * 153600)) + -321) / 153600)][(((((((i - ((i + -1) % 320)) + (index_tuple * 320)) + (not_zero * 51200)) + (indices * 153600)) + -321) / 51200) % 3)][(((((((i - ((i + -1) % 320)) + (index_tuple * 320)) + (not_zero * 51200)) + (indices * 153600)) + -321) / 320) % 160)][((i + -1) % 320)]) : ((input_type)0));
+    //       }
+    //     }
+    //   }
+    // }
     ap_fixed<16, 8> conv1[1][16][160][320];
-    float conv1_line_buffer[1][3][3][322];
-    float conv1_window_buffer[1][3][3][3];
+    // float conv1_line_buffer[1][3][3][322];
+    input_type conv1_line_buffer[1][3][3][322];
+    // float conv1_window_buffer[1][3][3][3];
+    input_type conv1_window_buffer[1][3][3][3];
     #pragma HLS dataflow
     hls::stream<ap_fixed<16, 8> > conv1_pipe_1;
     #pragma HLS stream variable=conv1_pipe_1 depth=128
@@ -96,7 +101,12 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
               conv1_pad_1: for (int conv1_pad_1 = 0; conv1_pad_1 < 2; ++conv1_pad_1) {
                 conv1_line_buffer[0][conv1_pad_2][conv1_pad_1][xx_reuse] = conv1_line_buffer[0][conv1_pad_2][(conv1_pad_1 + 1)][xx_reuse];
               }
-              conv1_line_buffer[0][conv1_pad_2][2][xx_reuse] = conv1_pad[nn][conv1_pad_2][yy_reuse][xx_reuse];
+              //
+              input_type conv1_pad_ = (((((1 <= yy_reuse) && (yy_reuse < 161)) && (1 <= xx_reuse)) && (xx_reuse < 321)) ? ((input_type)input_image[((((((xx_reuse - ((xx_reuse + -1) % 320)) + (yy_reuse * 320)) + (conv1_pad_2 * 51200)) + (nn * 153600)) + -321) / 153600)][(((((((xx_reuse - ((xx_reuse + -1) % 320)) + (yy_reuse * 320)) + (conv1_pad_2 * 51200)) + (nn * 153600)) + -321) / 51200) % 3)][(((((((xx_reuse - ((xx_reuse + -1) % 320)) + (yy_reuse * 320)) + (conv1_pad_2 * 51200)) + (nn * 153600)) + -321) / 320) % 160)][((xx_reuse + -1) % 320)]) : ((input_type)0));
+              conv1_line_buffer[0][conv1_pad_2][2][xx_reuse] = conv1_pad_;
+              //
+
+              // conv1_line_buffer[0][conv1_pad_2][2][xx_reuse] = conv1_pad[nn][conv1_pad_2][yy_reuse][xx_reuse];
             }
             if (2 <= yy_reuse) {
               conv1_line_buffer_1: for (int conv1_line_buffer_1 = 0; conv1_line_buffer_1 < 3; ++conv1_line_buffer_1) {
@@ -110,6 +120,8 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
               }
               if (2 <= xx_reuse) {
                 ap_fixed<16, 8> sum;
+                // #pragma RESOURCE sum latencty=0
+                #pragma HLS RESOURCE variable=sum latency=0
                 sum_x: for (int x = 0; x < 1; ++x) {
                   sum = ((ap_fixed<16, 8>)0);
                 }
@@ -117,7 +129,9 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
                   #pragma HLS pipeline
                   conv1_ra33: for (int ra33 = 0; ra33 < 3; ++ra33) {
                     conv1_ra34: for (int ra34 = 0; ra34 < 3; ++ra34) {
-                      sum = ((ap_fixed<16, 8>)((conv1_window_buffer[0][ra32][ra33][ra34] * ((float)weight_conv1[ff][ra32][ra33][ra34])) + ((float)sum)));
+                      // sum = ((ap_fixed<16, 8>)((conv1_window_buffer[0][ra32][ra33][ra34] * ((float)weight_conv1[ff][ra32][ra33][ra34])) + ((float)sum)));
+                      // sum = ((ap_fixed<16, 8>)((conv1_window_buffer[0][ra32][ra33][ra34] * ((input_type)weight_conv1[ff][ra32][ra33][ra34])) + ((input_type)sum)));
+                      sum = ((ap_fixed<16, 8>)((conv1_window_buffer[0][ra32][ra33][ra34] * (weight_conv1[ff][ra32][ra33][ra34])) + (sum)));
                     }
                   }
                 }
@@ -133,6 +147,10 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
 
     // std::cout << "Done conv1" << std::endl;
 
+
+    hls::stream<ap_ufixed<5, 1> > relu1_pipe_2;
+    #pragma HLS dependence variable=relu1_pipe_2 false
+    #pragma HLS stream variable=relu1_pipe_2 depth=128
     ap_ufixed<5, 1> relu1[1][16][160][320];
     relu1_y: for (int y = 0; y < 1; ++y) {
       relu1_args0: for (int args0 = 0; args0 < 16; ++args0) {
@@ -141,9 +159,13 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm1;
             ap_fixed<16, 8> conv1_temp1;
+            ap_ufixed<5, 1> relu1_temp1;
             conv1_temp1 = conv1_pipe_1.read();
             batch_norm1 = ((ap_fixed<16, 8>)(((ap_fixed<31, 13>)(((ap_fixed<30, 20>)a_batchnorm1[args0]) * ((ap_fixed<30, 22>)conv1_temp1))) + ((ap_fixed<31, 13>)b_batchnorm1[args0])));
-            relu1[y][args0][args1][args2] = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm1) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm1)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm1)))));
+            // relu1[y][args0][args1][args2] = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm1) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm1)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm1)))));
+            relu1_temp1 = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm1) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm1)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm1)))));
+            relu1_pipe_2.write(relu1_temp1);
+
           }
         }
       }
@@ -165,6 +187,52 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
     //   }
     // }
 
+    // New pool
+    // ap_ufixed<5, 1> pool1[1][16][80][160];
+    hls::stream<ap_ufixed<5, 1> > pool1_pipe_2;
+    #pragma HLS dependence variable=pool1_pipe_2 false
+    #pragma HLS stream variable=pool1_pipe_2 depth=128
+    ap_ufixed<5, 1> pool1_line_buffer[2][320];
+    #pragma HLS array_partition variable=pool1_line_buffer complete dim=2
+    ap_ufixed<5, 1> pool1_window_buffer[2][2];
+    #pragma HLS array_partition variable=pool1_window_buffer complete dim=0
+    pool1_i2: for (int i2 = 0; i2 < 1; ++i2){
+      pool1_c: for (int c = 0; c < 16; ++c){
+        pool1_h: for (int h = 0; h < 80; ++h){ // 160/2
+          // Load line buffer
+          pool_line_row: for (int line_row = 0; line_row < 2; ++line_row){
+            pool_line_col: for (int line_col = 0; line_col < 320; ++line_col){
+            #pragma HLS pipeline
+              pool1_line_buffer[line_row][line_col] = relu1_pipe_2.read();
+            }
+          }
+          // Go across row
+          pool1_block: for (int block = 0; block < 320; block+=2){
+          #pragma HLS pipeline
+            // Load window buffer
+            pool1_window_row: for (int window_row = 0; window_row < 2; ++window_row){
+              pool1_window_col: for (int window_col = 0; window_col < 2; ++window_col){
+                pool1_window_buffer[window_row][window_col] = pool1_line_buffer[window_row][block + window_col];
+              }
+            }
+            // Max operation
+            ap_ufixed<5, 1> reducer4 = 0;
+            pool1_pool_row: for (int pool_row = 0; pool_row < 2; ++pool_row){
+              pool1_pool_col: for (int pool_col = 0; pool_col < 2; ++pool_col){
+                reducer4 = hls::max(pool1_window_buffer[pool_row][pool_col], reducer4);
+              }
+            }
+            pool1_pipe_2.write(reducer4);
+          }
+        }
+      }
+    }
+    //
+
+
+    
+    
+    /*
     ap_ufixed<5, 1> pool1[1][16][80][160];
     hls::stream<ap_ufixed<5, 1> > pool1_pipe_2;
     #pragma HLS stream variable=pool1_pipe_2 depth=128
@@ -193,6 +261,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
         }
       }
     }
+    */
 
     // std::cout << "Done pool1" << std::endl;
 
@@ -219,7 +288,9 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
     }
     ap_fixed<16, 8> conv2[1][32][80][160];
     ap_ufixed<5, 1> conv2_line_buffer[1][16][3][162];
+    // parition dim=3
     ap_ufixed<5, 1> conv2_window_buffer[1][16][3][3];
+    // partition dim=4
     hls::stream<ap_fixed<16, 8> > conv2_pipe_3;
     #pragma HLS stream variable=conv2_pipe_3 depth=128
     conv2_nn1: for (int nn1 = 0; nn1 < 1; ++nn1) {
@@ -227,11 +298,22 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
         conv2_yy_reuse1: for (int yy_reuse1 = 0; yy_reuse1 < 82; ++yy_reuse1) {
           conv2_xx_reuse1: for (int xx_reuse1 = 0; xx_reuse1 < 162; ++xx_reuse1) {
           // #pragma HLS pipeline
+
+            //
+            // ap_ufixed<5, 1> pool1_temp1;
+            // if ((((1 <= yy_reuse1) && (yy_reuse1 < 81)) && (1 <= xx_reuse1)) && (xx_reuse1 < 161)) {
+            //   pool1_temp1 = pool1_pipe_2.read();
+            // } else {
+            //   pool1_temp1 = 0;
+            // }
+            //
             conv2_pad_2: for (int conv2_pad_2 = 0; conv2_pad_2 < 16; ++conv2_pad_2) {
               #pragma HLS pipeline
               conv2_pad_1: for (int conv2_pad_1 = 0; conv2_pad_1 < 2; ++conv2_pad_1) {
                 conv2_line_buffer[0][conv2_pad_2][conv2_pad_1][xx_reuse1] = conv2_line_buffer[0][conv2_pad_2][(conv2_pad_1 + 1)][xx_reuse1];
               }
+
+              // conv2_line_buffer[0][conv2_pad_2][2][xx_reuse1] = pool1_temp1;
               conv2_line_buffer[0][conv2_pad_2][2][xx_reuse1] = conv2_pad[nn1][conv2_pad_2][yy_reuse1][xx_reuse1];
             }
             if (2 <= yy_reuse1) {
@@ -246,6 +328,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
               }
               if (2 <= xx_reuse1) {
                 ap_fixed<16, 8> sum_;
+                #pragma HLS RESOURCE variable=sum_ latency=0
                 sum_x2: for (int x2 = 0; x2 < 1; ++x2) {
                   sum_ = ((ap_fixed<16, 8>)0);
                 }
@@ -267,8 +350,11 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done conv2" << std::endl;
+    // std:cout << "Done conv2" << std::endl;
 
+    hls::stream<ap_ufixed<5, 1> > relu2_pipe_4;
+    #pragma HLS dependence variable=relu2_pipe_4 false
+    #pragma HLS stream variable=relu2_pipe_4 depth=128
     ap_ufixed<5, 1> relu2[1][32][80][160];
     relu2_y1: for (int y1 = 0; y1 < 1; ++y1) {
       relu2_args01: for (int args01 = 0; args01 < 32; ++args01) {
@@ -277,15 +363,18 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm2;
             ap_fixed<16, 8> conv2_temp1;
+            ap_ufixed<5, 1> relu2_temp1;
             conv2_temp1 = conv2_pipe_3.read();
             batch_norm2 = ((ap_fixed<16, 8>)(((ap_fixed<31, 13>)(((ap_fixed<30, 20>)a_batchnorm2[args01]) * ((ap_fixed<30, 22>)conv2_temp1))) + ((ap_fixed<31, 13>)b_batchnorm2[args01])));
-            relu2[y1][args01][args11][args21] = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm2) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm2)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm2)))));
+            // relu2[y1][args01][args11][args21] = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm2) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm2)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm2)))));
+            relu2_temp1 = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm2) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm2)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm2)))));
+            relu2_pipe_4.write(relu2_temp1);
           }
         }
       }
     }
 
-    // std::cout << "Done relu2" << std::endl;
+    // std:cout << "Done relu2" << std::endl;
 
     // Commenting out pad because doesn't do anything
     // ap_ufixed<5, 1> pool2_pad[1][32][80][160];
@@ -300,6 +389,49 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
     //   }
     // }
 
+
+    // New pool
+    hls::stream<ap_ufixed<5, 1> > pool2_pipe_4;
+    #pragma HLS dependence variable=pool2_pipe_4 false
+    #pragma HLS stream variable=pool2_pipe_4 depth=128
+    ap_ufixed<5, 1> pool2_line_buffer[2][160];
+    #pragma HLS array_partition variable=pool2_line_buffer complete dim=2
+    ap_ufixed<5, 1> pool2_window_buffer[2][2];
+    #pragma HLS array_partition variable=pool2_window_buffer complete dim=0
+    pool2_i2_1: for (int i2_1 = 0; i2_1 < 1; ++i2_1){
+      pool2_c_1: for (int c_1 = 0; c_1 < 32; ++c_1){
+        pool2_h_1: for (int h_1 = 0; h_1 < 40; ++h_1){ // 80/2
+          // Load line buffer
+          pool2_line_row_1: for (int line_row_1 = 0; line_row_1 < 2; ++line_row_1){
+            pool2_line_col_1: for (int line_col_1 = 0; line_col_1 < 160; ++line_col_1){
+            #pragma HLS pipeline
+              pool2_line_buffer[line_row_1][line_col_1] = relu2_pipe_4.read();
+            }
+          }
+          // Go across row
+          pool2_block_1: for (int block_1 = 0; block_1 < 160; block_1+=2){
+          #pragma HLS pipeline
+            // Load window buffer
+            pool2_window_row_1: for (int window_row_1 = 0; window_row_1 < 2; ++window_row_1){
+              pool2_window_col_1: for (int window_col_1 = 0; window_col_1 < 2; ++window_col_1){
+                pool2_window_buffer[window_row_1][window_col_1] = pool2_line_buffer[window_row_1][block_1 + window_col_1];
+              }
+            }
+            // Max operation
+            ap_ufixed<5, 1> reducer5 = 0;
+            pool2_pool_row_1: for (int pool_row_1 = 0; pool_row_1 < 2; ++pool_row_1){
+              pool2_pool_col_1: for (int pool_col_1 = 0; pool_col_1 < 2; ++pool_col_1){
+                reducer5 = hls::max(pool2_window_buffer[pool_row_1][pool_col_1], reducer5);
+              }
+            }
+            pool2_pipe_4.write(reducer5);
+          }
+        }
+      }
+    }
+    //
+
+    /*
     ap_ufixed<5, 1> pool2[1][32][40][80];
     hls::stream<ap_ufixed<5, 1> > pool2_pipe_4;
     #pragma HLS stream variable=pool2_pipe_4 depth=128
@@ -325,8 +457,9 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
         }
       }
     }
+    */
 
-    // std::cout << "Done pool2" << std::endl;
+    // std:cout << "Done pool2" << std::endl;
 
     ap_ufixed<5, 1> conv3_pad[1][32][42][82];
     conv3_pad_indices4: for (int indices4 = 0; indices4 < 1; ++indices4) {
@@ -375,6 +508,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
               }
               if (2 <= xx_reuse2) {
                 ap_fixed<16, 8> sum__;
+                #pragma HLS RESOURCE variable=sum__ latency=0
                 sum_x4: for (int x4 = 0; x4 < 1; ++x4) {
                   sum__ = ((ap_fixed<16, 8>)0);
                 }
@@ -396,8 +530,11 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done conv3" << std::endl;
+    // std:cout << "Done conv3" << std::endl;
 
+    hls::stream<ap_ufixed<5, 1> > relu3_pipe_6;
+    #pragma HLS dependence variable=relu3_pipe_6 false
+    #pragma HLS stream variable=relu3_pipe_6 depth=128
     ap_ufixed<5, 1> relu3[1][64][40][80];
     relu3_y2: for (int y2 = 0; y2 < 1; ++y2) {
       relu3_args02: for (int args02 = 0; args02 < 64; ++args02) {
@@ -406,15 +543,18 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm3;
             ap_fixed<16, 8> conv3_temp1;
+            ap_ufixed<5, 1> relu3_temp1;
             conv3_temp1 = conv3_pipe_5.read();
             batch_norm3 = ((ap_fixed<16, 8>)(((ap_fixed<31, 13>)(((ap_fixed<30, 20>)a_batchnorm3[args02]) * ((ap_fixed<30, 22>)conv3_temp1))) + ((ap_fixed<31, 13>)b_batchnorm3[args02])));
-            relu3[y2][args02][args12][args22] = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm3) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm3)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm3)))));
+            // relu3[y2][args02][args12][args22] = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm3) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm3)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm3)))));
+            relu3_temp1 = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm3) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm3)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm3)))));
+            relu3_pipe_6.write(relu3_temp1);
           }
         }
       }
     }
 
-    // std::cout << "Done relu3" << std::endl;
+    // std:cout << "Done relu3" << std::endl;
 
     // Commenting out pad because doesn't do anything
     // ap_ufixed<5, 1> pool3_pad[1][64][40][80];
@@ -429,6 +569,49 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
     //   }
     // }
 
+
+    // New pool
+    hls::stream<ap_ufixed<5, 1> > pool3_pipe_6;
+    #pragma HLS dependence variable=pool3_pipe_6 false
+    #pragma HLS stream variable=pool3_pipe_6 depth=128
+    ap_ufixed<5, 1> pool3_line_buffer[2][80];
+    #pragma HLS array_partition variable=pool3_line_buffer complete dim=2
+    ap_ufixed<5, 1> pool3_window_buffer[2][2];
+    #pragma HLS array_partition variable=pool3_window_buffer complete dim=0
+    pool3_i2_2: for (int i2_2 = 0; i2_2 < 1; ++i2_2){
+      pool3_c_2: for (int c_2 = 0; c_2 < 64; ++c_2){
+        pool3_h_2: for (int h_2 = 0; h_2 < 20; ++h_2){ // 40/2
+          // Load line buffers
+          pool3_line_row_2: for (int line_row_2 = 0; line_row_2 < 2; ++line_row_2){
+            pool3_line_col_2: for (int line_col_2 = 0; line_col_2 < 80; ++line_col_2){
+            #pragma HLS pipeline
+              pool3_line_buffer[line_row_2][line_col_2] = relu3_pipe_6.read();
+            }
+          }
+          // Go across row
+          pool3_block_2: for (int block_2 = 0; block_2 < 80; block_2+=2){
+          #pragma HLS pipeline
+            // Load window buffer
+            pool3_window_row_2: for (int window_row_2 = 0; window_row_2 < 2; ++window_row_2){
+              pool3_window_col_2: for (int window_col_2 = 0; window_col_2 < 2; ++window_col_2){
+                pool3_window_buffer[window_row_2][window_col_2] = pool3_line_buffer[window_row_2][block_2 + window_col_2];
+              }
+            }
+            // Max operation
+            ap_ufixed<5, 1> reducer6 = 0;
+            pool3_pool_row_2: for (int pool_row_2 = 0; pool_row_2 < 2; ++pool_row_2){
+              pool3_pool_col_2: for (int pool_col_2 = 0; pool_col_2 < 2; ++pool_col_2){
+                reducer6 = hls::max(pool3_window_buffer[pool_row_2][pool_col_2], reducer6);
+              }
+            }
+            pool3_pipe_6.write(reducer6);
+          }
+        }
+      }
+    }
+    //
+
+    /*
     ap_ufixed<5, 1> pool3[1][64][20][40];
     hls::stream<ap_ufixed<5, 1> > pool3_pipe_6;
     #pragma HLS stream variable=pool3_pipe_6 depth=128
@@ -454,8 +637,9 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
         }
       }
     }
+    */
 
-    // std::cout << "Done pool3" << std::endl;
+    // std:cout << "Done pool3" << std::endl;
 
     ap_ufixed<5, 1> conv4_pad[1][64][22][42];
     conv4_pad_indices6: for (int indices6 = 0; indices6 < 1; ++indices6) {
@@ -504,6 +688,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
               }
               if (2 <= xx_reuse3) {
                 ap_fixed<16, 8> sum___;
+                #pragma HLS RESOURCE variable=sum___ latency=0
                 sum_x6: for (int x6 = 0; x6 < 1; ++x6) {
                   sum___ = ((ap_fixed<16, 8>)0);
                 }
@@ -525,8 +710,11 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done conv4" << std::endl;
+    // std:cout << "Done conv4" << std::endl;
 
+    hls::stream<ap_ufixed<5, 1> > relu4_pipe_8;
+    #pragma HLS dependence variable=relu4_pipe_8 false
+    #pragma HLS stream variable=relu4_pipe_8 depth=128
     ap_ufixed<5, 1> relu4[1][64][20][40];
     relu4_y3: for (int y3 = 0; y3 < 1; ++y3) {
       relu4_args03: for (int args03 = 0; args03 < 64; ++args03) {
@@ -535,15 +723,18 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
           #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm4;
             ap_fixed<16, 8> conv4_temp1;
+            ap_ufixed<5, 1> relu4_temp1;
             conv4_temp1 = conv4_pipe_7.read();
             batch_norm4 = ((ap_fixed<16, 8>)(((ap_fixed<31, 13>)(((ap_fixed<30, 20>)a_batchnorm4[args03]) * ((ap_fixed<30, 22>)conv4_temp1))) + ((ap_fixed<31, 13>)b_batchnorm4[args03])));
-            relu4[y3][args03][args13][args23] = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm4) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm4)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm4)))));
+            // relu4[y3][args03][args13][args23] = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm4) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm4)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm4)))));
+            relu4_temp1 = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm4) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm4)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm4)))));
+            relu4_pipe_8.write(relu4_temp1);
           }
         }
       }
     }
 
-    // std::cout << "Done relu4" << std::endl;
+    // std:cout << "Done relu4" << std::endl;
 
     // Commenting out pad because doesn't do anything
     // ap_ufixed<5, 1> pool4_pad[1][64][20][40];
@@ -558,6 +749,49 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
     //   }
     // }
 
+
+    // New pool
+    hls::stream<ap_ufixed<5, 1> > pool4_pipe_8;
+    #pragma HLS dependence variable=pool4_pipe_8 false
+    #pragma HLS stream variable=pool4_pipe_8 depth=128
+    ap_ufixed<5, 1> pool4_line_buffer[2][40];
+    #pragma HLS array_partition variable=pool4_line_buffer complete dim=2
+    ap_ufixed<5, 1> pool4_window_buffer[2][2];
+    #pragma HLS array_partition variable=pool4_window_buffer complete dim=0
+    pool4_i2_3: for (int i2_3 = 0; i2_3 < 1; ++i2_3){
+      pool4_c_3: for (int c_3 = 0; c_3 < 64; ++c_3){
+        pool4_h_3: for (int h_3 = 0; h_3 < 10; ++h_3){ // 20/2
+          // Load line buffer
+          pool4_line_row_3: for (int line_row_3 = 0; line_row_3 < 2; ++line_row_3){
+            pool4_line_col_3: for (int line_col_3 = 0; line_col_3 < 40; ++line_col_3){
+            #pragma HLS pipeline
+              pool4_line_buffer[line_row_3][line_col_3] = relu4_pipe_8.read();
+            }
+          }
+          // Go across row
+          pool4_block_3: for (int block_3 = 0; block_3 < 40; block_3+=2){
+          #pragma HLS pipeline
+            // Load window buffer
+            pool4_window_row_3: for (int window_row_3 = 0; window_row_3 < 2; ++window_row_3){
+              pool4_window_col_3: for (int window_col_3 = 0; window_col_3 < 2; ++window_col_3){
+                pool4_window_buffer[window_row_3][window_col_3] = pool4_line_buffer[window_row_3][block_3 + window_col_3];
+              }
+            }
+            // Max operation
+            ap_ufixed<5, 1> reducer7 = 0;
+            pool4_pool_row_3: for (int pool_row_3 = 0; pool_row_3 < 2; ++pool_row_3){
+              pool4_pool_col_3: for (int pool_col_3 = 0; pool_col_3 < 2; ++pool_col_3){
+                reducer7 = hls::max(pool4_window_buffer[pool_row_3][pool_col_3], reducer7);
+              }
+            }
+            pool4_pipe_8.write(reducer7);
+          }
+        }
+      }
+    }
+    //
+
+    /*
     ap_ufixed<5, 1> pool4[1][64][10][20];
     hls::stream<ap_ufixed<5, 1> > pool4_pipe_8;
     #pragma HLS stream variable=pool4_pipe_8 depth=128
@@ -583,8 +817,9 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
         }
       }
     }
+    */
 
-    // std::cout << "Done pool4" << std::endl;
+    // std:cout << "Done pool4" << std::endl;
 
     ap_ufixed<5, 1> conv5_pad[1][64][12][22];
     conv5_pad_indices8: for (int indices8 = 0; indices8 < 1; ++indices8) {
@@ -633,6 +868,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
               }
               if (2 <= xx_reuse4) {
                 ap_fixed<16, 8> sum____;
+                #pragma HLS RESOURCE variable=sum____ latency=0
                 sum_x8: for (int x8 = 0; x8 < 1; ++x8) {
                   sum____ = ((ap_fixed<16, 8>)0);
                 }
@@ -654,7 +890,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done conv5" << std::endl;
+    // std:cout << "Done conv5" << std::endl;
 
     ap_ufixed<5, 1> relu5[1][64][10][20];
     hls::stream<ap_ufixed<5, 1> > relu5_pipe_10;
@@ -676,7 +912,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done relu5" << std::endl;
+    // std:cout << "Done relu5" << std::endl;
 
     ap_ufixed<5, 1> conv6_pad[1][64][12][22];
     conv6_pad_indices9: for (int indices9 = 0; indices9 < 1; ++indices9) {
@@ -725,6 +961,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
               }
               if (2 <= xx_reuse5) {
                 ap_fixed<16, 8> sum_____;
+                #pragma HLS RESOURCE variable=sum_____ latency=0
                 sum_x9: for (int x9 = 0; x9 < 1; ++x9) {
                   sum_____ = ((ap_fixed<16, 8>)0);
                 }
@@ -746,7 +983,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done conv6" << std::endl;
+    // std:cout << "Done conv6" << std::endl;
 
     ap_ufixed<5, 1> relu6[1][64][10][20];
     hls::stream<ap_ufixed<5, 1> > relu6_pipe_12;
@@ -768,7 +1005,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done relu6" << std::endl;
+    // std:cout << "Done relu6" << std::endl;
 
     ap_ufixed<5, 1> conv7_pad[1][64][12][22];
     conv7_pad_indices10: for (int indices10 = 0; indices10 < 1; ++indices10) {
@@ -817,6 +1054,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
               }
               if (2 <= xx_reuse6) {
                 ap_fixed<16, 8> sum______;
+                #pragma HLS RESOURCE variable=sum______ latency=0
                 sum_x10: for (int x10 = 0; x10 < 1; ++x10) {
                   sum______ = ((ap_fixed<16, 8>)0);
                 }
@@ -838,7 +1076,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done conv7" << std::endl;
+    // std:cout << "Done conv7" << std::endl;
 
     ap_ufixed<5, 1> relu7[1][64][10][20];
     hls::stream<ap_ufixed<5, 1> > relu7_pipe_14;
@@ -863,7 +1101,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done relu7" << std::endl;
+    // std:cout << "Done relu7" << std::endl;
 
     // write_file("relu7_cpp.txt", relu7, 1, 64, 10, 20);
     // std::cout << "Done write relu7" << std::endl;     
@@ -915,6 +1153,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
               }
               if (2 <= xx_reuse7) {
                 ap_fixed<16, 8> sum_______;
+                #pragma HLS RESOURCE variable=sum_______ latency=0
                 sum_x11: for (int x11 = 0; x11 < 1; ++x11) {
                   sum_______ = ((ap_fixed<16, 8>)0);
                 }
@@ -939,7 +1178,7 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
       }
     }
 
-    // std::cout << "Done conv8" << std::endl;
+    // std:cout << "Done conv8" << std::endl;
 
 
 
@@ -983,12 +1222,12 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
         }
       }
     }
-    // std::cout << "Done relu8, result" << std::endl;
+    // std:cout << "Done relu8, result" << std::endl;
 
     // write_file("relu8_cpp_car1_0001.txt", result, 1, 64, 10, 20);
     // std::cout << "Done write relu8" << std::endl;  
 
-    #pragma HLS array_partition variable=conv1_pad complete dim=2
+    // #pragma HLS array_partition variable=conv1_pad complete dim=2
     #pragma HLS array_partition variable=conv2_pad complete dim=2
     #pragma HLS array_partition variable=conv3_pad complete dim=2
     #pragma HLS array_partition variable=conv4_pad complete dim=2
@@ -996,6 +1235,38 @@ void test(float input_image[1][3][160][320], ap_fixed<5, 2> weight_conv1[16][3][
     #pragma HLS array_partition variable=conv6_pad complete dim=2
     #pragma HLS array_partition variable=conv7_pad complete dim=2
     #pragma HLS array_partition variable=conv8_pad complete dim=2
+
+    #pragma HLS array_partition variable=conv1_line_buffer complete dim=3
+    #pragma HLS array_partition variable=conv1_window_buffer complete dim=3
+    #pragma HLS array_partition variable=conv1_window_buffer complete dim=4
+
+    #pragma HLS array_partition variable=conv2_line_buffer complete dim=3
+    #pragma HLS array_partition variable=conv2_window_buffer complete dim=3
+    #pragma HLS array_partition variable=conv2_window_buffer complete dim=4
+
+    #pragma HLS array_partition variable=conv3_line_buffer complete dim=3
+    #pragma HLS array_partition variable=conv3_window_buffer complete dim=3    
+    #pragma HLS array_partition variable=conv3_window_buffer complete dim=4    
+    
+    #pragma HLS array_partition variable=conv4_line_buffer complete dim=3
+    #pragma HLS array_partition variable=conv4_window_buffer complete dim=3    
+    #pragma HLS array_partition variable=conv4_window_buffer complete dim=4    
+    
+    #pragma HLS array_partition variable=conv5_line_buffer complete dim=3
+    #pragma HLS array_partition variable=conv5_window_buffer complete dim=3    
+    #pragma HLS array_partition variable=conv5_window_buffer complete dim=4    
+    
+    #pragma HLS array_partition variable=conv6_line_buffer complete dim=3
+    #pragma HLS array_partition variable=conv6_window_buffer complete dim=3    
+    #pragma HLS array_partition variable=conv6_window_buffer complete dim=4    
+    
+    #pragma HLS array_partition variable=conv7_line_buffer complete dim=3
+    #pragma HLS array_partition variable=conv7_window_buffer complete dim=3    
+    #pragma HLS array_partition variable=conv7_window_buffer complete dim=4    
+    
+    #pragma HLS array_partition variable=conv8_line_buffer complete dim=3
+    #pragma HLS array_partition variable=conv8_window_buffer complete dim=3    
+    #pragma HLS array_partition variable=conv8_window_buffer complete dim=4    
 
   }
 
