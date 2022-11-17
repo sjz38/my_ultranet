@@ -13,3 +13,18 @@ void read_floats( float* myArray, const char* filename, int oneDArraySize)
     input_file.close();
   }
 }
+
+void write_file(std::string filename, auto mat, int dim0, int dim1, int dim2, int dim3){
+    std::fstream myfile;
+    myfile.open(filename, std::fstream::out);
+    for (int i0 = 0; i0 < dim0; i0++) {
+        for (int i1 = 0; i1 < dim1; i1++) {
+            for (int i2 = 0; i2 < dim2; i2++) {
+                for (int i3 = 0; i3 < dim3; i3++) {
+                    myfile << mat[i0][i1][i2][i3] << std::endl;
+                }
+            }
+        }
+    }
+    myfile.close();
+}

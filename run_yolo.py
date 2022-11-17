@@ -14,10 +14,10 @@ height = 160
 W_BIT = 4
 weight_quantizer = weight_quantize_fn(W_BIT)
 
-np_out = np.loadtxt("./main-dtypes/relu8_cpp.txt", dtype=float)
+np_out = np.loadtxt("./hls_projects/main-dtypes_no_pool_stream/relu8_cpp_car1_0001.txt", dtype=float)
 np_out = np_out.reshape((1, 64, 10, 20))
 np_out = np.float32(np_out)
-np.savetxt("relu8_yolo.txt", np_out.flatten(), delimiter="\n", fmt="%f")
+# np.savetxt("relu8_yolo.txt", np_out.flatten(), delimiter="\n", fmt="%f")
 
 # TEMPORARY: last conv using pytorch
 model = torch.load('ultranet_4w4a.pt', map_location='cpu')['model']
@@ -112,4 +112,4 @@ for box in pre_box:
     temp = [int(xmin), int(xmax), int(ymin), int(ymax)]
     result.append(temp)
 
-print("Output BBox: ", result)
+print("Output BBox (xmin, xmax, ymin, ymax): ", result)
