@@ -13,7 +13,7 @@ def load_image(image_path):
     image = cv2.imread(str(image_path))
     image = cv2.resize(image, (width, height), interpolation=cv2.INTER_LINEAR)
     image.resize(1, image.shape[0], image.shape[1], image.shape[2])
-    image = image.transpose(0, 3, 1, 2) # Makes nchw
+    # image = image.transpose(0, 3, 1, 2) # Makes nchw
     image = image.astype(float) / 255.0
     assert image.shape == (batch_size, 3, height, width)
     return image

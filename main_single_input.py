@@ -37,6 +37,15 @@ weight_quantizer = weight_quantize_fn(W_BIT)
 ###############################################################################
 # Import weights
 ###############################################################################
+def weight_file(mat, name):
+    import sys
+    np.set_printoptions(threshold=sys.maxsize)
+    with open(name, "w") as f:
+        for i in mat.flatten():
+            f.write(str(i))
+            f.write("\n")
+    print("Done " + name)
+
 def load_np_params(ptname):
 
     loaded = torch.load(ptname, map_location='cpu')
@@ -128,6 +137,7 @@ def load_image(image_path):
     # image = image.transpose(0, 3, 1, 2)
     image = image.astype(float) / 255.0
     assert image.shape == (batch_size, height, width, 3)
+    weight_file(image, "boat1_000001.dat")
     return image
 
 
@@ -138,12 +148,10 @@ def build_ultranet_inf(batch_size=batch_size, target=None):
     # set up input/output placeholders
     input_image = hcl.placeholder((batch_size, 160, 320, 3), dtype=input_dtype, name="input_image")
 
-    # weight_conv1 = hcl.placeholder((16, 3, 3, 3), dtype=weight_dtype, name="weight_conv1") # 3 in, 16 out
     weight_conv1 = hcl.placeholder((3, 3, 3, 16), dtype=weight_dtype, name="weight_conv1") # 3 in, 16 out
     a_batchnorm1 = hcl.placeholder((16,), dtype=bn_a_dtype, name="a_batchnorm1")
     b_batchnorm1 = hcl.placeholder((16,), dtype=bn_b_dtype, name="b_batchnorm1")
 
-    # weight_conv2 = hcl.placeholder((32, 16, 3, 3), dtype=weight_dtype, name="weight_conv2") # 16 in, 32 out
     weight_conv2 = hcl.placeholder((3, 3, 16, 32), dtype=weight_dtype, name="weight_conv2") # 16 in, 32 out
     a_batchnorm2 = hcl.placeholder((32,), dtype=bn_a_dtype, name="a_batchnorm2")
     b_batchnorm2 = hcl.placeholder((32,), dtype=bn_b_dtype, name="b_batchnorm2")

@@ -13,22 +13,22 @@ from yolo_utils import *
 ###############################################################################
 
 working_dir = os.getcwd()
-project_dir = "/work/shared/users/meng/sjz38/new/my_ultranet/hls_projects/main-dtypes_no_pool_stream/"
+project_dir = "/work/shared/users/meng/sjz38/tmp/my_ultranet/main-test_nhwc/"
 
 input_image_dat_list = [
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/boat1_000001.dat",
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/car1_0001.dat",
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/paraglider1_0001.dat",
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/person22_0038.dat",
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/riding8_0259.dat",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/boat1_000001.dat",
+    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/car1_0001.dat",
+    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/paraglider1_0001.dat",
+    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/person22_0038.dat",
+    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/riding8_0259.dat",
 ]
 
 xml_list = [
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/boat1_000001.xml",
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/car1_0001.xml",
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/paraglider1_0001.xml",
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/person22_0038.xml",
-    "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/riding8_0259.xml",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/boat1_000001.xml",
+    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/car1_0001.xml",
+    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/paraglider1_0001.xml",
+    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/person22_0038.xml",
+    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/riding8_0259.xml",
 ]
 
 

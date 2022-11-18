@@ -4,10 +4,8 @@ import numpy as np
 from ultranet_model import ultranet
 from main_single_input import load_np_params, load_image
 
-# input_dtype = hcl.Fixed(8, 4)
-input_dtype = hcl.Float(32)
+input_dtype = hcl.UFixed(8, 7) # Should be UFixed(8,7) but bug in HCL version
 weight_dtype = hcl.Fixed(5, 3) 
-# act_dtype = hcl.UFixed(4, 4)
 act_dtype = hcl.UFixed(5, 4)
 bn_a_dtype = hcl.Fixed(14, 10)
 bn_b_dtype = hcl.Fixed(26, 18)
@@ -17,7 +15,7 @@ batch_size = 1
 # image_path = "./example_images/example_1.jpg"
 image_path = "./test_images/boat1_000001.jpg"
 
-project_name = "merge_conv_bn_relu"
+project_name = "test_nhwc"
 
 # customizations
 stream = True
@@ -26,39 +24,39 @@ partition = True
 
 def build_ultranet_hls(batch_size=batch_size, target=None):
     # set up input/output placeholders
-    input_image = hcl.placeholder((batch_size, 3, 160, 320), dtype=input_dtype, name="input_image")
+    input_image = hcl.placeholder((batch_size, 160, 320, 3), dtype=input_dtype, name="input_image")
 
-    weight_conv1 = hcl.placeholder((16, 3, 3, 3), dtype=weight_dtype, name="weight_conv1") # 3 in, 16 out
+    weight_conv1 = hcl.placeholder((3, 3, 3, 16), dtype=weight_dtype, name="weight_conv1") # 3 in, 16 out
     a_batchnorm1 = hcl.placeholder((16,), dtype=bn_a_dtype, name="a_batchnorm1")
-    b_batchnorm1 = hcl.placeholder((16,), dtype=bn_b_dtype, name="b_batchnorm1")    
+    b_batchnorm1 = hcl.placeholder((16,), dtype=bn_b_dtype, name="b_batchnorm1")
 
-    weight_conv2 = hcl.placeholder((32, 16, 3, 3), dtype=weight_dtype, name="weight_conv2") # 16 in, 32 out
+    weight_conv2 = hcl.placeholder((3, 3, 16, 32), dtype=weight_dtype, name="weight_conv2") # 16 in, 32 out
     a_batchnorm2 = hcl.placeholder((32,), dtype=bn_a_dtype, name="a_batchnorm2")
     b_batchnorm2 = hcl.placeholder((32,), dtype=bn_b_dtype, name="b_batchnorm2")
 
-    weight_conv3 = hcl.placeholder((64, 32, 3, 3), dtype=weight_dtype, name="weight_conv3") # 32 in, 64 out
+    weight_conv3 = hcl.placeholder((3, 3, 32, 64), dtype=weight_dtype, name="weight_conv3") # 32 in, 64 out
     a_batchnorm3 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm3")
-    b_batchnorm3 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm3")    
+    b_batchnorm3 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm3")
 
-    weight_conv4 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv4") # 64 in, 64 out
+    weight_conv4 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv4") # 64 in, 64 out
     a_batchnorm4 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm4")
     b_batchnorm4 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm4")
 
-    weight_conv5 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv5") # 64 in, 64 out
+    weight_conv5 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv5") # 64 in, 64 out
     a_batchnorm5 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm5")
     b_batchnorm5 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm5")
 
-    weight_conv6 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv6") # 64 in, 64 out
+    weight_conv6 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv6") # 64 in, 64 out
     a_batchnorm6 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm6")
     b_batchnorm6 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm6")
 
-    weight_conv7 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv7") # 64 in, 64 out
+    weight_conv7 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv7") # 64 in, 64 out
     a_batchnorm7 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm7")
     b_batchnorm7 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm7")
 
-    weight_conv8 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv8") # 64 in, 64 out
+    weight_conv8 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv8") # 64 in, 64 out
     a_batchnorm8 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm8")
-    b_batchnorm8 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm8") 
+    b_batchnorm8 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm8")
 
     sm = hcl.create_scheme(
         [input_image, 
@@ -97,12 +95,10 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
     for i in range(1, 1 + 8):
         conv_pad = getattr(ultranet, 'conv' + str(i) + '_pad')
         conv = getattr(ultranet, 'conv' + str(i))
-        LB = s.reuse_at(conv_pad._op, s[conv], conv.axis[2], f"conv{i}_line_buffer")
-        WB = s.reuse_at(LB, s[conv], conv.axis[3], f"conv{i}_window_buffer")
-
-    # conv3 = ultranet.conv3
-    # xo, yo, xi, yi = s[conv3].tile(conv3.axis[2], conv3.axis[3], 4, 4)
-    # s[conv3].reorder(yo, xo, yi, xi)
+        # LB = s.reuse_at(conv_pad._op, s[conv], conv.axis[2], f"conv{i}_line_buffer")
+        LB = s.reuse_at(conv_pad._op, s[conv], conv.axis[1], f"conv{i}_line_buffer")
+        # WB = s.reuse_at(LB, s[conv], conv.axis[3], f"conv{i}_window_buffer")
+        WB = s.reuse_at(LB, s[conv], conv.axis[2], f"conv{i}_window_buffer")
 
     # print(hcl.lower(s))
     if opt:
@@ -120,20 +116,20 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
         s[relu8].compute_at(s[res], res.axis[3])
 
         # pipeline all layers
-        for i in range(1, 1 + 8):
-            pad = getattr(ultranet, 'conv' + str(i) + '_pad')
-            conv = getattr(ultranet, 'conv' + str(i))
-            bn_relu = getattr(ultranet, 'relu' + str(i))
-            s[pad].pipeline(pad.axis[3])
-            # s[conv].pipeline(conv.axis[4])
-            s[conv].pipeline(conv.axis[3])
-            s[bn_relu].pipeline(bn_relu.axis[3])
-            if i <= 4:
-                pool_pad = getattr(ultranet, 'pool' + str(i) + '_pad')
-                pool = getattr(ultranet, 'pool' + str(i))
-                s[pool_pad].pipeline(pool_pad.axis[3])
-                s[pool].pipeline(pool.axis[3])
-        s[ultranet.result].pipeline(ultranet.result.axis[3])
+        # for i in range(1, 1 + 8):
+        #     pad = getattr(ultranet, 'conv' + str(i) + '_pad')
+        #     conv = getattr(ultranet, 'conv' + str(i))
+        #     bn_relu = getattr(ultranet, 'relu' + str(i))
+        #     s[pad].pipeline(pad.axis[3])
+        #     # s[conv].pipeline(conv.axis[4])
+        #     s[conv].pipeline(conv.axis[3])
+        #     s[bn_relu].pipeline(bn_relu.axis[3])
+        #     if i <= 4:
+        #         pool_pad = getattr(ultranet, 'pool' + str(i) + '_pad')
+        #         pool = getattr(ultranet, 'pool' + str(i))
+        #         s[pool_pad].pipeline(pool_pad.axis[3])
+        #         s[pool].pipeline(pool.axis[3])
+        # s[ultranet.result].pipeline(ultranet.result.axis[3])
 
         # partition weight buffers
         if partition:
@@ -312,8 +308,7 @@ hcl_weight_conv8 = hcl.asarray(conv8_weight.astype(float), dtype=weight_dtype)
 hcl_a_batchnorm8 = hcl.asarray(batchnorm8_a.astype(float), dtype=bn_a_dtype)
 hcl_b_batchnorm8 = hcl.asarray(batchnorm8_b.astype(float), dtype=bn_b_dtype)
 
-# hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)), dtype=hcl.Fixed(16,8))
-hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)), dtype=act_dtype)
+hcl_out = hcl.asarray(np.zeros((batch_size, 10, 20, 64)), dtype=act_dtype)
 
 ###############################################################################
 # Inference
