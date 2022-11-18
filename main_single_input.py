@@ -13,7 +13,7 @@ from ultranet_model import ultranet
 # Define Data Types
 ###############################################################################
 hcl.init(hcl.Float(32))
-input_dtype = hcl.Float(32)
+input_dtype = hcl.UFixed(8, 7) # Should be UFixed(8,7) but bug in HCL version
 weight_dtype = hcl.Fixed(5, 3) # TODO: why hcl.Fixed(4,4) doesn't work
 act_dtype = hcl.UFixed(5, 4)
 bn_a_dtype = hcl.Fixed(14, 10) # TODO some 14 bit fixed pt, this seems to work well 
@@ -25,8 +25,7 @@ conv_dtype = hcl.Fixed(16, 8)
 ###############################################################################
 
 image_path = './test_images/boat1_000001.jpg'
-# image_path = './test_images/person23_0113.jpg'
-# image_path = './test_images/car1_0001.jpg'
+# image_path = './subset_images/car1_0001.jpg'
 raw_height = 360
 raw_width = 640
 width = 320
@@ -45,6 +44,7 @@ def load_np_params(ptname):
     model = loaded['model']
 
     conv1_weight = model['layers.0.weight'].numpy()
+    conv1_weight = conv1_weight.transpose(2, 3, 1, 0)
     conv1_weight = weight_quantizer(conv1_weight)
     batchnorm1_weight = model['layers.1.weight'].numpy()
     batchnorm1_bias = model['layers.1.bias'].numpy()
@@ -52,6 +52,7 @@ def load_np_params(ptname):
     batchnorm1_running_var = model['layers.1.running_var'].numpy()
 
     conv2_weight = model['layers.4.weight'].numpy()
+    conv2_weight = conv2_weight.transpose(2, 3, 1, 0)
     conv2_weight = weight_quantizer(conv2_weight)
     batchnorm2_weight = model['layers.5.weight'].numpy()
     batchnorm2_bias = model['layers.5.bias'].numpy()
@@ -59,6 +60,7 @@ def load_np_params(ptname):
     batchnorm2_running_var = model['layers.5.running_var'].numpy()
 
     conv3_weight = model['layers.8.weight'].numpy()
+    conv3_weight = conv3_weight.transpose(2, 3, 1, 0)
     conv3_weight = weight_quantizer(conv3_weight)
     batchnorm3_weight = model['layers.9.weight'].numpy()
     batchnorm3_bias = model['layers.9.bias'].numpy()
@@ -66,6 +68,7 @@ def load_np_params(ptname):
     batchnorm3_running_var = model['layers.9.running_var'].numpy()
 
     conv4_weight = model['layers.12.weight'].numpy()
+    conv4_weight = conv4_weight.transpose(2, 3, 1, 0)
     conv4_weight = weight_quantizer(conv4_weight)
     batchnorm4_weight = model['layers.13.weight'].numpy()
     batchnorm4_bias = model['layers.13.bias'].numpy()
@@ -73,6 +76,7 @@ def load_np_params(ptname):
     batchnorm4_running_var = model['layers.13.running_var'].numpy()
 
     conv5_weight = model['layers.16.weight'].numpy()
+    conv5_weight = conv5_weight.transpose(2, 3, 1, 0)
     conv5_weight = weight_quantizer(conv5_weight)
     batchnorm5_weight = model['layers.17.weight'].numpy()
     batchnorm5_bias = model['layers.17.bias'].numpy()
@@ -80,6 +84,7 @@ def load_np_params(ptname):
     batchnorm5_running_var = model['layers.17.running_var'].numpy()
 
     conv6_weight = model['layers.19.weight'].numpy()
+    conv6_weight = conv6_weight.transpose(2, 3, 1, 0)
     conv6_weight = weight_quantizer(conv6_weight)
     batchnorm6_weight = model['layers.20.weight'].numpy()
     batchnorm6_bias = model['layers.20.bias'].numpy()
@@ -87,6 +92,7 @@ def load_np_params(ptname):
     batchnorm6_running_var = model['layers.20.running_var'].numpy()
 
     conv7_weight = model['layers.22.weight'].numpy()
+    conv7_weight = conv7_weight.transpose(2, 3, 1, 0)
     conv7_weight = weight_quantizer(conv7_weight)
     batchnorm7_weight = model['layers.23.weight'].numpy()
     batchnorm7_bias = model['layers.23.bias'].numpy()
@@ -94,6 +100,7 @@ def load_np_params(ptname):
     batchnorm7_running_var = model['layers.23.running_var'].numpy()
 
     conv8_weight = model['layers.25.weight'].numpy()
+    conv8_weight = conv8_weight.transpose(2, 3, 1, 0)
     conv8_weight = weight_quantizer(conv8_weight)
     batchnorm8_weight = model['layers.26.weight'].numpy()
     batchnorm8_bias = model['layers.26.bias'].numpy()
@@ -118,9 +125,9 @@ def load_image(image_path):
     image = cv2.imread(str(image_path))
     image = cv2.resize(image, (width, height), interpolation=cv2.INTER_LINEAR)
     image.resize(1, image.shape[0], image.shape[1], image.shape[2])
-    image = image.transpose(0, 3, 1, 2)
+    # image = image.transpose(0, 3, 1, 2)
     image = image.astype(float) / 255.0
-    assert image.shape == (batch_size, 3, height, width)
+    assert image.shape == (batch_size, height, width, 3)
     return image
 
 
@@ -129,37 +136,39 @@ def load_image(image_path):
 ###############################################################################
 def build_ultranet_inf(batch_size=batch_size, target=None):
     # set up input/output placeholders
-    input_image = hcl.placeholder((batch_size, 3, 160, 320), dtype=input_dtype, name="input_image")
+    input_image = hcl.placeholder((batch_size, 160, 320, 3), dtype=input_dtype, name="input_image")
 
-    weight_conv1 = hcl.placeholder((16, 3, 3, 3), dtype=weight_dtype, name="weight_conv1") # 3 in, 16 out
+    # weight_conv1 = hcl.placeholder((16, 3, 3, 3), dtype=weight_dtype, name="weight_conv1") # 3 in, 16 out
+    weight_conv1 = hcl.placeholder((3, 3, 3, 16), dtype=weight_dtype, name="weight_conv1") # 3 in, 16 out
     a_batchnorm1 = hcl.placeholder((16,), dtype=bn_a_dtype, name="a_batchnorm1")
     b_batchnorm1 = hcl.placeholder((16,), dtype=bn_b_dtype, name="b_batchnorm1")
 
-    weight_conv2 = hcl.placeholder((32, 16, 3, 3), dtype=weight_dtype, name="weight_conv2") # 16 in, 32 out
+    # weight_conv2 = hcl.placeholder((32, 16, 3, 3), dtype=weight_dtype, name="weight_conv2") # 16 in, 32 out
+    weight_conv2 = hcl.placeholder((3, 3, 16, 32), dtype=weight_dtype, name="weight_conv2") # 16 in, 32 out
     a_batchnorm2 = hcl.placeholder((32,), dtype=bn_a_dtype, name="a_batchnorm2")
     b_batchnorm2 = hcl.placeholder((32,), dtype=bn_b_dtype, name="b_batchnorm2")
 
-    weight_conv3 = hcl.placeholder((64, 32, 3, 3), dtype=weight_dtype, name="weight_conv3") # 32 in, 64 out
+    weight_conv3 = hcl.placeholder((3, 3, 32, 64), dtype=weight_dtype, name="weight_conv3") # 32 in, 64 out
     a_batchnorm3 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm3")
     b_batchnorm3 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm3")
 
-    weight_conv4 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv4") # 64 in, 64 out
+    weight_conv4 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv4") # 64 in, 64 out
     a_batchnorm4 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm4")
     b_batchnorm4 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm4")
 
-    weight_conv5 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv5") # 64 in, 64 out
+    weight_conv5 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv5") # 64 in, 64 out
     a_batchnorm5 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm5")
     b_batchnorm5 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm5")
 
-    weight_conv6 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv6") # 64 in, 64 out
+    weight_conv6 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv6") # 64 in, 64 out
     a_batchnorm6 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm6")
     b_batchnorm6 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm6")
 
-    weight_conv7 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv7") # 64 in, 64 out
+    weight_conv7 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv7") # 64 in, 64 out
     a_batchnorm7 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm7")
     b_batchnorm7 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm7")
 
-    weight_conv8 = hcl.placeholder((64, 64, 3, 3), dtype=weight_dtype, name="weight_conv8") # 64 in, 64 out
+    weight_conv8 = hcl.placeholder((3, 3, 64, 64), dtype=weight_dtype, name="weight_conv8") # 64 in, 64 out
     a_batchnorm8 = hcl.placeholder((64,), dtype=bn_a_dtype, name="a_batchnorm8")
     b_batchnorm8 = hcl.placeholder((64,), dtype=bn_b_dtype, name="b_batchnorm8")
 
@@ -253,43 +262,27 @@ if __name__ == "__main__":
     epsilon = 10**-7
     batchnorm1_a = batchnorm1_weight / np.sqrt(batchnorm1_running_var + epsilon)
     batchnorm1_b = ((-1*batchnorm1_weight * batchnorm1_running_mean) / np.sqrt(batchnorm1_running_var + epsilon)) + batchnorm1_bias
-    # batchnorm1_a = weight_quantizer(batchnorm1_a)
-    # batchnorm1_b = weight_quantizer(batchnorm1_b)
 
     batchnorm2_a = batchnorm2_weight / np.sqrt(batchnorm2_running_var + epsilon)
     batchnorm2_b = ((-1*batchnorm2_weight * batchnorm2_running_mean) / np.sqrt(batchnorm2_running_var + epsilon)) + batchnorm2_bias
-    # batchnorm2_a = weight_quantizer(batchnorm2_a)
-    # batchnorm2_b = weight_quantizer(batchnorm2_b)
 
     batchnorm3_a = batchnorm3_weight / np.sqrt(batchnorm3_running_var + epsilon)
     batchnorm3_b = ((-1*batchnorm3_weight * batchnorm3_running_mean) / np.sqrt(batchnorm3_running_var + epsilon)) + batchnorm3_bias
-    # batchnorm3_a = weight_quantizer(batchnorm3_a)
-    # batchnorm3_b = weight_quantizer(batchnorm3_b)
 
     batchnorm4_a = batchnorm4_weight / np.sqrt(batchnorm4_running_var + epsilon)
     batchnorm4_b = ((-1*batchnorm4_weight * batchnorm4_running_mean) / np.sqrt(batchnorm4_running_var + epsilon)) + batchnorm4_bias
-    # batchnorm4_a = weight_quantizer(batchnorm4_a)
-    # batchnorm4_b = weight_quantizer(batchnorm4_b)
 
     batchnorm5_a = batchnorm5_weight / np.sqrt(batchnorm5_running_var + epsilon)
     batchnorm5_b = ((-1*batchnorm5_weight * batchnorm5_running_mean) / np.sqrt(batchnorm5_running_var + epsilon)) + batchnorm5_bias
-    # batchnorm5_a = weight_quantizer(batchnorm5_a)
-    # batchnorm5_b = weight_quantizer(batchnorm5_b)
 
     batchnorm6_a = batchnorm6_weight / np.sqrt(batchnorm6_running_var + epsilon)
     batchnorm6_b = ((-1*batchnorm6_weight * batchnorm6_running_mean) / np.sqrt(batchnorm6_running_var + epsilon)) + batchnorm6_bias
-    # batchnorm6_a = weight_quantizer(batchnorm6_a)
-    # batchnorm6_b = weight_quantizer(batchnorm6_b)
 
     batchnorm7_a = batchnorm7_weight / np.sqrt(batchnorm7_running_var + epsilon)
     batchnorm7_b = ((-1*batchnorm7_weight * batchnorm7_running_mean) / np.sqrt(batchnorm7_running_var + epsilon)) + batchnorm7_bias
-    # batchnorm7_a = weight_quantizer(batchnorm7_a)
-    # batchnorm7_b = weight_quantizer(batchnorm7_b)
 
     batchnorm8_a = batchnorm8_weight / np.sqrt(batchnorm8_running_var + epsilon)
     batchnorm8_b = ((-1*batchnorm8_weight * batchnorm8_running_mean) / np.sqrt(batchnorm8_running_var + epsilon)) + batchnorm8_bias
-    # batchnorm8_a = weight_quantizer(batchnorm8_a)
-    # batchnorm8_b = weight_quantizer(batchnorm8_b)
 
     ###############################################################################
     # convert weights into hcl
@@ -326,7 +319,7 @@ if __name__ == "__main__":
     hcl_a_batchnorm8 = hcl.asarray(batchnorm8_a.astype(float), dtype=bn_a_dtype)
     hcl_b_batchnorm8 = hcl.asarray(batchnorm8_b.astype(float), dtype=bn_b_dtype)
 
-    hcl_out = hcl.asarray(np.zeros((batch_size, 64, 10, 20)), dtype=act_dtype)
+    hcl_out = hcl.asarray(np.zeros((batch_size, 10, 20, 64)), dtype=act_dtype)
 
     ###############################################################################
     # Inference
@@ -347,30 +340,10 @@ if __name__ == "__main__":
     ###############################################################################
     # Results up to YOLO layer
     ###############################################################################
-    # hcl.print(hcl_out)
     np_input = hcl_input.asnumpy()
-    # print(hcl_out)
-    # hcl_out = hcl.compute(hcl_out.shape, lambda *x : hcl.cast(hcl.Float(32), hcl_out[x]), name='result', dtype=hcl.Float(32))
     np_out = hcl_out.asnumpy()
-    # np.savetxt("np_out.txt", np_out.flatten(), delimiter="\n")
+    np_out = np_out.transpose(0, 3, 1, 2)
     np_out = np.float32(np_out)
-    # print(f"np_out: {np_out[-1]}")
-    # print(f"np_out type: {np_out.dtype}")
-    # np_out = np.load('../ultra_net/model/torch_output.npy')
-
-    # np_out = np.loadtxt("main-dtypes_no_pool_stream/relu8_cpp_fix_dtype.txt", delimiter="\n")
-    # np_out.flatten()
-    # np_out = np.float32(np.abs(np_out))
-    # print("Inserted relu8_cpp")
-    # print(np_out[0])
-    # print(np_out[1])
-    # print(np_out[2])
-    # print(np_out[3])
-    # print(np_out[4])
-    # print(np_out[5])
-    # np_out = np.reshape(np_out, (1, 64, 10, 20))
-
-
 
     ###############################################################################
     # YOLO Layer
