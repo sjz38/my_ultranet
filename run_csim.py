@@ -13,7 +13,7 @@ from yolo_utils import *
 ###############################################################################
 
 working_dir = os.getcwd()
-project_dir = "/work/shared/users/meng/sjz38/tmp/my_ultranet/main-test_nhwc/"
+project_dir = "/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-test_nhwc/"
 
 input_image_dat_list = [
     "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/boat1_000001.dat",

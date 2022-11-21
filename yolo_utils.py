@@ -5,7 +5,7 @@ import numpy as np
 import xml.etree.ElementTree
 
 ###############################################################################
-# YUtil Functions
+# Util Functions
 ###############################################################################
 
 def create_grids(self, img_size=416, ng=(13, 13), device='cpu', type=torch.float32):

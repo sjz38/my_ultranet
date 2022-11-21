@@ -24,7 +24,8 @@ conv_dtype = hcl.Fixed(16, 8)
 # Define parameters and images
 ###############################################################################
 
-image_path = './test_images/boat1_000001.jpg'
+# image_path = './test_images/boat1_000001.jpg'
+image_path = './subset_images_nhwc/boat1_000001.jpg'
 # image_path = './subset_images/car1_0001.jpg'
 raw_height = 360
 raw_width = 640
@@ -137,7 +138,7 @@ def load_image(image_path):
     # image = image.transpose(0, 3, 1, 2)
     image = image.astype(float) / 255.0
     assert image.shape == (batch_size, height, width, 3)
-    weight_file(image, "boat1_000001.dat")
+    # weight_file(image, "boat1_000001.dat")
     return image
 
 
