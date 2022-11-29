@@ -11,40 +11,55 @@
 #include "kernel.h"
 
 // #include "read_floats.h"
-#include <fstream>
-#include <iostream>
-void write_file(std::string filename, auto mat, int dim0, int dim1, int dim2, int dim3){
-    std::fstream myfile;
-    myfile.open(filename, std::fstream::out);
-    for (int i0 = 0; i0 < dim0; i0++) {
-        for (int i1 = 0; i1 < dim1; i1++) {
-            for (int i2 = 0; i2 < dim2; i2++) {
-                for (int i3 = 0; i3 < dim3; i3++) {
-                    myfile << mat[i0][i1][i2][i3] << std::endl;
-                }
-            }
-        }
-    }
-    myfile.close();
-}
+// #include <fstream>
+// #include <iostream>
+// void write_file(std::string filename, auto mat, int dim0, int dim1, int dim2, int dim3){
+//     std::fstream myfile;
+//     myfile.open(filename, std::fstream::out);
+//     for (int i0 = 0; i0 < dim0; i0++) {
+//         for (int i1 = 0; i1 < dim1; i1++) {
+//             for (int i2 = 0; i2 < dim2; i2++) {
+//                 for (int i3 = 0; i3 < dim3; i3++) {
+//                     myfile << mat[i0][i1][i2][i3] << std::endl;
+//                 }
+//             }
+//         }
+//     }
+//     myfile.close();
+// }
 
 void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_conv1[3][3][3][16], ap_fixed<14, 4> a_batchnorm1[16], ap_fixed<26, 8> b_batchnorm1[16], ap_fixed<5, 2> weight_conv2[3][3][16][32], ap_fixed<14, 4> a_batchnorm2[32], ap_fixed<26, 8> b_batchnorm2[32], ap_fixed<5, 2> weight_conv3[3][3][32][64], ap_fixed<14, 4> a_batchnorm3[64], ap_fixed<26, 8> b_batchnorm3[64], ap_fixed<5, 2> weight_conv4[3][3][64][64], ap_fixed<14, 4> a_batchnorm4[64], ap_fixed<26, 8> b_batchnorm4[64], ap_fixed<5, 2> weight_conv5[3][3][64][64], ap_fixed<14, 4> a_batchnorm5[64], ap_fixed<26, 8> b_batchnorm5[64], ap_fixed<5, 2> weight_conv6[3][3][64][64], ap_fixed<14, 4> a_batchnorm6[64], ap_fixed<26, 8> b_batchnorm6[64], ap_fixed<5, 2> weight_conv7[3][3][64][64], ap_fixed<14, 4> a_batchnorm7[64], ap_fixed<26, 8> b_batchnorm7[64], ap_fixed<5, 2> weight_conv8[3][3][64][64], ap_fixed<14, 4> a_batchnorm8[64], ap_fixed<26, 8> b_batchnorm8[64], ap_ufixed<5, 1> result[1][10][20][64]) {
-    #pragma HLS array_partition variable=weight_conv8 complete dim=2
-    #pragma HLS array_partition variable=weight_conv7 complete dim=2
-    #pragma HLS array_partition variable=weight_conv6 complete dim=2
-    #pragma HLS array_partition variable=weight_conv5 complete dim=2
-    #pragma HLS array_partition variable=weight_conv4 complete dim=2
-    #pragma HLS array_partition variable=weight_conv3 complete dim=2
-    #pragma HLS array_partition variable=weight_conv2 complete dim=2
     #pragma HLS array_partition variable=weight_conv1 complete dim=2
+    #pragma HLS array_partition variable=weight_conv1 complete dim=3
+    #pragma HLS array_partition variable=weight_conv1 complete dim=4
+    #pragma HLS array_partition variable=weight_conv2 complete dim=2
+    #pragma HLS array_partition variable=weight_conv2 complete dim=3
+    #pragma HLS array_partition variable=weight_conv2 complete dim=4
+    #pragma HLS array_partition variable=weight_conv3 complete dim=2
+    #pragma HLS array_partition variable=weight_conv3 complete dim=3
+    #pragma HLS array_partition variable=weight_conv3 complete dim=4
+    #pragma HLS array_partition variable=weight_conv4 complete dim=2
+    #pragma HLS array_partition variable=weight_conv4 complete dim=3
+    #pragma HLS array_partition variable=weight_conv4 complete dim=4
+    #pragma HLS array_partition variable=weight_conv5 complete dim=2
+    #pragma HLS array_partition variable=weight_conv5 complete dim=3
+    #pragma HLS array_partition variable=weight_conv5 complete dim=4
+    #pragma HLS array_partition variable=weight_conv6 complete dim=2
+    #pragma HLS array_partition variable=weight_conv6 complete dim=3
+    #pragma HLS array_partition variable=weight_conv6 complete dim=4
+    #pragma HLS array_partition variable=weight_conv7 complete dim=2
+    #pragma HLS array_partition variable=weight_conv7 complete dim=3
+    #pragma HLS array_partition variable=weight_conv7 complete dim=4
+    #pragma HLS array_partition variable=weight_conv8 complete dim=2
+    #pragma HLS array_partition variable=weight_conv8 complete dim=3
+    #pragma HLS array_partition variable=weight_conv8 complete dim=4
 
-    // std::cout << weight_conv1[0][0][0][0] <<std::endl;
-    // write_file("input.txt", input_image, 1, 160, 320, 3);
     ap_ufixed<8, 1> conv1_pad[1][162][322][3];
     conv1_pad_indices: for (int indices = 0; indices < 1; ++indices) {
       conv1_pad_not_zero: for (int not_zero = 0; not_zero < 162; ++not_zero) {
         conv1_pad_index_tuple: for (int index_tuple = 0; index_tuple < 322; ++index_tuple) {
           conv1_pad_i: for (int i = 0; i < 3; ++i) {
+            #pragma HLS pipeline
             conv1_pad[indices][not_zero][index_tuple][i] = (((((1 <= not_zero) && (not_zero < 161)) && (1 <= index_tuple)) && (index_tuple < 321)) ? ((ap_ufixed<8, 1>)input_image[(((((index_tuple - ((index_tuple + -1) % 320)) + (not_zero * 320)) + (indices * 51200)) + -321) / 51200)][((((((index_tuple - ((index_tuple + -1) % 320)) + (not_zero * 320)) + (indices * 51200)) + -321) / 320) % 160)][((index_tuple + -1) % 320)][i]) : (((ap_ufixed<8, 1>)0.000000e+00f)));
           }
         }
@@ -61,8 +76,9 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     #pragma HLS stream variable=conv1_pipe_1 depth=128
     conv1_nn: for (int nn = 0; nn < 1; ++nn) {
       conv1_yy_reuse: for (int yy_reuse = 0; yy_reuse < 162; ++yy_reuse) {
-        conv1_pad_0: for (int conv1_pad_0 = 0; conv1_pad_0 < 3; ++conv1_pad_0) {
-          conv1_pad_1: for (int conv1_pad_1 = 0; conv1_pad_1 < 322; ++conv1_pad_1) {
+        conv1_pad_1: for (int conv1_pad_1 = 0; conv1_pad_1 < 322; ++conv1_pad_1) {
+          #pragma HLS pipeline
+          conv1_pad_0: for (int conv1_pad_0 = 0; conv1_pad_0 < 3; ++conv1_pad_0) {
             conv1_pad_2: for (int conv1_pad_2 = 0; conv1_pad_2 < 2; ++conv1_pad_2) {
               conv1_line_buffer[0][conv1_pad_2][conv1_pad_1][conv1_pad_0] = conv1_line_buffer[0][(conv1_pad_2 + 1)][conv1_pad_1][conv1_pad_0];
             }
@@ -72,6 +88,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         conv1_xx_reuse: for (int xx_reuse = 0; xx_reuse < 322; ++xx_reuse) {
           if (2 <= yy_reuse) {
             conv1_line_buffer_0: for (int conv1_line_buffer_0 = 0; conv1_line_buffer_0 < 3; ++conv1_line_buffer_0) {
+              #pragma HLS pipeline
               conv1_line_buffer_2: for (int conv1_line_buffer_2 = 0; conv1_line_buffer_2 < 3; ++conv1_line_buffer_2) {
                 conv1_line_buffer_1: for (int conv1_line_buffer_1 = 0; conv1_line_buffer_1 < 2; ++conv1_line_buffer_1) {
                   conv1_window_buffer[0][conv1_line_buffer_2][conv1_line_buffer_1][conv1_line_buffer_0] = conv1_window_buffer[0][conv1_line_buffer_2][(conv1_line_buffer_1 + 1)][conv1_line_buffer_0];
@@ -80,6 +97,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
               }
             }
             conv1_ff: for (int ff = 0; ff < 16; ++ff) {
+              #pragma HLS pipeline
               if (2 <= xx_reuse) {
                 ap_fixed<16, 8> sum;
                 sum_x: for (int x = 0; x < 1; ++x) {
@@ -95,7 +113,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
                 ap_fixed<16, 8> conv1_temp;
                 conv1_temp = sum;
                 //
-                conv1[nn][yy_reuse-2][xx_reuse-2][ff] = conv1_temp;
+                // conv1[nn][yy_reuse-2][xx_reuse-2][ff] = conv1_temp;
                 //
                 conv1_pipe_1.write(conv1_temp);
               }
@@ -104,7 +122,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         }
       }
     }
-    std::cout << "Done conv1" << std::endl;
+    // std::cout << "Done conv1" << std::endl;
     // write_file("conv1.txt", conv1, 1, 160, 320, 16);
 
     ap_ufixed<5, 1> relu1[1][160][320][16];
@@ -112,6 +130,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       relu1_args0: for (int args0 = 0; args0 < 160; ++args0) {
         relu1_args1: for (int args1 = 0; args1 < 320; ++args1) {
           relu1_args2: for (int args2 = 0; args2 < 16; ++args2) {
+            #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm1;
             ap_fixed<16, 8> conv1_temp1;
             conv1_temp1 = conv1_pipe_1.read();
@@ -131,6 +150,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       pool1_h: for (int h = 0; h < 80; ++h) {
         pool1_w: for (int w = 0; w < 160; ++w) {
           pool1_c: for (int c = 0; c < 16; ++c) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> reducer4;
             reducer4_x1: for (int x1 = 0; x1 < 1; ++x1) {
               reducer4 = ((ap_ufixed<5, 1>)0);
@@ -142,7 +162,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
             }
             ap_ufixed<5, 1> pool1_temp;
             pool1_temp = reducer4;
-            pool1[i1][h][w][c] = pool1_temp;
+            // pool1[i1][h][w][c] = pool1_temp;
             pool1_pipe_2.write(pool1_temp);
           }
         }
@@ -150,13 +170,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     }
 
     // write_file("pool1.txt", pool1, 1, 80, 160, 16);
-    std::cout << "Done pool1" << std::endl;
+    // std::cout << "Done pool1" << std::endl;
 
     ap_ufixed<5, 1> conv2_pad[1][82][162][16];
     conv2_pad_indices1: for (int indices1 = 0; indices1 < 1; ++indices1) {
       conv2_pad_not_zero1: for (int not_zero1 = 0; not_zero1 < 82; ++not_zero1) {
         conv2_pad_index_tuple1: for (int index_tuple1 = 0; index_tuple1 < 162; ++index_tuple1) {
           conv2_pad_i2: for (int i2 = 0; i2 < 16; ++i2) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> pool1_temp1;
             if ((((1 <= not_zero1) && (not_zero1 < 81)) && (1 <= index_tuple1)) && (index_tuple1 < 161)) {
               pool1_temp1 = pool1_pipe_2.read();
@@ -176,8 +197,9 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     #pragma HLS stream variable=conv2_pipe_3 depth=128
     conv2_nn1: for (int nn1 = 0; nn1 < 1; ++nn1) {
       conv2_yy_reuse1: for (int yy_reuse1 = 0; yy_reuse1 < 82; ++yy_reuse1) {
-        conv2_pad_0: for (int conv2_pad_0 = 0; conv2_pad_0 < 16; ++conv2_pad_0) {
-          conv2_pad_1: for (int conv2_pad_1 = 0; conv2_pad_1 < 162; ++conv2_pad_1) {
+        conv2_pad_1: for (int conv2_pad_1 = 0; conv2_pad_1 < 162; ++conv2_pad_1) {
+          #pragma HLS pipeline
+          conv2_pad_0: for (int conv2_pad_0 = 0; conv2_pad_0 < 16; ++conv2_pad_0) {
             conv2_pad_2: for (int conv2_pad_2 = 0; conv2_pad_2 < 2; ++conv2_pad_2) {
               conv2_line_buffer[0][conv2_pad_2][conv2_pad_1][conv2_pad_0] = conv2_line_buffer[0][(conv2_pad_2 + 1)][conv2_pad_1][conv2_pad_0];
             }
@@ -187,6 +209,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         conv2_xx_reuse1: for (int xx_reuse1 = 0; xx_reuse1 < 162; ++xx_reuse1) {
           if (2 <= yy_reuse1) {
             conv2_line_buffer_0: for (int conv2_line_buffer_0 = 0; conv2_line_buffer_0 < 16; ++conv2_line_buffer_0) {
+              #pragma HLS pipeline
               conv2_line_buffer_2: for (int conv2_line_buffer_2 = 0; conv2_line_buffer_2 < 3; ++conv2_line_buffer_2) {
                 conv2_line_buffer_1: for (int conv2_line_buffer_1 = 0; conv2_line_buffer_1 < 2; ++conv2_line_buffer_1) {
                   conv2_window_buffer[0][conv2_line_buffer_2][conv2_line_buffer_1][conv2_line_buffer_0] = conv2_window_buffer[0][conv2_line_buffer_2][(conv2_line_buffer_1 + 1)][conv2_line_buffer_0];
@@ -195,6 +218,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
               }
             }
             conv2_ff1: for (int ff1 = 0; ff1 < 32; ++ff1) {
+              #pragma HLS pipeline
               if (2 <= xx_reuse1) {
                 ap_fixed<16, 8> sum_;
                 sum_x2: for (int x2 = 0; x2 < 1; ++x2) {
@@ -210,7 +234,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
                 ap_fixed<16, 8> conv2_temp;
                 conv2_temp = sum_;
                 //
-                conv2[nn1][yy_reuse1-2][xx_reuse1-2][ff1] = conv2_temp;
+                // conv2[nn1][yy_reuse1-2][xx_reuse1-2][ff1] = conv2_temp;
                 //
                 conv2_pipe_3.write(conv2_temp);
               }
@@ -221,13 +245,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     }
 
     // write_file("conv2.txt", conv2, 1, 80, 160, 32);
-    std::cout << "Done conv2" << std::endl;
+    // std::cout << "Done conv2" << std::endl;
 
     ap_ufixed<5, 1> relu2[1][80][160][32];
     relu2_y1: for (int y1 = 0; y1 < 1; ++y1) {
       relu2_args01: for (int args01 = 0; args01 < 80; ++args01) {
         relu2_args11: for (int args11 = 0; args11 < 160; ++args11) {
           relu2_args21: for (int args21 = 0; args21 < 32; ++args21) {
+            #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm2;
             ap_fixed<16, 8> conv2_temp1;
             conv2_temp1 = conv2_pipe_3.read();
@@ -247,6 +272,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       pool2_h1: for (int h1 = 0; h1 < 40; ++h1) {
         pool2_w1: for (int w1 = 0; w1 < 80; ++w1) {
           pool2_c1: for (int c1 = 0; c1 < 32; ++c1) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> reducer5;
             reducer5_x3: for (int x3 = 0; x3 < 1; ++x3) {
               reducer5 = ((ap_ufixed<5, 1>)0);
@@ -264,13 +290,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       }
     }
 
-    std::cout << "Done pool2" << std::endl;
+    // std::cout << "Done pool2" << std::endl;
 
     ap_ufixed<5, 1> conv3_pad[1][42][82][32];
     conv3_pad_indices2: for (int indices2 = 0; indices2 < 1; ++indices2) {
       conv3_pad_not_zero2: for (int not_zero2 = 0; not_zero2 < 42; ++not_zero2) {
         conv3_pad_index_tuple2: for (int index_tuple2 = 0; index_tuple2 < 82; ++index_tuple2) {
           conv3_pad_i4: for (int i4 = 0; i4 < 32; ++i4) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> pool2_temp1;
             if ((((1 <= not_zero2) && (not_zero2 < 41)) && (1 <= index_tuple2)) && (index_tuple2 < 81)) {
               pool2_temp1 = pool2_pipe_4.read();
@@ -290,8 +317,9 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     #pragma HLS stream variable=conv3_pipe_5 depth=128
     conv3_nn2: for (int nn2 = 0; nn2 < 1; ++nn2) {
       conv3_yy_reuse2: for (int yy_reuse2 = 0; yy_reuse2 < 42; ++yy_reuse2) {
-        conv3_pad_0: for (int conv3_pad_0 = 0; conv3_pad_0 < 32; ++conv3_pad_0) {
-          conv3_pad_1: for (int conv3_pad_1 = 0; conv3_pad_1 < 82; ++conv3_pad_1) {
+        conv3_pad_1: for (int conv3_pad_1 = 0; conv3_pad_1 < 82; ++conv3_pad_1) {
+          #pragma HLS pipeline
+          conv3_pad_0: for (int conv3_pad_0 = 0; conv3_pad_0 < 32; ++conv3_pad_0) {
             conv3_pad_2: for (int conv3_pad_2 = 0; conv3_pad_2 < 2; ++conv3_pad_2) {
               conv3_line_buffer[0][conv3_pad_2][conv3_pad_1][conv3_pad_0] = conv3_line_buffer[0][(conv3_pad_2 + 1)][conv3_pad_1][conv3_pad_0];
             }
@@ -301,6 +329,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         conv3_xx_reuse2: for (int xx_reuse2 = 0; xx_reuse2 < 82; ++xx_reuse2) {
           if (2 <= yy_reuse2) {
             conv3_line_buffer_0: for (int conv3_line_buffer_0 = 0; conv3_line_buffer_0 < 32; ++conv3_line_buffer_0) {
+              #pragma HLS pipeline
               conv3_line_buffer_2: for (int conv3_line_buffer_2 = 0; conv3_line_buffer_2 < 3; ++conv3_line_buffer_2) {
                 conv3_line_buffer_1: for (int conv3_line_buffer_1 = 0; conv3_line_buffer_1 < 2; ++conv3_line_buffer_1) {
                   conv3_window_buffer[0][conv3_line_buffer_2][conv3_line_buffer_1][conv3_line_buffer_0] = conv3_window_buffer[0][conv3_line_buffer_2][(conv3_line_buffer_1 + 1)][conv3_line_buffer_0];
@@ -309,6 +338,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
               }
             }
             conv3_ff2: for (int ff2 = 0; ff2 < 64; ++ff2) {
+              #pragma HLS pipeline
               if (2 <= xx_reuse2) {
                 ap_fixed<16, 8> sum__;
                 sum_x4: for (int x4 = 0; x4 < 1; ++x4) {
@@ -331,13 +361,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       }
     }
 
-    std::cout << "Done conv3" << std::endl;
+    // std::cout << "Done conv3" << std::endl;
 
     ap_ufixed<5, 1> relu3[1][40][80][64];
     relu3_y2: for (int y2 = 0; y2 < 1; ++y2) {
       relu3_args02: for (int args02 = 0; args02 < 40; ++args02) {
         relu3_args12: for (int args12 = 0; args12 < 80; ++args12) {
           relu3_args22: for (int args22 = 0; args22 < 64; ++args22) {
+            #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm3;
             ap_fixed<16, 8> conv3_temp1;
             conv3_temp1 = conv3_pipe_5.read();
@@ -354,6 +385,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       pool3_h2: for (int h2 = 0; h2 < 20; ++h2) {
         pool3_w2: for (int w2 = 0; w2 < 40; ++w2) {
           pool3_c2: for (int c2 = 0; c2 < 64; ++c2) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> reducer6;
             reducer6_x5: for (int x5 = 0; x5 < 1; ++x5) {
               reducer6 = ((ap_ufixed<5, 1>)0);
@@ -371,13 +403,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       }
     }
 
-    std::cout << "Done pool3" << std::endl;
+    // std::cout << "Done pool3" << std::endl;
 
     ap_ufixed<5, 1> conv4_pad[1][22][42][64];
     conv4_pad_indices3: for (int indices3 = 0; indices3 < 1; ++indices3) {
       conv4_pad_not_zero3: for (int not_zero3 = 0; not_zero3 < 22; ++not_zero3) {
         conv4_pad_index_tuple3: for (int index_tuple3 = 0; index_tuple3 < 42; ++index_tuple3) {
           conv4_pad_i6: for (int i6 = 0; i6 < 64; ++i6) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> pool3_temp1;
             if ((((1 <= not_zero3) && (not_zero3 < 21)) && (1 <= index_tuple3)) && (index_tuple3 < 41)) {
               pool3_temp1 = pool3_pipe_6.read();
@@ -397,8 +430,9 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     #pragma HLS stream variable=conv4_pipe_7 depth=128
     conv4_nn3: for (int nn3 = 0; nn3 < 1; ++nn3) {
       conv4_yy_reuse3: for (int yy_reuse3 = 0; yy_reuse3 < 22; ++yy_reuse3) {
-        conv4_pad_0: for (int conv4_pad_0 = 0; conv4_pad_0 < 64; ++conv4_pad_0) {
-          conv4_pad_1: for (int conv4_pad_1 = 0; conv4_pad_1 < 42; ++conv4_pad_1) {
+        conv4_pad_1: for (int conv4_pad_1 = 0; conv4_pad_1 < 42; ++conv4_pad_1) {
+          #pragma HLS pipeline
+          conv4_pad_0: for (int conv4_pad_0 = 0; conv4_pad_0 < 64; ++conv4_pad_0) {
             conv4_pad_2: for (int conv4_pad_2 = 0; conv4_pad_2 < 2; ++conv4_pad_2) {
               conv4_line_buffer[0][conv4_pad_2][conv4_pad_1][conv4_pad_0] = conv4_line_buffer[0][(conv4_pad_2 + 1)][conv4_pad_1][conv4_pad_0];
             }
@@ -407,8 +441,8 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         }
         conv4_xx_reuse3: for (int xx_reuse3 = 0; xx_reuse3 < 42; ++xx_reuse3) {
           if (2 <= yy_reuse3) {
-            // conv4_ff3: for (int ff3 = 0; ff3 < 64; ++ff3) {
             conv4_line_buffer_0: for (int conv4_line_buffer_0 = 0; conv4_line_buffer_0 < 64; ++conv4_line_buffer_0) {
+              #pragma HLS pipeline
               conv4_line_buffer_2: for (int conv4_line_buffer_2 = 0; conv4_line_buffer_2 < 3; ++conv4_line_buffer_2) {
                 conv4_line_buffer_1: for (int conv4_line_buffer_1 = 0; conv4_line_buffer_1 < 2; ++conv4_line_buffer_1) {
                   conv4_window_buffer[0][conv4_line_buffer_2][conv4_line_buffer_1][conv4_line_buffer_0] = conv4_window_buffer[0][conv4_line_buffer_2][(conv4_line_buffer_1 + 1)][conv4_line_buffer_0];
@@ -417,6 +451,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
               }
             }
             conv4_ff3: for (int ff3 = 0; ff3 < 64; ++ff3){
+              #pragma HLS pipeline
               if (2 <= xx_reuse3) {
                 ap_fixed<16, 8> sum___;
                 sum_x6: for (int x6 = 0; x6 < 1; ++x6) {
@@ -439,13 +474,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       }
     }
 
-    std::cout << "Done conv4" << std::endl;
+    // std::cout << "Done conv4" << std::endl;
 
     ap_ufixed<5, 1> relu4[1][20][40][64];
     relu4_y3: for (int y3 = 0; y3 < 1; ++y3) {
       relu4_args03: for (int args03 = 0; args03 < 20; ++args03) {
         relu4_args13: for (int args13 = 0; args13 < 40; ++args13) {
           relu4_args23: for (int args23 = 0; args23 < 64; ++args23) {
+            #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm4;
             ap_fixed<16, 8> conv4_temp1;
             conv4_temp1 = conv4_pipe_7.read();
@@ -465,6 +501,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       pool4_h3: for (int h3 = 0; h3 < 10; ++h3) {
         pool4_w3: for (int w3 = 0; w3 < 20; ++w3) {
           pool4_c3: for (int c3 = 0; c3 < 64; ++c3) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> reducer7;
             reducer7_x7: for (int x7 = 0; x7 < 1; ++x7) {
               reducer7 = ((ap_ufixed<5, 1>)0);
@@ -482,13 +519,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       }
     }
 
-    std::cout << "Done pool4" << std::endl;
+    // std::cout << "Done pool4" << std::endl;
 
     ap_ufixed<5, 1> conv5_pad[1][12][22][64];
     conv5_pad_indices4: for (int indices4 = 0; indices4 < 1; ++indices4) {
       conv5_pad_not_zero4: for (int not_zero4 = 0; not_zero4 < 12; ++not_zero4) {
         conv5_pad_index_tuple4: for (int index_tuple4 = 0; index_tuple4 < 22; ++index_tuple4) {
           conv5_pad_i8: for (int i8 = 0; i8 < 64; ++i8) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> pool4_temp1;
             if ((((1 <= not_zero4) && (not_zero4 < 11)) && (1 <= index_tuple4)) && (index_tuple4 < 21)) {
               pool4_temp1 = pool4_pipe_8.read();
@@ -508,8 +546,9 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     #pragma HLS stream variable=conv5_pipe_9 depth=128
     conv5_nn4: for (int nn4 = 0; nn4 < 1; ++nn4) {
       conv5_yy_reuse4: for (int yy_reuse4 = 0; yy_reuse4 < 12; ++yy_reuse4) {
-        conv5_pad_0: for (int conv5_pad_0 = 0; conv5_pad_0 < 64; ++conv5_pad_0) {
-          conv5_pad_1: for (int conv5_pad_1 = 0; conv5_pad_1 < 22; ++conv5_pad_1) {
+        conv5_pad_1: for (int conv5_pad_1 = 0; conv5_pad_1 < 22; ++conv5_pad_1) {
+          #pragma HLS pipeline
+          conv5_pad_0: for (int conv5_pad_0 = 0; conv5_pad_0 < 64; ++conv5_pad_0) {
             conv5_pad_2: for (int conv5_pad_2 = 0; conv5_pad_2 < 2; ++conv5_pad_2) {
               conv5_line_buffer[0][conv5_pad_2][conv5_pad_1][conv5_pad_0] = conv5_line_buffer[0][(conv5_pad_2 + 1)][conv5_pad_1][conv5_pad_0];
             }
@@ -519,6 +558,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         conv5_xx_reuse4: for (int xx_reuse4 = 0; xx_reuse4 < 22; ++xx_reuse4) {
           if (2 <= yy_reuse4) {
             conv5_line_buffer_0: for (int conv5_line_buffer_0 = 0; conv5_line_buffer_0 < 64; ++conv5_line_buffer_0) {
+              #pragma HLS pipeline
               conv5_line_buffer_2: for (int conv5_line_buffer_2 = 0; conv5_line_buffer_2 < 3; ++conv5_line_buffer_2) {
                 conv5_line_buffer_1: for (int conv5_line_buffer_1 = 0; conv5_line_buffer_1 < 2; ++conv5_line_buffer_1) {
                   conv5_window_buffer[0][conv5_line_buffer_2][conv5_line_buffer_1][conv5_line_buffer_0] = conv5_window_buffer[0][conv5_line_buffer_2][(conv5_line_buffer_1 + 1)][conv5_line_buffer_0];
@@ -527,6 +567,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
               }
             }
             conv5_ff4: for (int ff4 = 0; ff4 < 64; ++ff4) {
+              #pragma HLS pipeline
               if (2 <= xx_reuse4) {
                 ap_fixed<16, 8> sum____;
                 sum_x8: for (int x8 = 0; x8 < 1; ++x8) {
@@ -549,7 +590,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       }
     }
 
-    std::cout << "Done conv5" << std::endl;
+    // std::cout << "Done conv5" << std::endl;
 
     ap_ufixed<5, 1> relu5[1][10][20][64];
     hls::stream<ap_ufixed<5, 1> > relu5_pipe_10;
@@ -558,6 +599,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       relu5_args04: for (int args04 = 0; args04 < 10; ++args04) {
         relu5_args14: for (int args14 = 0; args14 < 20; ++args14) {
           relu5_args24: for (int args24 = 0; args24 < 64; ++args24) {
+            #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm5;
             ap_fixed<16, 8> conv5_temp1;
             conv5_temp1 = conv5_pipe_9.read();
@@ -565,7 +607,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
             ap_ufixed<5, 1> relu5_temp;
             relu5_temp = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm5) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm5)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm5)))));
             //
-            relu5[y4][args04][args14][args24] = relu5_temp;
+            // relu5[y4][args04][args14][args24] = relu5_temp;
             //            
             relu5_pipe_10.write(relu5_temp);
           }
@@ -574,13 +616,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     }
 
     // write_file("relu5.txt", relu5, 1, 10, 20, 64);
-    std::cout << "Done relu5" << std::endl;
+    // std::cout << "Done relu5" << std::endl;
 
     ap_ufixed<5, 1> conv6_pad[1][12][22][64];
     conv6_pad_indices5: for (int indices5 = 0; indices5 < 1; ++indices5) {
       conv6_pad_not_zero5: for (int not_zero5 = 0; not_zero5 < 12; ++not_zero5) {
         conv6_pad_index_tuple5: for (int index_tuple5 = 0; index_tuple5 < 22; ++index_tuple5) {
           conv6_pad_i9: for (int i9 = 0; i9 < 64; ++i9) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> relu5_temp1;
             if ((((1 <= not_zero5) && (not_zero5 < 11)) && (1 <= index_tuple5)) && (index_tuple5 < 21)) {
               relu5_temp1 = relu5_pipe_10.read();
@@ -600,8 +643,9 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     #pragma HLS stream variable=conv6_pipe_11 depth=128
     conv6_nn5: for (int nn5 = 0; nn5 < 1; ++nn5) {
       conv6_yy_reuse5: for (int yy_reuse5 = 0; yy_reuse5 < 12; ++yy_reuse5) {
-        conv6_pad_0: for (int conv6_pad_0 = 0; conv6_pad_0 < 64; ++conv6_pad_0) {
-          conv6_pad_1: for (int conv6_pad_1 = 0; conv6_pad_1 < 22; ++conv6_pad_1) {
+        conv6_pad_1: for (int conv6_pad_1 = 0; conv6_pad_1 < 22; ++conv6_pad_1) {
+          #pragma HLS pipeline
+          conv6_pad_0: for (int conv6_pad_0 = 0; conv6_pad_0 < 64; ++conv6_pad_0) {
             conv6_pad_2: for (int conv6_pad_2 = 0; conv6_pad_2 < 2; ++conv6_pad_2) {
               conv6_line_buffer[0][conv6_pad_2][conv6_pad_1][conv6_pad_0] = conv6_line_buffer[0][(conv6_pad_2 + 1)][conv6_pad_1][conv6_pad_0];
             }
@@ -611,6 +655,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         conv6_xx_reuse5: for (int xx_reuse5 = 0; xx_reuse5 < 22; ++xx_reuse5) {
           if (2 <= yy_reuse5) {
             conv6_line_buffer_0: for (int conv6_line_buffer_0 = 0; conv6_line_buffer_0 < 64; ++conv6_line_buffer_0) {
+              #pragma HLS pipeline
               conv6_line_buffer_2: for (int conv6_line_buffer_2 = 0; conv6_line_buffer_2 < 3; ++conv6_line_buffer_2) {
                 conv6_line_buffer_1: for (int conv6_line_buffer_1 = 0; conv6_line_buffer_1 < 2; ++conv6_line_buffer_1) {
                   conv6_window_buffer[0][conv6_line_buffer_2][conv6_line_buffer_1][conv6_line_buffer_0] = conv6_window_buffer[0][conv6_line_buffer_2][(conv6_line_buffer_1 + 1)][conv6_line_buffer_0];
@@ -619,6 +664,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
               }
             }
             conv6_ff5: for (int ff5 = 0; ff5 < 64; ++ff5) {
+              #pragma HLS pipeline
               if (2 <= xx_reuse5) {
                 ap_fixed<16, 8> sum_____;
                 sum_x9: for (int x9 = 0; x9 < 1; ++x9) {
@@ -641,7 +687,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       }
     }
 
-    std::cout << "Done conv6" << std::endl;
+    // std::cout << "Done conv6" << std::endl;
 
     ap_ufixed<5, 1> relu6[1][10][20][64];
     hls::stream<ap_ufixed<5, 1> > relu6_pipe_12;
@@ -650,6 +696,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       relu6_args05: for (int args05 = 0; args05 < 10; ++args05) {
         relu6_args15: for (int args15 = 0; args15 < 20; ++args15) {
           relu6_args25: for (int args25 = 0; args25 < 64; ++args25) {
+            #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm6;
             ap_fixed<16, 8> conv6_temp1;
             conv6_temp1 = conv6_pipe_11.read();
@@ -657,7 +704,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
             ap_ufixed<5, 1> relu6_temp;
             relu6_temp = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm6) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm6)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm6)))));
             //
-            relu6[y5][args05][args15][args25] = relu6_temp;
+            // relu6[y5][args05][args15][args25] = relu6_temp;
             //
             relu6_pipe_12.write(relu6_temp);
           }
@@ -666,13 +713,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     }
 
     // write_file("relu6.txt", relu6, 1, 10, 20, 64);
-    std::cout << "Done relu6" << std::endl;
+    // std::cout << "Done relu6" << std::endl;
 
     ap_ufixed<5, 1> conv7_pad[1][12][22][64];
     conv7_pad_indices6: for (int indices6 = 0; indices6 < 1; ++indices6) {
       conv7_pad_not_zero6: for (int not_zero6 = 0; not_zero6 < 12; ++not_zero6) {
         conv7_pad_index_tuple6: for (int index_tuple6 = 0; index_tuple6 < 22; ++index_tuple6) {
           conv7_pad_i10: for (int i10 = 0; i10 < 64; ++i10) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> relu6_temp1;
             if ((((1 <= not_zero6) && (not_zero6 < 11)) && (1 <= index_tuple6)) && (index_tuple6 < 21)) {
               relu6_temp1 = relu6_pipe_12.read();
@@ -692,8 +740,9 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     #pragma HLS stream variable=conv7_pipe_13 depth=128
     conv7_nn6: for (int nn6 = 0; nn6 < 1; ++nn6) {
       conv7_yy_reuse6: for (int yy_reuse6 = 0; yy_reuse6 < 12; ++yy_reuse6) {
-        conv7_pad_0: for (int conv7_pad_0 = 0; conv7_pad_0 < 64; ++conv7_pad_0) {
-          conv7_pad_1: for (int conv7_pad_1 = 0; conv7_pad_1 < 22; ++conv7_pad_1) {
+        conv7_pad_1: for (int conv7_pad_1 = 0; conv7_pad_1 < 22; ++conv7_pad_1) {
+          #pragma HLS pipeline
+          conv7_pad_0: for (int conv7_pad_0 = 0; conv7_pad_0 < 64; ++conv7_pad_0) {
             conv7_pad_2: for (int conv7_pad_2 = 0; conv7_pad_2 < 2; ++conv7_pad_2) {
               conv7_line_buffer[0][conv7_pad_2][conv7_pad_1][conv7_pad_0] = conv7_line_buffer[0][(conv7_pad_2 + 1)][conv7_pad_1][conv7_pad_0];
             }
@@ -703,6 +752,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         conv7_xx_reuse6: for (int xx_reuse6 = 0; xx_reuse6 < 22; ++xx_reuse6) {
           if (2 <= yy_reuse6) {
             conv7_line_buffer_0: for (int conv7_line_buffer_0 = 0; conv7_line_buffer_0 < 64; ++conv7_line_buffer_0) {
+              #pragma HLS pipeline
               conv7_line_buffer_2: for (int conv7_line_buffer_2 = 0; conv7_line_buffer_2 < 3; ++conv7_line_buffer_2) {
                 conv7_line_buffer_1: for (int conv7_line_buffer_1 = 0; conv7_line_buffer_1 < 2; ++conv7_line_buffer_1) {
                   conv7_window_buffer[0][conv7_line_buffer_2][conv7_line_buffer_1][conv7_line_buffer_0] = conv7_window_buffer[0][conv7_line_buffer_2][(conv7_line_buffer_1 + 1)][conv7_line_buffer_0];
@@ -711,6 +761,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
               }
             }
             conv7_ff6: for (int ff6 = 0; ff6 < 64; ++ff6) {
+              #pragma HLS pipeline
               if (2 <= xx_reuse6) {
                 ap_fixed<16, 8> sum______;
                 sum_x10: for (int x10 = 0; x10 < 1; ++x10) {
@@ -733,7 +784,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       }
     }
 
-    std::cout << "Done conv7" << std::endl;
+    // std::cout << "Done conv7" << std::endl;
 
     ap_ufixed<5, 1> relu7[1][10][20][64];
     hls::stream<ap_ufixed<5, 1> > relu7_pipe_14;
@@ -742,6 +793,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
       relu7_args06: for (int args06 = 0; args06 < 10; ++args06) {
         relu7_args16: for (int args16 = 0; args16 < 20; ++args16) {
           relu7_args26: for (int args26 = 0; args26 < 64; ++args26) {
+            #pragma HLS pipeline
             ap_fixed<16, 8> batch_norm7;
             ap_fixed<16, 8> conv7_temp1;
             conv7_temp1 = conv7_pipe_13.read();
@@ -749,7 +801,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
             ap_ufixed<5, 1> relu7_temp;
             relu7_temp = ((ap_ufixed<5, 1>)((((ap_fixed<40, 32>)batch_norm7) < (ap_fixed<40, 32>)0) ? (((ap_fixed<16, 8>)0)) : ((ap_fixed<16, 8>)(((ap_fixed<40, 32>)1 < ((ap_fixed<40, 32>)batch_norm7)) ? (((ap_fixed<16, 8>)1)) : ((ap_fixed<16, 8>)batch_norm7)))));
             //
-            relu7[y6][args06][args16][args26] = relu7_temp;
+            // relu7[y6][args06][args16][args26] = relu7_temp;
             //
             relu7_pipe_14.write(relu7_temp);
           }
@@ -758,13 +810,14 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     }
 
     // write_file("relu7.txt", relu7, 1, 10, 20, 64);
-    std::cout << "Done relu7" << std::endl;
+    // std::cout << "Done relu7" << std::endl;
 
     ap_ufixed<5, 1> conv8_pad[1][12][22][64];
     conv8_pad_indices7: for (int indices7 = 0; indices7 < 1; ++indices7) {
       conv8_pad_not_zero7: for (int not_zero7 = 0; not_zero7 < 12; ++not_zero7) {
         conv8_pad_index_tuple7: for (int index_tuple7 = 0; index_tuple7 < 22; ++index_tuple7) {
           conv8_pad_i11: for (int i11 = 0; i11 < 64; ++i11) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> relu7_temp1;
             if ((((1 <= not_zero7) && (not_zero7 < 11)) && (1 <= index_tuple7)) && (index_tuple7 < 21)) {
               relu7_temp1 = relu7_pipe_14.read();
@@ -784,8 +837,9 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     #pragma HLS stream variable=conv8_pipe_15 depth=128
     conv8_nn7: for (int nn7 = 0; nn7 < 1; ++nn7) {
       conv8_yy_reuse7: for (int yy_reuse7 = 0; yy_reuse7 < 12; ++yy_reuse7) {
-        conv8_pad_0: for (int conv8_pad_0 = 0; conv8_pad_0 < 64; ++conv8_pad_0) {
-          conv8_pad_1: for (int conv8_pad_1 = 0; conv8_pad_1 < 22; ++conv8_pad_1) {
+        conv8_pad_1: for (int conv8_pad_1 = 0; conv8_pad_1 < 22; ++conv8_pad_1) {
+          #pragma HLS pipeline
+          conv8_pad_0: for (int conv8_pad_0 = 0; conv8_pad_0 < 64; ++conv8_pad_0) {
             conv8_pad_2: for (int conv8_pad_2 = 0; conv8_pad_2 < 2; ++conv8_pad_2) {
               conv8_line_buffer[0][conv8_pad_2][conv8_pad_1][conv8_pad_0] = conv8_line_buffer[0][(conv8_pad_2 + 1)][conv8_pad_1][conv8_pad_0];
             }
@@ -795,6 +849,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         conv8_xx_reuse7: for (int xx_reuse7 = 0; xx_reuse7 < 22; ++xx_reuse7) {
           if (2 <= yy_reuse7) {
             conv8_line_buffer_0: for (int conv8_line_buffer_0 = 0; conv8_line_buffer_0 < 64; ++conv8_line_buffer_0) {
+              #pragma HLS pipeline
               conv8_line_buffer_2: for (int conv8_line_buffer_2 = 0; conv8_line_buffer_2 < 3; ++conv8_line_buffer_2) {
                 conv8_line_buffer_1: for (int conv8_line_buffer_1 = 0; conv8_line_buffer_1 < 2; ++conv8_line_buffer_1) {
                   conv8_window_buffer[0][conv8_line_buffer_2][conv8_line_buffer_1][conv8_line_buffer_0] = conv8_window_buffer[0][conv8_line_buffer_2][(conv8_line_buffer_1 + 1)][conv8_line_buffer_0];
@@ -803,6 +858,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
               }
             }
             conv8_ff7: for (int ff7 = 0; ff7 < 64; ++ff7) {
+              #pragma HLS pipeline
               if (2 <= xx_reuse7) {
                 ap_fixed<16, 8> sum_______;
                 sum_x11: for (int x11 = 0; x11 < 1; ++x11) {
@@ -818,7 +874,7 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
                 ap_fixed<16, 8> conv8_temp;
                 conv8_temp = sum_______;
                 //
-                conv8[nn7][yy_reuse7-2][xx_reuse7-2][ff7] = conv8_temp;
+                // conv8[nn7][yy_reuse7-2][xx_reuse7-2][ff7] = conv8_temp;
                 //
                 conv8_pipe_15.write(conv8_temp);
               }
@@ -829,12 +885,13 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
     }
 
     // write_file("conv8.txt", conv8, 1, 10, 20, 64);
-    std::cout << "Done conv8" << std::endl;
+    // std::cout << "Done conv8" << std::endl;
 
     result_x12: for (int x12 = 0; x12 < 1; ++x12) {
       result_args07: for (int args07 = 0; args07 < 10; ++args07) {
         result_args17: for (int args17 = 0; args17 < 20; ++args17) {
           result_args27: for (int args27 = 0; args27 < 64; ++args27) {
+            #pragma HLS pipeline
             ap_ufixed<5, 1> relu8;
             ap_fixed<16, 8> batch_norm8;
             ap_fixed<16, 8> conv8_temp1;
@@ -846,5 +903,47 @@ void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_fixed<5, 2> weight_con
         }
       }
     }
-    write_file("result.txt", result, 1, 10, 20, 64);
+    // write_file("result.txt", result, 1, 10, 20, 64);
+
+    #pragma HLS array_partition variable=conv2_pad complete dim=4
+    #pragma HLS array_partition variable=conv3_pad complete dim=4
+    #pragma HLS array_partition variable=conv4_pad complete dim=4
+    #pragma HLS array_partition variable=conv5_pad complete dim=4
+    #pragma HLS array_partition variable=conv6_pad complete dim=4
+    #pragma HLS array_partition variable=conv7_pad complete dim=4
+    #pragma HLS array_partition variable=conv8_pad complete dim=4
+
+    #pragma HLS array_partition variable=conv1_line_buffer complete dim=2
+    #pragma HLS array_partition variable=conv1_window_buffer complete dim=2
+    #pragma HLS array_partition variable=conv1_window_buffer complete dim=3
+
+    #pragma HLS array_partition variable=conv2_line_buffer complete dim=2
+    #pragma HLS array_partition variable=conv2_window_buffer complete dim=2
+    #pragma HLS array_partition variable=conv2_window_buffer complete dim=3
+
+    #pragma HLS array_partition variable=conv3_line_buffer complete dim=2
+    #pragma HLS array_partition variable=conv3_window_buffer complete dim=2    
+    #pragma HLS array_partition variable=conv3_window_buffer complete dim=3    
+    
+    #pragma HLS array_partition variable=conv4_line_buffer complete dim=2
+    #pragma HLS array_partition variable=conv4_window_buffer complete dim=2    
+    #pragma HLS array_partition variable=conv4_window_buffer complete dim=3    
+    
+    #pragma HLS array_partition variable=conv5_line_buffer complete dim=2
+    #pragma HLS array_partition variable=conv5_window_buffer complete dim=2    
+    #pragma HLS array_partition variable=conv5_window_buffer complete dim=3    
+    
+    #pragma HLS array_partition variable=conv6_line_buffer complete dim=2
+    #pragma HLS array_partition variable=conv6_window_buffer complete dim=2    
+    #pragma HLS array_partition variable=conv6_window_buffer complete dim=3    
+    
+    #pragma HLS array_partition variable=conv7_line_buffer complete dim=2
+    #pragma HLS array_partition variable=conv7_window_buffer complete dim=2    
+    #pragma HLS array_partition variable=conv7_window_buffer complete dim=3    
+    
+    #pragma HLS array_partition variable=conv8_line_buffer complete dim=2
+    #pragma HLS array_partition variable=conv8_window_buffer complete dim=2    
+    #pragma HLS array_partition variable=conv8_window_buffer complete dim=3
+
+
   }

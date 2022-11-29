@@ -15,13 +15,14 @@ def load_image(image_path):
     image.resize(1, image.shape[0], image.shape[1], image.shape[2])
     # image = image.transpose(0, 3, 1, 2) # Makes nchw
     image = image.astype(float) / 255.0
-    assert image.shape == (batch_size, 3, height, width)
+    assert image.shape == (batch_size,height, width, 3)
     return image
 
 import sys
 numpy.set_printoptions(threshold=sys.maxsize)
-img = load_image("/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/person22_0038.jpg")
-with open("person22_0038.dat", "w") as f:
+name = "riding8_0259"
+img = load_image("/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nchw/"+name+".jpg")
+with open(name+".dat", "w") as f:
     for i in img.flatten():
         f.write(str(i))
         f.write("\n")

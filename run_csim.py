@@ -17,22 +17,22 @@ project_dir = "/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-t
 
 input_image_dat_list = [
     "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/boat1_000001.dat",
-    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/car1_0001.dat",
-    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/paraglider1_0001.dat",
-    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/person22_0038.dat",
-    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/riding8_0259.dat",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/car1_0001.dat",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/paraglider1_0001.dat",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/person22_0038.dat",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/riding8_0259.dat",
 ]
 
 xml_list = [
     "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/boat1_000001.xml",
-    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/car1_0001.xml",
-    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/paraglider1_0001.xml",
-    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/person22_0038.xml",
-    # "/work/shared/users/meng/sjz38/new/my_ultranet/subset_images/riding8_0259.xml",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/car1_0001.xml",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/paraglider1_0001.xml",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/person22_0038.xml",
+    "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/riding8_0259.xml",
 ]
 
 
-compile_cmd = "g++ -g -I/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/bin//../include  host.cpp kernel.cpp -o out -lrt -std=gnu++14 -O3"
+compile_cmd = "g++ -g -I/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/bin//../include  host.cpp kernel_opt.cpp -o out -lrt -std=gnu++14 -O3"
 print(compile_cmd + "\n")
 
 
@@ -67,3 +67,11 @@ for (dat, xml_path) in zip(input_image_dat_list, xml_list):
     #    0.867558479309082       0.8913893103599548     0.7996731996536255
     #    0.8311938047409058      0.897416889667511      0.8847289085388184
     #    0.9006422162055969      0.9303480982780457     0.9316412806510925
+
+    #   NHWC
+    #   <9,1>               <8,1>
+    #   0.9316873550415039  0.9316873550415039
+    #   0.8698795437812805  0.8698795437812805
+    #   0.8359258770942688  0.8359258770942688
+    #   0.8848608732223511  0.8848608732223511
+    #   0.9084347486495972  0.9084347486495972

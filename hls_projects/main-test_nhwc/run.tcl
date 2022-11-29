@@ -4,7 +4,7 @@
 # @brief: A Tcl script for synthesizing the design.
 
 # Project name
-set hls_prj out.prj
+set hls_prj out_opt_reduced.prj
 
 # Open/reset the project
 open_project ${hls_prj} -reset
@@ -13,8 +13,8 @@ open_project ${hls_prj} -reset
 set_top test
 
 # Add design and testbench files
-add_files kernel.cpp
-add_files -tb host.cpp -cflags "-std=gnu++0x"
+add_files kernel_opt.cpp
+add_files -tb host.cpp -cflags "-std=gnu++14"
 
 open_solution "solution1"
 # Use Zynq device

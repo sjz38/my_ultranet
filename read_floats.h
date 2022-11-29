@@ -1,7 +1,9 @@
+#ifndef READ_FLOATS_H
+#define READ_FLOATS_H
+
 #include <iostream>
 #include <fstream>
-void read_floats( float* myArray, const char* filename, int oneDArraySize)
-{
+void read_floats(float* myArray, const char* filename, int oneDArraySize){
   float num;
   std::ifstream input_file (filename);
   if (input_file.is_open())
@@ -28,3 +30,5 @@ void write_file(std::string filename, auto mat, int dim0, int dim1, int dim2, in
     }
     myfile.close();
 }
+
+#endif

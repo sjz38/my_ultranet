@@ -1,0 +1,1015 @@
+
+
+================================================================
+== Vivado HLS Report for 'test'
+================================================================
+* Date:           Sun Nov 27 21:03:33 2022
+
+* Version:        2019.2.1 (Build 2724168 on Thu Dec 05 05:19:09 MST 2019)
+* Project:        out_opt_reduced.prj
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z020-clg484-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+-----------+------------+
+    |  Clock |  Target  | Estimated | Uncertainty|
+    +--------+----------+-----------+------------+
+    |ap_clk  | 10.00 ns | 11.477 ns |   1.25 ns  |
+    +--------+----------+-----------+------------+
+
++ Latency: 
+    * Summary: 
+    +----------+----------+-----------+-----------+----------+----------+----------+
+    |   Latency (cycles)  |   Latency (absolute)  |       Interval      | Pipeline |
+    |    min   |    max   |    min    |    max    |    min   |    max   |   Type   |
+    +----------+----------+-----------+-----------+----------+----------+----------+
+    |  14581884|  60727248| 0.167 sec | 0.697 sec |  14581885|  60727249| dataflow |
+    +----------+----------+-----------+-----------+----------+----------+----------+
+
+    + Detail: 
+        * Instance: 
+        +-------------------------+----------------------+----------+----------+-----------+-----------+----------+----------+---------+
+        |                         |                      |   Latency (cycles)  |   Latency (absolute)  |       Interval      | Pipeline|
+        |         Instance        |        Module        |    min   |    max   |    min    |    max    |    min   |    max   |   Type  |
+        +-------------------------+----------------------+----------+----------+-----------+-----------+----------+----------+---------+
+        |Block_arrayctor_loop_U0  |Block_arrayctor_loop  |  14581884|  60727248| 0.167 sec | 0.697 sec |  14581884|  60727248|   none  |
+        +-------------------------+----------------------+----------+----------+-----------+-----------+----------+----------+---------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-------+--------+-------+-----+
+|       Name      | BRAM_18K| DSP48E|   FF   |  LUT  | URAM|
++-----------------+---------+-------+--------+-------+-----+
+|DSP              |        -|      -|       -|      -|    -|
+|Expression       |        -|      -|       -|      -|    -|
+|FIFO             |        -|      -|       -|      -|    -|
+|Instance         |       48|     33|   28330|  47019|    0|
+|Memory           |        -|      -|       -|      -|    -|
+|Multiplexer      |        -|      -|       -|      -|    -|
+|Register         |        -|      -|       -|      -|    -|
++-----------------+---------+-------+--------+-------+-----+
+|Total            |       48|     33|   28330|  47019|    0|
++-----------------+---------+-------+--------+-------+-----+
+|Available        |      280|    220|  106400|  53200|    0|
++-----------------+---------+-------+--------+-------+-----+
+|Utilization (%)  |       17|     15|      26|     88|    0|
++-----------------+---------+-------+--------+-------+-----+
+
++ Detail: 
+    * Instance: 
+    +-------------------------+----------------------+---------+-------+-------+-------+-----+
+    |         Instance        |        Module        | BRAM_18K| DSP48E|   FF  |  LUT  | URAM|
+    +-------------------------+----------------------+---------+-------+-------+-------+-----+
+    |Block_arrayctor_loop_U0  |Block_arrayctor_loop  |       48|     33|  28330|  47019|    0|
+    +-------------------------+----------------------+---------+-------+-------+-------+-----+
+    |Total                    |                      |       48|     33|  28330|  47019|    0|
+    +-------------------------+----------------------+---------+-------+-------+-------+-----+
+
+    * DSP48E: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    N/A
+
+    * Multiplexer: 
+    N/A
+
+    * Register: 
+    N/A
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-----------------------------+-----+-----+------------+--------------------+--------------+
+|          RTL Ports          | Dir | Bits|  Protocol  |    Source Object   |    C Type    |
++-----------------------------+-----+-----+------------+--------------------+--------------+
+|input_image_V_address0       | out |   18|  ap_memory |    input_image_V   |     array    |
+|input_image_V_ce0            | out |    1|  ap_memory |    input_image_V   |     array    |
+|input_image_V_d0             | out |    8|  ap_memory |    input_image_V   |     array    |
+|input_image_V_q0             |  in |    8|  ap_memory |    input_image_V   |     array    |
+|input_image_V_we0            | out |    1|  ap_memory |    input_image_V   |     array    |
+|input_image_V_address1       | out |   18|  ap_memory |    input_image_V   |     array    |
+|input_image_V_ce1            | out |    1|  ap_memory |    input_image_V   |     array    |
+|input_image_V_d1             | out |    8|  ap_memory |    input_image_V   |     array    |
+|input_image_V_q1             |  in |    8|  ap_memory |    input_image_V   |     array    |
+|input_image_V_we1            | out |    1|  ap_memory |    input_image_V   |     array    |
+|weight_conv1_0_0_V_address0  | out |    6|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_0_V_ce0       | out |    1|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_0_V_d0        | out |    5|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_0_V_q0        |  in |    5|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_0_V_we0       | out |    1|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_0_V_address1  | out |    6|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_0_V_ce1       | out |    1|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_0_V_d1        | out |    5|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_0_V_q1        |  in |    5|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_0_V_we1       | out |    1|  ap_memory | weight_conv1_0_0_V |     array    |
+|weight_conv1_0_1_V_address0  | out |    6|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_1_V_ce0       | out |    1|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_1_V_d0        | out |    5|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_1_V_q0        |  in |    5|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_1_V_we0       | out |    1|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_1_V_address1  | out |    6|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_1_V_ce1       | out |    1|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_1_V_d1        | out |    5|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_1_V_q1        |  in |    5|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_1_V_we1       | out |    1|  ap_memory | weight_conv1_0_1_V |     array    |
+|weight_conv1_0_2_V_address0  | out |    6|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_0_2_V_ce0       | out |    1|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_0_2_V_d0        | out |    5|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_0_2_V_q0        |  in |    5|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_0_2_V_we0       | out |    1|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_0_2_V_address1  | out |    6|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_0_2_V_ce1       | out |    1|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_0_2_V_d1        | out |    5|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_0_2_V_q1        |  in |    5|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_0_2_V_we1       | out |    1|  ap_memory | weight_conv1_0_2_V |     array    |
+|weight_conv1_1_0_V_address0  | out |    6|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_0_V_ce0       | out |    1|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_0_V_d0        | out |    5|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_0_V_q0        |  in |    5|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_0_V_we0       | out |    1|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_0_V_address1  | out |    6|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_0_V_ce1       | out |    1|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_0_V_d1        | out |    5|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_0_V_q1        |  in |    5|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_0_V_we1       | out |    1|  ap_memory | weight_conv1_1_0_V |     array    |
+|weight_conv1_1_1_V_address0  | out |    6|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_1_V_ce0       | out |    1|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_1_V_d0        | out |    5|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_1_V_q0        |  in |    5|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_1_V_we0       | out |    1|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_1_V_address1  | out |    6|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_1_V_ce1       | out |    1|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_1_V_d1        | out |    5|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_1_V_q1        |  in |    5|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_1_V_we1       | out |    1|  ap_memory | weight_conv1_1_1_V |     array    |
+|weight_conv1_1_2_V_address0  | out |    6|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_1_2_V_ce0       | out |    1|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_1_2_V_d0        | out |    5|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_1_2_V_q0        |  in |    5|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_1_2_V_we0       | out |    1|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_1_2_V_address1  | out |    6|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_1_2_V_ce1       | out |    1|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_1_2_V_d1        | out |    5|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_1_2_V_q1        |  in |    5|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_1_2_V_we1       | out |    1|  ap_memory | weight_conv1_1_2_V |     array    |
+|weight_conv1_2_0_V_address0  | out |    6|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_0_V_ce0       | out |    1|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_0_V_d0        | out |    5|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_0_V_q0        |  in |    5|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_0_V_we0       | out |    1|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_0_V_address1  | out |    6|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_0_V_ce1       | out |    1|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_0_V_d1        | out |    5|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_0_V_q1        |  in |    5|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_0_V_we1       | out |    1|  ap_memory | weight_conv1_2_0_V |     array    |
+|weight_conv1_2_1_V_address0  | out |    6|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_1_V_ce0       | out |    1|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_1_V_d0        | out |    5|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_1_V_q0        |  in |    5|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_1_V_we0       | out |    1|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_1_V_address1  | out |    6|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_1_V_ce1       | out |    1|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_1_V_d1        | out |    5|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_1_V_q1        |  in |    5|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_1_V_we1       | out |    1|  ap_memory | weight_conv1_2_1_V |     array    |
+|weight_conv1_2_2_V_address0  | out |    6|  ap_memory | weight_conv1_2_2_V |     array    |
+|weight_conv1_2_2_V_ce0       | out |    1|  ap_memory | weight_conv1_2_2_V |     array    |
+|weight_conv1_2_2_V_d0        | out |    5|  ap_memory | weight_conv1_2_2_V |     array    |
+|weight_conv1_2_2_V_q0        |  in |    5|  ap_memory | weight_conv1_2_2_V |     array    |
+|weight_conv1_2_2_V_we0       | out |    1|  ap_memory | weight_conv1_2_2_V |     array    |
+|weight_conv1_2_2_V_address1  | out |    6|  ap_memory | weight_conv1_2_2_V |     array    |
+|weight_conv1_2_2_V_ce1       | out |    1|  ap_memory | weight_conv1_2_2_V |     array    |
+|weight_conv1_2_2_V_d1        | out |    5|  ap_memory | weight_conv1_2_2_V |     array    |
+|weight_conv1_2_2_V_q1        |  in |    5|  ap_memory | weight_conv1_2_2_V |     array    |
+|weight_conv1_2_2_V_we1       | out |    1|  ap_memory | weight_conv1_2_2_V |     array    |
+|a_batchnorm1_V_address0      | out |    4|  ap_memory |   a_batchnorm1_V   |     array    |
+|a_batchnorm1_V_ce0           | out |    1|  ap_memory |   a_batchnorm1_V   |     array    |
+|a_batchnorm1_V_d0            | out |   14|  ap_memory |   a_batchnorm1_V   |     array    |
+|a_batchnorm1_V_q0            |  in |   14|  ap_memory |   a_batchnorm1_V   |     array    |
+|a_batchnorm1_V_we0           | out |    1|  ap_memory |   a_batchnorm1_V   |     array    |
+|a_batchnorm1_V_address1      | out |    4|  ap_memory |   a_batchnorm1_V   |     array    |
+|a_batchnorm1_V_ce1           | out |    1|  ap_memory |   a_batchnorm1_V   |     array    |
+|a_batchnorm1_V_d1            | out |   14|  ap_memory |   a_batchnorm1_V   |     array    |
+|a_batchnorm1_V_q1            |  in |   14|  ap_memory |   a_batchnorm1_V   |     array    |
+|a_batchnorm1_V_we1           | out |    1|  ap_memory |   a_batchnorm1_V   |     array    |
+|b_batchnorm1_V_address0      | out |    4|  ap_memory |   b_batchnorm1_V   |     array    |
+|b_batchnorm1_V_ce0           | out |    1|  ap_memory |   b_batchnorm1_V   |     array    |
+|b_batchnorm1_V_d0            | out |   26|  ap_memory |   b_batchnorm1_V   |     array    |
+|b_batchnorm1_V_q0            |  in |   26|  ap_memory |   b_batchnorm1_V   |     array    |
+|b_batchnorm1_V_we0           | out |    1|  ap_memory |   b_batchnorm1_V   |     array    |
+|b_batchnorm1_V_address1      | out |    4|  ap_memory |   b_batchnorm1_V   |     array    |
+|b_batchnorm1_V_ce1           | out |    1|  ap_memory |   b_batchnorm1_V   |     array    |
+|b_batchnorm1_V_d1            | out |   26|  ap_memory |   b_batchnorm1_V   |     array    |
+|b_batchnorm1_V_q1            |  in |   26|  ap_memory |   b_batchnorm1_V   |     array    |
+|b_batchnorm1_V_we1           | out |    1|  ap_memory |   b_batchnorm1_V   |     array    |
+|weight_conv2_0_0_V_address0  | out |    9|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_0_V_ce0       | out |    1|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_0_V_d0        | out |    5|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_0_V_q0        |  in |    5|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_0_V_we0       | out |    1|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_0_V_address1  | out |    9|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_0_V_ce1       | out |    1|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_0_V_d1        | out |    5|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_0_V_q1        |  in |    5|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_0_V_we1       | out |    1|  ap_memory | weight_conv2_0_0_V |     array    |
+|weight_conv2_0_1_V_address0  | out |    9|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_1_V_ce0       | out |    1|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_1_V_d0        | out |    5|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_1_V_q0        |  in |    5|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_1_V_we0       | out |    1|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_1_V_address1  | out |    9|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_1_V_ce1       | out |    1|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_1_V_d1        | out |    5|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_1_V_q1        |  in |    5|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_1_V_we1       | out |    1|  ap_memory | weight_conv2_0_1_V |     array    |
+|weight_conv2_0_2_V_address0  | out |    9|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_0_2_V_ce0       | out |    1|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_0_2_V_d0        | out |    5|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_0_2_V_q0        |  in |    5|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_0_2_V_we0       | out |    1|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_0_2_V_address1  | out |    9|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_0_2_V_ce1       | out |    1|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_0_2_V_d1        | out |    5|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_0_2_V_q1        |  in |    5|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_0_2_V_we1       | out |    1|  ap_memory | weight_conv2_0_2_V |     array    |
+|weight_conv2_1_0_V_address0  | out |    9|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_0_V_ce0       | out |    1|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_0_V_d0        | out |    5|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_0_V_q0        |  in |    5|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_0_V_we0       | out |    1|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_0_V_address1  | out |    9|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_0_V_ce1       | out |    1|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_0_V_d1        | out |    5|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_0_V_q1        |  in |    5|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_0_V_we1       | out |    1|  ap_memory | weight_conv2_1_0_V |     array    |
+|weight_conv2_1_1_V_address0  | out |    9|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_1_V_ce0       | out |    1|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_1_V_d0        | out |    5|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_1_V_q0        |  in |    5|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_1_V_we0       | out |    1|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_1_V_address1  | out |    9|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_1_V_ce1       | out |    1|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_1_V_d1        | out |    5|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_1_V_q1        |  in |    5|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_1_V_we1       | out |    1|  ap_memory | weight_conv2_1_1_V |     array    |
+|weight_conv2_1_2_V_address0  | out |    9|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_1_2_V_ce0       | out |    1|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_1_2_V_d0        | out |    5|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_1_2_V_q0        |  in |    5|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_1_2_V_we0       | out |    1|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_1_2_V_address1  | out |    9|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_1_2_V_ce1       | out |    1|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_1_2_V_d1        | out |    5|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_1_2_V_q1        |  in |    5|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_1_2_V_we1       | out |    1|  ap_memory | weight_conv2_1_2_V |     array    |
+|weight_conv2_2_0_V_address0  | out |    9|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_0_V_ce0       | out |    1|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_0_V_d0        | out |    5|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_0_V_q0        |  in |    5|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_0_V_we0       | out |    1|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_0_V_address1  | out |    9|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_0_V_ce1       | out |    1|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_0_V_d1        | out |    5|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_0_V_q1        |  in |    5|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_0_V_we1       | out |    1|  ap_memory | weight_conv2_2_0_V |     array    |
+|weight_conv2_2_1_V_address0  | out |    9|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_1_V_ce0       | out |    1|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_1_V_d0        | out |    5|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_1_V_q0        |  in |    5|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_1_V_we0       | out |    1|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_1_V_address1  | out |    9|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_1_V_ce1       | out |    1|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_1_V_d1        | out |    5|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_1_V_q1        |  in |    5|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_1_V_we1       | out |    1|  ap_memory | weight_conv2_2_1_V |     array    |
+|weight_conv2_2_2_V_address0  | out |    9|  ap_memory | weight_conv2_2_2_V |     array    |
+|weight_conv2_2_2_V_ce0       | out |    1|  ap_memory | weight_conv2_2_2_V |     array    |
+|weight_conv2_2_2_V_d0        | out |    5|  ap_memory | weight_conv2_2_2_V |     array    |
+|weight_conv2_2_2_V_q0        |  in |    5|  ap_memory | weight_conv2_2_2_V |     array    |
+|weight_conv2_2_2_V_we0       | out |    1|  ap_memory | weight_conv2_2_2_V |     array    |
+|weight_conv2_2_2_V_address1  | out |    9|  ap_memory | weight_conv2_2_2_V |     array    |
+|weight_conv2_2_2_V_ce1       | out |    1|  ap_memory | weight_conv2_2_2_V |     array    |
+|weight_conv2_2_2_V_d1        | out |    5|  ap_memory | weight_conv2_2_2_V |     array    |
+|weight_conv2_2_2_V_q1        |  in |    5|  ap_memory | weight_conv2_2_2_V |     array    |
+|weight_conv2_2_2_V_we1       | out |    1|  ap_memory | weight_conv2_2_2_V |     array    |
+|a_batchnorm2_V_address0      | out |    5|  ap_memory |   a_batchnorm2_V   |     array    |
+|a_batchnorm2_V_ce0           | out |    1|  ap_memory |   a_batchnorm2_V   |     array    |
+|a_batchnorm2_V_d0            | out |   14|  ap_memory |   a_batchnorm2_V   |     array    |
+|a_batchnorm2_V_q0            |  in |   14|  ap_memory |   a_batchnorm2_V   |     array    |
+|a_batchnorm2_V_we0           | out |    1|  ap_memory |   a_batchnorm2_V   |     array    |
+|a_batchnorm2_V_address1      | out |    5|  ap_memory |   a_batchnorm2_V   |     array    |
+|a_batchnorm2_V_ce1           | out |    1|  ap_memory |   a_batchnorm2_V   |     array    |
+|a_batchnorm2_V_d1            | out |   14|  ap_memory |   a_batchnorm2_V   |     array    |
+|a_batchnorm2_V_q1            |  in |   14|  ap_memory |   a_batchnorm2_V   |     array    |
+|a_batchnorm2_V_we1           | out |    1|  ap_memory |   a_batchnorm2_V   |     array    |
+|b_batchnorm2_V_address0      | out |    5|  ap_memory |   b_batchnorm2_V   |     array    |
+|b_batchnorm2_V_ce0           | out |    1|  ap_memory |   b_batchnorm2_V   |     array    |
+|b_batchnorm2_V_d0            | out |   26|  ap_memory |   b_batchnorm2_V   |     array    |
+|b_batchnorm2_V_q0            |  in |   26|  ap_memory |   b_batchnorm2_V   |     array    |
+|b_batchnorm2_V_we0           | out |    1|  ap_memory |   b_batchnorm2_V   |     array    |
+|b_batchnorm2_V_address1      | out |    5|  ap_memory |   b_batchnorm2_V   |     array    |
+|b_batchnorm2_V_ce1           | out |    1|  ap_memory |   b_batchnorm2_V   |     array    |
+|b_batchnorm2_V_d1            | out |   26|  ap_memory |   b_batchnorm2_V   |     array    |
+|b_batchnorm2_V_q1            |  in |   26|  ap_memory |   b_batchnorm2_V   |     array    |
+|b_batchnorm2_V_we1           | out |    1|  ap_memory |   b_batchnorm2_V   |     array    |
+|weight_conv3_0_0_V_address0  | out |   11|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_0_V_ce0       | out |    1|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_0_V_d0        | out |    5|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_0_V_q0        |  in |    5|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_0_V_we0       | out |    1|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_0_V_address1  | out |   11|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_0_V_ce1       | out |    1|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_0_V_d1        | out |    5|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_0_V_q1        |  in |    5|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_0_V_we1       | out |    1|  ap_memory | weight_conv3_0_0_V |     array    |
+|weight_conv3_0_1_V_address0  | out |   11|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_1_V_ce0       | out |    1|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_1_V_d0        | out |    5|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_1_V_q0        |  in |    5|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_1_V_we0       | out |    1|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_1_V_address1  | out |   11|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_1_V_ce1       | out |    1|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_1_V_d1        | out |    5|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_1_V_q1        |  in |    5|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_1_V_we1       | out |    1|  ap_memory | weight_conv3_0_1_V |     array    |
+|weight_conv3_0_2_V_address0  | out |   11|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_0_2_V_ce0       | out |    1|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_0_2_V_d0        | out |    5|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_0_2_V_q0        |  in |    5|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_0_2_V_we0       | out |    1|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_0_2_V_address1  | out |   11|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_0_2_V_ce1       | out |    1|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_0_2_V_d1        | out |    5|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_0_2_V_q1        |  in |    5|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_0_2_V_we1       | out |    1|  ap_memory | weight_conv3_0_2_V |     array    |
+|weight_conv3_1_0_V_address0  | out |   11|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_0_V_ce0       | out |    1|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_0_V_d0        | out |    5|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_0_V_q0        |  in |    5|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_0_V_we0       | out |    1|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_0_V_address1  | out |   11|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_0_V_ce1       | out |    1|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_0_V_d1        | out |    5|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_0_V_q1        |  in |    5|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_0_V_we1       | out |    1|  ap_memory | weight_conv3_1_0_V |     array    |
+|weight_conv3_1_1_V_address0  | out |   11|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_1_V_ce0       | out |    1|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_1_V_d0        | out |    5|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_1_V_q0        |  in |    5|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_1_V_we0       | out |    1|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_1_V_address1  | out |   11|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_1_V_ce1       | out |    1|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_1_V_d1        | out |    5|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_1_V_q1        |  in |    5|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_1_V_we1       | out |    1|  ap_memory | weight_conv3_1_1_V |     array    |
+|weight_conv3_1_2_V_address0  | out |   11|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_1_2_V_ce0       | out |    1|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_1_2_V_d0        | out |    5|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_1_2_V_q0        |  in |    5|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_1_2_V_we0       | out |    1|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_1_2_V_address1  | out |   11|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_1_2_V_ce1       | out |    1|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_1_2_V_d1        | out |    5|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_1_2_V_q1        |  in |    5|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_1_2_V_we1       | out |    1|  ap_memory | weight_conv3_1_2_V |     array    |
+|weight_conv3_2_0_V_address0  | out |   11|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_0_V_ce0       | out |    1|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_0_V_d0        | out |    5|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_0_V_q0        |  in |    5|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_0_V_we0       | out |    1|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_0_V_address1  | out |   11|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_0_V_ce1       | out |    1|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_0_V_d1        | out |    5|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_0_V_q1        |  in |    5|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_0_V_we1       | out |    1|  ap_memory | weight_conv3_2_0_V |     array    |
+|weight_conv3_2_1_V_address0  | out |   11|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_1_V_ce0       | out |    1|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_1_V_d0        | out |    5|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_1_V_q0        |  in |    5|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_1_V_we0       | out |    1|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_1_V_address1  | out |   11|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_1_V_ce1       | out |    1|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_1_V_d1        | out |    5|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_1_V_q1        |  in |    5|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_1_V_we1       | out |    1|  ap_memory | weight_conv3_2_1_V |     array    |
+|weight_conv3_2_2_V_address0  | out |   11|  ap_memory | weight_conv3_2_2_V |     array    |
+|weight_conv3_2_2_V_ce0       | out |    1|  ap_memory | weight_conv3_2_2_V |     array    |
+|weight_conv3_2_2_V_d0        | out |    5|  ap_memory | weight_conv3_2_2_V |     array    |
+|weight_conv3_2_2_V_q0        |  in |    5|  ap_memory | weight_conv3_2_2_V |     array    |
+|weight_conv3_2_2_V_we0       | out |    1|  ap_memory | weight_conv3_2_2_V |     array    |
+|weight_conv3_2_2_V_address1  | out |   11|  ap_memory | weight_conv3_2_2_V |     array    |
+|weight_conv3_2_2_V_ce1       | out |    1|  ap_memory | weight_conv3_2_2_V |     array    |
+|weight_conv3_2_2_V_d1        | out |    5|  ap_memory | weight_conv3_2_2_V |     array    |
+|weight_conv3_2_2_V_q1        |  in |    5|  ap_memory | weight_conv3_2_2_V |     array    |
+|weight_conv3_2_2_V_we1       | out |    1|  ap_memory | weight_conv3_2_2_V |     array    |
+|a_batchnorm3_V_address0      | out |    6|  ap_memory |   a_batchnorm3_V   |     array    |
+|a_batchnorm3_V_ce0           | out |    1|  ap_memory |   a_batchnorm3_V   |     array    |
+|a_batchnorm3_V_d0            | out |   14|  ap_memory |   a_batchnorm3_V   |     array    |
+|a_batchnorm3_V_q0            |  in |   14|  ap_memory |   a_batchnorm3_V   |     array    |
+|a_batchnorm3_V_we0           | out |    1|  ap_memory |   a_batchnorm3_V   |     array    |
+|a_batchnorm3_V_address1      | out |    6|  ap_memory |   a_batchnorm3_V   |     array    |
+|a_batchnorm3_V_ce1           | out |    1|  ap_memory |   a_batchnorm3_V   |     array    |
+|a_batchnorm3_V_d1            | out |   14|  ap_memory |   a_batchnorm3_V   |     array    |
+|a_batchnorm3_V_q1            |  in |   14|  ap_memory |   a_batchnorm3_V   |     array    |
+|a_batchnorm3_V_we1           | out |    1|  ap_memory |   a_batchnorm3_V   |     array    |
+|b_batchnorm3_V_address0      | out |    6|  ap_memory |   b_batchnorm3_V   |     array    |
+|b_batchnorm3_V_ce0           | out |    1|  ap_memory |   b_batchnorm3_V   |     array    |
+|b_batchnorm3_V_d0            | out |   26|  ap_memory |   b_batchnorm3_V   |     array    |
+|b_batchnorm3_V_q0            |  in |   26|  ap_memory |   b_batchnorm3_V   |     array    |
+|b_batchnorm3_V_we0           | out |    1|  ap_memory |   b_batchnorm3_V   |     array    |
+|b_batchnorm3_V_address1      | out |    6|  ap_memory |   b_batchnorm3_V   |     array    |
+|b_batchnorm3_V_ce1           | out |    1|  ap_memory |   b_batchnorm3_V   |     array    |
+|b_batchnorm3_V_d1            | out |   26|  ap_memory |   b_batchnorm3_V   |     array    |
+|b_batchnorm3_V_q1            |  in |   26|  ap_memory |   b_batchnorm3_V   |     array    |
+|b_batchnorm3_V_we1           | out |    1|  ap_memory |   b_batchnorm3_V   |     array    |
+|weight_conv4_0_0_V_address0  | out |   12|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_0_V_ce0       | out |    1|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_0_V_d0        | out |    5|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_0_V_q0        |  in |    5|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_0_V_we0       | out |    1|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_0_V_address1  | out |   12|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_0_V_ce1       | out |    1|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_0_V_d1        | out |    5|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_0_V_q1        |  in |    5|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_0_V_we1       | out |    1|  ap_memory | weight_conv4_0_0_V |     array    |
+|weight_conv4_0_1_V_address0  | out |   12|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_1_V_ce0       | out |    1|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_1_V_d0        | out |    5|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_1_V_q0        |  in |    5|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_1_V_we0       | out |    1|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_1_V_address1  | out |   12|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_1_V_ce1       | out |    1|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_1_V_d1        | out |    5|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_1_V_q1        |  in |    5|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_1_V_we1       | out |    1|  ap_memory | weight_conv4_0_1_V |     array    |
+|weight_conv4_0_2_V_address0  | out |   12|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_0_2_V_ce0       | out |    1|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_0_2_V_d0        | out |    5|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_0_2_V_q0        |  in |    5|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_0_2_V_we0       | out |    1|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_0_2_V_address1  | out |   12|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_0_2_V_ce1       | out |    1|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_0_2_V_d1        | out |    5|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_0_2_V_q1        |  in |    5|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_0_2_V_we1       | out |    1|  ap_memory | weight_conv4_0_2_V |     array    |
+|weight_conv4_1_0_V_address0  | out |   12|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_0_V_ce0       | out |    1|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_0_V_d0        | out |    5|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_0_V_q0        |  in |    5|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_0_V_we0       | out |    1|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_0_V_address1  | out |   12|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_0_V_ce1       | out |    1|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_0_V_d1        | out |    5|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_0_V_q1        |  in |    5|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_0_V_we1       | out |    1|  ap_memory | weight_conv4_1_0_V |     array    |
+|weight_conv4_1_1_V_address0  | out |   12|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_1_V_ce0       | out |    1|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_1_V_d0        | out |    5|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_1_V_q0        |  in |    5|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_1_V_we0       | out |    1|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_1_V_address1  | out |   12|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_1_V_ce1       | out |    1|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_1_V_d1        | out |    5|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_1_V_q1        |  in |    5|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_1_V_we1       | out |    1|  ap_memory | weight_conv4_1_1_V |     array    |
+|weight_conv4_1_2_V_address0  | out |   12|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_1_2_V_ce0       | out |    1|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_1_2_V_d0        | out |    5|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_1_2_V_q0        |  in |    5|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_1_2_V_we0       | out |    1|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_1_2_V_address1  | out |   12|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_1_2_V_ce1       | out |    1|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_1_2_V_d1        | out |    5|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_1_2_V_q1        |  in |    5|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_1_2_V_we1       | out |    1|  ap_memory | weight_conv4_1_2_V |     array    |
+|weight_conv4_2_0_V_address0  | out |   12|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_0_V_ce0       | out |    1|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_0_V_d0        | out |    5|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_0_V_q0        |  in |    5|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_0_V_we0       | out |    1|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_0_V_address1  | out |   12|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_0_V_ce1       | out |    1|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_0_V_d1        | out |    5|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_0_V_q1        |  in |    5|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_0_V_we1       | out |    1|  ap_memory | weight_conv4_2_0_V |     array    |
+|weight_conv4_2_1_V_address0  | out |   12|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_1_V_ce0       | out |    1|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_1_V_d0        | out |    5|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_1_V_q0        |  in |    5|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_1_V_we0       | out |    1|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_1_V_address1  | out |   12|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_1_V_ce1       | out |    1|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_1_V_d1        | out |    5|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_1_V_q1        |  in |    5|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_1_V_we1       | out |    1|  ap_memory | weight_conv4_2_1_V |     array    |
+|weight_conv4_2_2_V_address0  | out |   12|  ap_memory | weight_conv4_2_2_V |     array    |
+|weight_conv4_2_2_V_ce0       | out |    1|  ap_memory | weight_conv4_2_2_V |     array    |
+|weight_conv4_2_2_V_d0        | out |    5|  ap_memory | weight_conv4_2_2_V |     array    |
+|weight_conv4_2_2_V_q0        |  in |    5|  ap_memory | weight_conv4_2_2_V |     array    |
+|weight_conv4_2_2_V_we0       | out |    1|  ap_memory | weight_conv4_2_2_V |     array    |
+|weight_conv4_2_2_V_address1  | out |   12|  ap_memory | weight_conv4_2_2_V |     array    |
+|weight_conv4_2_2_V_ce1       | out |    1|  ap_memory | weight_conv4_2_2_V |     array    |
+|weight_conv4_2_2_V_d1        | out |    5|  ap_memory | weight_conv4_2_2_V |     array    |
+|weight_conv4_2_2_V_q1        |  in |    5|  ap_memory | weight_conv4_2_2_V |     array    |
+|weight_conv4_2_2_V_we1       | out |    1|  ap_memory | weight_conv4_2_2_V |     array    |
+|a_batchnorm4_V_address0      | out |    6|  ap_memory |   a_batchnorm4_V   |     array    |
+|a_batchnorm4_V_ce0           | out |    1|  ap_memory |   a_batchnorm4_V   |     array    |
+|a_batchnorm4_V_d0            | out |   14|  ap_memory |   a_batchnorm4_V   |     array    |
+|a_batchnorm4_V_q0            |  in |   14|  ap_memory |   a_batchnorm4_V   |     array    |
+|a_batchnorm4_V_we0           | out |    1|  ap_memory |   a_batchnorm4_V   |     array    |
+|a_batchnorm4_V_address1      | out |    6|  ap_memory |   a_batchnorm4_V   |     array    |
+|a_batchnorm4_V_ce1           | out |    1|  ap_memory |   a_batchnorm4_V   |     array    |
+|a_batchnorm4_V_d1            | out |   14|  ap_memory |   a_batchnorm4_V   |     array    |
+|a_batchnorm4_V_q1            |  in |   14|  ap_memory |   a_batchnorm4_V   |     array    |
+|a_batchnorm4_V_we1           | out |    1|  ap_memory |   a_batchnorm4_V   |     array    |
+|b_batchnorm4_V_address0      | out |    6|  ap_memory |   b_batchnorm4_V   |     array    |
+|b_batchnorm4_V_ce0           | out |    1|  ap_memory |   b_batchnorm4_V   |     array    |
+|b_batchnorm4_V_d0            | out |   26|  ap_memory |   b_batchnorm4_V   |     array    |
+|b_batchnorm4_V_q0            |  in |   26|  ap_memory |   b_batchnorm4_V   |     array    |
+|b_batchnorm4_V_we0           | out |    1|  ap_memory |   b_batchnorm4_V   |     array    |
+|b_batchnorm4_V_address1      | out |    6|  ap_memory |   b_batchnorm4_V   |     array    |
+|b_batchnorm4_V_ce1           | out |    1|  ap_memory |   b_batchnorm4_V   |     array    |
+|b_batchnorm4_V_d1            | out |   26|  ap_memory |   b_batchnorm4_V   |     array    |
+|b_batchnorm4_V_q1            |  in |   26|  ap_memory |   b_batchnorm4_V   |     array    |
+|b_batchnorm4_V_we1           | out |    1|  ap_memory |   b_batchnorm4_V   |     array    |
+|weight_conv5_0_0_V_address0  | out |   12|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_0_V_ce0       | out |    1|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_0_V_d0        | out |    5|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_0_V_q0        |  in |    5|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_0_V_we0       | out |    1|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_0_V_address1  | out |   12|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_0_V_ce1       | out |    1|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_0_V_d1        | out |    5|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_0_V_q1        |  in |    5|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_0_V_we1       | out |    1|  ap_memory | weight_conv5_0_0_V |     array    |
+|weight_conv5_0_1_V_address0  | out |   12|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_1_V_ce0       | out |    1|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_1_V_d0        | out |    5|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_1_V_q0        |  in |    5|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_1_V_we0       | out |    1|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_1_V_address1  | out |   12|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_1_V_ce1       | out |    1|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_1_V_d1        | out |    5|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_1_V_q1        |  in |    5|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_1_V_we1       | out |    1|  ap_memory | weight_conv5_0_1_V |     array    |
+|weight_conv5_0_2_V_address0  | out |   12|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_0_2_V_ce0       | out |    1|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_0_2_V_d0        | out |    5|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_0_2_V_q0        |  in |    5|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_0_2_V_we0       | out |    1|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_0_2_V_address1  | out |   12|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_0_2_V_ce1       | out |    1|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_0_2_V_d1        | out |    5|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_0_2_V_q1        |  in |    5|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_0_2_V_we1       | out |    1|  ap_memory | weight_conv5_0_2_V |     array    |
+|weight_conv5_1_0_V_address0  | out |   12|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_0_V_ce0       | out |    1|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_0_V_d0        | out |    5|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_0_V_q0        |  in |    5|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_0_V_we0       | out |    1|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_0_V_address1  | out |   12|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_0_V_ce1       | out |    1|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_0_V_d1        | out |    5|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_0_V_q1        |  in |    5|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_0_V_we1       | out |    1|  ap_memory | weight_conv5_1_0_V |     array    |
+|weight_conv5_1_1_V_address0  | out |   12|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_1_V_ce0       | out |    1|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_1_V_d0        | out |    5|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_1_V_q0        |  in |    5|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_1_V_we0       | out |    1|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_1_V_address1  | out |   12|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_1_V_ce1       | out |    1|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_1_V_d1        | out |    5|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_1_V_q1        |  in |    5|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_1_V_we1       | out |    1|  ap_memory | weight_conv5_1_1_V |     array    |
+|weight_conv5_1_2_V_address0  | out |   12|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_1_2_V_ce0       | out |    1|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_1_2_V_d0        | out |    5|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_1_2_V_q0        |  in |    5|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_1_2_V_we0       | out |    1|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_1_2_V_address1  | out |   12|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_1_2_V_ce1       | out |    1|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_1_2_V_d1        | out |    5|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_1_2_V_q1        |  in |    5|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_1_2_V_we1       | out |    1|  ap_memory | weight_conv5_1_2_V |     array    |
+|weight_conv5_2_0_V_address0  | out |   12|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_0_V_ce0       | out |    1|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_0_V_d0        | out |    5|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_0_V_q0        |  in |    5|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_0_V_we0       | out |    1|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_0_V_address1  | out |   12|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_0_V_ce1       | out |    1|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_0_V_d1        | out |    5|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_0_V_q1        |  in |    5|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_0_V_we1       | out |    1|  ap_memory | weight_conv5_2_0_V |     array    |
+|weight_conv5_2_1_V_address0  | out |   12|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_1_V_ce0       | out |    1|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_1_V_d0        | out |    5|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_1_V_q0        |  in |    5|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_1_V_we0       | out |    1|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_1_V_address1  | out |   12|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_1_V_ce1       | out |    1|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_1_V_d1        | out |    5|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_1_V_q1        |  in |    5|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_1_V_we1       | out |    1|  ap_memory | weight_conv5_2_1_V |     array    |
+|weight_conv5_2_2_V_address0  | out |   12|  ap_memory | weight_conv5_2_2_V |     array    |
+|weight_conv5_2_2_V_ce0       | out |    1|  ap_memory | weight_conv5_2_2_V |     array    |
+|weight_conv5_2_2_V_d0        | out |    5|  ap_memory | weight_conv5_2_2_V |     array    |
+|weight_conv5_2_2_V_q0        |  in |    5|  ap_memory | weight_conv5_2_2_V |     array    |
+|weight_conv5_2_2_V_we0       | out |    1|  ap_memory | weight_conv5_2_2_V |     array    |
+|weight_conv5_2_2_V_address1  | out |   12|  ap_memory | weight_conv5_2_2_V |     array    |
+|weight_conv5_2_2_V_ce1       | out |    1|  ap_memory | weight_conv5_2_2_V |     array    |
+|weight_conv5_2_2_V_d1        | out |    5|  ap_memory | weight_conv5_2_2_V |     array    |
+|weight_conv5_2_2_V_q1        |  in |    5|  ap_memory | weight_conv5_2_2_V |     array    |
+|weight_conv5_2_2_V_we1       | out |    1|  ap_memory | weight_conv5_2_2_V |     array    |
+|a_batchnorm5_V_address0      | out |    6|  ap_memory |   a_batchnorm5_V   |     array    |
+|a_batchnorm5_V_ce0           | out |    1|  ap_memory |   a_batchnorm5_V   |     array    |
+|a_batchnorm5_V_d0            | out |   14|  ap_memory |   a_batchnorm5_V   |     array    |
+|a_batchnorm5_V_q0            |  in |   14|  ap_memory |   a_batchnorm5_V   |     array    |
+|a_batchnorm5_V_we0           | out |    1|  ap_memory |   a_batchnorm5_V   |     array    |
+|a_batchnorm5_V_address1      | out |    6|  ap_memory |   a_batchnorm5_V   |     array    |
+|a_batchnorm5_V_ce1           | out |    1|  ap_memory |   a_batchnorm5_V   |     array    |
+|a_batchnorm5_V_d1            | out |   14|  ap_memory |   a_batchnorm5_V   |     array    |
+|a_batchnorm5_V_q1            |  in |   14|  ap_memory |   a_batchnorm5_V   |     array    |
+|a_batchnorm5_V_we1           | out |    1|  ap_memory |   a_batchnorm5_V   |     array    |
+|b_batchnorm5_V_address0      | out |    6|  ap_memory |   b_batchnorm5_V   |     array    |
+|b_batchnorm5_V_ce0           | out |    1|  ap_memory |   b_batchnorm5_V   |     array    |
+|b_batchnorm5_V_d0            | out |   26|  ap_memory |   b_batchnorm5_V   |     array    |
+|b_batchnorm5_V_q0            |  in |   26|  ap_memory |   b_batchnorm5_V   |     array    |
+|b_batchnorm5_V_we0           | out |    1|  ap_memory |   b_batchnorm5_V   |     array    |
+|b_batchnorm5_V_address1      | out |    6|  ap_memory |   b_batchnorm5_V   |     array    |
+|b_batchnorm5_V_ce1           | out |    1|  ap_memory |   b_batchnorm5_V   |     array    |
+|b_batchnorm5_V_d1            | out |   26|  ap_memory |   b_batchnorm5_V   |     array    |
+|b_batchnorm5_V_q1            |  in |   26|  ap_memory |   b_batchnorm5_V   |     array    |
+|b_batchnorm5_V_we1           | out |    1|  ap_memory |   b_batchnorm5_V   |     array    |
+|weight_conv6_0_0_V_address0  | out |   12|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_0_V_ce0       | out |    1|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_0_V_d0        | out |    5|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_0_V_q0        |  in |    5|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_0_V_we0       | out |    1|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_0_V_address1  | out |   12|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_0_V_ce1       | out |    1|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_0_V_d1        | out |    5|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_0_V_q1        |  in |    5|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_0_V_we1       | out |    1|  ap_memory | weight_conv6_0_0_V |     array    |
+|weight_conv6_0_1_V_address0  | out |   12|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_1_V_ce0       | out |    1|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_1_V_d0        | out |    5|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_1_V_q0        |  in |    5|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_1_V_we0       | out |    1|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_1_V_address1  | out |   12|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_1_V_ce1       | out |    1|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_1_V_d1        | out |    5|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_1_V_q1        |  in |    5|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_1_V_we1       | out |    1|  ap_memory | weight_conv6_0_1_V |     array    |
+|weight_conv6_0_2_V_address0  | out |   12|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_0_2_V_ce0       | out |    1|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_0_2_V_d0        | out |    5|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_0_2_V_q0        |  in |    5|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_0_2_V_we0       | out |    1|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_0_2_V_address1  | out |   12|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_0_2_V_ce1       | out |    1|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_0_2_V_d1        | out |    5|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_0_2_V_q1        |  in |    5|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_0_2_V_we1       | out |    1|  ap_memory | weight_conv6_0_2_V |     array    |
+|weight_conv6_1_0_V_address0  | out |   12|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_0_V_ce0       | out |    1|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_0_V_d0        | out |    5|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_0_V_q0        |  in |    5|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_0_V_we0       | out |    1|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_0_V_address1  | out |   12|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_0_V_ce1       | out |    1|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_0_V_d1        | out |    5|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_0_V_q1        |  in |    5|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_0_V_we1       | out |    1|  ap_memory | weight_conv6_1_0_V |     array    |
+|weight_conv6_1_1_V_address0  | out |   12|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_1_V_ce0       | out |    1|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_1_V_d0        | out |    5|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_1_V_q0        |  in |    5|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_1_V_we0       | out |    1|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_1_V_address1  | out |   12|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_1_V_ce1       | out |    1|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_1_V_d1        | out |    5|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_1_V_q1        |  in |    5|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_1_V_we1       | out |    1|  ap_memory | weight_conv6_1_1_V |     array    |
+|weight_conv6_1_2_V_address0  | out |   12|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_1_2_V_ce0       | out |    1|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_1_2_V_d0        | out |    5|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_1_2_V_q0        |  in |    5|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_1_2_V_we0       | out |    1|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_1_2_V_address1  | out |   12|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_1_2_V_ce1       | out |    1|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_1_2_V_d1        | out |    5|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_1_2_V_q1        |  in |    5|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_1_2_V_we1       | out |    1|  ap_memory | weight_conv6_1_2_V |     array    |
+|weight_conv6_2_0_V_address0  | out |   12|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_0_V_ce0       | out |    1|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_0_V_d0        | out |    5|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_0_V_q0        |  in |    5|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_0_V_we0       | out |    1|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_0_V_address1  | out |   12|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_0_V_ce1       | out |    1|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_0_V_d1        | out |    5|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_0_V_q1        |  in |    5|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_0_V_we1       | out |    1|  ap_memory | weight_conv6_2_0_V |     array    |
+|weight_conv6_2_1_V_address0  | out |   12|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_1_V_ce0       | out |    1|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_1_V_d0        | out |    5|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_1_V_q0        |  in |    5|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_1_V_we0       | out |    1|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_1_V_address1  | out |   12|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_1_V_ce1       | out |    1|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_1_V_d1        | out |    5|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_1_V_q1        |  in |    5|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_1_V_we1       | out |    1|  ap_memory | weight_conv6_2_1_V |     array    |
+|weight_conv6_2_2_V_address0  | out |   12|  ap_memory | weight_conv6_2_2_V |     array    |
+|weight_conv6_2_2_V_ce0       | out |    1|  ap_memory | weight_conv6_2_2_V |     array    |
+|weight_conv6_2_2_V_d0        | out |    5|  ap_memory | weight_conv6_2_2_V |     array    |
+|weight_conv6_2_2_V_q0        |  in |    5|  ap_memory | weight_conv6_2_2_V |     array    |
+|weight_conv6_2_2_V_we0       | out |    1|  ap_memory | weight_conv6_2_2_V |     array    |
+|weight_conv6_2_2_V_address1  | out |   12|  ap_memory | weight_conv6_2_2_V |     array    |
+|weight_conv6_2_2_V_ce1       | out |    1|  ap_memory | weight_conv6_2_2_V |     array    |
+|weight_conv6_2_2_V_d1        | out |    5|  ap_memory | weight_conv6_2_2_V |     array    |
+|weight_conv6_2_2_V_q1        |  in |    5|  ap_memory | weight_conv6_2_2_V |     array    |
+|weight_conv6_2_2_V_we1       | out |    1|  ap_memory | weight_conv6_2_2_V |     array    |
+|a_batchnorm6_V_address0      | out |    6|  ap_memory |   a_batchnorm6_V   |     array    |
+|a_batchnorm6_V_ce0           | out |    1|  ap_memory |   a_batchnorm6_V   |     array    |
+|a_batchnorm6_V_d0            | out |   14|  ap_memory |   a_batchnorm6_V   |     array    |
+|a_batchnorm6_V_q0            |  in |   14|  ap_memory |   a_batchnorm6_V   |     array    |
+|a_batchnorm6_V_we0           | out |    1|  ap_memory |   a_batchnorm6_V   |     array    |
+|a_batchnorm6_V_address1      | out |    6|  ap_memory |   a_batchnorm6_V   |     array    |
+|a_batchnorm6_V_ce1           | out |    1|  ap_memory |   a_batchnorm6_V   |     array    |
+|a_batchnorm6_V_d1            | out |   14|  ap_memory |   a_batchnorm6_V   |     array    |
+|a_batchnorm6_V_q1            |  in |   14|  ap_memory |   a_batchnorm6_V   |     array    |
+|a_batchnorm6_V_we1           | out |    1|  ap_memory |   a_batchnorm6_V   |     array    |
+|b_batchnorm6_V_address0      | out |    6|  ap_memory |   b_batchnorm6_V   |     array    |
+|b_batchnorm6_V_ce0           | out |    1|  ap_memory |   b_batchnorm6_V   |     array    |
+|b_batchnorm6_V_d0            | out |   26|  ap_memory |   b_batchnorm6_V   |     array    |
+|b_batchnorm6_V_q0            |  in |   26|  ap_memory |   b_batchnorm6_V   |     array    |
+|b_batchnorm6_V_we0           | out |    1|  ap_memory |   b_batchnorm6_V   |     array    |
+|b_batchnorm6_V_address1      | out |    6|  ap_memory |   b_batchnorm6_V   |     array    |
+|b_batchnorm6_V_ce1           | out |    1|  ap_memory |   b_batchnorm6_V   |     array    |
+|b_batchnorm6_V_d1            | out |   26|  ap_memory |   b_batchnorm6_V   |     array    |
+|b_batchnorm6_V_q1            |  in |   26|  ap_memory |   b_batchnorm6_V   |     array    |
+|b_batchnorm6_V_we1           | out |    1|  ap_memory |   b_batchnorm6_V   |     array    |
+|weight_conv7_0_0_V_address0  | out |   12|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_0_V_ce0       | out |    1|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_0_V_d0        | out |    5|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_0_V_q0        |  in |    5|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_0_V_we0       | out |    1|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_0_V_address1  | out |   12|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_0_V_ce1       | out |    1|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_0_V_d1        | out |    5|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_0_V_q1        |  in |    5|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_0_V_we1       | out |    1|  ap_memory | weight_conv7_0_0_V |     array    |
+|weight_conv7_0_1_V_address0  | out |   12|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_1_V_ce0       | out |    1|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_1_V_d0        | out |    5|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_1_V_q0        |  in |    5|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_1_V_we0       | out |    1|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_1_V_address1  | out |   12|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_1_V_ce1       | out |    1|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_1_V_d1        | out |    5|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_1_V_q1        |  in |    5|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_1_V_we1       | out |    1|  ap_memory | weight_conv7_0_1_V |     array    |
+|weight_conv7_0_2_V_address0  | out |   12|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_0_2_V_ce0       | out |    1|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_0_2_V_d0        | out |    5|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_0_2_V_q0        |  in |    5|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_0_2_V_we0       | out |    1|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_0_2_V_address1  | out |   12|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_0_2_V_ce1       | out |    1|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_0_2_V_d1        | out |    5|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_0_2_V_q1        |  in |    5|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_0_2_V_we1       | out |    1|  ap_memory | weight_conv7_0_2_V |     array    |
+|weight_conv7_1_0_V_address0  | out |   12|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_0_V_ce0       | out |    1|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_0_V_d0        | out |    5|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_0_V_q0        |  in |    5|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_0_V_we0       | out |    1|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_0_V_address1  | out |   12|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_0_V_ce1       | out |    1|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_0_V_d1        | out |    5|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_0_V_q1        |  in |    5|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_0_V_we1       | out |    1|  ap_memory | weight_conv7_1_0_V |     array    |
+|weight_conv7_1_1_V_address0  | out |   12|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_1_V_ce0       | out |    1|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_1_V_d0        | out |    5|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_1_V_q0        |  in |    5|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_1_V_we0       | out |    1|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_1_V_address1  | out |   12|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_1_V_ce1       | out |    1|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_1_V_d1        | out |    5|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_1_V_q1        |  in |    5|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_1_V_we1       | out |    1|  ap_memory | weight_conv7_1_1_V |     array    |
+|weight_conv7_1_2_V_address0  | out |   12|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_1_2_V_ce0       | out |    1|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_1_2_V_d0        | out |    5|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_1_2_V_q0        |  in |    5|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_1_2_V_we0       | out |    1|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_1_2_V_address1  | out |   12|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_1_2_V_ce1       | out |    1|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_1_2_V_d1        | out |    5|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_1_2_V_q1        |  in |    5|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_1_2_V_we1       | out |    1|  ap_memory | weight_conv7_1_2_V |     array    |
+|weight_conv7_2_0_V_address0  | out |   12|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_0_V_ce0       | out |    1|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_0_V_d0        | out |    5|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_0_V_q0        |  in |    5|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_0_V_we0       | out |    1|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_0_V_address1  | out |   12|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_0_V_ce1       | out |    1|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_0_V_d1        | out |    5|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_0_V_q1        |  in |    5|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_0_V_we1       | out |    1|  ap_memory | weight_conv7_2_0_V |     array    |
+|weight_conv7_2_1_V_address0  | out |   12|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_1_V_ce0       | out |    1|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_1_V_d0        | out |    5|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_1_V_q0        |  in |    5|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_1_V_we0       | out |    1|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_1_V_address1  | out |   12|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_1_V_ce1       | out |    1|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_1_V_d1        | out |    5|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_1_V_q1        |  in |    5|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_1_V_we1       | out |    1|  ap_memory | weight_conv7_2_1_V |     array    |
+|weight_conv7_2_2_V_address0  | out |   12|  ap_memory | weight_conv7_2_2_V |     array    |
+|weight_conv7_2_2_V_ce0       | out |    1|  ap_memory | weight_conv7_2_2_V |     array    |
+|weight_conv7_2_2_V_d0        | out |    5|  ap_memory | weight_conv7_2_2_V |     array    |
+|weight_conv7_2_2_V_q0        |  in |    5|  ap_memory | weight_conv7_2_2_V |     array    |
+|weight_conv7_2_2_V_we0       | out |    1|  ap_memory | weight_conv7_2_2_V |     array    |
+|weight_conv7_2_2_V_address1  | out |   12|  ap_memory | weight_conv7_2_2_V |     array    |
+|weight_conv7_2_2_V_ce1       | out |    1|  ap_memory | weight_conv7_2_2_V |     array    |
+|weight_conv7_2_2_V_d1        | out |    5|  ap_memory | weight_conv7_2_2_V |     array    |
+|weight_conv7_2_2_V_q1        |  in |    5|  ap_memory | weight_conv7_2_2_V |     array    |
+|weight_conv7_2_2_V_we1       | out |    1|  ap_memory | weight_conv7_2_2_V |     array    |
+|a_batchnorm7_V_address0      | out |    6|  ap_memory |   a_batchnorm7_V   |     array    |
+|a_batchnorm7_V_ce0           | out |    1|  ap_memory |   a_batchnorm7_V   |     array    |
+|a_batchnorm7_V_d0            | out |   14|  ap_memory |   a_batchnorm7_V   |     array    |
+|a_batchnorm7_V_q0            |  in |   14|  ap_memory |   a_batchnorm7_V   |     array    |
+|a_batchnorm7_V_we0           | out |    1|  ap_memory |   a_batchnorm7_V   |     array    |
+|a_batchnorm7_V_address1      | out |    6|  ap_memory |   a_batchnorm7_V   |     array    |
+|a_batchnorm7_V_ce1           | out |    1|  ap_memory |   a_batchnorm7_V   |     array    |
+|a_batchnorm7_V_d1            | out |   14|  ap_memory |   a_batchnorm7_V   |     array    |
+|a_batchnorm7_V_q1            |  in |   14|  ap_memory |   a_batchnorm7_V   |     array    |
+|a_batchnorm7_V_we1           | out |    1|  ap_memory |   a_batchnorm7_V   |     array    |
+|b_batchnorm7_V_address0      | out |    6|  ap_memory |   b_batchnorm7_V   |     array    |
+|b_batchnorm7_V_ce0           | out |    1|  ap_memory |   b_batchnorm7_V   |     array    |
+|b_batchnorm7_V_d0            | out |   26|  ap_memory |   b_batchnorm7_V   |     array    |
+|b_batchnorm7_V_q0            |  in |   26|  ap_memory |   b_batchnorm7_V   |     array    |
+|b_batchnorm7_V_we0           | out |    1|  ap_memory |   b_batchnorm7_V   |     array    |
+|b_batchnorm7_V_address1      | out |    6|  ap_memory |   b_batchnorm7_V   |     array    |
+|b_batchnorm7_V_ce1           | out |    1|  ap_memory |   b_batchnorm7_V   |     array    |
+|b_batchnorm7_V_d1            | out |   26|  ap_memory |   b_batchnorm7_V   |     array    |
+|b_batchnorm7_V_q1            |  in |   26|  ap_memory |   b_batchnorm7_V   |     array    |
+|b_batchnorm7_V_we1           | out |    1|  ap_memory |   b_batchnorm7_V   |     array    |
+|weight_conv8_0_0_V_address0  | out |   12|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_0_V_ce0       | out |    1|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_0_V_d0        | out |    5|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_0_V_q0        |  in |    5|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_0_V_we0       | out |    1|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_0_V_address1  | out |   12|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_0_V_ce1       | out |    1|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_0_V_d1        | out |    5|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_0_V_q1        |  in |    5|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_0_V_we1       | out |    1|  ap_memory | weight_conv8_0_0_V |     array    |
+|weight_conv8_0_1_V_address0  | out |   12|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_1_V_ce0       | out |    1|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_1_V_d0        | out |    5|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_1_V_q0        |  in |    5|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_1_V_we0       | out |    1|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_1_V_address1  | out |   12|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_1_V_ce1       | out |    1|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_1_V_d1        | out |    5|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_1_V_q1        |  in |    5|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_1_V_we1       | out |    1|  ap_memory | weight_conv8_0_1_V |     array    |
+|weight_conv8_0_2_V_address0  | out |   12|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_0_2_V_ce0       | out |    1|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_0_2_V_d0        | out |    5|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_0_2_V_q0        |  in |    5|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_0_2_V_we0       | out |    1|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_0_2_V_address1  | out |   12|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_0_2_V_ce1       | out |    1|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_0_2_V_d1        | out |    5|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_0_2_V_q1        |  in |    5|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_0_2_V_we1       | out |    1|  ap_memory | weight_conv8_0_2_V |     array    |
+|weight_conv8_1_0_V_address0  | out |   12|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_0_V_ce0       | out |    1|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_0_V_d0        | out |    5|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_0_V_q0        |  in |    5|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_0_V_we0       | out |    1|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_0_V_address1  | out |   12|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_0_V_ce1       | out |    1|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_0_V_d1        | out |    5|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_0_V_q1        |  in |    5|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_0_V_we1       | out |    1|  ap_memory | weight_conv8_1_0_V |     array    |
+|weight_conv8_1_1_V_address0  | out |   12|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_1_V_ce0       | out |    1|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_1_V_d0        | out |    5|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_1_V_q0        |  in |    5|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_1_V_we0       | out |    1|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_1_V_address1  | out |   12|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_1_V_ce1       | out |    1|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_1_V_d1        | out |    5|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_1_V_q1        |  in |    5|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_1_V_we1       | out |    1|  ap_memory | weight_conv8_1_1_V |     array    |
+|weight_conv8_1_2_V_address0  | out |   12|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_1_2_V_ce0       | out |    1|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_1_2_V_d0        | out |    5|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_1_2_V_q0        |  in |    5|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_1_2_V_we0       | out |    1|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_1_2_V_address1  | out |   12|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_1_2_V_ce1       | out |    1|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_1_2_V_d1        | out |    5|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_1_2_V_q1        |  in |    5|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_1_2_V_we1       | out |    1|  ap_memory | weight_conv8_1_2_V |     array    |
+|weight_conv8_2_0_V_address0  | out |   12|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_0_V_ce0       | out |    1|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_0_V_d0        | out |    5|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_0_V_q0        |  in |    5|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_0_V_we0       | out |    1|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_0_V_address1  | out |   12|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_0_V_ce1       | out |    1|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_0_V_d1        | out |    5|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_0_V_q1        |  in |    5|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_0_V_we1       | out |    1|  ap_memory | weight_conv8_2_0_V |     array    |
+|weight_conv8_2_1_V_address0  | out |   12|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_1_V_ce0       | out |    1|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_1_V_d0        | out |    5|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_1_V_q0        |  in |    5|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_1_V_we0       | out |    1|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_1_V_address1  | out |   12|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_1_V_ce1       | out |    1|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_1_V_d1        | out |    5|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_1_V_q1        |  in |    5|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_1_V_we1       | out |    1|  ap_memory | weight_conv8_2_1_V |     array    |
+|weight_conv8_2_2_V_address0  | out |   12|  ap_memory | weight_conv8_2_2_V |     array    |
+|weight_conv8_2_2_V_ce0       | out |    1|  ap_memory | weight_conv8_2_2_V |     array    |
+|weight_conv8_2_2_V_d0        | out |    5|  ap_memory | weight_conv8_2_2_V |     array    |
+|weight_conv8_2_2_V_q0        |  in |    5|  ap_memory | weight_conv8_2_2_V |     array    |
+|weight_conv8_2_2_V_we0       | out |    1|  ap_memory | weight_conv8_2_2_V |     array    |
+|weight_conv8_2_2_V_address1  | out |   12|  ap_memory | weight_conv8_2_2_V |     array    |
+|weight_conv8_2_2_V_ce1       | out |    1|  ap_memory | weight_conv8_2_2_V |     array    |
+|weight_conv8_2_2_V_d1        | out |    5|  ap_memory | weight_conv8_2_2_V |     array    |
+|weight_conv8_2_2_V_q1        |  in |    5|  ap_memory | weight_conv8_2_2_V |     array    |
+|weight_conv8_2_2_V_we1       | out |    1|  ap_memory | weight_conv8_2_2_V |     array    |
+|a_batchnorm8_V_address0      | out |    6|  ap_memory |   a_batchnorm8_V   |     array    |
+|a_batchnorm8_V_ce0           | out |    1|  ap_memory |   a_batchnorm8_V   |     array    |
+|a_batchnorm8_V_d0            | out |   14|  ap_memory |   a_batchnorm8_V   |     array    |
+|a_batchnorm8_V_q0            |  in |   14|  ap_memory |   a_batchnorm8_V   |     array    |
+|a_batchnorm8_V_we0           | out |    1|  ap_memory |   a_batchnorm8_V   |     array    |
+|a_batchnorm8_V_address1      | out |    6|  ap_memory |   a_batchnorm8_V   |     array    |
+|a_batchnorm8_V_ce1           | out |    1|  ap_memory |   a_batchnorm8_V   |     array    |
+|a_batchnorm8_V_d1            | out |   14|  ap_memory |   a_batchnorm8_V   |     array    |
+|a_batchnorm8_V_q1            |  in |   14|  ap_memory |   a_batchnorm8_V   |     array    |
+|a_batchnorm8_V_we1           | out |    1|  ap_memory |   a_batchnorm8_V   |     array    |
+|b_batchnorm8_V_address0      | out |    6|  ap_memory |   b_batchnorm8_V   |     array    |
+|b_batchnorm8_V_ce0           | out |    1|  ap_memory |   b_batchnorm8_V   |     array    |
+|b_batchnorm8_V_d0            | out |   26|  ap_memory |   b_batchnorm8_V   |     array    |
+|b_batchnorm8_V_q0            |  in |   26|  ap_memory |   b_batchnorm8_V   |     array    |
+|b_batchnorm8_V_we0           | out |    1|  ap_memory |   b_batchnorm8_V   |     array    |
+|b_batchnorm8_V_address1      | out |    6|  ap_memory |   b_batchnorm8_V   |     array    |
+|b_batchnorm8_V_ce1           | out |    1|  ap_memory |   b_batchnorm8_V   |     array    |
+|b_batchnorm8_V_d1            | out |   26|  ap_memory |   b_batchnorm8_V   |     array    |
+|b_batchnorm8_V_q1            |  in |   26|  ap_memory |   b_batchnorm8_V   |     array    |
+|b_batchnorm8_V_we1           | out |    1|  ap_memory |   b_batchnorm8_V   |     array    |
+|result_V_address0            | out |   14|  ap_memory |      result_V      |     array    |
+|result_V_ce0                 | out |    1|  ap_memory |      result_V      |     array    |
+|result_V_d0                  | out |    5|  ap_memory |      result_V      |     array    |
+|result_V_q0                  |  in |    5|  ap_memory |      result_V      |     array    |
+|result_V_we0                 | out |    1|  ap_memory |      result_V      |     array    |
+|result_V_address1            | out |   14|  ap_memory |      result_V      |     array    |
+|result_V_ce1                 | out |    1|  ap_memory |      result_V      |     array    |
+|result_V_d1                  | out |    5|  ap_memory |      result_V      |     array    |
+|result_V_q1                  |  in |    5|  ap_memory |      result_V      |     array    |
+|result_V_we1                 | out |    1|  ap_memory |      result_V      |     array    |
+|ap_clk                       |  in |    1| ap_ctrl_hs |        test        | return value |
+|ap_rst                       |  in |    1| ap_ctrl_hs |        test        | return value |
+|ap_start                     |  in |    1| ap_ctrl_hs |        test        | return value |
+|ap_done                      | out |    1| ap_ctrl_hs |        test        | return value |
+|ap_ready                     | out |    1| ap_ctrl_hs |        test        | return value |
+|ap_idle                      | out |    1| ap_ctrl_hs |        test        | return value |
++-----------------------------+-----+-----+------------+--------------------+--------------+
+
