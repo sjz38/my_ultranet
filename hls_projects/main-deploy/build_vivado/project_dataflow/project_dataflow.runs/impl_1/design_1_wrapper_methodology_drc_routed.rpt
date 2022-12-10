@@ -1,0 +1,40 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2.1 (lin64) Build 2729669 Thu Dec  5 04:48:12 MST 2019
+| Date         : Fri Dec  9 16:34:49 2022
+| Host         : zhang-x1.ece.cornell.edu running 64-bit CentOS Linux release 7.9.2009 (Core)
+| Command      : report_methodology -file design_1_wrapper_methodology_drc_routed.rpt -pb design_1_wrapper_methodology_drc_routed.pb -rpx design_1_wrapper_methodology_drc_routed.rpx
+| Design       : design_1_wrapper
+| Device       : xczu3eg-sbva484-1-i
+| Speed File   : -1
+| Design State : Fully Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 1
++----------+----------+-------------------------------------------+------------+
+| Rule     | Severity | Description                               | Violations |
++----------+----------+-------------------------------------------+------------+
+| ULMTCS-2 | Warning  | Control Sets use limits require reduction | 1          |
++----------+----------+-------------------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+ULMTCS-2#1 Warning
+Control Sets use limits require reduction  
+This design uses 1769 control sets (vs. available limit of 8820, determined by 1 control set per CLB). This exceeds the control set use guideline of 15 percent. This is at a level where reduction is REQUIRED (see UG949). Use report_control_sets to get more details.
+Related violations: <none>
+
+

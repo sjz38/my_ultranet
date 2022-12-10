@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.2.1 (64-bit)
+# SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
+# IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+# Start of session at: Fri Dec  9 16:17:28 2022
+# Process ID: 31642
+# Current directory: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/impl_1
+# Command line: vivado -log design_1_wrapper.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source design_1_wrapper.tcl -notrace
+# Log file: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/impl_1/design_1_wrapper.vdi
+# Journal file: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/impl_1/vivado.jou
+#-----------------------------------------------------------
+source design_1_wrapper.tcl -notrace

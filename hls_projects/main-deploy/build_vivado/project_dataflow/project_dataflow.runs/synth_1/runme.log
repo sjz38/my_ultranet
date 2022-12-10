@@ -1,0 +1,319 @@
+
+*** Running vivado
+    with args -log design_1_wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_wrapper.tcl
+
+
+****** Vivado v2019.2.1 (64-bit)
+  **** SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
+  **** IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+    ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+
+source design_1_wrapper.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/impl/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/data/ip'.
+update_ip_catalog: Time (s): cpu = 00:00:04 ; elapsed = 00:00:15 . Memory (MB): peak = 1641.043 ; gain = 33.727 ; free physical = 103635 ; free virtual = 120451
+add_files: Time (s): cpu = 00:00:03 ; elapsed = 00:00:07 . Memory (MB): peak = 1653.004 ; gain = 11.961 ; free physical = 103602 ; free virtual = 120416
+Command: synth_design -top design_1_wrapper -part xczu3eg-sbva484-1-i
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu3eg'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu3eg'
+INFO: [Device 21-403] Loading part xczu3eg-sbva484-1-i
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 27503 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:08 . Memory (MB): peak = 2500.887 ; gain = 0.000 ; free physical = 102710 ; free virtual = 119510
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'design_1_wrapper' [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v:12]
+INFO: [Synth 8-6157] synthesizing module 'design_1' [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:13]
+INFO: [Synth 8-6157] synthesizing module 'design_1_axi_smc_0' [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_axi_smc_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_axi_smc_0' (1#1) [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_axi_smc_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'design_1_ps8_0_axi_periph_0' [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:411]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_1A7ZMW4' [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:711]
+INFO: [Synth 8-6157] synthesizing module 'design_1_auto_pc_0' [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_auto_pc_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_auto_pc_0' (2#1) [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_auto_pc_0_stub.v:6]
+WARNING: [Synth 8-7023] instance 'auto_pc' of module 'design_1_auto_pc_0' has 60 connections declared, but only 58 given [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:942]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_1A7ZMW4' (3#1) [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:711]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_ps8_0_axi_periph_0' (4#1) [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:411]
+INFO: [Synth 8-6157] synthesizing module 'design_1_rst_ps8_0_99M_0' [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_rst_ps8_0_99M_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_rst_ps8_0_99M_0' (5#1) [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_rst_ps8_0_99M_0_stub.v:6]
+WARNING: [Synth 8-7023] instance 'rst_ps8_0_99M' of module 'design_1_rst_ps8_0_99M_0' has 10 connections declared, but only 6 given [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:270]
+INFO: [Synth 8-6157] synthesizing module 'design_1_test_0_0' [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_test_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_test_0_0' (6#1) [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_test_0_0_stub.v:6]
+WARNING: [Synth 8-7023] instance 'test_0' of module 'design_1_test_0_0' has 55 connections declared, but only 52 given [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:277]
+INFO: [Synth 8-6157] synthesizing module 'design_1_zynq_ultra_ps_e_0_0' [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_zynq_ultra_ps_e_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_zynq_ultra_ps_e_0_0' (7#1) [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/.Xil/Vivado-25521-zhang-x1.ece.cornell.edu/realtime/design_1_zynq_ultra_ps_e_0_0_stub.v:6]
+WARNING: [Synth 8-7023] instance 'zynq_ultra_ps_e_0' of module 'design_1_zynq_ultra_ps_e_0_0' has 82 connections declared, but only 78 given [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:330]
+INFO: [Synth 8-6155] done synthesizing module 'design_1' (8#1) [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v:13]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_wrapper' (9#1) [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v:12]
+WARNING: [Synth 8-3331] design s00_couplers_imp_1A7ZMW4 has unconnected port M_ACLK
+WARNING: [Synth 8-3331] design s00_couplers_imp_1A7ZMW4 has unconnected port M_ARESETN
+WARNING: [Synth 8-3331] design design_1_ps8_0_axi_periph_0 has unconnected port ACLK
+WARNING: [Synth 8-3331] design design_1_ps8_0_axi_periph_0 has unconnected port ARESETN
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:10 . Memory (MB): peak = 2555.699 ; gain = 54.812 ; free physical = 102742 ; free virtual = 119542
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:11 . Memory (MB): peak = 2558.660 ; gain = 57.773 ; free physical = 103106 ; free virtual = 119906
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:11 . Memory (MB): peak = 2558.660 ; gain = 57.773 ; free physical = 103106 ; free virtual = 119906
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2558.660 ; gain = 0.000 ; free physical = 103043 ; free virtual = 119844
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_test_0_0/design_1_test_0_0/design_1_test_0_0_in_context.xdc] for cell 'design_1_i/test_0'
+Finished Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_test_0_0/design_1_test_0_0/design_1_test_0_0_in_context.xdc] for cell 'design_1_i/test_0'
+Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_zynq_ultra_ps_e_0_0/design_1_zynq_ultra_ps_e_0_0/design_1_zynq_ultra_ps_e_0_0_in_context.xdc] for cell 'design_1_i/zynq_ultra_ps_e_0'
+create_clock: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2660.352 ; gain = 2.969 ; free physical = 102684 ; free virtual = 119485
+Finished Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_zynq_ultra_ps_e_0_0/design_1_zynq_ultra_ps_e_0_0/design_1_zynq_ultra_ps_e_0_0_in_context.xdc] for cell 'design_1_i/zynq_ultra_ps_e_0'
+Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_auto_pc_0/design_1_auto_pc_0/design_1_auto_pc_0_in_context.xdc] for cell 'design_1_i/ps8_0_axi_periph/s00_couplers/auto_pc'
+Finished Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_auto_pc_0/design_1_auto_pc_0/design_1_auto_pc_0_in_context.xdc] for cell 'design_1_i/ps8_0_axi_periph/s00_couplers/auto_pc'
+Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_rst_ps8_0_99M_0/design_1_rst_ps8_0_99M_0/design_1_rst_ps8_0_99M_0_in_context.xdc] for cell 'design_1_i/rst_ps8_0_99M'
+Finished Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_rst_ps8_0_99M_0/design_1_rst_ps8_0_99M_0/design_1_rst_ps8_0_99M_0_in_context.xdc] for cell 'design_1_i/rst_ps8_0_99M'
+Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_axi_smc_0/design_1_axi_smc_0/design_1_axi_smc_0_in_context.xdc] for cell 'design_1_i/axi_smc'
+Finished Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_axi_smc_0/design_1_axi_smc_0/design_1_axi_smc_0_in_context.xdc] for cell 'design_1_i/axi_smc'
+Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2660.352 ; gain = 0.000 ; free physical = 102685 ; free virtual = 119486
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2660.352 ; gain = 0.000 ; free physical = 102688 ; free virtual = 119489
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:17 ; elapsed = 00:00:39 . Memory (MB): peak = 2660.352 ; gain = 159.465 ; free physical = 102726 ; free virtual = 119527
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu3eg-sbva484-1-i
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:17 ; elapsed = 00:00:39 . Memory (MB): peak = 2660.352 ; gain = 159.465 ; free physical = 102726 ; free virtual = 119527
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property DONT_TOUCH = true for design_1_i. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for design_1_i/test_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for design_1_i/zynq_ultra_ps_e_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for design_1_i/ps8_0_axi_periph/s00_couplers/auto_pc. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for design_1_i/ps8_0_axi_periph. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for design_1_i/rst_ps8_0_99M. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for design_1_i/axi_smc. (constraint file  auto generated constraint, line ).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:17 ; elapsed = 00:00:39 . Memory (MB): peak = 2660.352 ; gain = 159.465 ; free physical = 102726 ; free virtual = 119527
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:18 ; elapsed = 00:00:39 . Memory (MB): peak = 2660.352 ; gain = 159.465 ; free physical = 102725 ; free virtual = 119526
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 360 (col length:72)
+BRAMs: 432 (col length: RAMB18 72 RAMB36 36)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+WARNING: [Synth 8-3331] design design_1_ps8_0_axi_periph_0 has unconnected port ACLK
+WARNING: [Synth 8-3331] design design_1_ps8_0_axi_periph_0 has unconnected port ARESETN
+WARNING: [Synth 8-3331] design design_1_ps8_0_axi_periph_0 has unconnected port M00_ACLK
+WARNING: [Synth 8-3331] design design_1_ps8_0_axi_periph_0 has unconnected port M00_ARESETN
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:40 . Memory (MB): peak = 2660.352 ; gain = 159.465 ; free physical = 102714 ; free virtual = 119518
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:47 ; elapsed = 00:02:36 . Memory (MB): peak = 3176.785 ; gain = 675.898 ; free physical = 102067 ; free virtual = 118872
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:47 ; elapsed = 00:02:36 . Memory (MB): peak = 3176.785 ; gain = 675.898 ; free physical = 102068 ; free virtual = 118872
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:47 ; elapsed = 00:02:36 . Memory (MB): peak = 3186.801 ; gain = 685.914 ; free physical = 102066 ; free virtual = 118871
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:50 ; elapsed = 00:02:40 . Memory (MB): peak = 3200.680 ; gain = 699.793 ; free physical = 102068 ; free virtual = 118873
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:50 ; elapsed = 00:02:40 . Memory (MB): peak = 3200.680 ; gain = 699.793 ; free physical = 102068 ; free virtual = 118873
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:50 ; elapsed = 00:02:40 . Memory (MB): peak = 3200.680 ; gain = 699.793 ; free physical = 102068 ; free virtual = 118873
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:50 ; elapsed = 00:02:40 . Memory (MB): peak = 3200.680 ; gain = 699.793 ; free physical = 102068 ; free virtual = 118873
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:50 ; elapsed = 00:02:40 . Memory (MB): peak = 3200.680 ; gain = 699.793 ; free physical = 102068 ; free virtual = 118873
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:50 ; elapsed = 00:02:40 . Memory (MB): peak = 3200.680 ; gain = 699.793 ; free physical = 102068 ; free virtual = 118873
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+-----------------------------+----------+
+|      |BlackBox name                |Instances |
++------+-----------------------------+----------+
+|1     |design_1_auto_pc_0           |         1|
+|2     |design_1_axi_smc_0           |         1|
+|3     |design_1_rst_ps8_0_99M_0     |         1|
+|4     |design_1_test_0_0            |         1|
+|5     |design_1_zynq_ultra_ps_e_0_0 |         1|
++------+-----------------------------+----------+
+
+Report Cell Usage: 
++------+-----------------------------+------+
+|      |Cell                         |Count |
++------+-----------------------------+------+
+|1     |design_1_auto_pc_0           |     1|
+|2     |design_1_axi_smc_0           |     1|
+|3     |design_1_rst_ps8_0_99M_0     |     1|
+|4     |design_1_test_0_0            |     1|
+|5     |design_1_zynq_ultra_ps_e_0_0 |     1|
++------+-----------------------------+------+
+
+Report Instance Areas: 
++------+---------------------+----------------------------+------+
+|      |Instance             |Module                      |Cells |
++------+---------------------+----------------------------+------+
+|1     |top                  |                            |   938|
+|2     |  design_1_i         |design_1                    |   938|
+|3     |    ps8_0_axi_periph |design_1_ps8_0_axi_periph_0 |   201|
+|4     |      s00_couplers   |s00_couplers_imp_1A7ZMW4    |   201|
++------+---------------------+----------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:50 ; elapsed = 00:02:40 . Memory (MB): peak = 3200.680 ; gain = 699.793 ; free physical = 102068 ; free virtual = 118873
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 4 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:42 ; elapsed = 00:02:20 . Memory (MB): peak = 3200.680 ; gain = 598.102 ; free physical = 102107 ; free virtual = 118912
+Synthesis Optimization Complete : Time (s): cpu = 00:00:50 ; elapsed = 00:02:40 . Memory (MB): peak = 3200.684 ; gain = 699.793 ; free physical = 102107 ; free virtual = 118912
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3200.684 ; gain = 0.000 ; free physical = 102179 ; free virtual = 118984
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3226.430 ; gain = 0.000 ; free physical = 102123 ; free virtual = 118928
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+31 Infos, 12 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:05 ; elapsed = 00:03:35 . Memory (MB): peak = 3240.367 ; gain = 1587.363 ; free physical = 102247 ; free virtual = 119050
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3240.367 ; gain = 0.000 ; free physical = 102251 ; free virtual = 119053
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/design_1_wrapper.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file design_1_wrapper_utilization_synth.rpt -pb design_1_wrapper_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Dec  9 16:17:16 2022...

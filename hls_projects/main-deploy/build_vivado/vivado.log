@@ -1,0 +1,156 @@
+#-----------------------------------------------------------
+# Vivado v2019.2.1 (64-bit)
+# SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
+# IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+# Start of session at: Fri Dec  9 15:47:22 2022
+# Process ID: 29465
+# Current directory: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado
+# Command line: vivado
+# Log file: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/vivado.log
+# Journal file: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project project_dataflow /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow -part xczu3eg-sbva484-1-i
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/data/ip'.
+create_project: Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 6858.406 ; gain = 78.039 ; free physical = 104614 ; free virtual = 121127
+set_property  ip_repo_paths  /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/impl/ip [current_project]
+update_ip_catalog
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/impl/ip'.
+create_bd_design "design_1"
+Wrote  : </work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/design_1.bd> 
+update_compile_order -fileset sources_1
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:hls:test:1.0 test_0
+endgroup
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 zynq_ultra_ps_e_0
+CRITICAL WARNING: [PSU-1]  Actual device frequency is : 479.995209. Minimum actual device frequency supported for DDR for current part is 500.000000. 
+endgroup
+set_property location {1 332 310} [get_bd_cells zynq_ultra_ps_e_0]
+set_property location {1 148 453} [get_bd_cells test_0]
+set_property location {1 126 122} [get_bd_cells zynq_ultra_ps_e_0]
+set_property location {1 168 344} [get_bd_cells test_0]
+CRITICAL WARNING: [PSU-1]  Actual device frequency is : 479.995209. Minimum actual device frequency supported for DDR for current part is 500.000000. 
+WARNING: [IP_Flow 19-474] Invalid Parameter 'Component_Name'
+CRITICAL WARNING: [PSU-1]  Actual device frequency is : 479.995209. Minimum actual device frequency supported for DDR for current part is 500.000000. 
+CRITICAL WARNING: [PSU-1]  Actual device frequency is : 479.995209. Minimum actual device frequency supported for DDR for current part is 500.000000. 
+set_property -dict [list CONFIG.PSU__USE__S_AXI_GP0 {1} CONFIG.PSU__SAXIGP0__DATA_WIDTH {32}] [get_bd_cells zynq_ultra_ps_e_0]
+CRITICAL WARNING: [PSU-1]  Actual device frequency is : 479.995209. Minimum actual device frequency supported for DDR for current part is 500.000000. 
+startgroup
+apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {Auto} Clk_slave {Auto} Clk_xbar {Auto} Master {/zynq_ultra_ps_e_0/M_AXI_HPM0_LPD} Slave {/test_0/s_axi_control} ddr_seg {Auto} intc_ip {New AXI Interconnect} master_apm {0}}  [get_bd_intf_pins test_0/s_axi_control]
+Slave segment </test_0/s_axi_control/Reg> is being mapped into address space </zynq_ultra_ps_e_0/Data> at <0x8000_0000 [ 64K ]>
+apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {Auto} Clk_slave {Auto} Clk_xbar {Auto} Master {/test_0/m_axi_gmem} Slave {/zynq_ultra_ps_e_0/S_AXI_HPC0_FPD} ddr_seg {Auto} intc_ip {New AXI SmartConnect} master_apm {0}}  [get_bd_intf_pins zynq_ultra_ps_e_0/S_AXI_HPC0_FPD]
+Slave segment </zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW> is being mapped into address space </test_0/Data_m_axi_gmem> at <0x0000_0000 [ 2G ]>
+Slave segment </zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM> is being mapped into address space </test_0/Data_m_axi_gmem> at <0xFF00_0000 [ 16M ]>
+INFO: [BD 41-1051] The usage register of slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM does not match the usage memory of address space /test_0/Data_m_axi_gmem and will be excluded. Use the include_bd_addr_seg command to override this precaution and make the slave segment visible within this address space.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /test_0/Data_m_axi_gmem.
+endgroup
+validate_bd_design
+CRITICAL WARNING: [PSU-1]  Actual device frequency is : 479.995209. Minimum actual device frequency supported for DDR for current part is 500.000000. 
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /ps8_0_axi_periph/s00_couplers/auto_pc/S_AXI(0) and /zynq_ultra_ps_e_0/M_AXI_HPM0_LPD(16)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /ps8_0_axi_periph/s00_couplers/auto_pc/S_AXI(0) and /zynq_ultra_ps_e_0/M_AXI_HPM0_LPD(16)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /zynq_ultra_ps_e_0/S_AXI_HPC0_FPD(1) and /axi_smc/M00_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /zynq_ultra_ps_e_0/S_AXI_HPC0_FPD(1) and /axi_smc/M00_AXI(0)
+WARNING: [BD 41-927] Following properties on pin /test_0/ap_clk have been updated from connected ip. They may not be synchronized with cell properties. You can set property on pin directly to confirm the value and resolve the warning.
+	FREQ_HZ=99999001 
+validate_bd_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 7259.742 ; gain = 0.000 ; free physical = 104438 ; free virtual = 120952
+save_bd_design
+Wrote  : </work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/design_1.bd> 
+Wrote  : </work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+make_wrapper -files [get_files /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/design_1.bd] -top
+INFO: [BD 41-1662] The design 'design_1.bd' is already validated. Therefore parameter propagation will not be re-run.
+WARNING: [BD 41-235] Width mismatch when connecting pin: '/axi_smc/S00_AXI_arlock'(1) to net 'test_0_m_axi_gmem_ARLOCK'(2) - Only lower order bits will be connected.
+WARNING: [BD 41-235] Width mismatch when connecting pin: '/axi_smc/S00_AXI_awlock'(1) to net 'test_0_m_axi_gmem_AWLOCK'(2) - Only lower order bits will be connected.
+VHDL Output written to : /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v
+WARNING: [BD 41-235] Width mismatch when connecting pin: '/axi_smc/S00_AXI_arlock'(1) to net 'test_0_m_axi_gmem_ARLOCK'(2) - Only lower order bits will be connected.
+WARNING: [BD 41-235] Width mismatch when connecting pin: '/axi_smc/S00_AXI_awlock'(1) to net 'test_0_m_axi_gmem_AWLOCK'(2) - Only lower order bits will be connected.
+VHDL Output written to : /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/sim/design_1.v
+VHDL Output written to : /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v
+add_files -norecurse /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v
+launch_runs impl_1 -to_step write_bitstream -jobs 20
+INFO: [BD 41-1662] The design 'design_1.bd' is already validated. Therefore parameter propagation will not be re-run.
+Wrote  : </work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/design_1.bd> 
+WARNING: [BD 41-235] Width mismatch when connecting pin: '/axi_smc/S00_AXI_arlock'(1) to net 'test_0_m_axi_gmem_ARLOCK'(2) - Only lower order bits will be connected.
+WARNING: [BD 41-235] Width mismatch when connecting pin: '/axi_smc/S00_AXI_awlock'(1) to net 'test_0_m_axi_gmem_AWLOCK'(2) - Only lower order bits will be connected.
+VHDL Output written to : /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.v
+WARNING: [BD 41-235] Width mismatch when connecting pin: '/axi_smc/S00_AXI_arlock'(1) to net 'test_0_m_axi_gmem_ARLOCK'(2) - Only lower order bits will be connected.
+WARNING: [BD 41-235] Width mismatch when connecting pin: '/axi_smc/S00_AXI_awlock'(1) to net 'test_0_m_axi_gmem_AWLOCK'(2) - Only lower order bits will be connected.
+VHDL Output written to : /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/sim/design_1.v
+VHDL Output written to : /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v
+WARNING: [IP_Flow 19-519] IP 'design_1_test_0_0' detected a language mismatch between 'VHDL Simulation Wrapper' and 'Verilog Simulation' output products. Please check with the IP provider to see if this is expected.
+INFO: [BD 41-1029] Generation completed for the IP Integrator block test_0 .
+INFO: [xilinx.com:ip:zynq_ultra_ps_e:3.3-0] design_1_zynq_ultra_ps_e_0_0: 
+Changes in your design (including the PCW configuration settings) are not automatically exported from Vivado to Xilinx's SDK, Petalinux or Yocto.
+This is by design to avoid disrupting existing embedded development efforts. To have any changes of your design taking effect in the embedded software flow please export your
+design by going through Vivado's main menu, click on File, then Export finally select Export Hardware, please ensure you click on the Include BitStream option.
+The auto-generated HDF file is all you need to import in Xilinx's SDK, Petalinux or Yocto for your changes to be reflected in the Embedded Software Flow.
+For more information, please consult PG201, section: Exporting PCW Settings to Embedded Software Flows
+INFO: [PSU-0] Address Range of DDR (0x3ff00000 to 0x3fffffff) is reserved by PMU for internal purpose.
+WARNING: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M_AXI_HPM0_LPD'. A default connection has been created.
+WARNING: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S_AXI_HPC0_FPD'. A default connection has been created.
+INFO: [BD 41-1029] Generation completed for the IP Integrator block zynq_ultra_ps_e_0 .
+WARNING: [IP_Flow 19-4994] Overwriting existing constraint file '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_auto_pc_0/design_1_auto_pc_0_ooc.xdc'
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ps8_0_axi_periph/s00_couplers/auto_pc .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rst_ps8_0_99M .
+WARNING: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S00_AXI'. A default connection has been created.
+WARNING: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M00_AXI'. A default connection has been created.
+Exporting to file /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_axi_smc_0/bd_0/hw_handoff/design_1_axi_smc_0.hwh
+Generated Block Design Tcl file /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_axi_smc_0/bd_0/hw_handoff/design_1_axi_smc_0_bd.tcl
+Generated Hardware Definition File /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/ip/design_1_axi_smc_0/bd_0/synth/design_1_axi_smc_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_smc .
+Exporting to file /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/hw_handoff/design_1.hwh
+Generated Block Design Tcl file /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/hw_handoff/design_1_bd.tcl
+Generated Hardware Definition File /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/synth/design_1.hwdef
+INFO: [IP_Flow 19-5642] Done with IP cache export for multiple IPs
+[Fri Dec  9 15:58:55 2022] Launched design_1_rst_ps8_0_99M_0_synth_1, design_1_auto_pc_0_synth_1, design_1_axi_smc_0_synth_1, design_1_test_0_0_synth_1, design_1_zynq_ultra_ps_e_0_0_synth_1, synth_1...
+Run output will be captured here:
+design_1_rst_ps8_0_99M_0_synth_1: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/design_1_rst_ps8_0_99M_0_synth_1/runme.log
+design_1_auto_pc_0_synth_1: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/design_1_auto_pc_0_synth_1/runme.log
+design_1_axi_smc_0_synth_1: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/design_1_axi_smc_0_synth_1/runme.log
+design_1_test_0_0_synth_1: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/design_1_test_0_0_synth_1/runme.log
+design_1_zynq_ultra_ps_e_0_0_synth_1: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/design_1_zynq_ultra_ps_e_0_0_synth_1/runme.log
+synth_1: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/synth_1/runme.log
+[Fri Dec  9 15:58:56 2022] Launched impl_1...
+Run output will be captured here: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:00:48 ; elapsed = 00:01:01 . Memory (MB): peak = 7642.594 ; gain = 132.043 ; free physical = 104263 ; free virtual = 120821
+open_run impl_1
+INFO: [Device 21-403] Loading part xczu3eg-sbva484-1-i
+Netlist sorting complete. Time (s): cpu = 00:00:00.55 ; elapsed = 00:00:00.55 . Memory (MB): peak = 8219.070 ; gain = 0.000 ; free physical = 103242 ; free virtual = 120140
+INFO: [Netlist 29-17] Analyzing 14460 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 7 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2019.2.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 9068.562 ; gain = 143.348 ; free physical = 102325 ; free virtual = 119237
+Restored from archive | CPU: 7.890000 secs | Memory: 100.789864 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 9068.562 ; gain = 143.348 ; free physical = 102324 ; free virtual = 119236
+Netlist sorting complete. Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.03 . Memory (MB): peak = 9068.562 ; gain = 0.000 ; free physical = 102345 ; free virtual = 119258
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 12475 instances were transformed.
+  DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 352 instances
+  DSP48E2 => DSP48E2 (inverted pins: RSTA) (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 8 instances
+  RAM128X1D => RAM128X1D (MUXF7(x2), RAMD64E(x4)): 5 instances
+  RAM128X1S => RAM128X1S (MUXF7, RAMS64E(x2)): 235 instances
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 177 instances
+  RAM16X1S => RAM32X1S (RAMS32): 9790 instances
+  RAM32M16 => RAM32M16 (RAMD32(x14), RAMS32(x2)): 18 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 55 instances
+  RAM32X1S => RAM32X1S (RAMS32): 1190 instances
+  RAM64M8 => RAM64M8 (RAMD64E(x8)): 15 instances
+  RAM64X1D => RAM64X1D (RAMD64E(x2)): 5 instances
+  RAM64X1S => RAM64X1S (RAMS64E): 625 instances
+
+open_run: Time (s): cpu = 00:01:20 ; elapsed = 00:02:27 . Memory (MB): peak = 9264.711 ; gain = 1622.117 ; free physical = 102096 ; free virtual = 119008
+open_report: Time (s): cpu = 00:00:42 ; elapsed = 00:00:11 . Memory (MB): peak = 9764.973 ; gain = 420.414 ; free physical = 101647 ; free virtual = 118560
+open_bd_design {/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/build_vivado/project_dataflow/project_dataflow.srcs/sources_1/bd/design_1/design_1.bd}
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri Dec  9 18:58:27 2022...
