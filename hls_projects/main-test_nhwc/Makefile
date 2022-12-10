@@ -16,7 +16,7 @@ CFLAGS = -g -I${VHLS_INC}
 
 all: csim
 
-csim:  host.cpp kernel.cpp 
+csim:  host.cpp kernel_opt.cpp 
 	@echo "Compiling & simulating on amdpool ..."
 	g++ ${CFLAGS} $^ -o out -lrt -std=gnu++14 -O3
 	@/usr/bin/time --format="Simulation time: %U seconds" ./out

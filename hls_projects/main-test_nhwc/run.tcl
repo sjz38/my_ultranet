@@ -4,7 +4,7 @@
 # @brief: A Tcl script for synthesizing the design.
 
 # Project name
-set hls_prj out_opt_reduced.prj
+set hls_prj out_opt_device.prj
 
 # Open/reset the project
 open_project ${hls_prj} -reset
@@ -18,7 +18,8 @@ add_files -tb host.cpp -cflags "-std=gnu++14"
 
 open_solution "solution1"
 # Use Zynq device
-set_part {xc7z020clg484-1}
+#set_part {xc7z020clg484-1}
+set_part {xczu3eg-sbva484-1-i}
 
 # Target clock period is 10ns
 create_clock -period 10
