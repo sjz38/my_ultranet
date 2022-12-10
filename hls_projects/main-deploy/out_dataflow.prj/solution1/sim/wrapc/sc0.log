@@ -1,0 +1,7 @@
+make[1]: Entering directory '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/wrapc'
+   Build using "/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/tps/lnx64/gcc-6.2.0/bin/g++"
+   Compiling kernel.cpp_pre.cpp.tb.cpp
+   Compiling host.cpp_pre.cpp.tb.cpp
+   Compiling apatb_test.cpp
+   Generating cosim.tv.exe
+make[1]: Leaving directory '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/wrapc'

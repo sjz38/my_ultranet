@@ -1,0 +1,1 @@
+set ::AESL_AUTOSIM::gTopFileName /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/./sim/autowrap/testbench/kernel.cpp_pre.cpp.tb.cpp

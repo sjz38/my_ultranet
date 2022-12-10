@@ -107,10 +107,12 @@ def save_layer_output(img_path, gt_path, res_dir):
         print(name)
         # Save layer input
         layer_input = x.detach().numpy()
+        layer_input = layer_input.transpose(0, 2, 3, 1)
         layer_input.tofile(os.path.join(res_dir, name + '_input.dat'))
         x = layer(x)
         # Save the output of layer
         layer_output = x.detach().numpy()
+        layer_output = layer_output.transpose(0, 2, 3, 1)
         layer_output.tofile(os.path.join(res_dir, name + '_golden.dat'))
     backbone_out = x
     inf_out, _ = model.yololayer(backbone_out, img_size)

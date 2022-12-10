@@ -1,0 +1,20 @@
+
+****** Vivado v2019.2.1 (64-bit)
+  **** SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
+  **** IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+    ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+
+source run_ippack.tcl -notrace
+create_project: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1612.531 ; gain = 9.023 ; free physical = 104984 ; free virtual = 121469
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/data/ip'.
+create_ip: Time (s): cpu = 00:00:04 ; elapsed = 00:00:17 . Memory (MB): peak = 1704.703 ; gain = 92.172 ; free physical = 104988 ; free virtual = 121490
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'test_ap_fpext_0_no_dsp_32'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'test_ap_fpext_0_no_dsp_32'...
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/data/ip'.
+ipx::update_checksums: Time (s): cpu = 00:00:00.91 ; elapsed = 00:00:06 . Memory (MB): peak = 1708.676 ; gain = 0.000 ; free physical = 104990 ; free virtual = 121493
+ipx::archive_core: Time (s): cpu = 00:00:00.83 ; elapsed = 00:00:05 . Memory (MB): peak = 1708.676 ; gain = 0.000 ; free physical = 104985 ; free virtual = 121490
+INFO: [Common 17-206] Exiting Vivado at Fri Dec  9 15:42:27 2022...

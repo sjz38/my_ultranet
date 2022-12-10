@@ -1,0 +1,30 @@
+#-----------------------------------------------------------
+# xsim v2019.2.1 (64-bit)
+# SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
+# IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+# Start of session at: Tue Dec  6 11:21:37 2022
+# Process ID: 23634
+# Current directory: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog
+# Command line: xsim -mode tcl -source {xsim.dir/test/xsim_script.tcl}
+# Log file: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.log
+# Journal file: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/test/xsim_script.tcl
+# xsim {test} -autoloadwcfg -tclbatch {test.tcl}
+Vivado Simulator 2019.2
+Time resolution is 1 ps
+source test.tcl
+## run all
+////////////////////////////////////////////////////////////////////////////////////
+// Inter-Transaction Progress: Completed Transaction / Total Transaction
+// Intra-Transaction Progress: Measured Latency / Latency Estimation * 100%
+//
+// RTL Simulation : "Inter-Transaction Progress" ["Intra-Transaction Progress"] @ "Simulation Time"
+////////////////////////////////////////////////////////////////////////////////////
+// RTL Simulation : 0 / 1 [0.00%] @ "125000"
+// RTL Simulation : 1 / 1 [100.00%] @ "81722665000"
+////////////////////////////////////////////////////////////////////////////////////
+$finish called at time : 81722705 ns : File "/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/test.autotb.v" Line 434
+run: Time (s): cpu = 00:00:00.71 ; elapsed = 00:56:37 . Memory (MB): peak = 1518.145 ; gain = 0.000 ; free physical = 115024 ; free virtual = 126316
+## quit
+INFO: [Common 17-206] Exiting xsim at Tue Dec  6 12:18:25 2022...
