@@ -1,0 +1,229 @@
+<profile>
+
+<section name = "Vivado HLS Report for 'test'" level="0">
+<item name = "Date">Mon Dec  5 18:30:22 2022
+</item>
+<item name = "Version">2019.2.1 (Build 2724168 on Thu Dec 05 05:19:09 MST 2019)</item>
+<item name = "Project">out_dataflow.prj</item>
+<item name = "Solution">solution1</item>
+<item name = "Product family">zynquplus</item>
+<item name = "Target device">xczu3eg-sbva484-1-i</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">10.00 ns, 8.750 ns, 1.25 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">2447789, 4348112, 24.478 ms, 43.481 ms, 1638802, 4144230, dataflow</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+<column name="conv3_U0">conv3, 117265, 3771349, 1.173 ms, 37.713 ms, 117265, 3771349, none</column>
+<column name="conv2_U0">conv2, 239441, 1063049, 2.394 ms, 10.630 ms, 239441, 1063049, none</column>
+<column name="conv4_U0">conv4, 61073, 4144229, 0.611 ms, 41.442 ms, 61073, 4144229, none</column>
+<column name="conv5_U0">conv5, 17473, 3346777, 0.175 ms, 33.468 ms, 17473, 3346777, none</column>
+<column name="conv6_U0">conv6, 17473, 3346777, 0.175 ms, 33.468 ms, 17473, 3346777, none</column>
+<column name="conv7_U0">conv7, 17473, 3346777, 0.175 ms, 33.468 ms, 17473, 3346777, none</column>
+<column name="conv8_U0">conv8, 17473, 3346777, 0.175 ms, 33.468 ms, 17473, 3346777, none</column>
+<column name="conv113_U0">conv113, 267301, 1727893, 2.673 ms, 17.279 ms, 267301, 1727893, none</column>
+<column name="relu_bn8_U0">relu_bn8, 12809, 12809, 0.128 ms, 0.128 ms, 12809, 12809, none</column>
+<column name="maxpool2_U0">maxpool2, 819401, 819401, 8.194 ms, 8.194 ms, 819401, 819401, none</column>
+<column name="maxpool1_U0">maxpool1, 1638801, 1638801, 16.388 ms, 16.388 ms, 1638801, 1638801, none</column>
+<column name="maxpool3_U0">maxpool3, 1595341, 1595341, 15.953 ms, 15.953 ms, 1595341, 1595341, none</column>
+<column name="maxpool4_U0">maxpool4, 398871, 398871, 3.989 ms, 3.989 ms, 398871, 398871, none</column>
+<column name="relu_bn3_U0">relu_bn3, 204802, 204802, 2.048 ms, 2.048 ms, 204802, 204802, none</column>
+<column name="relu_bn2_U0">relu_bn2, 409602, 409602, 4.096 ms, 4.096 ms, 409602, 409602, none</column>
+<column name="relu_bn1_U0">relu_bn1, 819202, 819202, 8.192 ms, 8.192 ms, 819202, 819202, none</column>
+<column name="relu_bn4_U0">relu_bn4, 51202, 51202, 0.512 ms, 0.512 ms, 51202, 51202, none</column>
+<column name="relu_bn5_U0">relu_bn5, 12802, 12802, 0.128 ms, 0.128 ms, 12802, 12802, none</column>
+<column name="relu_bn6_U0">relu_bn6, 12802, 12802, 0.128 ms, 0.128 ms, 12802, 12802, none</column>
+<column name="relu_bn7_U0">relu_bn7, 12802, 12802, 0.128 ms, 0.128 ms, 12802, 12802, none</column>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Utilization Estimates" level="0">
+<item name = "Summary"><table name="" hasTotal="1">
+<keys size="6">Name, BRAM_18K, DSP48E, FF, LUT, URAM</keys>
+<column name="DSP">-, -, -, -, -</column>
+<column name="Expression">-, -, 0, 4, -</column>
+<column name="FIFO">21, -, 630, 750, -</column>
+<column name="Instance">124, 257, 33161, 63276, 0</column>
+<column name="Memory">-, -, -, -, -</column>
+<column name="Multiplexer">-, -, -, -, -</column>
+<column name="Register">-, -, -, -, -</column>
+<specialColumn name="Available">432, 360, 141120, 70560, 0</specialColumn>
+<specialColumn name="Utilization (%)">33, 71, 23, 90, 0</specialColumn>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="1">
+<keys size="7">Instance, Module, BRAM_18K, DSP48E, FF, LUT, URAM</keys>
+<column name="conv113_U0">conv113, 11, 2, 2608, 5793, 0</column>
+<column name="conv2_U0">conv2, 0, 86, 3431, 5805, 0</column>
+<column name="conv3_U0">conv3, 0, 148, 5526, 12532, 0</column>
+<column name="conv4_U0">conv4, 18, 5, 4000, 6585, 0</column>
+<column name="conv5_U0">conv5, 18, 2, 3847, 6229, 0</column>
+<column name="conv6_U0">conv6, 18, 2, 3847, 6229, 0</column>
+<column name="conv7_U0">conv7, 18, 2, 3847, 6229, 0</column>
+<column name="conv8_U0">conv8, 18, 2, 3846, 6220, 0</column>
+<column name="maxpool1_U0">maxpool1, 4, 0, 249, 1064, 0</column>
+<column name="maxpool2_U0">maxpool2, 4, 0, 258, 1425, 0</column>
+<column name="maxpool3_U0">maxpool3, 4, 0, 141, 623, 0</column>
+<column name="maxpool4_U0">maxpool4, 3, 0, 135, 612, 0</column>
+<column name="relu_bn1_U0">relu_bn1, 0, 1, 80, 276, 0</column>
+<column name="relu_bn2_U0">relu_bn2, 0, 1, 77, 282, 0</column>
+<column name="relu_bn3_U0">relu_bn3, 1, 1, 56, 276, 0</column>
+<column name="relu_bn4_U0">relu_bn4, 1, 1, 52, 264, 0</column>
+<column name="relu_bn5_U0">relu_bn5, 1, 1, 51, 262, 0</column>
+<column name="relu_bn6_U0">relu_bn6, 1, 1, 51, 262, 0</column>
+<column name="relu_bn7_U0">relu_bn7, 1, 1, 51, 262, 0</column>
+<column name="relu_bn8_U0">relu_bn8, 1, 1, 384, 1298, 0</column>
+<column name="test_control_s_axi_U">test_control_s_axi, 0, 0, 112, 168, 0</column>
+<column name="test_gmem_m_axi_U">test_gmem_m_axi, 2, 0, 512, 580, 0</column>
+</table>
+</item>
+<item name = "DSP48E"><table name="" hasTotal="0">
+<keys size="3">Instance, Module, Expression</keys>
+</table>
+</item>
+<item name = "Memory"><table name="" hasTotal="1">
+<keys size="10">Memory, Module, BRAM_18K, FF, LUT, URAM, Words, Bits, Banks, W*Bits*Banks</keys>
+</table>
+</item>
+<item name = "FIFO"><table name="" hasTotal="1">
+<keys size="8">Name, BRAM_18K, FF, LUT, URAM, Depth, Bits, Size:D*B</keys>
+<column name="conv1_pipe_1_V_V_U">1, 37, 0, -, 128, 16, 2048</column>
+<column name="conv2_pipe_3_V_V_U">1, 37, 0, -, 128, 16, 2048</column>
+<column name="conv3_pipe_5_V_V_U">1, 37, 0, -, 128, 16, 2048</column>
+<column name="conv4_pipe_7_V_V_U">1, 37, 0, -, 128, 16, 2048</column>
+<column name="conv5_pipe_9_V_V_U">1, 37, 0, -, 128, 16, 2048</column>
+<column name="conv6_pipe_11_V_V_U">1, 37, 0, -, 128, 16, 2048</column>
+<column name="conv7_pipe_13_V_V_U">1, 37, 0, -, 128, 16, 2048</column>
+<column name="conv8_pipe_15_V_V_U">1, 37, 0, -, 128, 16, 2048</column>
+<column name="pool1_pipe_2_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="pool2_pipe_4_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="pool3_pipe_6_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="pool4_pipe_8_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="relu1_pipe_2_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="relu2_pipe_4_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="relu3_pipe_6_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="relu4_pipe_8_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="relu5_pipe_10_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="relu6_pipe_12_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="relu7_pipe_14_V_V_U">1, 26, 0, -, 128, 5, 640</column>
+<column name="result_c_U">2, 48, 0, -, 20, 32, 640</column>
+</table>
+</item>
+<item name = "Expression"><table name="" hasTotal="1">
+<keys size="7">Variable Name, Operation, DSP48E, FF, LUT, Bitwidth P0, Bitwidth P1</keys>
+<column name="ap_idle">and, 0, 0, 2, 1, 1</column>
+<column name="conv113_U0_start_full_n">and, 0, 0, 2, 1, 1</column>
+</table>
+</item>
+<item name = "Multiplexer"><table name="" hasTotal="1">
+<keys size="5">Name, LUT, Input Size, Bits, Total Bits</keys>
+</table>
+</item>
+<item name = "Register"><table name="" hasTotal="1">
+<keys size="5">Name, FF, LUT, Bits, Const Bits</keys>
+</table>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Interface" level="0">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">RTL Ports, Dir, Bits, Protocol, Source Object, C Type</keys>
+<column name="s_axi_control_AWVALID">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_AWREADY">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_AWADDR">in, 5, s_axi, control, scalar</column>
+<column name="s_axi_control_WVALID">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_WREADY">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_WDATA">in, 32, s_axi, control, scalar</column>
+<column name="s_axi_control_WSTRB">in, 4, s_axi, control, scalar</column>
+<column name="s_axi_control_ARVALID">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_ARREADY">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_ARADDR">in, 5, s_axi, control, scalar</column>
+<column name="s_axi_control_RVALID">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_RREADY">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_RDATA">out, 32, s_axi, control, scalar</column>
+<column name="s_axi_control_RRESP">out, 2, s_axi, control, scalar</column>
+<column name="s_axi_control_BVALID">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_BREADY">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_BRESP">out, 2, s_axi, control, scalar</column>
+<column name="ap_clk">in, 1, ap_ctrl_hs, test, return value</column>
+<column name="ap_rst_n">in, 1, ap_ctrl_hs, test, return value</column>
+<column name="interrupt">out, 1, ap_ctrl_hs, test, return value</column>
+<column name="m_axi_gmem_AWVALID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWREADY">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWADDR">out, 32, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWLEN">out, 8, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWSIZE">out, 3, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWBURST">out, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWLOCK">out, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWCACHE">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWPROT">out, 3, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWQOS">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWREGION">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWUSER">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WVALID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WREADY">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WDATA">out, 32, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WSTRB">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WLAST">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WUSER">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARVALID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARREADY">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARADDR">out, 32, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARLEN">out, 8, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARSIZE">out, 3, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARBURST">out, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARLOCK">out, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARCACHE">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARPROT">out, 3, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARQOS">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARREGION">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARUSER">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RVALID">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RREADY">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RDATA">in, 32, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RLAST">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RID">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RUSER">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RRESP">in, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BVALID">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BREADY">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BRESP">in, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BID">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BUSER">in, 1, m_axi, gmem, pointer</column>
+</table>
+</item>
+</section>
+</profile>

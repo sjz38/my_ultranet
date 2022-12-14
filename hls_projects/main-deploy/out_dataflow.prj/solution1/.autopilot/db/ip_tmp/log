@@ -1,0 +1,14 @@
+
+****** Vivado v2019.2.1 (64-bit)
+  **** SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
+  **** IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+    ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+
+source run_vivado_gen_ip.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/data/ip'.
+create_ip: Time (s): cpu = 00:00:05 ; elapsed = 00:00:19 . Memory (MB): peak = 1705.023 ; gain = 94.172 ; free physical = 87520 ; free virtual = 107587
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'test_ap_fpext_0_no_dsp_32'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'test_ap_fpext_0_no_dsp_32'...
+INFO: [Common 17-206] Exiting Vivado at Mon Dec 12 16:24:24 2022...

@@ -2,8 +2,8 @@
 # xsim v2019.2.1 (64-bit)
 # SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
 # IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
-# Start of session at: Tue Dec  6 11:21:37 2022
-# Process ID: 23634
+# Start of session at: Mon Dec 12 16:25:37 2022
+# Process ID: 40386
 # Current directory: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog
 # Command line: xsim -mode tcl -source {xsim.dir/test/xsim_script.tcl}
 # Log file: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.log

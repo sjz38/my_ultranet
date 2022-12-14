@@ -19,7 +19,7 @@ INFO: [COSIM-316] Starting C post checking ...
 Input file: /work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/boat1_000001.dat
 Initialize RTE...
 Done test
-boat1_000001_matrix.txt
+/work/shared/users/meng/sjz38/tmp/my_ultranet/cosim_matrix.txt
 Done writing output file
 INFO: [XSIM 43-3496] Using init file passed via -initfile option "/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/data/xsim/ip/xsim_ip.ini".
 Vivado Simulator 2019.2
@@ -3196,8 +3196,8 @@ Built simulation snapshot test
     ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 
 source /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.dir/test/webtalk/xsim_webtalk.tcl -notrace
-INFO: [Common 17-186] '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.dir/test/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Tue Dec  6 11:21:35 2022. For additional details about this file, please refer to the WebTalk help file at /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/doc/webtalk_introduction.html.
-INFO: [Common 17-206] Exiting Webtalk at Tue Dec  6 11:21:35 2022...
+INFO: [Common 17-186] '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.dir/test/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Mon Dec 12 16:25:35 2022. For additional details about this file, please refer to the WebTalk help file at /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/doc/webtalk_introduction.html.
+INFO: [Common 17-206] Exiting Webtalk at Mon Dec 12 16:25:35 2022...
 
 ****** xsim v2019.2.1 (64-bit)
   **** SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
@@ -3220,13 +3220,13 @@ source test.tcl
 // RTL Simulation : 1 / 1 [100.00%] @ "81722665000"
 ////////////////////////////////////////////////////////////////////////////////////
 $finish called at time : 81722705 ns : File "/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/test.autotb.v" Line 434
-run: Time (s): cpu = 00:00:00.71 ; elapsed = 00:56:37 . Memory (MB): peak = 1518.145 ; gain = 0.000 ; free physical = 115024 ; free virtual = 126316
+run: Time (s): cpu = 00:00:00.93 ; elapsed = 01:11:10 . Memory (MB): peak = 1518.145 ; gain = 0.000 ; free physical = 76676 ; free virtual = 97805
 ## quit
-INFO: [Common 17-206] Exiting xsim at Tue Dec  6 12:18:25 2022...
+INFO: [Common 17-206] Exiting xsim at Mon Dec 12 17:37:00 2022...
 Input file: /work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/boat1_000001.dat
 Initialize RTE...
 Done test
-boat1_000001_matrix.txt
+/work/shared/users/meng/sjz38/tmp/my_ultranet/cosim_matrix.txt
 Done writing output file
 INFO: [COSIM-1000] *** C/RTL co-simulation finished: PASS ***
 INFO: [COSIM-211] II is measurable only when transaction number is greater than 1 in RTL simulation. Otherwise, they will be marked as all NA. If user wants to calculate them, please make sure there are at least 2 transactions in RTL simulation.

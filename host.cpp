@@ -37,6 +37,7 @@ int main(int argc, char ** argv) {
   if(argc > 1){
     image_dat = argv[1];
   }
+  // Default image path
   else{
     image_dat = "/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/boat1_000001.dat";
   }

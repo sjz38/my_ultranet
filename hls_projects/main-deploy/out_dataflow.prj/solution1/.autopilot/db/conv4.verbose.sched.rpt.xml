@@ -1,0 +1,51 @@
+<profile>
+
+<section name = "Vivado HLS Report for 'conv4'" level="0">
+<item name = "Date">Mon Dec  5 18:15:08 2022
+</item>
+<item name = "Version">2019.2.1 (Build 2724168 on Thu Dec 05 05:19:09 MST 2019)</item>
+<item name = "Project">out_dataflow.prj</item>
+<item name = "Solution">solution1</item>
+<item name = "Product family">zynquplus</item>
+<item name = "Target device">xczu3eg-sbva484-1-i</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">10.00 ns, 7.398 ns, 1.25 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">61073, 4144229, 0.611 ms, 41.442 ms, 61073, 4144229, none</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+<column name="- conv4_yy_reuse3">61072, 4144228, 2776 ~ 188374, -, -, 22, no</column>
+<column name=" + conv4_pad_1">2688, 2688, 65, 64, 1, 42, yes</column>
+<column name=" + conv4_xx_reuse3">84, 185682, 2 ~ 4421, -, -, 42, no</column>
+<column name="  ++ conv4_line_buffer_0">64, 64, 2, 1, 1, 64, yes</column>
+<column name="  ++ conv4_ff3">128, 4352, 2 ~ 68, -, -, 64, no</column>
+<column name="   +++ conv4_rc3">65, 65, 3, 1, 1, 64, yes</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+</profile>

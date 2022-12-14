@@ -9,7 +9,9 @@ import numpy as np
 from ultranet_model import ultranet
 from main_single_input import load_np_params, load_image
 
-input_dtype = hcl.UFixed(8, 1) # Should be UFixed(8,7) but bug in HCL version (Actual input is 1 bit integer bit)
+# Type bug in HCL version give incorrect type on C++ side for input and output
+# (Actual input is 1 bit integer bit)
+input_dtype = hcl.UFixed(8, 7) 
 weight_dtype = hcl.Fixed(5, 3) 
 act_dtype = hcl.UFixed(5, 4)
 bn_a_dtype = hcl.Fixed(14, 10)
@@ -17,10 +19,9 @@ bn_b_dtype = hcl.Fixed(26, 18)
 conv_dtype = hcl.Fixed(16, 8)
 
 batch_size = 1
-# image_path = "./example_images/example_1.jpg"
-image_path = "./test_images/boat1_000001.jpg"
+image_path = "./subset_images_nhwc/boat1_000001.jpg"
 
-project_name = "nhwc_stream"
+project_name = "nhwc"
 
 # customizations
 stream = True

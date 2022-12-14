@@ -16,6 +16,7 @@ from yolo_utils import *
 
 
 working_dir = os.getcwd()
+# Set project directory as folder where C++ model is
 project_dir = "/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/"
 
 input_image_dat_list = [

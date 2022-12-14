@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Tue Dec  6 12:18:23 2022'>
+<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Mon Dec 12 17:36:58 2022'>
 <section name="__ROOT__" level="0" order="1" description="">
  <section name="software_version_and_target_device" level="1" order="1" description="">
   <keyValuePair key="beta" value="FALSE" description="" />
   <keyValuePair key="build_version" value="2729669" description="" />
-  <keyValuePair key="date_generated" value="Tue Dec  6 12:18:21 2022" description="" />
+  <keyValuePair key="date_generated" value="Mon Dec 12 17:36:56 2022" description="" />
   <keyValuePair key="os_platform" value="LIN64" description="" />
   <keyValuePair key="product_version" value="XSIM v2019.2.1 (64-bit)" description="" />
-  <keyValuePair key="project_id" value="ea4163a1-4f04-4954-aa87-97123f1537f7" description="" />
+  <keyValuePair key="project_id" value="d404f3c1-6b26-468c-9fbc-caef9a23be7b" description="" />
   <keyValuePair key="project_iteration" value="2" description="" />
   <keyValuePair key="random_id" value="26ffe131-726a-4335-bc8b-79a7421d2c1e" description="" />
   <keyValuePair key="registration_id" value="26ffe131-726a-4335-bc8b-79a7421d2c1e" description="" />
@@ -20,7 +20,7 @@
  </section>
  <section name="user_environment" level="1" order="2" description="">
   <keyValuePair key="cpu_name" value="Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz" description="" />
-  <keyValuePair key="cpu_speed" value="1200.036 MHz" description="" />
+  <keyValuePair key="cpu_speed" value="2313.732 MHz" description="" />
   <keyValuePair key="os_name" value="CentOS" description="" />
   <keyValuePair key="os_release" value="CentOS Linux release 7.9.2009 (Core)" description="" />
   <keyValuePair key="system_ram" value="134.000 GB" description="" />
@@ -37,7 +37,7 @@
    <keyValuePair key="iteration" value="0" description="" />
    <keyValuePair key="runtime" value="81722705 ns" description="" />
    <keyValuePair key="simulation_memory" value="163460_KB" description="" />
-   <keyValuePair key="simulation_time" value="3396.74_sec" description="" />
+   <keyValuePair key="simulation_time" value="4268.89_sec" description="" />
   </section>
  </section>
 </section>

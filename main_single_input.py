@@ -18,7 +18,7 @@ from ultranet_model import ultranet
 # Define Data Types
 ###############################################################################
 hcl.init(hcl.Float(32))
-input_dtype = hcl.UFixed(8, 7) # Should be UFixed(8,7) but bug in HCL version
+input_dtype = hcl.UFixed(8, 7)
 weight_dtype = hcl.Fixed(5, 3)
 act_dtype = hcl.UFixed(5, 4)
 bn_a_dtype = hcl.Fixed(14, 10) # These types seem to work well 
@@ -29,9 +29,8 @@ conv_dtype = hcl.Fixed(16, 8)
 # Define parameters and images
 ###############################################################################
 
-# image_path = './test_images/boat1_000001.jpg'
 image_path = './subset_images_nhwc/boat1_000001.jpg'
-# image_path = './subset_images/car1_0001.jpg'
+
 raw_height = 360
 raw_width = 640
 width = 320

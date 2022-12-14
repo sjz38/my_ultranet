@@ -10,6 +10,9 @@
             <Rtl name="vhdl" active="false"/>
         </SimFlow>
     </Simulation>
+    <ExportDesign askAgain="true" evaluate="false" rtl="verilog" formatName="ip_catalog">
+        <Format formatName="ip_catalog" description="" vendor="" library="" ipname="" version="" driver_input_dir="" display_name="" taxonomy=""/>
+    </ExportDesign>
     <name>
         <value string="solution1"/>
     </name>
@@ -24,10 +27,7 @@
         <library value="xilinx/zynquplus/zynquplus_fpv7" name="DefaultPlatform"/>
     </libraryList>
     <clockList>
-        <clock default="false" name="default" period="10"/>
+        <clock name="default" default="false" period="10"/>
     </clockList>
-    <ExportDesign askAgain="true" evaluate="false" rtl="verilog" formatName="ip_catalog">
-        <Format formatName="ip_catalog" description="" vendor="" library="" ipname="" version="" driver_input_dir="" display_name="" taxonomy=""/>
-    </ExportDesign>
 </AutoPilot:solution>
 

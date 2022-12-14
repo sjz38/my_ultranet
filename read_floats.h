@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <fstream>
+
 void read_floats(float* myArray, const char* filename, int oneDArraySize){
   float num;
   std::ifstream input_file (filename);

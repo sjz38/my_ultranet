@@ -2,13 +2,13 @@
 # Webtalk v2019.2.1 (64-bit)
 # SW Build 2729669 on Thu Dec  5 04:48:12 MST 2019
 # IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
-# Start of session at: Tue Dec  6 12:18:23 2022
-# Process ID: 38388
+# Start of session at: Mon Dec 12 17:36:57 2022
+# Process ID: 15954
 # Current directory: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog
 # Command line: wbtcv -mode batch -source /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.dir/test/webtalk/xsim_webtalk.tcl -notrace
 # Log file: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/webtalk.log
 # Journal file: /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/webtalk.jou
 #-----------------------------------------------------------
 source /work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.dir/test/webtalk/xsim_webtalk.tcl -notrace
-INFO: [Common 17-186] '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.dir/test/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Tue Dec  6 12:18:25 2022. For additional details about this file, please refer to the WebTalk help file at /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/doc/webtalk_introduction.html.
-INFO: [Common 17-206] Exiting Webtalk at Tue Dec  6 12:18:25 2022...
+INFO: [Common 17-186] '/work/shared/users/meng/sjz38/tmp/my_ultranet/hls_projects/main-deploy/out_dataflow.prj/solution1/sim/verilog/xsim.dir/test/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Mon Dec 12 17:37:00 2022. For additional details about this file, please refer to the WebTalk help file at /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/doc/webtalk_introduction.html.
+INFO: [Common 17-206] Exiting Webtalk at Mon Dec 12 17:37:00 2022...

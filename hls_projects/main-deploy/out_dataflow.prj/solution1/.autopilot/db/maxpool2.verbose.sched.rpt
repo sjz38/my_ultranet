@@ -1,0 +1,765 @@
+
+
+================================================================
+== Vivado HLS Report for 'maxpool2'
+================================================================
+* Date:           Mon Dec  5 18:14:00 2022
+
+* Version:        2019.2.1 (Build 2724168 on Thu Dec 05 05:19:09 MST 2019)
+* Project:        out_dataflow.prj
+* Solution:       solution1
+* Product family: zynquplus
+* Target device:  xczu3eg-sbva484-1-i
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  | 10.00 ns | 4.129 ns |   1.25 ns  |
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+--------+--------+---------+
+    |  Latency (cycles) |  Latency (absolute) |     Interval    | Pipeline|
+    |   min   |   max   |    min   |    max   |   min  |   max  |   Type  |
+    +---------+---------+----------+----------+--------+--------+---------+
+    |   819401|   819401| 8.194 ms | 8.194 ms |  819401|  819401|   none  |
+    +---------+---------+----------+----------+--------+--------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                                  |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |             Loop Name            |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- pool2_h1                        |   819400|   819400|     20485|          -|          -|    40|    no    |
+        | + pool2_line_row_pool2_line_col  |    10240|    10240|        33|         32|          1|   320|    yes   |
+        | + pool2_block_pool2_c            |    10240|    10240|         5|          4|          1|  2560|    yes   |
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 2
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 32, depth = 33
+  * Pipeline-1: initiation interval (II) = 4, depth = 5
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 42
+* Pipeline : 2
+  Pipeline-0 : II = 32, D = 33, States = { 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 }
+  Pipeline-1 : II = 4, D = 5, States = { 37 38 39 40 41 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 36 4 
+4 --> 5 
+5 --> 6 
+6 --> 7 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 11 
+11 --> 12 
+12 --> 13 
+13 --> 14 
+14 --> 15 
+15 --> 16 
+16 --> 17 
+17 --> 18 
+18 --> 19 
+19 --> 20 
+20 --> 21 
+21 --> 22 
+22 --> 23 
+23 --> 24 
+24 --> 25 
+25 --> 26 
+26 --> 27 
+27 --> 28 
+28 --> 29 
+29 --> 30 
+30 --> 31 
+31 --> 32 
+32 --> 33 
+33 --> 34 
+34 --> 35 
+35 --> 3 
+36 --> 37 
+37 --> 42 38 
+38 --> 39 
+39 --> 40 
+40 --> 41 
+41 --> 37 
+42 --> 2 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.75>
+ST_1 : Operation 43 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i5* %pool2_pipe_4_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str339, i32 0, i32 0, [1 x i8]* @p_str340, [1 x i8]* @p_str341, [1 x i8]* @p_str342, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str343, [1 x i8]* @p_str344)"   --->   Operation 43 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 44 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i5* %relu2_pipe_4_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str332, i32 0, i32 0, [1 x i8]* @p_str333, [1 x i8]* @p_str334, [1 x i8]* @p_str335, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str336, [1 x i8]* @p_str337)"   --->   Operation 44 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 45 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V = alloca [10240 x i5], align 1" [kernel.cpp:315]   --->   Operation 45 'alloca' 'pool2_line_buffer_V' <Predicate = true> <Delay = 0.00> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_1 : Operation 46 [1/1] (0.00ns)   --->   "%tmp = call i32 (...)* @_ssdm_op_SpecRegionBegin([9 x i8]* @p_str78)" [kernel.cpp:319]   --->   Operation 46 'specregionbegin' 'tmp' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 47 [1/1] (0.75ns)   --->   "br label %0" [kernel.cpp:320]   --->   Operation 47 'br' <Predicate = true> <Delay = 0.75>
+
+State 2 <SV = 1> <Delay = 1.20>
+ST_2 : Operation 48 [1/1] (0.00ns)   --->   "%h1_0_0 = phi i6 [ 0, %pool2_i3_begin ], [ %add_ln320, %pool2_h1_end ]" [kernel.cpp:320]   --->   Operation 48 'phi' 'h1_0_0' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 49 [1/1] (0.87ns)   --->   "%icmp_ln320 = icmp eq i6 %h1_0_0, -24" [kernel.cpp:320]   --->   Operation 49 'icmp' 'icmp_ln320' <Predicate = true> <Delay = 0.87> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.87> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 50 [1/1] (0.00ns)   --->   "%empty_113 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 40, i64 40, i64 40)"   --->   Operation 50 'speclooptripcount' 'empty_113' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 51 [1/1] (0.88ns)   --->   "%add_ln320 = add i6 %h1_0_0, 1" [kernel.cpp:320]   --->   Operation 51 'add' 'add_ln320' <Predicate = true> <Delay = 0.88> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 52 [1/1] (0.00ns)   --->   "br i1 %icmp_ln320, label %pool2_i3_end, label %pool2_h1_begin" [kernel.cpp:320]   --->   Operation 52 'br' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 53 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([9 x i8]* @p_str79) nounwind" [kernel.cpp:320]   --->   Operation 53 'specloopname' <Predicate = (!icmp_ln320)> <Delay = 0.00>
+ST_2 : Operation 54 [1/1] (0.00ns)   --->   "%tmp_s = call i32 (...)* @_ssdm_op_SpecRegionBegin([9 x i8]* @p_str79)" [kernel.cpp:320]   --->   Operation 54 'specregionbegin' 'tmp_s' <Predicate = (!icmp_ln320)> <Delay = 0.00>
+ST_2 : Operation 55 [1/1] (0.75ns)   --->   "br label %1" [kernel.cpp:322]   --->   Operation 55 'br' <Predicate = (!icmp_ln320)> <Delay = 0.75>
+ST_2 : Operation 56 [1/1] (0.00ns)   --->   "%empty = call i32 (...)* @_ssdm_op_SpecRegionEnd([9 x i8]* @p_str78, i32 %tmp)" [kernel.cpp:351]   --->   Operation 56 'specregionend' 'empty' <Predicate = (icmp_ln320)> <Delay = 0.00>
+ST_2 : Operation 57 [1/1] (0.00ns)   --->   "ret void" [kernel.cpp:352]   --->   Operation 57 'ret' <Predicate = (icmp_ln320)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 1.30>
+ST_3 : Operation 58 [1/1] (0.00ns)   --->   "%indvar_flatten = phi i9 [ 0, %pool2_h1_begin ], [ %add_ln322_1, %pool2_line_col ]" [kernel.cpp:322]   --->   Operation 58 'phi' 'indvar_flatten' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 59 [1/1] (0.00ns)   --->   "%line_row_0_0 = phi i2 [ 0, %pool2_h1_begin ], [ %select_ln326_1, %pool2_line_col ]" [kernel.cpp:326]   --->   Operation 59 'phi' 'line_row_0_0' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 60 [1/1] (0.00ns)   --->   "%line_col_0_0 = phi i8 [ 0, %pool2_h1_begin ], [ %add_ln323, %pool2_line_col ]" [kernel.cpp:323]   --->   Operation 60 'phi' 'line_col_0_0' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 61 [1/1] (0.85ns)   --->   "%icmp_ln322 = icmp eq i9 %indvar_flatten, -192" [kernel.cpp:322]   --->   Operation 61 'icmp' 'icmp_ln322' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.87> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 62 [1/1] (0.92ns)   --->   "%add_ln322_1 = add i9 %indvar_flatten, 1" [kernel.cpp:322]   --->   Operation 62 'add' 'add_ln322_1' <Predicate = true> <Delay = 0.92> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 63 [1/1] (0.00ns)   --->   "br i1 %icmp_ln322, label %.preheader.0.preheader.preheader, label %pool2_line_col" [kernel.cpp:322]   --->   Operation 63 'br' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 64 [1/1] (0.62ns)   --->   "%add_ln322 = add i2 %line_row_0_0, 1" [kernel.cpp:322]   --->   Operation 64 'add' 'add_ln322' <Predicate = (!icmp_ln322)> <Delay = 0.62> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 65 [1/1] (0.85ns)   --->   "%icmp_ln323 = icmp eq i8 %line_col_0_0, -96" [kernel.cpp:323]   --->   Operation 65 'icmp' 'icmp_ln323' <Predicate = (!icmp_ln322)> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.87> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 66 [1/1] (0.44ns)   --->   "%select_ln326 = select i1 %icmp_ln323, i8 0, i8 %line_col_0_0" [kernel.cpp:326]   --->   Operation 66 'select' 'select_ln326' <Predicate = (!icmp_ln322)> <Delay = 0.44> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.54> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 67 [1/1] (0.26ns)   --->   "%select_ln326_1 = select i1 %icmp_ln323, i2 %add_ln322, i2 %line_row_0_0" [kernel.cpp:326]   --->   Operation 67 'select' 'select_ln326_1' <Predicate = (!icmp_ln322)> <Delay = 0.26> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.54> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+
+State 4 <SV = 3> <Delay = 3.51>
+ST_4 : Operation 68 [1/1] (0.00ns)   --->   "%tmp_19 = call i9 @_ssdm_op_BitConcatenate.i9.i2.i7(i2 %select_ln326_1, i7 0)" [kernel.cpp:326]   --->   Operation 68 'bitconcatenate' 'tmp_19' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_4 : Operation 69 [1/1] (0.00ns)   --->   "%zext_ln356 = zext i9 %tmp_19 to i10" [kernel.cpp:326]   --->   Operation 69 'zext' 'zext_ln356' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_4 : Operation 70 [1/1] (0.00ns)   --->   "%tmp_20 = call i7 @_ssdm_op_BitConcatenate.i7.i2.i5(i2 %select_ln326_1, i5 0)" [kernel.cpp:326]   --->   Operation 70 'bitconcatenate' 'tmp_20' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_4 : Operation 71 [1/1] (0.00ns)   --->   "%zext_ln356_21 = zext i7 %tmp_20 to i10" [kernel.cpp:326]   --->   Operation 71 'zext' 'zext_ln356_21' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_4 : Operation 72 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%add_ln356 = add i10 %zext_ln356_21, %zext_ln356" [kernel.cpp:326]   --->   Operation 72 'add' 'add_ln356' <Predicate = (!icmp_ln322)> <Delay = 0.00> <Core = "TAddSub">   --->   Core 83 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.46> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_4 : Operation 73 [1/1] (0.00ns)   --->   "%zext_ln356_22 = zext i8 %select_ln326 to i10" [kernel.cpp:326]   --->   Operation 73 'zext' 'zext_ln356_22' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_4 : Operation 74 [1/1] (1.12ns) (root node of TernaryAdder)   --->   "%add_ln356_13 = add i10 %add_ln356, %zext_ln356_22" [kernel.cpp:326]   --->   Operation 74 'add' 'add_ln356_13' <Predicate = (!icmp_ln322)> <Delay = 1.12> <Core = "TAddSub">   --->   Core 83 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.46> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_4 : Operation 75 [1/1] (0.00ns)   --->   "%tmp_12 = call i15 @_ssdm_op_BitConcatenate.i15.i10.i5(i10 %add_ln356_13, i5 0)" [kernel.cpp:326]   --->   Operation 75 'bitconcatenate' 'tmp_12' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_4 : Operation 76 [1/1] (0.00ns)   --->   "%zext_ln356_23 = zext i15 %tmp_12 to i64" [kernel.cpp:326]   --->   Operation 76 'zext' 'zext_ln356_23' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_4 : Operation 77 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_13 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_23" [kernel.cpp:326]   --->   Operation 77 'getelementptr' 'pool2_line_buffer_V_13' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_4 : Operation 78 [1/1] (2.16ns)   --->   "%tmp_V = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 78 'read' 'tmp_V' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_4 : Operation 79 [1/1] (1.35ns)   --->   "store i5 %tmp_V, i5* %pool2_line_buffer_V_13, align 1" [kernel.cpp:326]   --->   Operation 79 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 5 <SV = 4> <Delay = 3.51>
+ST_5 : Operation 80 [1/1] (0.00ns)   --->   "%or_ln356 = or i15 %tmp_12, 1" [kernel.cpp:326]   --->   Operation 80 'or' 'or_ln356' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_5 : Operation 81 [1/1] (0.00ns)   --->   "%zext_ln356_24 = zext i15 %or_ln356 to i64" [kernel.cpp:326]   --->   Operation 81 'zext' 'zext_ln356_24' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_5 : Operation 82 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_14 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_24" [kernel.cpp:326]   --->   Operation 82 'getelementptr' 'pool2_line_buffer_V_14' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_5 : Operation 83 [1/1] (2.16ns)   --->   "%tmp_V_10 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 83 'read' 'tmp_V_10' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_5 : Operation 84 [1/1] (1.35ns)   --->   "store i5 %tmp_V_10, i5* %pool2_line_buffer_V_14, align 1" [kernel.cpp:326]   --->   Operation 84 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 6 <SV = 5> <Delay = 3.51>
+ST_6 : Operation 85 [1/1] (0.00ns)   --->   "%or_ln356_1 = or i15 %tmp_12, 2" [kernel.cpp:326]   --->   Operation 85 'or' 'or_ln356_1' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_6 : Operation 86 [1/1] (0.00ns)   --->   "%zext_ln356_25 = zext i15 %or_ln356_1 to i64" [kernel.cpp:326]   --->   Operation 86 'zext' 'zext_ln356_25' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_6 : Operation 87 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_15 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_25" [kernel.cpp:326]   --->   Operation 87 'getelementptr' 'pool2_line_buffer_V_15' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_6 : Operation 88 [1/1] (2.16ns)   --->   "%tmp_V_11 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 88 'read' 'tmp_V_11' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_6 : Operation 89 [1/1] (1.35ns)   --->   "store i5 %tmp_V_11, i5* %pool2_line_buffer_V_15, align 1" [kernel.cpp:326]   --->   Operation 89 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 7 <SV = 6> <Delay = 3.51>
+ST_7 : Operation 90 [1/1] (0.00ns)   --->   "%or_ln356_2 = or i15 %tmp_12, 3" [kernel.cpp:326]   --->   Operation 90 'or' 'or_ln356_2' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_7 : Operation 91 [1/1] (0.00ns)   --->   "%zext_ln356_26 = zext i15 %or_ln356_2 to i64" [kernel.cpp:326]   --->   Operation 91 'zext' 'zext_ln356_26' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_7 : Operation 92 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_16 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_26" [kernel.cpp:326]   --->   Operation 92 'getelementptr' 'pool2_line_buffer_V_16' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_7 : Operation 93 [1/1] (2.16ns)   --->   "%tmp_V_12 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 93 'read' 'tmp_V_12' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_7 : Operation 94 [1/1] (1.35ns)   --->   "store i5 %tmp_V_12, i5* %pool2_line_buffer_V_16, align 1" [kernel.cpp:326]   --->   Operation 94 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 8 <SV = 7> <Delay = 3.51>
+ST_8 : Operation 95 [1/1] (0.00ns)   --->   "%or_ln356_3 = or i15 %tmp_12, 4" [kernel.cpp:326]   --->   Operation 95 'or' 'or_ln356_3' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_8 : Operation 96 [1/1] (0.00ns)   --->   "%zext_ln356_27 = zext i15 %or_ln356_3 to i64" [kernel.cpp:326]   --->   Operation 96 'zext' 'zext_ln356_27' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_8 : Operation 97 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_17 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_27" [kernel.cpp:326]   --->   Operation 97 'getelementptr' 'pool2_line_buffer_V_17' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_8 : Operation 98 [1/1] (2.16ns)   --->   "%tmp_V_13 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 98 'read' 'tmp_V_13' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_8 : Operation 99 [1/1] (1.35ns)   --->   "store i5 %tmp_V_13, i5* %pool2_line_buffer_V_17, align 1" [kernel.cpp:326]   --->   Operation 99 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 9 <SV = 8> <Delay = 3.51>
+ST_9 : Operation 100 [1/1] (0.00ns)   --->   "%or_ln356_4 = or i15 %tmp_12, 5" [kernel.cpp:326]   --->   Operation 100 'or' 'or_ln356_4' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_9 : Operation 101 [1/1] (0.00ns)   --->   "%zext_ln356_28 = zext i15 %or_ln356_4 to i64" [kernel.cpp:326]   --->   Operation 101 'zext' 'zext_ln356_28' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_9 : Operation 102 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_18 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_28" [kernel.cpp:326]   --->   Operation 102 'getelementptr' 'pool2_line_buffer_V_18' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_9 : Operation 103 [1/1] (2.16ns)   --->   "%tmp_V_14 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 103 'read' 'tmp_V_14' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_9 : Operation 104 [1/1] (1.35ns)   --->   "store i5 %tmp_V_14, i5* %pool2_line_buffer_V_18, align 1" [kernel.cpp:326]   --->   Operation 104 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 10 <SV = 9> <Delay = 3.51>
+ST_10 : Operation 105 [1/1] (0.00ns)   --->   "%or_ln356_5 = or i15 %tmp_12, 6" [kernel.cpp:326]   --->   Operation 105 'or' 'or_ln356_5' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_10 : Operation 106 [1/1] (0.00ns)   --->   "%zext_ln356_29 = zext i15 %or_ln356_5 to i64" [kernel.cpp:326]   --->   Operation 106 'zext' 'zext_ln356_29' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_10 : Operation 107 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_19 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_29" [kernel.cpp:326]   --->   Operation 107 'getelementptr' 'pool2_line_buffer_V_19' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_10 : Operation 108 [1/1] (2.16ns)   --->   "%tmp_V_15 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 108 'read' 'tmp_V_15' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_10 : Operation 109 [1/1] (1.35ns)   --->   "store i5 %tmp_V_15, i5* %pool2_line_buffer_V_19, align 1" [kernel.cpp:326]   --->   Operation 109 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 11 <SV = 10> <Delay = 3.51>
+ST_11 : Operation 110 [1/1] (0.00ns)   --->   "%or_ln356_6 = or i15 %tmp_12, 7" [kernel.cpp:326]   --->   Operation 110 'or' 'or_ln356_6' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_11 : Operation 111 [1/1] (0.00ns)   --->   "%zext_ln356_30 = zext i15 %or_ln356_6 to i64" [kernel.cpp:326]   --->   Operation 111 'zext' 'zext_ln356_30' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_11 : Operation 112 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_20 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_30" [kernel.cpp:326]   --->   Operation 112 'getelementptr' 'pool2_line_buffer_V_20' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_11 : Operation 113 [1/1] (2.16ns)   --->   "%tmp_V_16 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 113 'read' 'tmp_V_16' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_11 : Operation 114 [1/1] (1.35ns)   --->   "store i5 %tmp_V_16, i5* %pool2_line_buffer_V_20, align 1" [kernel.cpp:326]   --->   Operation 114 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 12 <SV = 11> <Delay = 3.51>
+ST_12 : Operation 115 [1/1] (0.00ns)   --->   "%or_ln356_7 = or i15 %tmp_12, 8" [kernel.cpp:326]   --->   Operation 115 'or' 'or_ln356_7' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_12 : Operation 116 [1/1] (0.00ns)   --->   "%zext_ln356_31 = zext i15 %or_ln356_7 to i64" [kernel.cpp:326]   --->   Operation 116 'zext' 'zext_ln356_31' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_12 : Operation 117 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_21 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_31" [kernel.cpp:326]   --->   Operation 117 'getelementptr' 'pool2_line_buffer_V_21' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_12 : Operation 118 [1/1] (2.16ns)   --->   "%tmp_V_17 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 118 'read' 'tmp_V_17' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_12 : Operation 119 [1/1] (1.35ns)   --->   "store i5 %tmp_V_17, i5* %pool2_line_buffer_V_21, align 1" [kernel.cpp:326]   --->   Operation 119 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 13 <SV = 12> <Delay = 3.51>
+ST_13 : Operation 120 [1/1] (0.00ns)   --->   "%or_ln356_8 = or i15 %tmp_12, 9" [kernel.cpp:326]   --->   Operation 120 'or' 'or_ln356_8' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_13 : Operation 121 [1/1] (0.00ns)   --->   "%zext_ln356_32 = zext i15 %or_ln356_8 to i64" [kernel.cpp:326]   --->   Operation 121 'zext' 'zext_ln356_32' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_13 : Operation 122 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_22 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_32" [kernel.cpp:326]   --->   Operation 122 'getelementptr' 'pool2_line_buffer_V_22' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_13 : Operation 123 [1/1] (2.16ns)   --->   "%tmp_V_18 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 123 'read' 'tmp_V_18' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_13 : Operation 124 [1/1] (1.35ns)   --->   "store i5 %tmp_V_18, i5* %pool2_line_buffer_V_22, align 1" [kernel.cpp:326]   --->   Operation 124 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 14 <SV = 13> <Delay = 3.51>
+ST_14 : Operation 125 [1/1] (0.00ns)   --->   "%or_ln356_9 = or i15 %tmp_12, 10" [kernel.cpp:326]   --->   Operation 125 'or' 'or_ln356_9' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_14 : Operation 126 [1/1] (0.00ns)   --->   "%zext_ln356_33 = zext i15 %or_ln356_9 to i64" [kernel.cpp:326]   --->   Operation 126 'zext' 'zext_ln356_33' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_14 : Operation 127 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_23 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_33" [kernel.cpp:326]   --->   Operation 127 'getelementptr' 'pool2_line_buffer_V_23' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_14 : Operation 128 [1/1] (2.16ns)   --->   "%tmp_V_19 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 128 'read' 'tmp_V_19' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_14 : Operation 129 [1/1] (1.35ns)   --->   "store i5 %tmp_V_19, i5* %pool2_line_buffer_V_23, align 1" [kernel.cpp:326]   --->   Operation 129 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 15 <SV = 14> <Delay = 3.51>
+ST_15 : Operation 130 [1/1] (0.00ns)   --->   "%or_ln356_10 = or i15 %tmp_12, 11" [kernel.cpp:326]   --->   Operation 130 'or' 'or_ln356_10' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_15 : Operation 131 [1/1] (0.00ns)   --->   "%zext_ln356_34 = zext i15 %or_ln356_10 to i64" [kernel.cpp:326]   --->   Operation 131 'zext' 'zext_ln356_34' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_15 : Operation 132 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_24 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_34" [kernel.cpp:326]   --->   Operation 132 'getelementptr' 'pool2_line_buffer_V_24' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_15 : Operation 133 [1/1] (2.16ns)   --->   "%tmp_V_21 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 133 'read' 'tmp_V_21' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_15 : Operation 134 [1/1] (1.35ns)   --->   "store i5 %tmp_V_21, i5* %pool2_line_buffer_V_24, align 1" [kernel.cpp:326]   --->   Operation 134 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 16 <SV = 15> <Delay = 3.51>
+ST_16 : Operation 135 [1/1] (0.00ns)   --->   "%or_ln356_11 = or i15 %tmp_12, 12" [kernel.cpp:326]   --->   Operation 135 'or' 'or_ln356_11' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_16 : Operation 136 [1/1] (0.00ns)   --->   "%zext_ln356_35 = zext i15 %or_ln356_11 to i64" [kernel.cpp:326]   --->   Operation 136 'zext' 'zext_ln356_35' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_16 : Operation 137 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_25 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_35" [kernel.cpp:326]   --->   Operation 137 'getelementptr' 'pool2_line_buffer_V_25' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_16 : Operation 138 [1/1] (2.16ns)   --->   "%tmp_V_22 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 138 'read' 'tmp_V_22' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_16 : Operation 139 [1/1] (1.35ns)   --->   "store i5 %tmp_V_22, i5* %pool2_line_buffer_V_25, align 1" [kernel.cpp:326]   --->   Operation 139 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 17 <SV = 16> <Delay = 3.51>
+ST_17 : Operation 140 [1/1] (0.00ns)   --->   "%or_ln356_12 = or i15 %tmp_12, 13" [kernel.cpp:326]   --->   Operation 140 'or' 'or_ln356_12' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_17 : Operation 141 [1/1] (0.00ns)   --->   "%zext_ln356_36 = zext i15 %or_ln356_12 to i64" [kernel.cpp:326]   --->   Operation 141 'zext' 'zext_ln356_36' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_17 : Operation 142 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_26 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_36" [kernel.cpp:326]   --->   Operation 142 'getelementptr' 'pool2_line_buffer_V_26' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_17 : Operation 143 [1/1] (2.16ns)   --->   "%tmp_V_23 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 143 'read' 'tmp_V_23' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_17 : Operation 144 [1/1] (1.35ns)   --->   "store i5 %tmp_V_23, i5* %pool2_line_buffer_V_26, align 1" [kernel.cpp:326]   --->   Operation 144 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 18 <SV = 17> <Delay = 3.51>
+ST_18 : Operation 145 [1/1] (0.00ns)   --->   "%or_ln356_13 = or i15 %tmp_12, 14" [kernel.cpp:326]   --->   Operation 145 'or' 'or_ln356_13' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_18 : Operation 146 [1/1] (0.00ns)   --->   "%zext_ln356_37 = zext i15 %or_ln356_13 to i64" [kernel.cpp:326]   --->   Operation 146 'zext' 'zext_ln356_37' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_18 : Operation 147 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_27 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_37" [kernel.cpp:326]   --->   Operation 147 'getelementptr' 'pool2_line_buffer_V_27' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_18 : Operation 148 [1/1] (2.16ns)   --->   "%tmp_V_24 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 148 'read' 'tmp_V_24' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_18 : Operation 149 [1/1] (1.35ns)   --->   "store i5 %tmp_V_24, i5* %pool2_line_buffer_V_27, align 1" [kernel.cpp:326]   --->   Operation 149 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 19 <SV = 18> <Delay = 3.51>
+ST_19 : Operation 150 [1/1] (0.00ns)   --->   "%or_ln356_14 = or i15 %tmp_12, 15" [kernel.cpp:326]   --->   Operation 150 'or' 'or_ln356_14' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_19 : Operation 151 [1/1] (0.00ns)   --->   "%zext_ln356_38 = zext i15 %or_ln356_14 to i64" [kernel.cpp:326]   --->   Operation 151 'zext' 'zext_ln356_38' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_19 : Operation 152 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_28 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_38" [kernel.cpp:326]   --->   Operation 152 'getelementptr' 'pool2_line_buffer_V_28' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_19 : Operation 153 [1/1] (2.16ns)   --->   "%tmp_V_25 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 153 'read' 'tmp_V_25' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_19 : Operation 154 [1/1] (1.35ns)   --->   "store i5 %tmp_V_25, i5* %pool2_line_buffer_V_28, align 1" [kernel.cpp:326]   --->   Operation 154 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 20 <SV = 19> <Delay = 3.51>
+ST_20 : Operation 155 [1/1] (0.00ns)   --->   "%or_ln356_15 = or i15 %tmp_12, 16" [kernel.cpp:326]   --->   Operation 155 'or' 'or_ln356_15' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_20 : Operation 156 [1/1] (0.00ns)   --->   "%zext_ln356_39 = zext i15 %or_ln356_15 to i64" [kernel.cpp:326]   --->   Operation 156 'zext' 'zext_ln356_39' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_20 : Operation 157 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_29 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_39" [kernel.cpp:326]   --->   Operation 157 'getelementptr' 'pool2_line_buffer_V_29' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_20 : Operation 158 [1/1] (2.16ns)   --->   "%tmp_V_26 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 158 'read' 'tmp_V_26' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_20 : Operation 159 [1/1] (1.35ns)   --->   "store i5 %tmp_V_26, i5* %pool2_line_buffer_V_29, align 1" [kernel.cpp:326]   --->   Operation 159 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 21 <SV = 20> <Delay = 3.51>
+ST_21 : Operation 160 [1/1] (0.00ns)   --->   "%or_ln356_16 = or i15 %tmp_12, 17" [kernel.cpp:326]   --->   Operation 160 'or' 'or_ln356_16' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_21 : Operation 161 [1/1] (0.00ns)   --->   "%zext_ln356_40 = zext i15 %or_ln356_16 to i64" [kernel.cpp:326]   --->   Operation 161 'zext' 'zext_ln356_40' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_21 : Operation 162 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_30 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_40" [kernel.cpp:326]   --->   Operation 162 'getelementptr' 'pool2_line_buffer_V_30' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_21 : Operation 163 [1/1] (2.16ns)   --->   "%tmp_V_27 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 163 'read' 'tmp_V_27' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_21 : Operation 164 [1/1] (1.35ns)   --->   "store i5 %tmp_V_27, i5* %pool2_line_buffer_V_30, align 1" [kernel.cpp:326]   --->   Operation 164 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 22 <SV = 21> <Delay = 3.51>
+ST_22 : Operation 165 [1/1] (0.00ns)   --->   "%or_ln356_17 = or i15 %tmp_12, 18" [kernel.cpp:326]   --->   Operation 165 'or' 'or_ln356_17' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_22 : Operation 166 [1/1] (0.00ns)   --->   "%zext_ln356_41 = zext i15 %or_ln356_17 to i64" [kernel.cpp:326]   --->   Operation 166 'zext' 'zext_ln356_41' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_22 : Operation 167 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_31 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_41" [kernel.cpp:326]   --->   Operation 167 'getelementptr' 'pool2_line_buffer_V_31' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_22 : Operation 168 [1/1] (2.16ns)   --->   "%tmp_V_28 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 168 'read' 'tmp_V_28' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_22 : Operation 169 [1/1] (1.35ns)   --->   "store i5 %tmp_V_28, i5* %pool2_line_buffer_V_31, align 1" [kernel.cpp:326]   --->   Operation 169 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 23 <SV = 22> <Delay = 3.51>
+ST_23 : Operation 170 [1/1] (0.00ns)   --->   "%or_ln356_18 = or i15 %tmp_12, 19" [kernel.cpp:326]   --->   Operation 170 'or' 'or_ln356_18' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_23 : Operation 171 [1/1] (0.00ns)   --->   "%zext_ln356_42 = zext i15 %or_ln356_18 to i64" [kernel.cpp:326]   --->   Operation 171 'zext' 'zext_ln356_42' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_23 : Operation 172 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_32 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_42" [kernel.cpp:326]   --->   Operation 172 'getelementptr' 'pool2_line_buffer_V_32' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_23 : Operation 173 [1/1] (2.16ns)   --->   "%tmp_V_29 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 173 'read' 'tmp_V_29' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_23 : Operation 174 [1/1] (1.35ns)   --->   "store i5 %tmp_V_29, i5* %pool2_line_buffer_V_32, align 1" [kernel.cpp:326]   --->   Operation 174 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 24 <SV = 23> <Delay = 3.51>
+ST_24 : Operation 175 [1/1] (0.00ns)   --->   "%or_ln356_19 = or i15 %tmp_12, 20" [kernel.cpp:326]   --->   Operation 175 'or' 'or_ln356_19' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_24 : Operation 176 [1/1] (0.00ns)   --->   "%zext_ln356_43 = zext i15 %or_ln356_19 to i64" [kernel.cpp:326]   --->   Operation 176 'zext' 'zext_ln356_43' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_24 : Operation 177 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_33 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_43" [kernel.cpp:326]   --->   Operation 177 'getelementptr' 'pool2_line_buffer_V_33' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_24 : Operation 178 [1/1] (2.16ns)   --->   "%tmp_V_30 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 178 'read' 'tmp_V_30' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_24 : Operation 179 [1/1] (1.35ns)   --->   "store i5 %tmp_V_30, i5* %pool2_line_buffer_V_33, align 1" [kernel.cpp:326]   --->   Operation 179 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 25 <SV = 24> <Delay = 3.51>
+ST_25 : Operation 180 [1/1] (0.00ns)   --->   "%or_ln356_20 = or i15 %tmp_12, 21" [kernel.cpp:326]   --->   Operation 180 'or' 'or_ln356_20' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_25 : Operation 181 [1/1] (0.00ns)   --->   "%zext_ln356_44 = zext i15 %or_ln356_20 to i64" [kernel.cpp:326]   --->   Operation 181 'zext' 'zext_ln356_44' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_25 : Operation 182 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_34 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_44" [kernel.cpp:326]   --->   Operation 182 'getelementptr' 'pool2_line_buffer_V_34' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_25 : Operation 183 [1/1] (2.16ns)   --->   "%tmp_V_31 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 183 'read' 'tmp_V_31' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_25 : Operation 184 [1/1] (1.35ns)   --->   "store i5 %tmp_V_31, i5* %pool2_line_buffer_V_34, align 1" [kernel.cpp:326]   --->   Operation 184 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 26 <SV = 25> <Delay = 3.51>
+ST_26 : Operation 185 [1/1] (0.00ns)   --->   "%or_ln356_21 = or i15 %tmp_12, 22" [kernel.cpp:326]   --->   Operation 185 'or' 'or_ln356_21' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_26 : Operation 186 [1/1] (0.00ns)   --->   "%zext_ln356_45 = zext i15 %or_ln356_21 to i64" [kernel.cpp:326]   --->   Operation 186 'zext' 'zext_ln356_45' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_26 : Operation 187 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_35 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_45" [kernel.cpp:326]   --->   Operation 187 'getelementptr' 'pool2_line_buffer_V_35' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_26 : Operation 188 [1/1] (2.16ns)   --->   "%tmp_V_32 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 188 'read' 'tmp_V_32' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_26 : Operation 189 [1/1] (1.35ns)   --->   "store i5 %tmp_V_32, i5* %pool2_line_buffer_V_35, align 1" [kernel.cpp:326]   --->   Operation 189 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 27 <SV = 26> <Delay = 3.51>
+ST_27 : Operation 190 [1/1] (0.00ns)   --->   "%or_ln356_22 = or i15 %tmp_12, 23" [kernel.cpp:326]   --->   Operation 190 'or' 'or_ln356_22' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_27 : Operation 191 [1/1] (0.00ns)   --->   "%zext_ln356_46 = zext i15 %or_ln356_22 to i64" [kernel.cpp:326]   --->   Operation 191 'zext' 'zext_ln356_46' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_27 : Operation 192 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_36 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_46" [kernel.cpp:326]   --->   Operation 192 'getelementptr' 'pool2_line_buffer_V_36' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_27 : Operation 193 [1/1] (2.16ns)   --->   "%tmp_V_33 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 193 'read' 'tmp_V_33' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_27 : Operation 194 [1/1] (1.35ns)   --->   "store i5 %tmp_V_33, i5* %pool2_line_buffer_V_36, align 1" [kernel.cpp:326]   --->   Operation 194 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 28 <SV = 27> <Delay = 3.51>
+ST_28 : Operation 195 [1/1] (0.00ns)   --->   "%or_ln356_23 = or i15 %tmp_12, 24" [kernel.cpp:326]   --->   Operation 195 'or' 'or_ln356_23' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_28 : Operation 196 [1/1] (0.00ns)   --->   "%zext_ln356_47 = zext i15 %or_ln356_23 to i64" [kernel.cpp:326]   --->   Operation 196 'zext' 'zext_ln356_47' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_28 : Operation 197 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_37 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_47" [kernel.cpp:326]   --->   Operation 197 'getelementptr' 'pool2_line_buffer_V_37' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_28 : Operation 198 [1/1] (2.16ns)   --->   "%tmp_V_34 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 198 'read' 'tmp_V_34' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_28 : Operation 199 [1/1] (1.35ns)   --->   "store i5 %tmp_V_34, i5* %pool2_line_buffer_V_37, align 1" [kernel.cpp:326]   --->   Operation 199 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 29 <SV = 28> <Delay = 3.51>
+ST_29 : Operation 200 [1/1] (0.00ns)   --->   "%or_ln356_24 = or i15 %tmp_12, 25" [kernel.cpp:326]   --->   Operation 200 'or' 'or_ln356_24' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_29 : Operation 201 [1/1] (0.00ns)   --->   "%zext_ln356_48 = zext i15 %or_ln356_24 to i64" [kernel.cpp:326]   --->   Operation 201 'zext' 'zext_ln356_48' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_29 : Operation 202 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_38 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_48" [kernel.cpp:326]   --->   Operation 202 'getelementptr' 'pool2_line_buffer_V_38' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_29 : Operation 203 [1/1] (2.16ns)   --->   "%tmp_V_35 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 203 'read' 'tmp_V_35' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_29 : Operation 204 [1/1] (1.35ns)   --->   "store i5 %tmp_V_35, i5* %pool2_line_buffer_V_38, align 1" [kernel.cpp:326]   --->   Operation 204 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 30 <SV = 29> <Delay = 3.51>
+ST_30 : Operation 205 [1/1] (0.00ns)   --->   "%or_ln356_25 = or i15 %tmp_12, 26" [kernel.cpp:326]   --->   Operation 205 'or' 'or_ln356_25' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_30 : Operation 206 [1/1] (0.00ns)   --->   "%zext_ln356_49 = zext i15 %or_ln356_25 to i64" [kernel.cpp:326]   --->   Operation 206 'zext' 'zext_ln356_49' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_30 : Operation 207 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_39 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_49" [kernel.cpp:326]   --->   Operation 207 'getelementptr' 'pool2_line_buffer_V_39' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_30 : Operation 208 [1/1] (2.16ns)   --->   "%tmp_V_36 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 208 'read' 'tmp_V_36' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_30 : Operation 209 [1/1] (1.35ns)   --->   "store i5 %tmp_V_36, i5* %pool2_line_buffer_V_39, align 1" [kernel.cpp:326]   --->   Operation 209 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 31 <SV = 30> <Delay = 3.51>
+ST_31 : Operation 210 [1/1] (0.00ns)   --->   "%or_ln356_26 = or i15 %tmp_12, 27" [kernel.cpp:326]   --->   Operation 210 'or' 'or_ln356_26' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_31 : Operation 211 [1/1] (0.00ns)   --->   "%zext_ln356_50 = zext i15 %or_ln356_26 to i64" [kernel.cpp:326]   --->   Operation 211 'zext' 'zext_ln356_50' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_31 : Operation 212 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_40 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_50" [kernel.cpp:326]   --->   Operation 212 'getelementptr' 'pool2_line_buffer_V_40' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_31 : Operation 213 [1/1] (2.16ns)   --->   "%tmp_V_37 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 213 'read' 'tmp_V_37' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_31 : Operation 214 [1/1] (1.35ns)   --->   "store i5 %tmp_V_37, i5* %pool2_line_buffer_V_40, align 1" [kernel.cpp:326]   --->   Operation 214 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 32 <SV = 31> <Delay = 3.51>
+ST_32 : Operation 215 [1/1] (0.00ns)   --->   "%or_ln356_27 = or i15 %tmp_12, 28" [kernel.cpp:326]   --->   Operation 215 'or' 'or_ln356_27' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_32 : Operation 216 [1/1] (0.00ns)   --->   "%zext_ln356_51 = zext i15 %or_ln356_27 to i64" [kernel.cpp:326]   --->   Operation 216 'zext' 'zext_ln356_51' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_32 : Operation 217 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_41 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_51" [kernel.cpp:326]   --->   Operation 217 'getelementptr' 'pool2_line_buffer_V_41' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_32 : Operation 218 [1/1] (2.16ns)   --->   "%tmp_V_38 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 218 'read' 'tmp_V_38' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_32 : Operation 219 [1/1] (1.35ns)   --->   "store i5 %tmp_V_38, i5* %pool2_line_buffer_V_41, align 1" [kernel.cpp:326]   --->   Operation 219 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 33 <SV = 32> <Delay = 3.51>
+ST_33 : Operation 220 [1/1] (0.00ns)   --->   "%or_ln356_28 = or i15 %tmp_12, 29" [kernel.cpp:326]   --->   Operation 220 'or' 'or_ln356_28' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_33 : Operation 221 [1/1] (0.00ns)   --->   "%zext_ln356_52 = zext i15 %or_ln356_28 to i64" [kernel.cpp:326]   --->   Operation 221 'zext' 'zext_ln356_52' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_33 : Operation 222 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_42 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_52" [kernel.cpp:326]   --->   Operation 222 'getelementptr' 'pool2_line_buffer_V_42' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_33 : Operation 223 [1/1] (2.16ns)   --->   "%tmp_V_39 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 223 'read' 'tmp_V_39' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_33 : Operation 224 [1/1] (1.35ns)   --->   "store i5 %tmp_V_39, i5* %pool2_line_buffer_V_42, align 1" [kernel.cpp:326]   --->   Operation 224 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 34 <SV = 33> <Delay = 3.51>
+ST_34 : Operation 225 [1/1] (0.00ns)   --->   "%or_ln356_29 = or i15 %tmp_12, 30" [kernel.cpp:326]   --->   Operation 225 'or' 'or_ln356_29' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_34 : Operation 226 [1/1] (0.00ns)   --->   "%zext_ln356_53 = zext i15 %or_ln356_29 to i64" [kernel.cpp:326]   --->   Operation 226 'zext' 'zext_ln356_53' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_34 : Operation 227 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_43 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_53" [kernel.cpp:326]   --->   Operation 227 'getelementptr' 'pool2_line_buffer_V_43' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_34 : Operation 228 [1/1] (2.16ns)   --->   "%tmp_V_40 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 228 'read' 'tmp_V_40' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_34 : Operation 229 [1/1] (1.35ns)   --->   "store i5 %tmp_V_40, i5* %pool2_line_buffer_V_43, align 1" [kernel.cpp:326]   --->   Operation 229 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_34 : Operation 230 [1/1] (0.90ns)   --->   "%add_ln323 = add i8 %select_ln326, 1" [kernel.cpp:323]   --->   Operation 230 'add' 'add_ln323' <Predicate = (!icmp_ln322)> <Delay = 0.90> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 35 <SV = 34> <Delay = 3.51>
+ST_35 : Operation 231 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([30 x i8]* @pool2_line_row_pool2)"   --->   Operation 231 'specloopname' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_35 : Operation 232 [1/1] (0.00ns)   --->   "%empty_117 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 320, i64 320, i64 320)"   --->   Operation 232 'speclooptripcount' 'empty_117' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_35 : Operation 233 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([15 x i8]* @p_str81) nounwind" [kernel.cpp:323]   --->   Operation 233 'specloopname' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_35 : Operation 234 [1/1] (0.00ns)   --->   "%tmp_6 = call i32 (...)* @_ssdm_op_SpecRegionBegin([15 x i8]* @p_str81)" [kernel.cpp:323]   --->   Operation 234 'specregionbegin' 'tmp_6' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_35 : Operation 235 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecPipeline(i32 -1, i32 1, i32 1, i32 0, [1 x i8]* @p_str24) nounwind" [kernel.cpp:324]   --->   Operation 235 'specpipeline' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_35 : Operation 236 [1/1] (0.00ns)   --->   "%or_ln356_30 = or i15 %tmp_12, 31" [kernel.cpp:326]   --->   Operation 236 'or' 'or_ln356_30' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_35 : Operation 237 [1/1] (0.00ns)   --->   "%zext_ln356_54 = zext i15 %or_ln356_30 to i64" [kernel.cpp:326]   --->   Operation 237 'zext' 'zext_ln356_54' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_35 : Operation 238 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_44 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_54" [kernel.cpp:326]   --->   Operation 238 'getelementptr' 'pool2_line_buffer_V_44' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_35 : Operation 239 [1/1] (2.16ns)   --->   "%tmp_V_41 = call i5 @_ssdm_op_Read.ap_fifo.volatile.i5P(i5* %relu2_pipe_4_V_V)" [kernel.cpp:326]   --->   Operation 239 'read' 'tmp_V_41' <Predicate = (!icmp_ln322)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_35 : Operation 240 [1/1] (1.35ns)   --->   "store i5 %tmp_V_41, i5* %pool2_line_buffer_V_44, align 1" [kernel.cpp:326]   --->   Operation 240 'store' <Predicate = (!icmp_ln322)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_35 : Operation 241 [1/1] (0.00ns)   --->   "%empty_118 = call i32 (...)* @_ssdm_op_SpecRegionEnd([15 x i8]* @p_str81, i32 %tmp_6)" [kernel.cpp:328]   --->   Operation 241 'specregionend' 'empty_118' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+ST_35 : Operation 242 [1/1] (0.00ns)   --->   "br label %1"   --->   Operation 242 'br' <Predicate = (!icmp_ln322)> <Delay = 0.00>
+
+State 36 <SV = 3> <Delay = 0.75>
+ST_36 : Operation 243 [1/1] (0.75ns)   --->   "br label %.preheader.0.preheader" [kernel.cpp:331]   --->   Operation 243 'br' <Predicate = true> <Delay = 0.75>
+
+State 37 <SV = 4> <Delay = 3.67>
+ST_37 : Operation 244 [1/1] (0.00ns)   --->   "%indvar_flatten7 = phi i12 [ %add_ln331_1, %pool2_c ], [ 0, %.preheader.0.preheader.preheader ]" [kernel.cpp:331]   --->   Operation 244 'phi' 'indvar_flatten7' <Predicate = true> <Delay = 0.00>
+ST_37 : Operation 245 [1/1] (0.00ns)   --->   "%block_0_0 = phi i8 [ %select_ln337_1, %pool2_c ], [ 0, %.preheader.0.preheader.preheader ]" [kernel.cpp:337]   --->   Operation 245 'phi' 'block_0_0' <Predicate = true> <Delay = 0.00>
+ST_37 : Operation 246 [1/1] (0.00ns)   --->   "%c_0_0 = phi i6 [ %add_ln332, %pool2_c ], [ 0, %.preheader.0.preheader.preheader ]" [kernel.cpp:332]   --->   Operation 246 'phi' 'c_0_0' <Predicate = true> <Delay = 0.00>
+ST_37 : Operation 247 [1/1] (0.86ns)   --->   "%icmp_ln331 = icmp eq i12 %indvar_flatten7, -1536" [kernel.cpp:331]   --->   Operation 247 'icmp' 'icmp_ln331' <Predicate = true> <Delay = 0.86> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.87> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_37 : Operation 248 [1/1] (0.96ns)   --->   "%add_ln331_1 = add i12 %indvar_flatten7, 1" [kernel.cpp:331]   --->   Operation 248 'add' 'add_ln331_1' <Predicate = true> <Delay = 0.96> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_37 : Operation 249 [1/1] (0.00ns)   --->   "br i1 %icmp_ln331, label %pool2_h1_end, label %pool2_c" [kernel.cpp:331]   --->   Operation 249 'br' <Predicate = true> <Delay = 0.00>
+ST_37 : Operation 250 [1/1] (0.90ns)   --->   "%add_ln331 = add i8 %block_0_0, 2" [kernel.cpp:331]   --->   Operation 250 'add' 'add_ln331' <Predicate = (!icmp_ln331)> <Delay = 0.90> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_37 : Operation 251 [1/1] (0.87ns)   --->   "%icmp_ln332 = icmp eq i6 %c_0_0, -32" [kernel.cpp:332]   --->   Operation 251 'icmp' 'icmp_ln332' <Predicate = (!icmp_ln331)> <Delay = 0.87> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.87> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_37 : Operation 252 [1/1] (0.44ns)   --->   "%select_ln337 = select i1 %icmp_ln332, i6 0, i6 %c_0_0" [kernel.cpp:337]   --->   Operation 252 'select' 'select_ln337' <Predicate = (!icmp_ln331)> <Delay = 0.44> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.54> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_37 : Operation 253 [1/1] (0.44ns)   --->   "%select_ln337_1 = select i1 %icmp_ln332, i8 %add_ln331, i8 %block_0_0" [kernel.cpp:337]   --->   Operation 253 'select' 'select_ln337_1' <Predicate = (!icmp_ln331)> <Delay = 0.44> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.54> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_37 : Operation 254 [1/1] (0.00ns)   --->   "%tmp_21 = call i13 @_ssdm_op_BitConcatenate.i13.i8.i5(i8 %select_ln337_1, i5 0)" [kernel.cpp:337]   --->   Operation 254 'bitconcatenate' 'tmp_21' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 255 [1/1] (0.00ns)   --->   "%zext_ln356_55 = zext i13 %tmp_21 to i14" [kernel.cpp:337]   --->   Operation 255 'zext' 'zext_ln356_55' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 256 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%add_ln356_14 = add i14 %zext_ln356_55, 5120" [kernel.cpp:337]   --->   Operation 256 'add' 'add_ln356_14' <Predicate = (!icmp_ln331)> <Delay = 0.00> <Core = "TAddSub">   --->   Core 83 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.46> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_37 : Operation 257 [1/1] (0.00ns)   --->   "%or_ln337 = or i8 %select_ln337_1, 1" [kernel.cpp:337]   --->   Operation 257 'or' 'or_ln337' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 258 [1/1] (0.00ns)   --->   "%tmp_22 = call i13 @_ssdm_op_BitConcatenate.i13.i8.i5(i8 %or_ln337, i5 0)" [kernel.cpp:337]   --->   Operation 258 'bitconcatenate' 'tmp_22' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 259 [1/1] (0.00ns)   --->   "%zext_ln356_56 = zext i13 %tmp_22 to i14" [kernel.cpp:337]   --->   Operation 259 'zext' 'zext_ln356_56' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 260 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%add_ln356_15 = add i14 %zext_ln356_56, 5120" [kernel.cpp:337]   --->   Operation 260 'add' 'add_ln356_15' <Predicate = (!icmp_ln331)> <Delay = 0.00> <Core = "TAddSub">   --->   Core 83 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.46> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_37 : Operation 261 [1/1] (0.00ns)   --->   "%zext_ln356_57 = zext i6 %select_ln337 to i14" [kernel.cpp:337]   --->   Operation 261 'zext' 'zext_ln356_57' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 262 [1/1] (0.97ns)   --->   "%add_ln356_16 = add i14 %zext_ln356_57, %zext_ln356_55" [kernel.cpp:337]   --->   Operation 262 'add' 'add_ln356_16' <Predicate = (!icmp_ln331)> <Delay = 0.97> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_37 : Operation 263 [1/1] (0.00ns)   --->   "%zext_ln356_58 = zext i14 %add_ln356_16 to i64" [kernel.cpp:337]   --->   Operation 263 'zext' 'zext_ln356_58' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 264 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_s = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_58" [kernel.cpp:337]   --->   Operation 264 'getelementptr' 'pool2_line_buffer_V_s' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 265 [1/1] (0.97ns)   --->   "%add_ln356_17 = add i14 %zext_ln356_57, %zext_ln356_56" [kernel.cpp:337]   --->   Operation 265 'add' 'add_ln356_17' <Predicate = (!icmp_ln331)> <Delay = 0.97> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_37 : Operation 266 [1/1] (0.00ns)   --->   "%zext_ln356_59 = zext i14 %add_ln356_17 to i64" [kernel.cpp:337]   --->   Operation 266 'zext' 'zext_ln356_59' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 267 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_1 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_59" [kernel.cpp:337]   --->   Operation 267 'getelementptr' 'pool2_line_buffer_V_1' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_37 : Operation 268 [1/1] (0.92ns) (root node of TernaryAdder)   --->   "%add_ln356_18 = add i14 %zext_ln356_57, %add_ln356_14" [kernel.cpp:337]   --->   Operation 268 'add' 'add_ln356_18' <Predicate = (!icmp_ln331)> <Delay = 0.92> <Core = "TAddSub">   --->   Core 83 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.46> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_37 : Operation 269 [1/1] (0.92ns) (root node of TernaryAdder)   --->   "%add_ln356_19 = add i14 %zext_ln356_57, %add_ln356_15" [kernel.cpp:337]   --->   Operation 269 'add' 'add_ln356_19' <Predicate = (!icmp_ln331)> <Delay = 0.92> <Core = "TAddSub">   --->   Core 83 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.46> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_37 : Operation 270 [2/2] (1.35ns)   --->   "%pool2_line_buffer_V_4 = load i5* %pool2_line_buffer_V_s, align 1" [kernel.cpp:337]   --->   Operation 270 'load' 'pool2_line_buffer_V_4' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_37 : Operation 271 [2/2] (1.35ns)   --->   "%pool2_line_buffer_V_5 = load i5* %pool2_line_buffer_V_1, align 1" [kernel.cpp:337]   --->   Operation 271 'load' 'pool2_line_buffer_V_5' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 38 <SV = 5> <Delay = 4.12>
+ST_38 : Operation 272 [1/1] (0.00ns)   --->   "%zext_ln356_60 = zext i14 %add_ln356_18 to i64" [kernel.cpp:337]   --->   Operation 272 'zext' 'zext_ln356_60' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_38 : Operation 273 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_2 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_60" [kernel.cpp:337]   --->   Operation 273 'getelementptr' 'pool2_line_buffer_V_2' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_38 : Operation 274 [1/2] (1.35ns)   --->   "%pool2_line_buffer_V_4 = load i5* %pool2_line_buffer_V_s, align 1" [kernel.cpp:337]   --->   Operation 274 'load' 'pool2_line_buffer_V_4' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_38 : Operation 275 [1/2] (1.35ns)   --->   "%pool2_line_buffer_V_5 = load i5* %pool2_line_buffer_V_1, align 1" [kernel.cpp:337]   --->   Operation 275 'load' 'pool2_line_buffer_V_5' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_38 : Operation 276 [2/2] (1.35ns)   --->   "%pool2_line_buffer_V_6 = load i5* %pool2_line_buffer_V_2, align 1" [kernel.cpp:337]   --->   Operation 276 'load' 'pool2_line_buffer_V_6' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_38 : Operation 277 [1/1] (0.87ns)   --->   "%icmp_ln1494 = icmp ugt i5 %pool2_line_buffer_V_5, %pool2_line_buffer_V_4" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 277 'icmp' 'icmp_ln1494' <Predicate = (!icmp_ln331)> <Delay = 0.87> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.87> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_38 : Operation 278 [1/1] (0.54ns)   --->   "%select_ln251 = select i1 %icmp_ln1494, i14 %add_ln356_17, i14 %add_ln356_16" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 278 'select' 'select_ln251' <Predicate = (!icmp_ln331)> <Delay = 0.54> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.54> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_38 : Operation 279 [1/1] (0.00ns)   --->   "%zext_ln251 = zext i14 %select_ln251 to i64" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 279 'zext' 'zext_ln251' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_38 : Operation 280 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_8 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln251" [kernel.cpp:337]   --->   Operation 280 'getelementptr' 'pool2_line_buffer_V_8' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_38 : Operation 281 [2/2] (1.35ns)   --->   "%pool2_line_buffer_V_9 = load i5* %pool2_line_buffer_V_8, align 1" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 281 'load' 'pool2_line_buffer_V_9' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 39 <SV = 6> <Delay = 4.12>
+ST_39 : Operation 282 [1/1] (0.00ns)   --->   "%zext_ln356_61 = zext i14 %add_ln356_19 to i64" [kernel.cpp:337]   --->   Operation 282 'zext' 'zext_ln356_61' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_39 : Operation 283 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_3 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln356_61" [kernel.cpp:337]   --->   Operation 283 'getelementptr' 'pool2_line_buffer_V_3' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_39 : Operation 284 [1/2] (1.35ns)   --->   "%pool2_line_buffer_V_6 = load i5* %pool2_line_buffer_V_2, align 1" [kernel.cpp:337]   --->   Operation 284 'load' 'pool2_line_buffer_V_6' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_39 : Operation 285 [2/2] (1.35ns)   --->   "%pool2_line_buffer_V_7 = load i5* %pool2_line_buffer_V_3, align 1" [kernel.cpp:337]   --->   Operation 285 'load' 'pool2_line_buffer_V_7' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_39 : Operation 286 [1/2] (1.35ns)   --->   "%pool2_line_buffer_V_9 = load i5* %pool2_line_buffer_V_8, align 1" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 286 'load' 'pool2_line_buffer_V_9' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_39 : Operation 287 [1/1] (0.87ns)   --->   "%icmp_ln1494_1 = icmp ugt i5 %pool2_line_buffer_V_6, %pool2_line_buffer_V_9" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 287 'icmp' 'icmp_ln1494_1' <Predicate = (!icmp_ln331)> <Delay = 0.87> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.87> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_39 : Operation 288 [1/1] (0.54ns)   --->   "%select_ln251_1 = select i1 %icmp_ln1494_1, i14 %add_ln356_18, i14 %select_ln251" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 288 'select' 'select_ln251_1' <Predicate = (!icmp_ln331)> <Delay = 0.54> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.54> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_39 : Operation 289 [1/1] (0.00ns)   --->   "%zext_ln251_1 = zext i14 %select_ln251_1 to i64" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 289 'zext' 'zext_ln251_1' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_39 : Operation 290 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_10 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln251_1" [kernel.cpp:337]   --->   Operation 290 'getelementptr' 'pool2_line_buffer_V_10' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_39 : Operation 291 [2/2] (1.35ns)   --->   "%pool2_line_buffer_V_11 = load i5* %pool2_line_buffer_V_10, align 1" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 291 'load' 'pool2_line_buffer_V_11' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+
+State 40 <SV = 7> <Delay = 4.12>
+ST_40 : Operation 292 [1/2] (1.35ns)   --->   "%pool2_line_buffer_V_7 = load i5* %pool2_line_buffer_V_3, align 1" [kernel.cpp:337]   --->   Operation 292 'load' 'pool2_line_buffer_V_7' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_40 : Operation 293 [1/2] (1.35ns)   --->   "%pool2_line_buffer_V_11 = load i5* %pool2_line_buffer_V_10, align 1" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 293 'load' 'pool2_line_buffer_V_11' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_40 : Operation 294 [1/1] (0.87ns)   --->   "%icmp_ln1494_2 = icmp ugt i5 %pool2_line_buffer_V_7, %pool2_line_buffer_V_11" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 294 'icmp' 'icmp_ln1494_2' <Predicate = (!icmp_ln331)> <Delay = 0.87> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.87> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_40 : Operation 295 [1/1] (0.54ns)   --->   "%select_ln251_2 = select i1 %icmp_ln1494_2, i14 %add_ln356_19, i14 %select_ln251_1" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 295 'select' 'select_ln251_2' <Predicate = (!icmp_ln331)> <Delay = 0.54> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.54> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_40 : Operation 296 [1/1] (0.00ns)   --->   "%zext_ln251_2 = zext i14 %select_ln251_2 to i64" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 296 'zext' 'zext_ln251_2' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_40 : Operation 297 [1/1] (0.00ns)   --->   "%pool2_line_buffer_V_12 = getelementptr [10240 x i5]* %pool2_line_buffer_V, i64 0, i64 %zext_ln251_2" [kernel.cpp:337]   --->   Operation 297 'getelementptr' 'pool2_line_buffer_V_12' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_40 : Operation 298 [2/2] (1.35ns)   --->   "%tmp_V_42 = load i5* %pool2_line_buffer_V_12, align 1" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 298 'load' 'tmp_V_42' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_40 : Operation 299 [1/1] (0.88ns)   --->   "%add_ln332 = add i6 %select_ln337, 1" [kernel.cpp:332]   --->   Operation 299 'add' 'add_ln332' <Predicate = (!icmp_ln331)> <Delay = 0.88> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 41 <SV = 8> <Delay = 3.51>
+ST_41 : Operation 300 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([20 x i8]* @pool2_block_pool2_c_s)"   --->   Operation 300 'specloopname' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_41 : Operation 301 [1/1] (0.00ns)   --->   "%empty_115 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 2560, i64 2560, i64 2560)"   --->   Operation 301 'speclooptripcount' 'empty_115' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_41 : Operation 302 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([8 x i8]* @p_str84) nounwind" [kernel.cpp:332]   --->   Operation 302 'specloopname' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_41 : Operation 303 [1/1] (0.00ns)   --->   "%tmp_7 = call i32 (...)* @_ssdm_op_SpecRegionBegin([8 x i8]* @p_str84)" [kernel.cpp:332]   --->   Operation 303 'specregionbegin' 'tmp_7' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_41 : Operation 304 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecPipeline(i32 -1, i32 1, i32 1, i32 0, [1 x i8]* @p_str24) nounwind" [kernel.cpp:333]   --->   Operation 304 'specpipeline' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_41 : Operation 305 [1/2] (1.35ns)   --->   "%tmp_V_42 = load i5* %pool2_line_buffer_V_12, align 1" [/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344]   --->   Operation 305 'load' 'tmp_V_42' <Predicate = (!icmp_ln331)> <Delay = 1.35> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.35> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 5> <Depth = 10240> <RAM>
+ST_41 : Operation 306 [1/1] (2.16ns)   --->   "call void @_ssdm_op_Write.ap_fifo.volatile.i5P(i5* %pool2_pipe_4_V_V, i5 %tmp_V_42)" [kernel.cpp:347]   --->   Operation 306 'write' <Predicate = (!icmp_ln331)> <Delay = 2.16> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.16> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 5> <Depth = 0> <FIFO>
+ST_41 : Operation 307 [1/1] (0.00ns)   --->   "%empty_116 = call i32 (...)* @_ssdm_op_SpecRegionEnd([8 x i8]* @p_str84, i32 %tmp_7)" [kernel.cpp:348]   --->   Operation 307 'specregionend' 'empty_116' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+ST_41 : Operation 308 [1/1] (0.00ns)   --->   "br label %.preheader.0.preheader" [kernel.cpp:332]   --->   Operation 308 'br' <Predicate = (!icmp_ln331)> <Delay = 0.00>
+
+State 42 <SV = 5> <Delay = 0.00>
+ST_42 : Operation 309 [1/1] (0.00ns)   --->   "%empty_114 = call i32 (...)* @_ssdm_op_SpecRegionEnd([9 x i8]* @p_str79, i32 %tmp_s)" [kernel.cpp:350]   --->   Operation 309 'specregionend' 'empty_114' <Predicate = true> <Delay = 0.00>
+ST_42 : Operation 310 [1/1] (0.00ns)   --->   "br label %0" [kernel.cpp:320]   --->   Operation 310 'br' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 10ns, clock uncertainty: 1.25ns.
+
+ <State 1>: 0.755ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('h1_0_0', kernel.cpp:320) with incoming values : ('add_ln320', kernel.cpp:320) [9]  (0.755 ns)
+
+ <State 2>: 1.2ns
+The critical path consists of the following:
+	'icmp' operation ('icmp_ln320', kernel.cpp:320) [10]  (0.87 ns)
+	blocking operation 0.331 ns on control path)
+
+ <State 3>: 1.3ns
+The critical path consists of the following:
+	'phi' operation ('line_col_0_0', kernel.cpp:323) with incoming values : ('add_ln323', kernel.cpp:323) [21]  (0 ns)
+	'icmp' operation ('icmp_ln323', kernel.cpp:323) [29]  (0.856 ns)
+	'select' operation ('select_ln326', kernel.cpp:326) [30]  (0.445 ns)
+
+ <State 4>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [138]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [139]  (1.35 ns)
+
+ <State 5>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [140]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [141]  (1.35 ns)
+
+ <State 6>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [142]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [143]  (1.35 ns)
+
+ <State 7>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [144]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [145]  (1.35 ns)
+
+ <State 8>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [146]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [147]  (1.35 ns)
+
+ <State 9>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [148]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [149]  (1.35 ns)
+
+ <State 10>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [150]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [151]  (1.35 ns)
+
+ <State 11>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [152]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [153]  (1.35 ns)
+
+ <State 12>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [154]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [155]  (1.35 ns)
+
+ <State 13>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [156]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [157]  (1.35 ns)
+
+ <State 14>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [158]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [159]  (1.35 ns)
+
+ <State 15>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [160]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [161]  (1.35 ns)
+
+ <State 16>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [162]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [163]  (1.35 ns)
+
+ <State 17>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [164]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [165]  (1.35 ns)
+
+ <State 18>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [166]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [167]  (1.35 ns)
+
+ <State 19>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [168]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [169]  (1.35 ns)
+
+ <State 20>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [170]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [171]  (1.35 ns)
+
+ <State 21>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [172]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [173]  (1.35 ns)
+
+ <State 22>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [174]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [175]  (1.35 ns)
+
+ <State 23>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [176]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [177]  (1.35 ns)
+
+ <State 24>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [178]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [179]  (1.35 ns)
+
+ <State 25>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [180]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [181]  (1.35 ns)
+
+ <State 26>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [182]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [183]  (1.35 ns)
+
+ <State 27>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [184]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [185]  (1.35 ns)
+
+ <State 28>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [186]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [187]  (1.35 ns)
+
+ <State 29>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [188]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [189]  (1.35 ns)
+
+ <State 30>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [190]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [191]  (1.35 ns)
+
+ <State 31>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [192]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [193]  (1.35 ns)
+
+ <State 32>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [194]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [195]  (1.35 ns)
+
+ <State 33>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [196]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [197]  (1.35 ns)
+
+ <State 34>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [198]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [199]  (1.35 ns)
+
+ <State 35>: 3.52ns
+The critical path consists of the following:
+	fifo read on port 'relu2_pipe_4_V_V' (kernel.cpp:326) [200]  (2.17 ns)
+	'store' operation ('store_ln326', kernel.cpp:326) of variable 'tmp.V', kernel.cpp:326 on array 'pool2_line_buffer.V', kernel.cpp:315 [201]  (1.35 ns)
+
+ <State 36>: 0.755ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('indvar_flatten7', kernel.cpp:331) with incoming values : ('add_ln331_1', kernel.cpp:331) [208]  (0.755 ns)
+
+ <State 37>: 3.68ns
+The critical path consists of the following:
+	'phi' operation ('block_0_0', kernel.cpp:337) with incoming values : ('select_ln337_1', kernel.cpp:337) [209]  (0 ns)
+	'add' operation ('add_ln331', kernel.cpp:331) [215]  (0.907 ns)
+	'select' operation ('select_ln337_1', kernel.cpp:337) [220]  (0.445 ns)
+	'add' operation ('add_ln356_16', kernel.cpp:337) [232]  (0.975 ns)
+	'getelementptr' operation ('pool2_line_buffer_V_s', kernel.cpp:337) [234]  (0 ns)
+	'load' operation ('pool2_line_buffer_V_4', kernel.cpp:337) on array 'pool2_line_buffer.V', kernel.cpp:315 [244]  (1.35 ns)
+
+ <State 38>: 4.13ns
+The critical path consists of the following:
+	'load' operation ('pool2_line_buffer_V_4', kernel.cpp:337) on array 'pool2_line_buffer.V', kernel.cpp:315 [244]  (1.35 ns)
+	'icmp' operation ('icmp_ln1494', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) [248]  (0.877 ns)
+	'select' operation ('select_ln251', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) [249]  (0.548 ns)
+	'getelementptr' operation ('pool2_line_buffer_V_8', kernel.cpp:337) [251]  (0 ns)
+	'load' operation ('pool2_line_buffer_V_9', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) on array 'pool2_line_buffer.V', kernel.cpp:315 [252]  (1.35 ns)
+
+ <State 39>: 4.13ns
+The critical path consists of the following:
+	'load' operation ('pool2_line_buffer_V_6', kernel.cpp:337) on array 'pool2_line_buffer.V', kernel.cpp:315 [246]  (1.35 ns)
+	'icmp' operation ('icmp_ln1494_1', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) [253]  (0.877 ns)
+	'select' operation ('select_ln251_1', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) [254]  (0.548 ns)
+	'getelementptr' operation ('pool2_line_buffer_V_10', kernel.cpp:337) [256]  (0 ns)
+	'load' operation ('pool2_line_buffer_V_11', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) on array 'pool2_line_buffer.V', kernel.cpp:315 [257]  (1.35 ns)
+
+ <State 40>: 4.13ns
+The critical path consists of the following:
+	'load' operation ('pool2_line_buffer_V_7', kernel.cpp:337) on array 'pool2_line_buffer.V', kernel.cpp:315 [247]  (1.35 ns)
+	'icmp' operation ('icmp_ln1494_2', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) [258]  (0.877 ns)
+	'select' operation ('select_ln251_2', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) [259]  (0.548 ns)
+	'getelementptr' operation ('pool2_line_buffer_V_12', kernel.cpp:337) [261]  (0 ns)
+	'load' operation ('tmp.V', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) on array 'pool2_line_buffer.V', kernel.cpp:315 [262]  (1.35 ns)
+
+ <State 41>: 3.52ns
+The critical path consists of the following:
+	'load' operation ('tmp.V', /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/common/technology/autopilot/hls_math.h:251->kernel.cpp:344) on array 'pool2_line_buffer.V', kernel.cpp:315 [262]  (1.35 ns)
+	fifo write on port 'pool2_pipe_4_V_V' (kernel.cpp:347) [263]  (2.17 ns)
+
+ <State 42>: 0ns
+The critical path consists of the following:
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+	State 15
+	State 16
+	State 17
+	State 18
+	State 19
+	State 20
+	State 21
+	State 22
+	State 23
+	State 24
+	State 25
+	State 26
+	State 27
+	State 28
+	State 29
+	State 30
+	State 31
+	State 32
+	State 33
+	State 34
+	State 35
+	State 36
+	State 37
+	State 38
+	State 39
+	State 40
+	State 41
+	State 42
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

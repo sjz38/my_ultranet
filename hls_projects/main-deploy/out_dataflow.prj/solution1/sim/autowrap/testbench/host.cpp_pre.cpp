@@ -91592,7 +91592,8 @@ int main(int argc, char ** argv) {
   std::cout << "Done test" << std::endl;
 
 
-  std::string output_file = filename+"_matrix.txt";
+
+  std::string output_file = "/work/shared/users/meng/sjz38/tmp/my_ultranet/cosim_matrix.txt";
   std::cout << output_file << std::endl;
   write_file(output_file, result, 1, 10, 20, 64);
   std::cout << "Done writing output file" << std::endl;

@@ -1,0 +1,65 @@
+<profile>
+
+<section name = "Vivado HLS Report for 'test'" level="0">
+<item name = "Date">Mon Dec  5 18:17:38 2022
+</item>
+<item name = "Version">2019.2.1 (Build 2724168 on Thu Dec 05 05:19:09 MST 2019)</item>
+<item name = "Project">out_dataflow.prj</item>
+<item name = "Solution">solution1</item>
+<item name = "Product family">zynquplus</item>
+<item name = "Target device">xczu3eg-sbva484-1-i</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">10.00 ns, 8.750 ns, 1.25 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">2447789, 4348112, 24.478 ms, 43.481 ms, 1638802, 4144230, dataflow</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+<column name="grp_conv3_fu_1542">conv3, 117265, 3771349, 1.173 ms, 37.713 ms, 117265, 3771349, none</column>
+<column name="grp_conv2_fu_2124">conv2, 239441, 1063049, 2.394 ms, 10.630 ms, 239441, 1063049, none</column>
+<column name="grp_conv4_fu_2418">conv4, 61073, 4144229, 0.611 ms, 41.442 ms, 61073, 4144229, none</column>
+<column name="grp_conv5_fu_2442">conv5, 17473, 3346777, 0.175 ms, 33.468 ms, 17473, 3346777, none</column>
+<column name="grp_conv6_fu_2466">conv6, 17473, 3346777, 0.175 ms, 33.468 ms, 17473, 3346777, none</column>
+<column name="grp_conv7_fu_2490">conv7, 17473, 3346777, 0.175 ms, 33.468 ms, 17473, 3346777, none</column>
+<column name="grp_conv8_fu_2514">conv8, 17473, 3346777, 0.175 ms, 33.468 ms, 17473, 3346777, none</column>
+<column name="grp_conv113_fu_2538">conv113, 267301, 1727893, 2.673 ms, 17.279 ms, 267301, 1727893, none</column>
+<column name="grp_relu_bn8_fu_2604">relu_bn8, 12809, 12809, 0.128 ms, 0.128 ms, 12809, 12809, none</column>
+<column name="grp_maxpool2_fu_2616">maxpool2, 819401, 819401, 8.194 ms, 8.194 ms, 819401, 819401, none</column>
+<column name="grp_maxpool1_fu_2622">maxpool1, 1638801, 1638801, 16.388 ms, 16.388 ms, 1638801, 1638801, none</column>
+<column name="grp_maxpool3_fu_2628">maxpool3, 1595341, 1595341, 15.953 ms, 15.953 ms, 1595341, 1595341, none</column>
+<column name="grp_maxpool4_fu_2634">maxpool4, 398871, 398871, 3.989 ms, 3.989 ms, 398871, 398871, none</column>
+<column name="grp_relu_bn3_fu_2640">relu_bn3, 204802, 204802, 2.048 ms, 2.048 ms, 204802, 204802, none</column>
+<column name="grp_relu_bn2_fu_2650">relu_bn2, 409602, 409602, 4.096 ms, 4.096 ms, 409602, 409602, none</column>
+<column name="grp_relu_bn1_fu_2660">relu_bn1, 819202, 819202, 8.192 ms, 8.192 ms, 819202, 819202, none</column>
+<column name="grp_relu_bn4_fu_2670">relu_bn4, 51202, 51202, 0.512 ms, 0.512 ms, 51202, 51202, none</column>
+<column name="grp_relu_bn5_fu_2680">relu_bn5, 12802, 12802, 0.128 ms, 0.128 ms, 12802, 12802, none</column>
+<column name="grp_relu_bn6_fu_2690">relu_bn6, 12802, 12802, 0.128 ms, 0.128 ms, 12802, 12802, none</column>
+<column name="grp_relu_bn7_fu_2700">relu_bn7, 12802, 12802, 0.128 ms, 0.128 ms, 12802, 12802, none</column>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+</profile>
