@@ -1,3 +1,8 @@
+//=============================================================================
+// weights.h
+//=============================================================================
+// Header file to include weight parameters as BRAM
+
 #ifndef WEIGHTS_H
 #define WEIGHTS_H
 #include <ap_fixed.h>

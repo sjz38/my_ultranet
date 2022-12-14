@@ -1,3 +1,8 @@
+//=============================================================================
+// kernel.cpp
+//=============================================================================
+// Final, fully optimized UltraNet design
+
 // HASH:1595771391
 #include <ap_int.h>
 #include <ap_fixed.h>
@@ -11,7 +16,6 @@
 #include "kernel.h"
 #include "weights.h"
 
-// void test(ap_ufixed<8, 1> input_image[1][160][320][3], ap_ufixed<5, 1> result[1][10][20][64]) {
 void test(float input_image[1][160][320][3], float result[1][10][20][64]) {
     #pragma HLS interface m_axi port=input_image offset=slave bundle=gmem
     #pragma HLS interface m_axi port=result offset=slave bundle=gmem
@@ -22,68 +26,86 @@ void test(float input_image[1][160][320][3], float result[1][10][20][64]) {
 
     #pragma HLS array_partition variable=weight_conv1 cyclic factor=3 dim=1
     #pragma HLS array_partition variable=weight_conv1 cyclic factor=3 dim=2
-    // #pragma HLS array_partition variable=weight_conv1 complete dim=4
+
     #pragma HLS array_partition variable=weight_conv2 cyclic factor=3 dim=1
     #pragma HLS array_partition variable=weight_conv2 cyclic factor=3 dim=2
-    // #pragma HLS array_partition variable=weight_conv2 complete dim=4
+    
     #pragma HLS array_partition variable=weight_conv3 cyclic factor=3 dim=1
     #pragma HLS array_partition variable=weight_conv3 cyclic factor=3 dim=2
-    // #pragma HLS array_partition variable=weight_conv3 complete dim=4
+    
     #pragma HLS array_partition variable=weight_conv4 cyclic factor=3 dim=1
     #pragma HLS array_partition variable=weight_conv4 cyclic factor=3 dim=2
-    // #pragma HLS array_partition variable=weight_conv4 complete dim=4
+    
     #pragma HLS array_partition variable=weight_conv5 cyclic factor=3 dim=1
     #pragma HLS array_partition variable=weight_conv5 cyclic factor=3 dim=2
-    // #pragma HLS array_partition variable=weight_conv5 complete dim=4
+    
     #pragma HLS array_partition variable=weight_conv6 cyclic factor=3 dim=1
     #pragma HLS array_partition variable=weight_conv6 cyclic factor=3 dim=2
-    // #pragma HLS array_partition variable=weight_conv6 complete dim=4
+    
     #pragma HLS array_partition variable=weight_conv7 cyclic factor=3 dim=1
     #pragma HLS array_partition variable=weight_conv7 cyclic factor=3 dim=2
-    // #pragma HLS array_partition variable=weight_conv7 complete dim=4
+    
     #pragma HLS array_partition variable=weight_conv8 cyclic factor=3 dim=1
     #pragma HLS array_partition variable=weight_conv8 cyclic factor=3 dim=2
-    // #pragma HLS array_partition variable=weight_conv8 complete dim=4
 
     hls::stream<ap_fixed<16, 8> > conv1_pipe_1;
     #pragma HLS stream variable=conv1_pipe_1 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > relu1_pipe_2;
     #pragma HLS stream variable=relu1_pipe_2 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > pool1_pipe_2;
     #pragma HLS stream variable=pool1_pipe_2 depth=128
+    
     hls::stream<ap_fixed<16, 8> > conv2_pipe_3;
     #pragma HLS stream variable=conv2_pipe_3 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > relu2_pipe_4;
     #pragma HLS stream variable=relu2_pipe_4 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > pool2_pipe_4;
     #pragma HLS stream variable=pool2_pipe_4 depth=128
+    
     hls::stream<ap_fixed<16, 8> > conv3_pipe_5;
     #pragma HLS stream variable=conv3_pipe_5 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > relu3_pipe_6;
     #pragma HLS stream variable=relu3_pipe_6 depth=128    
+    
     hls::stream<ap_ufixed<5, 1> > pool3_pipe_6;
     #pragma HLS stream variable=pool3_pipe_6 depth=128
+    
     hls::stream<ap_fixed<16, 8> > conv4_pipe_7;
     #pragma HLS stream variable=conv4_pipe_7 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > relu4_pipe_8;
     #pragma HLS stream variable=relu4_pipe_8 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > pool4_pipe_8;
     #pragma HLS stream variable=pool4_pipe_8 depth=128
+    
     hls::stream<ap_fixed<16, 8> > conv5_pipe_9;
     #pragma HLS stream variable=conv5_pipe_9 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > relu5_pipe_10;
     #pragma HLS stream variable=relu5_pipe_10 depth=128
+    
     hls::stream<ap_fixed<16, 8> > conv6_pipe_11;
     #pragma HLS stream variable=conv6_pipe_11 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > relu6_pipe_12;
     #pragma HLS stream variable=relu6_pipe_12 depth=128
+    
     hls::stream<ap_fixed<16, 8> > conv7_pipe_13;
     #pragma HLS stream variable=conv7_pipe_13 depth=128
+    
     hls::stream<ap_ufixed<5, 1> > relu7_pipe_14;
     #pragma HLS stream variable=relu7_pipe_14 depth=128
+    
     hls::stream<ap_fixed<16, 8> > conv8_pipe_15;
     #pragma HLS stream variable=conv8_pipe_15 depth=128
 
+    // The CNN
     #pragma HLS dataflow
     conv1(input_image, conv1_pipe_1);
     relu_bn1(conv1_pipe_1, relu1_pipe_2);
@@ -193,8 +215,6 @@ void relu_bn1(hls::stream<ap_fixed<16, 8> > &conv1_pipe_1, hls::stream<ap_ufixed
 
 void maxpool1(hls::stream<ap_ufixed<5, 1> > &relu1_pipe_2, hls::stream<ap_ufixed<5, 1> > &pool1_pipe_2){
     ap_ufixed<5, 1> pool1_line_buffer[2][320][16];
-    // #pragma HLS array_partition variable=pool1_line_buffer cyclic factor=2 dim=2
-    // #pragma HLS array_partition variable=pool1_line_buffer cyclic factor=2 dim=3
     ap_ufixed<5, 1> pool1_window_buffer[2][2];
     pool1_i1: for (int i1 = 0; i1 < 1; ++i1) {
       pool1_h: for (int h = 0; h < 80; ++h) { // 160/2
@@ -313,8 +333,6 @@ void relu_bn2(hls::stream<ap_fixed<16, 8> > &conv2_pipe_3, hls::stream<ap_ufixed
     
 void maxpool2(hls::stream<ap_ufixed<5, 1> > &relu2_pipe_4, hls::stream<ap_ufixed<5, 1> > &pool2_pipe_4){
     ap_ufixed<5, 1> pool2_line_buffer[2][160][32];
-    // #pragma HLS array_partition variable=pool2_line_buffer cyclic factor=2 dim=2
-    // #pragma HLS array_partition variable=pool2_line_buffer cyclic factor=2 dim=3
     ap_ufixed<5, 1> pool2_window_buffer[2][2];
     pool2_i3: for (int i3 = 0; i3 < 1; ++i3) {
       pool2_h1: for (int h1 = 0; h1 < 40; ++h1) { // 80/2
@@ -432,15 +450,12 @@ void relu_bn3(hls::stream<ap_fixed<16, 8> > &conv3_pipe_5, hls::stream<ap_ufixed
 
 void maxpool3(hls::stream<ap_ufixed<5, 1> > &relu3_pipe_6, hls::stream<ap_ufixed<5, 1> > &pool3_pipe_6){
     ap_ufixed<5, 1> pool3_line_buffer[2][80][64];
-    // #pragma HLS array_partition variable=pool3_line_buffer cyclic factor=2 dim=2
-    // #pragma HLS array_partition variable=pool3_line_buffer cyclic factor=2 dim=3
     ap_ufixed<5, 1> pool3_window_buffer[2][2];
     pool3_i5: for (int i5 = 0; i5 < 1; ++i5) {
       pool3_h2: for (int h2 = 0; h2 < 20; ++h2) { // 40/2
         // Load line buffer
         pool3_line_row: for (int line_row = 0; line_row < 2; ++line_row) {
           pool3_line_col: for (int line_col = 0; line_col < 80; ++line_col) {
-          // #pragma HLS pipeline
             pool3_line_c: for (int line_c = 0; line_c < 64; ++line_c) {
               pool3_line_buffer[line_row][line_col][line_c] = relu3_pipe_6.read();
             }
@@ -449,7 +464,6 @@ void maxpool3(hls::stream<ap_ufixed<5, 1> > &relu3_pipe_6, hls::stream<ap_ufixed
         // Go across row
         pool3_block: for (int block = 0; block < 80; block+=2) {
           pool3_c: for (int c = 0; c < 64; c++) {
-          // #pragma HLS pipeline
             // Load window buffer
             pool3_window_row: for (int window_row = 0; window_row < 2; ++window_row) {
               pool3_window_col: for (int window_col = 0; window_col < 2; ++window_col) {
@@ -549,15 +563,12 @@ void relu_bn4(hls::stream<ap_fixed<16, 8> > &conv4_pipe_7, hls::stream<ap_ufixed
 
 void maxpool4(hls::stream<ap_ufixed<5, 1> > &relu4_pipe_8, hls::stream<ap_ufixed<5, 1> > &pool4_pipe_8){
     ap_ufixed<5, 1> pool4_line_buffer[2][40][64];
-    // #pragma HLS array_partition variable=pool4_line_buffer cyclic factor=2 dim=2
-    // #pragma HLS array_partition variable=pool4_line_buffer cyclic factor=2 dim=3
     ap_ufixed<5, 1> pool4_window_buffer[2][2];
     pool4_i7: for (int i7 = 0; i7 < 1; ++i7) {
       pool4_h3: for (int h3 = 0; h3 < 10; ++h3) { // 20/2
         // Load line buffer
         pool4_line_row: for (int line_row = 0; line_row < 2; ++line_row) {
           pool4_line_col: for (int line_col = 0; line_col < 40; ++line_col) {
-          // #pragma HLS pipeline
             pool4_line_c: for (int line_c = 0; line_c < 64; ++line_c) {
               pool4_line_buffer[line_row][line_col][line_c] = relu4_pipe_8.read();
             }
@@ -566,7 +577,6 @@ void maxpool4(hls::stream<ap_ufixed<5, 1> > &relu4_pipe_8, hls::stream<ap_ufixed
         // Go across row
         pool4_block: for (int block = 0; block < 40; block+=2) {
           pool4_c: for (int c = 0; c < 64; c++) {
-          // #pragma HLS pipeline
             // Load window buffer
             pool4_window_row: for (int window_row = 0; window_row < 2; ++window_row) {
               pool4_window_col: for (int window_col = 0; window_col < 2; ++window_col) {
@@ -646,7 +656,6 @@ void conv5(hls::stream<ap_ufixed<5, 1> > &pool4_pipe_8, hls::stream<ap_fixed<16,
 }
 
 void relu_bn5(hls::stream<ap_fixed<16, 8> > &conv5_pipe_9, hls::stream<ap_ufixed<5, 1> > &relu5_pipe_10){
-    // #pragma HLS dependence variable=relu5_pipe_10 false
     relu5_y4: for (int y4 = 0; y4 < 1; ++y4) {
       relu5_args04: for (int args04 = 0; args04 < 10; ++args04) {
         relu5_args14: for (int args14 = 0; args14 < 20; ++args14) {
@@ -724,7 +733,6 @@ void conv6(hls::stream<ap_ufixed<5, 1> > &relu5_pipe_10, hls::stream<ap_fixed<16
 }
 
 void relu_bn6(hls::stream<ap_fixed<16, 8> > &conv6_pipe_11, hls::stream<ap_ufixed<5, 1> > &relu6_pipe_12){
-    // #pragma HLS dependence variable=relu6_pipe_12 false
     relu6_y5: for (int y5 = 0; y5 < 1; ++y5) {
       relu6_args05: for (int args05 = 0; args05 < 10; ++args05) {
         relu6_args15: for (int args15 = 0; args15 < 20; ++args15) {
@@ -802,7 +810,6 @@ void conv7(hls::stream<ap_ufixed<5, 1> > &relu6_pipe_12, hls::stream<ap_fixed<16
 }
 
 void relu_bn7(hls::stream<ap_fixed<16, 8> > &conv7_pipe_13, hls::stream<ap_ufixed<5, 1> > &relu7_pipe_14){
-    // #pragma HLS dependence variable=relu7_pipe_14 false
     relu7_y6: for (int y6 = 0; y6 < 1; ++y6) {
       relu7_args06: for (int args06 = 0; args06 < 10; ++args06) {
         relu7_args16: for (int args16 = 0; args16 < 20; ++args16) {

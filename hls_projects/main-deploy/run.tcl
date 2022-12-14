@@ -4,11 +4,11 @@
 # @brief: A Tcl script for synthesizing the design.
 
 # Project name
-set hls_prj out_dataflow.prj
+set hls_prj out_dataflow_test.prj
 
 # Open/reset the project
-#open_project ${hls_prj} -reset
-open_project ${hls_prj}
+open_project ${hls_prj} -reset
+# open_project ${hls_prj}
 
 # Top function of the design is "top"
 set_top test
@@ -29,12 +29,13 @@ create_clock -period 10
 ############################################
 
 # Synthesize the design
-#csynth_design
-
-# Implement the design
-export_design -rtl verilog -format ip_catalog
+csynth_design
 
 # Co-simulate the design
 # cosim_design
+
+# Implement the design
+# export_design -rtl verilog -format ip_catalog
+
 
 exit
