@@ -21,6 +21,10 @@ Software
 - Vivado 2019
 ```
 
+## **IMPORTANT:** See file structure and absolute paths [here](file_structure.md), since some files are deprecated
+<br>
+
+
 ## Functional Validation
 
 ```sh
@@ -50,5 +54,3 @@ This is the full testbench that runs C-sim and the YOLO/bounding box post-proces
 hls_projects/main-deploy$ make vivado_hls
 ```
 The generated Vivado directory creates a `Makefile`, as well as a `run.tcl` file. The above command executes the run.tcl file, which can be configured to run either C-sim, C-synthesis, cosim or IP generation. The results will be in the `.prj/` directory specified in `run.tcl`.
-
-## See file structure and absolute paths [here](file_structure.md)
