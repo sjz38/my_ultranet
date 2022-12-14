@@ -48,8 +48,7 @@ def load_image(image_path):
     return image
 
 # Input image name here
-# image_name = "boat1_000001"
-image_name = "wakeboard4_000135"
+image_name = "boat1_000001"
 print("[INFO]: " + image_name)
 
 image_file = "./data/" + image_name + ".jpg" # Image path
