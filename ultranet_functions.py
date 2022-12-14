@@ -1,12 +1,11 @@
 ###############################################################################
-# imports
+# ultranet_functions.py
 ###############################################################################
+# Contains the core functions of the UltraNet CNN
 
 import heterocl as hcl
 import heterocl.tvm as tvm
 from collections import OrderedDict
-
-
 
 ###############################################################################
 # helper functions
@@ -63,12 +62,13 @@ def pad(data, pad_before, pad_after=None, pad_value=0.0, name="pad"):
         return data[tuple(index_tuple)]
 
     return hcl.compute(out_shape, _pad, name=name, dtype=data.dtype)
+
+
 ###############################################################################
 # conv2d computation layer
 # this function is the heteroCL equivalent of the torch.nn.Conv2d function 
 # in the PyTorch library. 
 ###############################################################################
-# def conv2d_nhwc(Input, Filter, strides=[1, 1],  padding=[1, 1], out_dtype=hcl.Fixed(16,8), name='conv2d'):
 def conv2d(Input, Filter, name='conv2d', strides=[1, 1],  padding=[1, 1], out_dtype=hcl.Fixed(16,8)):
     assert isinstance(strides, int) or len(strides) == 2
     if out_dtype is None:
@@ -102,6 +102,9 @@ def conv2d(Input, Filter, name='conv2d', strides=[1, 1],  padding=[1, 1], out_dt
             dtype=out_dtype), name=name)
 
 
+###############################################################################
+# Relu Layer
+###############################################################################
 def relu(data, name='relu'):
     # CPU Backend
     # x1 = hcl.compute(data.shape, lambda *y: hcl.select(data[y] < 0, hcl.cast(data.dtype, 0), data[y]), name=name+'_x1')
@@ -113,7 +116,6 @@ def relu(data, name='relu'):
             hcl.cast(data.dtype, 0), 
             hcl.select(data[y] > 1, hcl.cast(data.dtype, 1), data[y])),
             name=name)
-
 
 
 ###############################################################################
@@ -156,7 +158,9 @@ def maxpool2d_nhwc(data, pooling=2, stride=2, padding=0, name='max_pool2d'):
         name=name, dtype=data.dtype)
 
 
-# batch normalization
+###############################################################################
+# Batch Normalization Layer
+###############################################################################
 def batchnorm2d(data, a, b, axis=3, name="batch_norm", out_dtype=hcl.Fixed(16,8), print_out=False):
     def get_axis(axis, *indices):
         indices = list(indices[0])

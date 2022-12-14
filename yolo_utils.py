@@ -1,3 +1,11 @@
+###############################################################################
+# yolo_utils.py
+###############################################################################
+# Post-processing for simulated instance. Runs YOLO convolution and bounding
+# box calculation for IOU. Differs from yolo_utils_deploy.py since the input to
+# run_yolo() is a file instead of a numpy matrix.
+# Much of these functions were written by Hyun Jong Lee
+
 import torch
 import torch.nn as nn
 from weight_quant import weight_quantize_fn
@@ -130,19 +138,15 @@ def run_yolo(output_matrix_path, xml_path):
     model = torch.load('ultranet_4w4a.pt', map_location='cpu')['model']
     yolo_weight = model['layers.28.weight'].numpy()
     yolo_weight = weight_quantizer(yolo_weight)
-    yolo_weight = torch.tensor(yolo_weight)
+    yolo_weight = torch.FloatTensor(yolo_weight)
     yolo_bias = model['layers.28.bias']
 
-    tensor_out = torch.tensor(np_out)
+    tensor_out = torch.FloatTensor(np_out)
     ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
-
-
 
     ###############################################################################
     # Get bounding box
     ###############################################################################
-
-    # img_size = np_input.shape[-2:]
     img_size = (160, 320)
     yololayer = YOLOLayer([[20,20], [20,20], [20,20], [20,20], [20,20], [20,20]])
     yolo_out = []
@@ -177,11 +181,10 @@ def run_yolo(output_matrix_path, xml_path):
         
     truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']]
 
-    print("Truth BBox (xmin, ymin, xmax, ymax): ", truth_result)
-    print("Output BBox (xmin, ymin, xmax, ymax): ", result)
+    print("[INFO]: Truth BBox (xmin, ymin, xmax, ymax): ", truth_result)
+    print("[INFO]: Output BBox (xmin, ymin, xmax, ymax): ", result)
 
-    iou = bbox_iou(result[0], truth_result) # boat1
+    iou = bbox_iou(result[0], truth_result)
 
-    print(iou) 
-    # print(bbox_iou(result[0], [300, 335, 149, 210])) # car1
+    return iou 
 

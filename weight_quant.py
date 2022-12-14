@@ -1,3 +1,8 @@
+###############################################################################
+# weight_quant.py
+###############################################################################
+# Used to quanitze data. Taken from https://github.com/heheda365/ultra_net
+
 import numpy as np
 
 class uniform_quantize():

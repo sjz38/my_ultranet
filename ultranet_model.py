@@ -1,6 +1,10 @@
+###############################################################################
+# ultranet_model.py
+###############################################################################
+# This is the function that is the structure of the UltraNet CNN
+
 import heterocl as hcl
 
-# from ultranet_functions import conv2d_nhwc as conv2d
 from ultranet_functions import conv2d
 from ultranet_functions import relu
 from ultranet_functions import maxpool2d_nhwc as maxpool2d
@@ -63,6 +67,4 @@ def ultranet(
     batchnorm8 = batchnorm2d(conv8, a_batchnorm8, b_batchnorm8, name="batch_norm8") # in: (batch_size, 10, 20, 64), out: (batch_size, 10, 20, 64)
     relu8 = relu(batchnorm8, name="relu8") # in: (batch_size, 10, 20, 64), out: (batch_size, 10, 20, 64)
 
-    # return hcl.compute(conv8.shape, lambda *x : hcl.cast(hcl.Fixed(16,8), conv8[x]), name='result', dtype=hcl.Fixed(16,8))
-    # return hcl.compute(relu8.shape, lambda *x : hcl.cast(hcl.UFixed(5, 4), relu8[x]), name='result', dtype=hcl.UFixed(5, 4))
     return hcl.compute(relu8.shape, lambda *x : hcl.cast(hcl.UFixed(5, 4), relu8[x]), name='result', dtype=hcl.UFixed(5, 4))

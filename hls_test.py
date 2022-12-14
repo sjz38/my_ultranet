@@ -1,10 +1,15 @@
+###############################################################################
+# hls_test.py
+###############################################################################
+# This uses HeteroCL's HLS codegen backend to generate the C++ model
+
 import heterocl as hcl
 import numpy as np
 
 from ultranet_model import ultranet
 from main_single_input import load_np_params, load_image
 
-input_dtype = hcl.UFixed(8, 7) # Should be UFixed(8,7) but bug in HCL version
+input_dtype = hcl.UFixed(8, 1) # Should be UFixed(8,7) but bug in HCL version (Actual input is 1 bit integer bit)
 weight_dtype = hcl.Fixed(5, 3) 
 act_dtype = hcl.UFixed(5, 4)
 bn_a_dtype = hcl.Fixed(14, 10)
@@ -95,9 +100,7 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
     for i in range(1, 1 + 8):
         conv_pad = getattr(ultranet, 'conv' + str(i) + '_pad')
         conv = getattr(ultranet, 'conv' + str(i))
-        # LB = s.reuse_at(conv_pad._op, s[conv], conv.axis[2], f"conv{i}_line_buffer")
         LB = s.reuse_at(conv_pad._op, s[conv], conv.axis[1], f"conv{i}_line_buffer")
-        # WB = s.reuse_at(LB, s[conv], conv.axis[3], f"conv{i}_window_buffer")
         WB = s.reuse_at(LB, s[conv], conv.axis[2], f"conv{i}_window_buffer")
 
     # print(hcl.lower(s))
@@ -157,14 +160,6 @@ def build_ultranet_hls(batch_size=batch_size, target=None):
             pipelining. For now, ?: works, but if..else.. doesn't, 
             because the latter has two load/store nodes.
             '''
-            # s.to(ultranet.conv1_pad, s[ultranet.conv1], fifo_depth=128)
-            # s.to(ultranet.conv2_pad, s[ultranet.conv2], fifo_depth=128)
-            # s.to(ultranet.conv3_pad, s[ultranet.conv3], fifo_depth=128)
-            # s.to(ultranet.conv4_pad, s[ultranet.conv4], fifo_depth=128)
-            # s.to(ultranet.conv5_pad, s[ultranet.conv5], fifo_depth=128)
-            # s.to(ultranet.conv6_pad, s[ultranet.conv6], fifo_depth=128)
-            # s.to(ultranet.conv7_pad, s[ultranet.conv7], fifo_depth=128)
-            # s.to(ultranet.conv8_pad, s[ultranet.conv8], fifo_depth=128)
 
             s.to(ultranet.conv1, s[ultranet.relu1], fifo_depth=128)
             s.to(ultranet.relu1, s[ultranet.pool1], fifo_depth=128)

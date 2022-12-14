@@ -1,3 +1,8 @@
+###############################################################################
+# main_single_input.py
+###############################################################################
+# This runs UltraNet using HeteroCL's CPU backend
+
 import numpy as np
 import cv2
 
@@ -14,10 +19,10 @@ from ultranet_model import ultranet
 ###############################################################################
 hcl.init(hcl.Float(32))
 input_dtype = hcl.UFixed(8, 7) # Should be UFixed(8,7) but bug in HCL version
-weight_dtype = hcl.Fixed(5, 3) # TODO: why hcl.Fixed(4,4) doesn't work
+weight_dtype = hcl.Fixed(5, 3)
 act_dtype = hcl.UFixed(5, 4)
-bn_a_dtype = hcl.Fixed(14, 10) # TODO some 14 bit fixed pt, this seems to work well 
-bn_b_dtype = hcl.Fixed(26, 18) # TODO some 26 bit fixed pt, this seems to work well
+bn_a_dtype = hcl.Fixed(14, 10) # These types seem to work well 
+bn_b_dtype = hcl.Fixed(26, 18) # These types seem to work well
 conv_dtype = hcl.Fixed(16, 8)
 
 ###############################################################################
@@ -38,15 +43,6 @@ weight_quantizer = weight_quantize_fn(W_BIT)
 ###############################################################################
 # Import weights
 ###############################################################################
-def weight_file(mat, name):
-    import sys
-    np.set_printoptions(threshold=sys.maxsize)
-    with open(name, "w") as f:
-        for i in mat.flatten():
-            f.write(str(i))
-            f.write("\n")
-    print("Done " + name)
-
 def load_np_params(ptname):
 
     loaded = torch.load(ptname, map_location='cpu')
@@ -130,15 +126,14 @@ def load_np_params(ptname):
         conv8_weight, batchnorm8_weight, batchnorm8_bias, batchnorm8_running_mean, batchnorm8_running_var
     ]
         
- # loads and resizes a single image
+# loads and resizes a single image
 def load_image(image_path):
     image = cv2.imread(str(image_path))
     image = cv2.resize(image, (width, height), interpolation=cv2.INTER_LINEAR)
     image.resize(1, image.shape[0], image.shape[1], image.shape[2])
-    # image = image.transpose(0, 3, 1, 2)
+    # image = image.transpose(0, 3, 1, 2) # This makes it nchw
     image = image.astype(float) / 255.0
     assert image.shape == (batch_size, height, width, 3)
-    # weight_file(image, "boat1_000001.dat")
     return image
 
 
@@ -366,7 +361,6 @@ if __name__ == "__main__":
     yolo_bias = model['layers.28.bias']
 
     tensor_out = torch.tensor(np_out)
-    print(f"Tensor_out type: {tensor_out.dtype}")
     ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
 
     # print("up to YOLO layer complete")

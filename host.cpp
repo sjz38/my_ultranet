@@ -1,3 +1,7 @@
+//=============================================================================
+// host.cpp
+//=============================================================================
+// host file testbench for C-sim and Cosim
 
 #include <sys/ipc.h>
 #include <sys/shm.h>
@@ -48,7 +52,6 @@ int main(int argc, char ** argv) {
 
   auto arg_0 = new float[153600];
   read_floats(arg_0, image_dat, 153600);
-  // auto input_image = new ap_ufixed<8, 1>[1][160][320][3];
   auto input_image = new float[1][160][320][3];
   for (size_t i0 = 0; i0 < 1; i0++) {
     for (size_t i1 = 0; i1 < 160; i1++) {
@@ -60,7 +63,6 @@ int main(int argc, char ** argv) {
     }
   }
 
-  // auto result = new ap_ufixed<5, 1>[1][10][20][64];
   auto result = new float[1][10][20][64];
   for (size_t i0 = 0; i0 < 1; i0++) {
     for (size_t i1 = 0; i1 < 10; i1++) {
@@ -77,7 +79,7 @@ int main(int argc, char ** argv) {
   std::cout << "Done test" << std::endl;
 
   // Write matrix to file
-  std::string output_file = filename+"_matrix.txt";
+  std::string output_file = "/work/shared/users/meng/sjz38/tmp/my_ultranet/cosim_matrix.txt";
   std::cout << output_file << std::endl;
   write_file(output_file, result, 1, 10, 20, 64);
   std::cout << "Done writing output file" << std::endl;

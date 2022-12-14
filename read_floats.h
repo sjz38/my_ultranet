@@ -1,3 +1,9 @@
+//=============================================================================
+// read_floats.cpp
+//=============================================================================
+// Utility code for converting a .dat file into a flattened array and for 
+// writing an array to a file
+
 #ifndef READ_FLOATS_H
 #define READ_FLOATS_H
 

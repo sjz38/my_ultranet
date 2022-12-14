@@ -1,3 +1,9 @@
+###############################################################################
+# jpg_to_dat.py
+###############################################################################
+# Utility script that takes in a .jpg image and outputs a .dat file with the 
+# normalized pixel data in NHWC form
+
 import torch
 import cv2
 import numpy
@@ -20,8 +26,8 @@ def load_image(image_path):
 
 import sys
 numpy.set_printoptions(threshold=sys.maxsize)
-name = "riding8_0259"
-img = load_image("/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nchw/"+name+".jpg")
+name = "wakeboard4_000135"
+img = load_image("/work/shared/users/meng/sjz38/tmp/my_ultranet/subset_images_nhwc/"+name+".jpg")
 with open(name+".dat", "w") as f:
     for i in img.flatten():
         f.write(str(i))

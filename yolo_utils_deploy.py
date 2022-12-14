@@ -1,3 +1,11 @@
+###############################################################################
+# yolo_utils_deploy.py
+###############################################################################
+# Post-processing for delpoyed instance. Runs YOLO convolution and bounding
+# box calculation for IOU. Differs from yolo_utils.py since the input to
+# run_yolo() is a numpy matrix instead of a file.
+# Much of these functions were written by Hyun Jong Lee
+
 import torch
 import torch.nn as nn
 from weight_quant import weight_quantize_fn
@@ -36,7 +44,7 @@ class YOLOLayer(nn.Module):
     def forward(self, p, img_size):
         # print(p.shape)
         bs, _, ny, nx = p.shape
-        
+
         if (self.nx, self.ny) != (nx, ny):
             create_grids(self, img_size, (nx, ny), p.device, p.dtype)
 
@@ -67,13 +75,13 @@ def bbox_iou(box1, box2):
     """
     box1 = torch.FloatTensor(box1)
     box2 = torch.FloatTensor(box2)
- 
+
     # Transform from center and width to exact coordinates
     b1_x1, b1_x2 = box1[0] - box1[2] / 2, box1[0] + box1[2] / 2
     b1_y1, b1_y2 = box1[1] - box1[3] / 2, box1[1] + box1[3] / 2
     b2_x1, b2_x2 = box2[0] - box2[2] / 2, box2[0] + box2[2] / 2
     b2_y1, b2_y2 = box2[1] - box2[3] / 2, box2[1] + box2[3] / 2
-    
+
     # get the corrdinates of the intersection rectangle
     inter_rect_x1 = torch.max(b1_x1, b2_x1)
     inter_rect_y1 = torch.max(b1_y1, b2_y1)
@@ -100,7 +108,7 @@ def recursive(element, indent, truth_result):
     element_tag = element.tag
     element_text = element.text if element.text is not None and len(element.text.strip()) > 0 else ""
     if (element_tag.title() == 'Filename'):
-        global name 
+        global name
         name = element_text
     if (element_tag.title() == 'Xmin' or element_tag.title() == 'Ymin' or element_tag.title() == 'Xmax' or element_tag.title() == 'Ymax'):
         truth_result[element_tag.title()] = int(element_text)
@@ -111,7 +119,7 @@ def recursive(element, indent, truth_result):
 
 
 ###############################################################################
-# YOLO to BBox
+# YOLO and BBox
 ###############################################################################
 def run_yolo(np_out, xml_path):
     raw_height = 360
@@ -121,12 +129,11 @@ def run_yolo(np_out, xml_path):
     W_BIT = 4
     weight_quantizer = weight_quantize_fn(W_BIT)
 
-    # np_out = np.loadtxt(output_matrix_path, dtype=float)
     np_out = np_out.reshape((1, 10, 20, 64))
     np_out = np_out.transpose(0, 3, 1, 2)
     np_out = np.float32(np_out)
 
-    # TEMPORARY: last conv using pytorch
+    # Last conv using pytorch
     model = torch.load('ultranet_4w4a.pt', map_location='cpu')['model']
     yolo_weight = model['layers.28.weight'].numpy()
     yolo_weight = weight_quantizer(yolo_weight)
@@ -137,12 +144,9 @@ def run_yolo(np_out, xml_path):
     ultranet_out = nn.functional.conv2d(tensor_out, yolo_weight, bias=yolo_bias, stride=1, padding=0)
 
 
-
     ###############################################################################
     # Get bounding box
     ###############################################################################
-
-    # img_size = np_input.shape[-2:]
     img_size = (160, 320)
     yololayer = YOLOLayer([[20,20], [20,20], [20,20], [20,20], [20,20], [20,20]])
     yolo_out = []
@@ -171,17 +175,15 @@ def run_yolo(np_out, xml_path):
 
     xml_tree = xml.etree.ElementTree.parse(xml_path)
     root = xml_tree.getroot()
-    truth_result = {'Xmin': 0, 'Ymin' : 0, 'Xmax' : 0, 'Ymax' : 0} 
+    truth_result = {'Xmin': 0, 'Ymin' : 0, 'Xmax' : 0, 'Ymax' : 0}
 
     recursive(root, 0, truth_result)
-        
+
     truth_result = [truth_result['Xmin'], truth_result['Ymin'], truth_result['Xmax'], truth_result['Ymax']]
 
-    print("Truth BBox (xmin, ymin, xmax, ymax): ", truth_result)
-    print("Output BBox (xmin, ymin, xmax, ymax): ", result)
+    print("[INFO]: Truth BBox (xmin, ymin, xmax, ymax): ", truth_result)
+    print("[INFO]: Output BBox (xmin, ymin, xmax, ymax): ", result)
 
     iou = bbox_iou(result[0], truth_result) # boat1
 
-    return iou 
-    # print(bbox_iou(result[0], [300, 335, 149, 210])) # car1
-
+    return iou
