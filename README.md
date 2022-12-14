@@ -1,6 +1,7 @@
 # UltraNet HeteroCL Model
 
-Hyun Jong Lee, Stephen Zakoworotny, Niansong Zhang, Yunhe Shao (Cornell Zhang Research Group)
+## This branch is for Stephen Zakoworotny's MEng Project
+Stephen Zakoworotny, Niansong Zhang, Hyun Jong Lee, Yunhe Shao (Cornell Zhang Research Group)
 
 ## Introduction
 
@@ -10,34 +11,45 @@ The original reference design (https://github.com/heheda365/ultra_net) was imple
 
 The test_images directory contains the test dataset for the contest. Running ultranet.py will perform inference on images in the test_images directory; see below for options:
 
-Set CREATE_BBOX: 
-   True to save images with predicted and true bboxes
-   False to not save images with predicted and true bboxes
-Set FULL_TEST:
-   True to perform inference on the full testing dataset
-   False to perform inference on a small, randomized part of testing dataset
-
-
 ## Requirements
 ```
+Python
 - heterocl >= 0.3
 - numpy >= 1.18.5
-- torch >= 1.9.0
+- torch >= 1.9.0 
+- opencv >= 3.4
+Software
+- Vivado 2019
 ```
-For HLS test, `vivado_hls` is also required.
 
 ## Functional Validation
 
 ```sh
-$ python main_single_input.py
+$ python3 main_single_input.py
 ```
 
 Runs UltraNet model on CPU (LLVM backend), and generate bounding box predictions.
-Compare with ground truth in `./example_images/*.xml` to determine if results are correct. 
+Compare with ground truth in `./test_images/*.xml` to determine if results are correct. 
 
 ## HLS Code Generation
 
 ```sh
-$ python hls_test.py
+$ python3 hls_test.py
 ```
-This generates a HLS project in `./ultranet_hls` and runs C synthesis (csyn).
+This generates a HLS project in the root directory and runs C synthesis (csyn).
+
+## C-sim Execution
+
+```sh
+$ python3 run_csim.py
+```
+This is the full testbench that runs C-sim and the YOLO/bounding box post-processing steps. Make sure file paths are specified correctly here for the C++ source directory and data files.
+
+## Manual Execution of C-sim, C-synthesis, Cosim and IP Generation
+
+```sh
+hls_projects/main-deploy$ make vivado_hls
+```
+The generated Vivado directory creates a `Makefile`, as well as a `run.tcl` file. The above command executes the run.tcl file, which can be configured to run either C-sim, C-synthesis, cosim or IP generation. The results will be in the `.prj/` directory specified in `run.tcl`.
+
+## See file structure and absolute paths [here](file_structure.md)
