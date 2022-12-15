@@ -1,6 +1,6 @@
 # UltraNet HeteroCL Model
 
-## This branch is for Stephen Zakoworotny's MEng Project
+## This branch (nhwc) is for Stephen Zakoworotny's MEng Project
 Stephen Zakoworotny, Niansong Zhang, Hyun Jong Lee, Yunhe Shao (Cornell Zhang Research Group)
 
 ## Introduction
@@ -17,6 +17,7 @@ Python
 - numpy >= 1.18.5
 - torch >= 1.9.0 
 - opencv >= 3.4
+- pynq
 Software
 - Vivado 2019
 ```
